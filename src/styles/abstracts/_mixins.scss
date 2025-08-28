@@ -1,0 +1,242 @@
+@use 'variables' as *;
+@use 'functions' as *;
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:string';
+@use 'sass:list';
+@use 'color' as *;
+
+// ブレイクポイントのmixin
+@mixin mq($size) {
+  @if map-has-key($breakpoints, $size) {
+
+    /* stylelint-disable-next-line media-query-no-invalid */
+    @media screen and #{inspect(map-get($breakpoints, $size))} {
+      @content;
+    }
+  }
+
+  @else {
+    // マップ型で定義されていない値が呼び出された時はエラーを返す
+    @error '指定されたブレークポイントは定義されていません。'+'指定できるブレークポイントは次のとおりです。 -> #{map-keys($breakpoints)}';
+  }
+}
+
+// hover用のmixin
+@mixin hover($ie: false) {
+  @media (hover) {
+    &:hover {
+      @content;
+    }
+  }
+
+  @if $ie {
+    @at-root .ua-ie &:hover {
+      @content;
+    }
+  }
+}
+
+// アニメーションパフォーマンスの向上
+@mixin gpu {
+  backface-visibility: hidden;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+
+  .safari & {
+    perspective: none;
+  }
+}
+
+// インラインsvgの余白を削除
+@mixin inline-svg {
+  font-size: 0;
+  line-height: 0;
+}
+
+// canvasのツールボタン
+@mixin canvas-tool-button {
+  align-items: center;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  position: relative;
+  width: 40px;
+
+  .icon {
+    display: block;
+
+    @include inline-svg;
+  }
+}
+
+@mixin menu-header {
+  align-items: center;
+  display: flex;
+  height: var(--board-menu-header-heihgt);
+  justify-content: space-between;
+  min-height: var(--board-menu-header-heihgt);
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+@mixin menu-header-text {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+@mixin base-input-text {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 12px;
+  height: 24px;
+  padding: 4px;
+  width: 100%;
+
+  &:focus {
+    background-color: var(--board-background-secondary-color);
+    border-color: var(--board-primary-color);
+  }
+
+  &[data-is-error='true'] {
+    border: 1px solid var(--board-destructive-color);
+  }
+
+  &[data-is-lock='true'] {
+    color: var(--board-text-default-color) !important;
+    cursor: default;
+  }
+}
+
+@mixin base-input-group {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  display: flex;
+  height: var(--board-menu-detail-heihgt);
+  justify-content: space-between;
+
+  &:focus-within {
+    background-color: var(--board-background-secondary-color);
+    border-color: var(--board-primary-color);
+
+    >* {
+      &:last-child {
+        border-color: var(--board-primary-color);
+      }
+    }
+  }
+
+  input {
+    font-size: 12px;
+    width: 100%;
+  }
+}
+
+@mixin base-input-group-alpha {
+  padding: 4px;
+}
+
+@mixin base-input-group-beta {
+  border-left: 1px solid transparent;
+  padding: 4px;
+
+  >input {
+    text-align: right;
+  }
+}
+
+@mixin right-menu-detail-container {
+  border-bottom: 1px solid var(--board-border-primary-color);
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+
+@mixin right-menu-detail-header {
+  align-items: center;
+  display: flex;
+  height: var(--board-menu-detail-heihgt);
+  justify-content: space-between;
+  padding-left: 8px;
+  padding-right: 8px;
+
+  .alpha {
+    align-items: center;
+    display: flex;
+    gap: 0 8px;
+  }
+
+  .icon {
+    @include inline-svg;
+
+    width: 16px;
+
+    >svg {
+      fill: var(--board-text-weak-color);
+    }
+  }
+
+  .text {
+    font-size: 13px;
+    font-weight: bold;
+  }
+}
+
+// global-header --------------------------
+@mixin global-header-button-selected {
+  background-color: var(--board-primary-color);
+  color: var(--board-background-primary-color);
+
+  svg {
+    fill: var(--board-background-primary-color);
+  }
+}
+
+@mixin global-header-icon {
+  @include inline-svg;
+
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// sub-menu --------------------------
+@mixin sub-menu-container {
+  background-color: var(--board-foreground-tertiary-color);
+  border-radius: 4px;
+  position: fixed;
+  z-index: 100;
+}
+
+@mixin hover-button-gray {
+  background-color: $hover-gray-button;
+  border-color: $hover-gray-button;
+}
+
+@mixin input-shake($duration: 0.5s) {
+  animation: shake $duration ease-in-out;
+  border-color: $brand-destructive;
+}
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-3px);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(3px);
+  }
+}
