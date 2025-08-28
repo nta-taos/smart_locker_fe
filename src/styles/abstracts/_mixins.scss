@@ -6,19 +6,25 @@
 @use 'sass:list';
 @use 'color' as *;
 
-// ブレイクポイントのmixin
+// Breakpoint mixin
 @mixin mq($size) {
-  @if map-has-key($breakpoints, $size) {
+  @if map.has-key($breakpoints, $size) {
+    $query: map.get($breakpoints, $size);
 
-    /* stylelint-disable-next-line media-query-no-invalid */
-    @media screen and #{inspect(map-get($breakpoints, $size))} {
-      @content;
+    // Handle media query based on the key in the map
+    @if map.has-key($query, min-width) {
+      @media screen and (min-width: map.get($query, min-width)) {
+        @content;
+      }
+    } @else if map.has-key($query, orientation) {
+      @media screen and (orientation: map.get($query, orientation)) {
+        @content;
+      }
+    } @else {
+      @error "Breakpoint '#{$size}' contains invalid value. Only 'min-width' or 'orientation' is supported.";
     }
-  }
-
-  @else {
-    // マップ型で定義されていない値が呼び出された時はエラーを返す
-    @error '指定されたブレークポイントは定義されていません。'+'指定できるブレークポイントは次のとおりです。 -> #{map-keys($breakpoints)}';
+  } @else {
+    @error "Breakpoint '#{$size}' is not defined. Valid breakpoints: #{map.keys($breakpoints)}";
   }
 }
 
@@ -120,7 +126,7 @@
     background-color: var(--board-background-secondary-color);
     border-color: var(--board-primary-color);
 
-    >* {
+    > * {
       &:last-child {
         border-color: var(--board-primary-color);
       }
@@ -141,7 +147,7 @@
   border-left: 1px solid transparent;
   padding: 4px;
 
-  >input {
+  > input {
     text-align: right;
   }
 }
@@ -171,7 +177,7 @@
 
     width: 16px;
 
-    >svg {
+    > svg {
       fill: var(--board-text-weak-color);
     }
   }
@@ -219,7 +225,6 @@
 }
 
 @keyframes shake {
-
   0%,
   100% {
     transform: translateX(0);
