@@ -1,0 +1,131 @@
+@use '../../styles/abstracts' as *;
+
+.testimonialsSection {
+  background: $bg-primary;
+  padding: 3rem 1rem 2rem;
+  margin: 2rem auto 0;
+  color: $text-inverse;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: $fg-secondary;
+  }
+
+  .cards {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+
+    .card {
+      background: $text-inverse;
+      color: $text-default;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      padding: 2rem 1rem 1rem;
+      max-width: 320px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        transform: rotate(-30deg);
+        color: $bg-secondary;
+      }
+
+      .stars {
+        color: #ffc107;
+        font-size: 1.3rem;
+        margin: 0.5rem 0;
+      }
+
+      .text {
+        font-size: 0.875rem;
+        margin-bottom: 1.2rem;
+        color: $text-muted;
+      }
+
+      .author {
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin-bottom: 0.2rem;
+        color: $text-default;
+      }
+
+      .position {
+        font-size: 1rem;
+        color: $text-weak;
+        margin-bottom: 0.2rem;
+      }
+
+      .company {
+        font-size: 0.875rem;
+        color: $fg-primary;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .stats {
+    display: flex;
+    gap: 4rem;
+    max-width: 1200px;
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 1.5rem;
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .statNumber {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 0.2rem;
+        color: $text-inverse;
+      }
+
+      .statLabel {
+        font-size: 1rem;
+        color: $fg-secondary;
+      }
+    }
+  }
+
+  @media (max-width: 1200px) {
+    border-radius: 0;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 900px) {
+    .cards {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stats {
+      gap: 2rem;
+    }
+  }
+}
