@@ -218,30 +218,3 @@
   background-color: $hover-gray-button;
   border-color: $hover-gray-button;
 }
-
-@mixin input-shake($duration: 0.5s) {
-  animation: shake $duration ease-in-out;
-  border-color: $brand-destructive;
-}
-
-@keyframes shake {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-
-  10%,
-  30%,
-  50%,
-  70%,
-  90% {
-    transform: translateX(-3px);
-  }
-
-  20%,
-  40%,
-  60%,
-  80% {
-    transform: translateX(3px);
-  }
-}
