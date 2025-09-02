@@ -1,0 +1,123 @@
+.aboutSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: #f7f8fa;
+  border-radius: 1rem;
+  padding: 3rem 2rem;
+  max-width: 1100px;
+  margin: 2rem auto;
+  gap: 2rem;
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.subtitle {
+  color: #c2185b;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+}
+.title {
+  color: #222;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.description {
+  color: #555;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  max-width: 420px;
+}
+.button {
+  background: #0a3180;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.9rem 2.2rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  box-shadow: 0 8px 32px rgba(10, 49, 128, 0.12);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.button:hover {
+  background: #1769aa;
+}
+.imagesGrid {
+  flex: 1;
+  display: grid;
+  grid-template-areas:
+    'top top'
+    'mid mid'
+    'bottom badge';
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 110px 110px 110px;
+  gap: 1.2rem;
+  position: relative;
+  min-width: 340px;
+}
+.imgTop {
+  grid-area: top;
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+.imgMid {
+  grid-area: mid;
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+.imgBottomWrap {
+  grid-area: bottom;
+  position: relative;
+}
+.imgBottom {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+.badge {
+  grid-area: badge;
+  position: absolute;
+  right: -30px;
+  bottom: 10px;
+  background: #0a3180;
+  color: #fff;
+  border-radius: 0.7rem;
+  padding: 1.2rem 1.5rem;
+  box-shadow: 0 4px 16px rgba(10, 49, 128, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.2rem;
+}
+.badgeNumber {
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 0.2rem;
+}
+.badgeText {
+  font-size: 1rem;
+}
+@media (max-width: 900px) {
+  .aboutSection {
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+  .imagesGrid {
+    min-width: 0;
+    width: 100%;
+  }
+}
