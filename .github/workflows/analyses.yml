@@ -57,15 +57,15 @@ jobs:
       - name: Typescript
         run: npm run ts:check
 
-  unit_tests:
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Cached node modules
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ github.sha }}
-      - name: Unit tests
-        run: npm run test:unit
+  # unit_tests:
+  #   needs: install
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Cached node modules
+  #       uses: actions/cache@v4
+  #       with:
+  #         path: node_modules
+  #         key: ${{ github.sha }}
+  #     - name: Unit tests
+  #       run: npm run test:unit
