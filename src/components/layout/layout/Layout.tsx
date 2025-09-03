@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet } from 'react-router';
+import { Outlet } from 'react-router-dom';
 
 import Footer from '../footer/Footer';
 import Header from '../header/Header';
@@ -10,7 +10,7 @@ const Layout: React.FC = () => {
     <div className={styles.layout}>
       <Header />
       <main className={styles.main}>
-        <Outlet />{' '}
+        <Outlet />
       </main>
       <Footer />
     </div>
