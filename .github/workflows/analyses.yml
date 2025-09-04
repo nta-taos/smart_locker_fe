@@ -2,100 +2,33 @@ name: analyses
 
 on:
   push:
-    branches: [main, master]
+    branches: [main, develop]
   pull_request:
-    branches: [main, master]
+    branches: [main, develop]
 
 jobs:
-  install:
+  checks:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        task: [lint:check, prettier:check, ts:check]
+
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: pnpm
 
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      - name: Cache pnpm store
-        uses: actions/cache@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+          version: 9
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-  lint:
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-      - name: Install pnpm
-        run: npm install -g pnpm
-      - name: Cache pnpm store
-        uses: actions/cache@v4
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Eslint
-        run: pnpm lint:check
-
-  prettier:
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-      - name: Install pnpm
-        run: npm install -g pnpm
-      - name: Cache pnpm store
-        uses: actions/cache@v4
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Prettier
-        run: pnpm prettier:check
-
-  typescript:
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-      - name: Install pnpm
-        run: npm install -g pnpm
-      - name: Cache pnpm store
-        uses: actions/cache@v4
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Typescript
-        run: pnpm ts:check
+      - name: Run ${{ matrix.task }}
+        run: pnpm run ${{ matrix.task }}
