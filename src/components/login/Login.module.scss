@@ -55,6 +55,13 @@
   padding: 0 0.7rem;
 }
 
+.inputMessage {
+  color: $text-error;
+  text-align: right;
+  font-weight: 600;
+  margin: 0;
+}
+
 .passwordInput {
   height: 2.5rem;
   border: 2px solid #5b5b5b;

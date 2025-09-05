@@ -4,7 +4,17 @@ import styles from './Login.module.scss';
 import { useLogin } from './useLogin';
 
 const Login: React.FC = () => {
-  const { phone, setPhone, password, setPassword, isShowPassword, toggleShowPassword } = useLogin();
+  const {
+    phone,
+    setPhone,
+    phoneMessage,
+    password,
+    setPassword,
+    passwordMessage,
+    isShowPassword,
+    toggleShowPassword,
+    handleLogin,
+  } = useLogin();
 
   return (
     <div className={styles.loginContainer}>
@@ -20,6 +30,7 @@ const Login: React.FC = () => {
           placeholder="Nhập số điện thoại"
           onChange={(e) => setPhone(e.target.value)}
         />
+        <p className={styles.inputMessage}>{phoneMessage}</p>
       </div>
       <div className={styles.inputContainer}>
         <label htmlFor="phone">Mật khẩu</label>
@@ -36,6 +47,7 @@ const Login: React.FC = () => {
             {isShowPassword ? <EyeInvisibleOutlined /> : <EyeOutlined />}
           </button>
         </div>
+        <p className={styles.inputMessage}>{passwordMessage}</p>
       </div>
       <div className={styles.rememberContainer}>
         <div>
@@ -44,7 +56,7 @@ const Login: React.FC = () => {
         </div>
         <a href="http://">Quên mật khẩu</a>
       </div>
-      <button tabIndex={3} className={styles.loginButton}>
+      <button tabIndex={3} className={styles.loginButton} onClick={handleLogin}>
         Đăng nhập
       </button>
       <span>Hoặc</span>
