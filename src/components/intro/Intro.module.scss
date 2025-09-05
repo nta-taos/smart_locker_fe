@@ -2,12 +2,12 @@
 
 .introContainer {
   position: relative;
-  background-color: #002a7978;
+  background-color: #002a7979;
   width: 100%;
   display: flex;
   justify-content: center;
 
-  @include mq(md) {
+  @include mq(lg) {
     width: 60%;
     overflow: hidden;
   }
@@ -18,6 +18,10 @@
   position: absolute;
   bottom: 0;
   z-index: -1;
+
+  @include mq(lg) {
+    height: 100%;
+  }
 }
 
 .introBody {
@@ -27,7 +31,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  color: white;
+  color: $text-inverse;
 
   h1 {
     text-align: center;
@@ -46,7 +50,7 @@
   }
 
   a {
-    color: white;
+    color: $text-inverse;
     font-size: 14px;
     text-decoration: none;
     display: flex;

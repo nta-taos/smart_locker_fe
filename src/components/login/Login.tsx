@@ -4,51 +4,32 @@ import styles from './Login.module.scss';
 import { useLogin } from './useLogin';
 
 const Login: React.FC = () => {
-  const {
-    title,
-    phoneLable,
-    phonePlaceholder,
-    passwordLable,
-    passwordPlaceholder,
-    rememberLabel,
-    forgetPasswordLable,
-    loginLable,
-    orLable,
-    loginWithGooleLable,
-    registerTitle,
-    registerLable,
-    phone,
-    setPhone,
-    password,
-    setPassword,
-    isShowPassword,
-    toggleShowPassword,
-  } = useLogin();
+  const { phone, setPhone, password, setPassword, isShowPassword, toggleShowPassword } = useLogin();
 
   return (
     <div className={styles.loginContainer}>
-      <h1 className={styles.loginTitle}>{title} 👋</h1>
+      <h1 className={styles.loginTitle}>Xin chào 👋</h1>
       <div className={styles.inputContainer}>
-        <label htmlFor="phone">{phoneLable}</label>
+        <label htmlFor="phone">Số điện thoại</label>
         <input
           className={styles.phoneInput}
           type="text"
           id="phone"
           value={phone}
           tabIndex={1}
-          placeholder={phonePlaceholder}
+          placeholder="Nhập số điện thoại"
           onChange={(e) => setPhone(e.target.value)}
         />
       </div>
       <div className={styles.inputContainer}>
-        <label htmlFor="phone">{passwordLable}</label>
+        <label htmlFor="phone">Mật khẩu</label>
         <div className={styles.passwordInput}>
           <input
             type={isShowPassword ? 'text' : 'password'}
             id="password"
             value={password}
             tabIndex={2}
-            placeholder={passwordPlaceholder}
+            placeholder="Nhập mật khẩu"
             onChange={(e) => setPassword(e.target.value)}
           />
           <button onClick={toggleShowPassword}>
@@ -59,20 +40,26 @@ const Login: React.FC = () => {
       <div className={styles.rememberContainer}>
         <div>
           <input type="checkbox" id="remember" />
-          <label htmlFor="remember">{rememberLabel}</label>
+          <label htmlFor="remember">Ghi nhớ đăng nhập</label>
         </div>
-        <a href="http://">{forgetPasswordLable}</a>
+        <a href="http://">Quên mật khẩu</a>
       </div>
       <button tabIndex={3} className={styles.loginButton}>
-        {loginLable}
+        Đăng nhập
       </button>
-      <span>{orLable}</span>
+      <span>Hoặc</span>
       <button className={styles.loginWithGoogleButton}>
-        <GoogleOutlined /> {loginWithGooleLable}{' '}
+        <GoogleOutlined /> Đăng nhập với Google
       </button>
       <span>
-        {registerTitle} <a href="">{registerLable}</a>
+        Bạn chưa có tài khoản ? <a href="/register">Đăng ký ngay</a>
       </span>
+      <div className={styles.circleContainer}>
+        <div className={styles.circle}></div>
+        <div className={styles.border1}></div>
+        <div className={styles.border2}></div>
+        <div className={styles.border3}></div>
+      </div>
     </div>
   );
 };

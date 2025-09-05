@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Layout from '@/components/layout/layout/Layout';
 import MapView from '@/components/map/Map';
 import LadingPage from '@/pages/lading-page/Lading';
-import SignInPage from '@/pages/login-page/Login';
+import LoginPage from '@/pages/login-page/Login';
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +16,6 @@ export const router = createBrowserRouter([
   },
   {
     path: '/login',
-    children: [{ index: true, element: <SignInPage /> }],
+    children: [{ index: true, element: <LoginPage /> }],
   },
 ]);
