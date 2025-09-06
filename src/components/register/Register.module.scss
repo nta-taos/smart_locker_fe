@@ -24,6 +24,7 @@
     font-weight: 500;
     font-size: 13px;
   }
+
   p {
     margin: 7px 0;
   }
@@ -195,11 +196,110 @@
   left: 10px;
 }
 
+.roleSelectContainer {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: rgba(129, 129, 129, 0.559);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.roleSelectBody {
+  width: 70%;
+  padding: 2rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  background-color: $bg-light;
+  border-radius: 10px;
+  text-align: center;
+  font-size: clamp(0.5rem, 3vw, 1rem);
+
+  @include mq(md) {
+    width: 30%;
+    padding: 4rem 7rem;
+  }
+}
+
+.backButton {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+
+  svg {
+    font-size: 20px;
+  }
+}
+
+.selectButtonContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+
+  button {
+    width: 100%;
+    margin: 1rem 0;
+    border: 3px solid $border-secondary;
+    border-radius: 10px;
+    background-color: $bg-white;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    padding: 1rem 2rem;
+
+    &:hover {
+      border-color: $hover-border;
+      background-color: $hover-gray-button;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 16px;
+    }
+  }
+
+  @include mq(lg) {
+    flex-direction: row;
+
+    button {
+      margin: 0 1rem;
+    }
+  }
+}
+
+.active {
+  border-color: $bg-primary !important;
+}
+
+.hidden {
+  visibility: hidden !important;
+}
+
 .dropdown {
+  width: 85%;
   min-height: 2.2rem;
   height: auto;
   border: 2px solid #5b5b5b;
   border-radius: 7px;
+  cursor: pointer;
 
   display: flex;
   gap: 10px;
@@ -210,4 +310,9 @@
   option {
     border: 2px solid #5b5b5b;
   }
+}
+
+.submitButton {
+  width: 80%;
+  padding: 15px;
 }

@@ -1,12 +1,23 @@
 import { ToastContainer } from 'react-toastify';
 
-import { EyeInvisibleOutlined, EyeOutlined, GoogleOutlined } from '@ant-design/icons';
+import {
+  ArrowLeftOutlined,
+  EyeInvisibleOutlined,
+  EyeOutlined,
+  GoogleOutlined,
+} from '@ant-design/icons';
 
+import Button from '../common/button/Button';
+import ShipperSvg from '../common/icon/ShipperSvg';
+import UserSvg from '../common/icon/UserSvg';
 import styles from './Register.module.scss';
 import { useRegister } from './useRegister';
 
 const Register: React.FC = () => {
   const {
+    isStateOne,
+    handleRegisterStateOne,
+    handleBackState,
     name,
     setName,
     nameMessage,
@@ -26,6 +37,9 @@ const Register: React.FC = () => {
     repasswordMessage,
     isShowRepassword,
     toggleShowRepassword,
+    role,
+    toggleUser,
+    toggleShipper,
     handleRegister,
   } = useRegister();
 
@@ -106,7 +120,12 @@ const Register: React.FC = () => {
         </div>
         <span className={styles.inputMessage}>{repasswordMessage || '\u00A0'}</span>
       </div>
-      <button tabIndex={3} className={styles.loginButton} type="submit">
+      <button
+        tabIndex={3}
+        className={styles.loginButton}
+        type="button"
+        onClick={handleRegisterStateOne}
+      >
         Đăng ký
       </button>
       <p>Hoặc</p>
@@ -123,6 +142,50 @@ const Register: React.FC = () => {
         <div className={styles.border3}></div>
       </div>
       <ToastContainer position="top-right" autoClose={3000} theme="light" />
+
+      {!isStateOne && (
+        <div className={styles.roleSelectContainer}>
+          <div className={styles.roleSelectBody}>
+            <button className={styles.backButton} type="button" onClick={handleBackState}>
+              <ArrowLeftOutlined />
+            </button>
+            <h1>Chọn vai trò của bạn</h1>
+            <div className={styles.selectButtonContainer}>
+              <button
+                className={role == 'user' ? styles.active : ''}
+                onClick={toggleUser}
+                type="button"
+              >
+                <UserSvg />
+                <h1>Khách hàng</h1>
+              </button>
+              <button
+                className={role == 'shipper' ? styles.active : ''}
+                onClick={toggleShipper}
+                type="button"
+              >
+                <ShipperSvg />
+                <h1>Shipper</h1>
+              </button>
+            </div>
+            <select
+              name=""
+              id=""
+              className={`${styles.dropdown} ${role == 'shipper' ? styles.hidden : ''}`}
+            >
+              <option value="" selected disabled>
+                Chọn vị trí tòa nhà
+              </option>
+              <option value="">Tòa nhà A</option>
+              <option value="">Tòa nhà B</option>
+              <option value="">Tòa nhà C</option>
+            </select>
+            <Button variant="main" className={styles.submitButton}>
+              Xác nhận
+            </Button>
+          </div>
+        </div>
+      )}
     </form>
   );
 };

@@ -8,7 +8,7 @@ import { authApi } from '@/api/authApi';
 
 export const useRegister = () => {
   const navigate = useNavigate();
-  const [messageApi, setMessageApi] = useState(null);
+  const [isStateOne, setIsStateOne] = useState(true);
 
   const [name, setName] = useState('');
   const [nameMessage, setNameMessage] = useState('');
@@ -21,14 +21,14 @@ export const useRegister = () => {
 
   const [password, setPassword] = useState('');
   const [passwordMessage, setPasswordMessage] = useState('');
-
   const [isShowPassword, setIsShowPassword] = useState(false);
-  const [repassword, setRepassword] = useState('');
 
+  const [repassword, setRepassword] = useState('');
   const [repasswordMessage, setRepasswordMessage] = useState('');
   const [isShowRepassword, setIsShowRepassword] = useState(false);
 
   const [role, setRole] = useState('user');
+  // const [building, setbuilding] = useState('');
 
   const toggleShowPassword = () => {
     setIsShowPassword((prev) => !prev);
@@ -72,6 +72,18 @@ export const useRegister = () => {
     return true;
   };
 
+  const handleRegisterStateOne = () => {
+    if (!validation()) {
+      return;
+    }
+
+    setIsStateOne(false);
+  };
+
+  const handleBackState = () => {
+    setIsStateOne(true);
+  };
+
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -81,10 +93,7 @@ export const useRegister = () => {
 
     try {
       const res = await authApi.register(name, phone, email, password, role);
-      const message = res.data.message;
-      if (message) {
-        setMessageApi(message);
-      }
+      console.log(res);
       navigate('/login');
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
@@ -96,7 +105,9 @@ export const useRegister = () => {
   };
 
   return {
-    messageApi,
+    isStateOne,
+    handleRegisterStateOne,
+    handleBackState,
     name,
     setName,
     nameMessage,
@@ -116,6 +127,7 @@ export const useRegister = () => {
     repasswordMessage,
     isShowRepassword,
     toggleShowRepassword,
+    role,
     toggleUser,
     toggleShipper,
     handleRegister,
