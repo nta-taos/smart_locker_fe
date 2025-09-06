@@ -1,0 +1,17 @@
+@use '../../styles/abstracts' as *;
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  @include mq(lg) {
+    flex-direction: row;
+  }
+}

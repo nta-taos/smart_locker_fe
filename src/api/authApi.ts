@@ -8,4 +8,7 @@ export const authApi = {
   logout: async () => {
     return axiosInstance.post(ENDPOINTS.auth.logout);
   },
+  register: async (name: string, phone: string, email: string, password: string, role: string) => {
+    return axiosInstance.post(ENDPOINTS.auth.register, { name, phone, email, password, role });
+  },
 };
