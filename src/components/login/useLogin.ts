@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useSetRecoilState } from 'recoil';
 
 import { authApi } from '@/api/authApi';
@@ -6,6 +8,7 @@ import { authState } from '@/recoil/atom/authAtom';
 
 export const useLogin = () => {
   const setAuth = useSetRecoilState(authState);
+  const navigation = useNavigate();
 
   const [phone, setPhone] = useState('');
   const [phoneMessage, setPhoneMessage] = useState('');
@@ -33,20 +36,28 @@ export const useLogin = () => {
     return true;
   };
 
-  const handleLogin = async () => {
-    if (validation()) {
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validation()) {
       return;
     }
 
-    const res = await authApi.login(phone, password);
-    const { token, user } = res.data;
+    try {
+      const res = await authApi.login(phone, password);
+      const { token, user } = res.data;
 
-    setAuth({
-      token: token,
-      user: user,
-    });
+      setAuth({
+        token: token,
+        user: user,
+      });
 
-    return res;
+      toast.success('Đăng nhập thành công');
+      navigation('/');
+    } catch (error) {
+      console.log(error);
+      toast.error('Sai tài khoản hoặc mật khẩu.');
+    }
   };
 
   return {
