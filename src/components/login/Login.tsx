@@ -1,5 +1,8 @@
+import { ToastContainer } from 'react-toastify';
+
 import { EyeInvisibleOutlined, EyeOutlined, GoogleOutlined } from '@ant-design/icons';
 
+import Button from '../common/button/Button';
 import styles from './Login.module.scss';
 import { useLogin } from './useLogin';
 
@@ -17,7 +20,7 @@ const Login: React.FC = () => {
   } = useLogin();
 
   return (
-    <div className={styles.loginContainer}>
+    <form className={styles.loginContainer} onSubmit={handleLogin}>
       <h1 className={styles.loginTitle}>Xin chào 👋</h1>
       <div className={styles.inputContainer}>
         <label htmlFor="phone">Số điện thoại</label>
@@ -30,7 +33,7 @@ const Login: React.FC = () => {
           placeholder="Nhập số điện thoại"
           onChange={(e) => setPhone(e.target.value)}
         />
-        <p className={styles.inputMessage}>{phoneMessage}</p>
+        <p className={styles.inputMessage}>{phoneMessage || '\u00A0'}</p>
       </div>
       <div className={styles.inputContainer}>
         <label htmlFor="phone">Mật khẩu</label>
@@ -47,7 +50,7 @@ const Login: React.FC = () => {
             {isShowPassword ? <EyeInvisibleOutlined /> : <EyeOutlined />}
           </button>
         </div>
-        <p className={styles.inputMessage}>{passwordMessage}</p>
+        <p className={styles.inputMessage}>{passwordMessage || '\u00A0'}</p>
       </div>
       <div className={styles.rememberContainer}>
         <div>
@@ -56,9 +59,9 @@ const Login: React.FC = () => {
         </div>
         <a href="http://">Quên mật khẩu</a>
       </div>
-      <button tabIndex={3} className={styles.loginButton} onClick={handleLogin}>
+      <Button variant="main" tabIndex={3} className={styles.loginButton} type="submit">
         Đăng nhập
-      </button>
+      </Button>
       <span>Hoặc</span>
       <button className={styles.loginWithGoogleButton}>
         <GoogleOutlined /> Đăng nhập với Google
@@ -72,7 +75,8 @@ const Login: React.FC = () => {
         <div className={styles.border2}></div>
         <div className={styles.border3}></div>
       </div>
-    </div>
+      <ToastContainer position="top-right" autoClose={3000} theme="light" />
+    </form>
   );
 };
 
