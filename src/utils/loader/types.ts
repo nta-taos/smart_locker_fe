@@ -12,4 +12,4 @@ type AnyProps = {
   [key: string]: any;
 };
 
-export type { LoaderDefaultOptions, LoadComponent, AnyProps };
+export type { AnyProps, LoadComponent, LoaderDefaultOptions };
