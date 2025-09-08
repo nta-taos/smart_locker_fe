@@ -1,6 +1,6 @@
+import { TransactionItemType } from '@/types/transactionitem.type';
 import { formatCurrency } from '@/utils/format-currentcy';
 import { formatDateTime } from '@/utils/format-datetime';
-import { TransactionItemType } from '@/utils/loader/types';
 
 import WalletSvg from '../icon/WalletSvg';
 import styles from './TransactionItem.module.scss';

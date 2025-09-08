@@ -4,7 +4,7 @@
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  border-bottom: 1px solid #000000;
+  border-bottom: 1px solid $border-tertiary;
 
   h1 {
     font-size: clamp(14px, 2.5vw, 16px);

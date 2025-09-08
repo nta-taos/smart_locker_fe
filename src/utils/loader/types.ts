@@ -12,12 +12,4 @@ type AnyProps = {
   [key: string]: any;
 };
 
-type TransactionItemType = {
-  id: string;
-  amount: number;
-  type: number;
-  description: string;
-  date: string;
-};
-
-export type { LoaderDefaultOptions, LoadComponent, AnyProps, TransactionItemType };
+export type { AnyProps, LoadComponent, LoaderDefaultOptions };
