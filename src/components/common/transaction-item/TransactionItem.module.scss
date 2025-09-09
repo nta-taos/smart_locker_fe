@@ -7,14 +7,16 @@
   border-bottom: 1px solid $border-tertiary;
 
   h1 {
-    font-size: clamp(14px, 2.5vw, 16px);
+    font-size: clamp(11px, 2.5vw, 16px);
     font-weight: 600;
     margin: 0;
+    white-space: nowrap;
   }
 
   p {
-    font-size: clamp(10px, 2vw, 13px);
+    font-size: clamp(8px, 2vw, 13px);
     margin: 0;
+    white-space: nowrap;
   }
 }
 
@@ -31,6 +33,7 @@
     color: $text-default;
     margin: 0.3rem 0;
   }
+
   p {
     color: $text-weak;
   }

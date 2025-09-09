@@ -15,7 +15,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ data, className = '',
   const classes = [styles.container, styles[variant], className].filter(Boolean).join(' ');
 
   const amount = formatCurrency(data.amount);
-  const datetime = formatDateTime(data.date);
+  const datetime = formatDateTime(data.created_at);
   return (
     <div className={classes} {...props}>
       <div className={styles.left}>
@@ -28,7 +28,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ data, className = '',
         </div>
       </div>
       <div className={styles.right}>
-        <h1 className={variant}>{`${variant == 'add' ? '+' : '-'} ${amount}`}</h1>
+        <h1 className={variant}>{`${amount}`}</h1>
         <p>{datetime}</p>
       </div>
     </div>

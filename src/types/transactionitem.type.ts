@@ -3,5 +3,5 @@ export type TransactionItemType = {
   amount: number;
   type: number;
   description: string;
-  date: string;
+  created_at: string;
 };
