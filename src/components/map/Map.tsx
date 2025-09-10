@@ -55,7 +55,7 @@ export default function MapView() {
     <MapContainer
       center={[16.047079, 108.20623]}
       zoom={13}
-      style={{ height: '100vh', width: '100%' }}
+      style={{ height: '100%', width: '100%' }}
       zoomControl={false}
     >
       <TileLayer
