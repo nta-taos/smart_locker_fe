@@ -7,11 +7,10 @@ import { transactionState } from '@/recoil/atom/transaction.atom';
 import { TransactionResponeType } from '@/types/transaction.type';
 
 export const useTransaction = () => {
-  const [transactions, setTransactions] = useRecoilState(transactionState);
+  const [state, setState] = useRecoilState(transactionState);
   const [isLoading, setIsLoading] = useState(false);
-  const [isHasMore, setIsHasMore] = useState(false);
   const [isLoadMore, setIsLoadMore] = useState(false);
-  const [page, setPage] = useState(1);
+
   const limit = 5;
 
   const getTransactions = useCallback(
@@ -26,41 +25,39 @@ export const useTransaction = () => {
         const res = await transactionApi.getAll(pageNum, limit);
         const result: TransactionResponeType = res.data.data;
 
-        setTransactions((prev) => (append ? [...prev, ...result.data] : result.data));
-
-        setIsHasMore(pageNum < result.totalPages);
+        setState((prev) => ({
+          transactions: append ? [...prev.transactions, ...result.data] : result.data,
+          page: pageNum,
+          totalPages: result.totalPages,
+        }));
       } catch (error) {
         toast.error('Lấy lịch sử giao dịch thất bại');
-        console.log(error);
+        console.error(error);
       } finally {
         setIsLoading(false);
         setIsLoadMore(false);
       }
     },
-    [setTransactions],
+    [setState],
   );
 
   useEffect(() => {
-    if (page === 1 && transactions.length === 0) {
-      getTransactions(page, false);
+    if (state.transactions.length === 0) {
+      getTransactions(1, false);
     }
-
-    if (page > 1) {
-      getTransactions(page, true);
-    }
-  }, [page, getTransactions, transactions.length]);
+  }, [state.transactions.length, getTransactions]);
 
   const loadMore = () => {
-    if (!isLoading && isHasMore) {
-      setPage((prev) => prev + 1);
+    if (!isLoading && state.page < state.totalPages) {
+      getTransactions(state.page + 1, true);
     }
   };
 
   return {
-    transactions,
+    transactions: state.transactions,
     loadMore,
     isLoading,
-    isHasMore,
     isLoadMore,
+    isHasMore: state.page < state.totalPages,
   };
 };
