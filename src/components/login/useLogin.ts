@@ -5,6 +5,7 @@ import { useSetRecoilState } from 'recoil';
 
 import { authApi } from '@/api/authApi';
 import { authState } from '@/recoil/atom/authAtom';
+import { AuthType } from '@/types/auth.type';
 
 export const useLogin = () => {
   const setAuth = useSetRecoilState(authState);
@@ -45,15 +46,19 @@ export const useLogin = () => {
 
     try {
       const res = await authApi.login(phone, password);
-      const { token, user } = res.data;
+      const { token, user } = res.data.data;
 
-      setAuth({
-        token: token,
-        user: user,
-      });
+      const newAuth: AuthType = {
+        isAuthenticated: true,
+        token,
+        user,
+      };
+
+      setAuth(newAuth);
+      localStorage.setItem('auth', JSON.stringify(newAuth));
 
       toast.success('Đăng nhập thành công');
-      navigation('/');
+      navigation('/dashboard');
     } catch (error) {
       console.log(error);
       toast.error('Sai tài khoản hoặc mật khẩu.');
