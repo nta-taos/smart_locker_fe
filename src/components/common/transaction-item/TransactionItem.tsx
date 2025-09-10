@@ -1,4 +1,4 @@
-import { TransactionItemType } from '@/types/transactionitem.type';
+import { TransactionItemType } from '@/types/transaction.type';
 import { formatCurrency } from '@/utils/format-currentcy';
 import { formatDateTime } from '@/utils/format-datetime';
 

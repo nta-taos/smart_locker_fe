@@ -6,7 +6,11 @@ import TransactionItem from '../common/transaction-item/TransactionItem';
 import styles from './Transaction.module.scss';
 import { useTransaction } from './useTransaction';
 
-export const Transaction = () => {
+interface TransactionProps {
+  className?: string;
+}
+
+export const Transaction: React.FC<TransactionProps> = ({ className = '' }) => {
   const { transactions, loadMore, isLoading, isHasMore, isLoadMore } = useTransaction();
 
   const renderLoading = () => {
@@ -36,9 +40,8 @@ export const Transaction = () => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div className={className}>
       <h1 className={styles.title}>Lịch sử giao dịch</h1>
-
       <div id="scrollableDiv" className={styles.transactionContainer}>
         {isLoading ? renderLoading() : renderContent()}
       </div>

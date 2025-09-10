@@ -5,3 +5,10 @@ export type TransactionItemType = {
   description: string;
   created_at: string;
 };
+
+export type TransactionResponeType = {
+  data: TransactionItemType[];
+  limit: number;
+  page: number;
+  totalPages: number;
+};

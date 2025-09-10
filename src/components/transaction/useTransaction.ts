@@ -1,27 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { useRecoilState } from 'recoil';
 
 import { transactionApi } from '@/api/transactionApi';
-import { TransactionItemType } from '@/types/transactionitem.type';
-import { TransactionResponeType } from '@/types/transactionrespon.type';
+import { transactionState } from '@/recoil/atom/transaction.atom';
+import { TransactionResponeType } from '@/types/transaction.type';
 
 export const useTransaction = () => {
-  const [transactions, setTransactions] = useState<TransactionItemType[]>([]);
+  const [transactions, setTransactions] = useRecoilState(transactionState);
   const [isLoading, setIsLoading] = useState(false);
   const [isHasMore, setIsHasMore] = useState(false);
   const [isLoadMore, setIsLoadMore] = useState(false);
   const [page, setPage] = useState(1);
   const limit = 5;
 
-  useEffect(() => {
-    const getTransactions = async (pageNum: number, append = false) => {
+  const getTransactions = useCallback(
+    async (pageNum: number, append = false) => {
       try {
         if (append) {
           setIsLoadMore(true);
         } else {
           setIsLoading(true);
         }
-
-        // await new Promise((resolve) => setTimeout(resolve, 2500));
 
         const res = await transactionApi.getAll(pageNum, limit);
         const result: TransactionResponeType = res.data.data;
@@ -30,15 +30,19 @@ export const useTransaction = () => {
 
         setIsHasMore(pageNum < result.totalPages);
       } catch (error) {
-        console.error('getTransactions error:', error);
+        toast.error('Lấy lịch sử giao dịch thất bại');
+        console.log(error);
       } finally {
         setIsLoading(false);
         setIsLoadMore(false);
       }
-    };
+    },
+    [setTransactions],
+  );
 
+  useEffect(() => {
     getTransactions(page, page > 1);
-  }, [page]);
+  }, [page, getTransactions]);
 
   const loadMore = () => {
     if (!isLoading && isHasMore) {
