@@ -41,8 +41,14 @@ export const useTransaction = () => {
   );
 
   useEffect(() => {
-    getTransactions(page, page > 1);
-  }, [page, getTransactions]);
+    if (page === 1 && transactions.length === 0) {
+      getTransactions(page, false);
+    }
+
+    if (page > 1) {
+      getTransactions(page, true);
+    }
+  }, [page, getTransactions, transactions.length]);
 
   const loadMore = () => {
     if (!isLoading && isHasMore) {
