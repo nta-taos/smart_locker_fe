@@ -41,7 +41,6 @@ export const Transaction: React.FC<TransactionProps> = ({ className = '' }) => {
 
   return (
     <div className={className}>
-      <h1 className={styles.title}>Lịch sử giao dịch</h1>
       <div id="scrollableDiv" className={styles.transactionContainer}>
         {isLoading ? renderLoading() : renderContent()}
       </div>
