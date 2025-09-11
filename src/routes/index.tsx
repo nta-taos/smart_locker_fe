@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import DashboardHeader from '@/components/layout/dashboard-header/Header';
 import Layout from '@/components/layout/layout/Layout';
 import MapView from '@/components/map/Map';
+import DashboardPage from '@/pages/dashboard-page/Dashboard';
 import LadingPage from '@/pages/lading-page/Lading';
 import LoginPage from '@/pages/login-page/Login';
 import RegisterPage from '@/pages/register-page/Register';
@@ -28,6 +28,6 @@ export const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    children: [{ index: true, element: <DashboardHeader /> }],
+    children: [{ index: true, element: <DashboardPage /> }],
   },
 ]);

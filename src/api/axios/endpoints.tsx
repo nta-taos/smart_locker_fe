@@ -1,5 +1,7 @@
 export const ENDPOINTS = {
-  get: {},
+  get: {
+    transactions: '/transactions',
+  },
   post: {
     order: '/order/create',
     discount: '/checkdiscount',
