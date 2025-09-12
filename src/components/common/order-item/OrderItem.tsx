@@ -50,14 +50,29 @@ export const OrderItem: React.FC<OrderItemProps> = ({
         {variant === 'detail' && renderDetail()}
       </div>
       <div className={styles.actionContainer}>
-        <Button color="danger" shape="round" size="middle" variant="solid">
+        <Button
+          color="danger"
+          shape="round"
+          size={variant == 'detail' ? 'middle' : 'small'}
+          variant="solid"
+        >
+          Chưa nhận
+        </Button>
+        <Button
+          color="green"
+          shape="round"
+          size={variant == 'detail' ? 'middle' : 'small'}
+          variant="solid"
+        >
           Đã nhận
         </Button>
-        <Button color="green" shape="round" size="middle" variant="solid">
-          Đã nhận
-        </Button>
-        <Button color="blue" shape="round" size="middle" variant="solid">
-          Đã nhận
+        <Button
+          color="blue"
+          shape="round"
+          size={variant == 'detail' ? 'middle' : 'small'}
+          variant="solid"
+        >
+          Nhận ngay
         </Button>
       </div>
     </div>
