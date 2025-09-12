@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+import { AuthLayout } from '@/components/layout/auth-layout/AuthLayout';
 import Layout from '@/components/layout/layout/Layout';
 import MapView from '@/components/map/Map';
 import DashboardPage from '@/pages/dashboard-page/Dashboard';
@@ -19,15 +20,16 @@ export const router = createBrowserRouter([
     ],
   },
   {
+    path: '/',
+    element: <AuthLayout />,
+    children: [{ path: 'dashboard', element: <DashboardPage /> }],
+  },
+  {
     path: '/login',
     children: [{ index: true, element: <LoginPage /> }],
   },
   {
     path: '/register',
     children: [{ index: true, element: <RegisterPage /> }],
-  },
-  {
-    path: '/dashboard',
-    children: [{ index: true, element: <DashboardPage /> }],
   },
 ]);
