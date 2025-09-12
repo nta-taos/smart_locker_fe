@@ -1,7 +1,11 @@
-import { EyeFilled, EyeInvisibleFilled, StepBackwardOutlined } from '@ant-design/icons';
+import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 
 import { formatCurrency } from '@/utils/format-currentcy';
 
+import CartSvg from '../common/icon/CartSvg';
+import KeyBoxSvg from '../common/icon/KeyBoxSvg';
+import LocationSvg from '../common/icon/LocationSvg';
+import WalletSvg from '../common/icon/WalletSvg';
 import styles from './TagList.module.scss';
 import { useTagList } from './useTagList';
 
@@ -17,8 +21,8 @@ export const TagList: React.FC<TagProps> = ({ className = '' }) => {
     <div className={classes}>
       <div className={styles.itemContainer}>
         <div>
-          <StepBackwardOutlined />
-          <h1 className={styles.title}>ZipBox Của tôi</h1>
+          <KeyBoxSvg />
+          <h1 className={styles.title}>ZipBox của tôi</h1>
         </div>
         <div className={styles.bottom}>
           <h1>{tags?.my}</h1>
@@ -27,33 +31,35 @@ export const TagList: React.FC<TagProps> = ({ className = '' }) => {
       </div>
       <div className={styles.itemContainer}>
         <div>
-          <StepBackwardOutlined />
+          <LocationSvg />
           <h1 className={styles.title}>ZipBox gần đây</h1>
         </div>
         <div className={styles.bottom}>
-          <h1>{tags?.recent}</h1>
-          <p>Đang sở hữu</p>
+          <h1>{tags?.recent}+</h1>
+          <p>Tủ khả dụng</p>
         </div>
       </div>
       <div className={styles.itemContainer}>
         <div>
-          <StepBackwardOutlined />
+          <CartSvg />
           <h1 className={styles.title}>Đơn hàng tuần này</h1>
         </div>
         <div className={styles.bottom}>
-          <h1>{tags?.week}</h1>
-          <p>Đang sở hữu</p>
+          <h1>{tags?.week}+</h1>
+          <p>Đơn hàng mới nhất</p>
         </div>
       </div>
       <div className={styles.itemContainer}>
         <div>
-          <StepBackwardOutlined />
+          <WalletSvg />
           <h1 className={styles.title}>Ví của tôi</h1>
         </div>
         <div className={styles.bottom}>
           <h1>VND</h1>
           <p>{isShow ? formatCurrency(tags?.wallet || 0) : '**********'}</p>
-          <button onClick={handleShow}>{isShow ? <EyeFilled /> : <EyeInvisibleFilled />}</button>
+          <button onClick={handleShow}>
+            {isShow ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+          </button>
         </div>
       </div>
     </div>

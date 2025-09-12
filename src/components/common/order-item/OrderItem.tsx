@@ -36,6 +36,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({
       );
     }
   };
+
   return (
     <div className={classes}>
       <div className={styles.iconContainer}>
@@ -50,30 +51,58 @@ export const OrderItem: React.FC<OrderItemProps> = ({
         {variant === 'detail' && renderDetail()}
       </div>
       <div className={styles.actionContainer}>
-        <Button
-          color="danger"
-          shape="round"
-          size={variant == 'detail' ? 'middle' : 'small'}
-          variant="solid"
-        >
-          Chưa nhận
-        </Button>
-        <Button
-          color="green"
-          shape="round"
-          size={variant == 'detail' ? 'middle' : 'small'}
-          variant="solid"
-        >
-          Đã nhận
-        </Button>
-        <Button
-          color="blue"
-          shape="round"
-          size={variant == 'detail' ? 'middle' : 'small'}
-          variant="solid"
-        >
-          Nhận ngay
-        </Button>
+        {data.order_code === 1 && (
+          <Button
+            color="danger"
+            shape="round"
+            size={variant == 'detail' ? 'middle' : 'small'}
+            variant="solid"
+          >
+            Chưa nhận
+          </Button>
+        )}
+        {data.order_code === 1 && (
+          <Button
+            color="blue"
+            shape="round"
+            size={variant == 'detail' ? 'middle' : 'small'}
+            variant="solid"
+          >
+            Nhận ngay
+          </Button>
+        )}
+
+        {data.order_code === 2 && (
+          <Button
+            color="green"
+            shape="round"
+            size={variant == 'detail' ? 'middle' : 'small'}
+            variant="solid"
+          >
+            Đã nhận
+          </Button>
+        )}
+
+        {(data.order_code === 0 || !data.order_code) && (
+          <Button
+            disabled={true}
+            shape="round"
+            size={variant == 'detail' ? 'middle' : 'small'}
+            variant="solid"
+          >
+            Đang xử lý
+          </Button>
+        )}
+        {data.order_code === 3 && (
+          <Button
+            disabled={true}
+            shape="round"
+            size={variant == 'detail' ? 'middle' : 'small'}
+            variant="solid"
+          >
+            Hết hạn
+          </Button>
+        )}
       </div>
     </div>
   );

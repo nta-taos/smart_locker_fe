@@ -13,7 +13,8 @@
 }
 
 .itemContainer {
-  border-left: 8px solid $bg-secondary;
+  color: $bg-primary;
+  border-left: 8px solid $bg-primary;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -21,6 +22,11 @@
   flex-grow: 1;
   background-color: $bg-white;
   padding: 0 5%;
+
+  &:nth-child(even) {
+    color: $bg-secondary;
+    border-color: $bg-secondary;
+  }
 
   div {
     display: flex;
@@ -34,14 +40,14 @@
   }
 
   svg {
-    font-size: 25px;
-    color: $text-link;
+    font-size: clamp(18px, 3vw, 25px);
+    // color: $text-link;
   }
 
   h1 {
-    font-size: clamp(18px, 3vw, 28px);
+    font-size: clamp(18px, 3vw, 25px);
     margin: 0;
-    color: $text-link;
+    // color: $text-link;
     vertical-align: top;
     height: min-content;
   }
@@ -55,7 +61,8 @@
   }
 
   button {
-    border: none;
-    background: transparent;
+    all: unset; // xoá hết style mặc định (nếu bạn muốn reset hoàn toàn)
+    cursor: pointer;
+    color: $bg-secondary;
   }
 }
