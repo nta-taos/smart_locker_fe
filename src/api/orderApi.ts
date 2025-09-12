@@ -2,7 +2,7 @@ import axiosInstance from './axios/config';
 import { ENDPOINTS } from './axios/endpoints';
 
 export const orderApi = {
-  getStats: async () => {
+  getOrderStats: async () => {
     return axiosInstance.get(ENDPOINTS.get.orderStats);
   },
   getOrders: async (page: number, limit: number) => {
