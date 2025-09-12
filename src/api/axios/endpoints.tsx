@@ -1,6 +1,8 @@
 export const ENDPOINTS = {
   get: {
     transactions: '/transactions',
+    orders: '/orders',
+    orderStats: '/orders/stats/last-7-days',
   },
   post: {
     order: '/order/create',
