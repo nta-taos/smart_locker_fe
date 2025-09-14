@@ -20,11 +20,7 @@ const DashboardPage: React.FC = () => {
       <div className={styles.sectionSecond}>
         <div>
           <h1 className={styles.title}>Bản đồ phân bố tủ</h1>
-          <Card className={styles.mapCard} bodyStyle={{ height: '100%', padding: 0 }}>
-            <div className={styles.mapWrapper}>
-              <MapView />
-            </div>
-          </Card>
+          <MapView varriant="shorten" />
         </div>
         <div>
           <h1 className={styles.title}>Hoạt động gần đây</h1>
