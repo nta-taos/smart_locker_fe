@@ -3,7 +3,6 @@ import { Button } from 'antd';
 import { OrderItemType } from '@/types/order.type';
 import { formatDateTime, timeAgo } from '@/utils/format-datetime';
 
-import BoxSvg from '../icon/BoxSvg';
 import styles from './OrderItem.module.scss';
 
 export type OrderItemVariant = 'detail' | 'shorten';
@@ -40,7 +39,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({
   return (
     <div className={classes}>
       <div className={styles.iconContainer}>
-        <BoxSvg />
+        <img src="/images/locker.png" alt="" />
       </div>
       <div className={styles.contentContainer}>
         <div>
