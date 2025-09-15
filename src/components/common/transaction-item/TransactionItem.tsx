@@ -28,7 +28,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ data, className = '',
         </div>
       </div>
       <div className={styles.right}>
-        <h1 className={variant}>{`${amount}`}</h1>
+        <h1 className={variant}>{`${variant == 'add' ? '+ ' : '- '} ${amount} VND`}</h1>
         <p>{datetime}</p>
       </div>
     </div>

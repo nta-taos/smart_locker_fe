@@ -2,16 +2,17 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { Spin } from 'antd';
 
-import TransactionItem from '../common/transaction-item/TransactionItem';
-import styles from './Transaction.module.scss';
-import { useTransaction } from './useTransaction';
+import { OrderItem, OrderItemVariant } from '../common/order-item/OrderItem';
+import styles from './OrderList.module.scss';
+import { useOrderList } from './useOrderList';
 
-interface TransactionProps {
+interface OrderListProps {
   className?: string;
+  variant: OrderItemVariant;
 }
 
-export const Transaction: React.FC<TransactionProps> = ({ className = '' }) => {
-  const { transactions, loadMore, isLoading, isHasMore, isLoadMore } = useTransaction();
+export const OrderList: React.FC<OrderListProps> = ({ className = '', variant = 'detail' }) => {
+  const { orders, loadMore, isLoading, isLoadMore, isHasMore } = useOrderList();
 
   const classes = [styles.container, className].filter(Boolean).join(' ');
 
@@ -26,23 +27,23 @@ export const Transaction: React.FC<TransactionProps> = ({ className = '' }) => {
   const renderContent = () => {
     return (
       <InfiniteScroll
-        dataLength={transactions.length}
+        dataLength={orders.length}
         next={loadMore}
         hasMore={isHasMore}
         loader={isLoadMore && renderLoading()}
-        scrollableTarget="scrollableDiv"
+        scrollableTarget="scrollableOrderDiv"
         endMessage={<p style={{ textAlign: 'center' }}>Hết dữ liệu</p>}
         style={{ overflow: 'hidden' }}
       >
-        {transactions.map((transaction, idx) => (
-          <TransactionItem key={idx} data={transaction} />
+        {orders.map((order, idx) => (
+          <OrderItem key={idx} variant={variant} data={order} />
         ))}
       </InfiniteScroll>
     );
   };
 
   return (
-    <div id="scrollableDiv" className={classes}>
+    <div id="scrollableOrderDiv" className={classes}>
       {isLoading ? renderLoading() : renderContent()}
     </div>
   );

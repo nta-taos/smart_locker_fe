@@ -3,104 +3,127 @@ import React from 'react';
 import {
   AppstoreOutlined,
   EnvironmentOutlined,
+  EyeInvisibleOutlined,
   EyeOutlined,
   ShoppingCartOutlined,
+  WalletOutlined,
 } from '@ant-design/icons';
 import { Card, Col, Layout, Row, Space } from 'antd';
 
+import { Chart } from '@/components/chart/Chart';
 import MapView from '@/components/map/Map';
-import RecentActivity from '@/components/recent-activity/RecentActivity';
+import { OrderList } from '@/components/order-list/OrderList';
+import { Transaction } from '@/components/transaction/Transaction';
 
 import styles from './Dashboard.module.scss';
+import { useDashboard } from './useDashboard';
 
 const DashboardPage: React.FC = () => {
+  const { isBalanceVisible, toggleBalanceVisibility, userRole } = useDashboard();
   return (
-    <Layout style={{ minHeight: '100vh', padding: '1rem' }}>
-      <div className={styles.dashboard}>
-        <Row justify="center" gutter={[20, 20]}>
-          <Col xs={12} sm={12} md={12} lg={6}>
-            <Card className={styles.statsCard}>
-              <Space direction="vertical">
-                <Space align="center" style={{ color: '#074CE7' }}>
-                  <AppstoreOutlined style={{ fontSize: 24 }} />
-                  <span>Zipbox của tôi</span>
-                </Space>
-                <div>2 Đang sở hữu</div>
+    <Layout className={styles.dashboard}>
+      <Row justify="center" gutter={[20, 20]} style={{ paddingTop: '1rem' }}>
+        <Col xs={12} sm={12} md={12} lg={6}>
+          <Card className={styles.statsCard}>
+            <Space direction="vertical">
+              <Space align="center" style={{ color: '#074CE7' }}>
+                <AppstoreOutlined style={{ fontSize: 24 }} />
+                <span>Zipbox của tôi</span>
               </Space>
-            </Card>
-          </Col>
+              <div>2 Đang sở hữu</div>
+            </Space>
+          </Card>
+        </Col>
 
-          <Col xs={12} sm={12} md={12} lg={6}>
-            <Card className={styles.statsCard}>
-              <Space direction="vertical">
-                <Space align="center" style={{ color: '#074CE7' }}>
-                  <EnvironmentOutlined style={{ fontSize: 24 }} />
-                  <Space>Zipbox gần đây</Space>
-                </Space>
-                <div>9+ Tủ khả dụng</div>
+        <Col xs={12} sm={12} md={12} lg={6}>
+          <Card className={styles.statsCard}>
+            <Space direction="vertical">
+              <Space align="center" style={{ color: '#074CE7' }}>
+                <EnvironmentOutlined style={{ fontSize: 24 }} />
+                <Space>Zipbox gần đây</Space>
               </Space>
-            </Card>
-          </Col>
+              <div>9+ Tủ </div>
+            </Space>
+          </Card>
+        </Col>
 
-          <Col xs={12} sm={12} md={12} lg={6}>
-            <Card className={styles.statsCard}>
-              <Space direction="vertical">
-                <Space align="center" style={{ color: '#074CE7' }}>
-                  <ShoppingCartOutlined style={{ fontSize: 24 }} />
-                  <span>Đơn hàng</span>
-                </Space>
-                <div>9+ Đơn hàng</div>
+        <Col xs={12} sm={12} md={12} lg={6}>
+          <Card className={styles.statsCard}>
+            <Space direction="vertical">
+              <Space align="center" style={{ color: '#074CE7' }}>
+                <ShoppingCartOutlined style={{ fontSize: 24 }} />
+                <span>Đơn hàng</span>
               </Space>
-            </Card>
-          </Col>
+              <div>9+ Đơn hàng</div>
+            </Space>
+          </Card>
+        </Col>
 
-          <Col xs={12} sm={12} md={12} lg={6}>
-            <Card className={styles.statsCard}>
-              <Space direction="vertical">
-                <Space align="center" style={{ color: '#074CE7' }}>
-                  <EyeOutlined style={{ fontSize: 24 }} />
-                  <span>Ví của tôi</span>
-                </Space>
-                <div>100.000.000 VND</div>
+        <Col xs={12} sm={12} md={12} lg={6}>
+          <Card className={styles.statsCard}>
+            <Space direction="vertical" style={{ width: '100%' }}>
+              <Space align="center" style={{ color: '#074CE7' }}>
+                <WalletOutlined style={{ fontSize: 24 }} />
+                <span>Ví của tôi</span>
               </Space>
-            </Card>
-          </Col>
-        </Row>
-
-        <Row gutter={[16, 16]} style={{ marginTop: 20 }} justify="center">
-          <Col xs={24} sm={24} md={16}>
-            <div className={styles.sectionTitle}>Bản đồ phân bố tủ</div>
-            <Card className={styles.mapCard} bodyStyle={{ height: '100%', padding: 0 }}>
-              <div className={styles.mapWrapper}>
-                <MapView />
+              <div
+                onClick={toggleBalanceVisibility}
+                style={{
+                  cursor: 'pointer',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                }}
+              >
+                {isBalanceVisible ? '100.000.000 VND' : '********'}{' '}
+                {isBalanceVisible ? <EyeOutlined /> : <EyeInvisibleOutlined />}
               </div>
-            </Card>
-          </Col>
+            </Space>
+          </Card>
+        </Col>
+      </Row>
 
-          <Col xs={24} sm={24} md={8}>
-            <div className={styles.sectionTitle}>Hoạt động gần đây</div>
-            <Card style={{ borderRadius: '24px', height: '400px' }}>
-              <RecentActivity />
-            </Card>
-          </Col>
-        </Row>
+      <Row gutter={[16, 16]} style={{ marginTop: 20 }} justify="center">
+        <Col xs={24} sm={24} md={16}>
+          <div className={styles.sectionTitle}>Bản đồ phân bố tủ</div>
+          <Card className={styles.mapCard} styles={{ body: { height: '100%', padding: 0 } }}>
+            <div className={styles.mapWrapper}>
+              <MapView />
+            </div>
+          </Card>
+        </Col>
 
+        <Col xs={24} sm={24} md={8}>
+          <div className={styles.sectionTitle}>Hoạt động gần đây</div>
+          <Card style={{ borderRadius: '24px' }}>
+            <OrderList variant="shorten" className={styles.itemHeight} />
+          </Card>
+        </Col>
+      </Row>
+
+      {userRole === 0 && (
         <Row gutter={[16, 16]} style={{ marginTop: 24 }} justify="center">
           <Col xs={24} sm={24} md={16}>
             <div className={styles.sectionTitle}>Biểu đồ Zipbox</div>
-            <Card style={{ height: 300 }}>
-              <div style={{ height: '100%', background: '#eaeaea' }}>Map here</div>
+            <Card
+              style={{ borderRadius: '24px', height: 300 }}
+              styles={{ body: { height: '100%', padding: '1rem 1rem 0 0' } }}
+            >
+              <Chart />
             </Card>
           </Col>
 
           <Col xs={24} sm={24} md={8}>
             <div className={styles.sectionTitle}>Lịch sử giao dịch</div>
-            <Card style={{ borderRadius: '24px', height: '400px' }}>
-              <RecentActivity />
+            <Card
+              style={{ borderRadius: '24px', height: '300px' }}
+              styles={{ body: { height: '100%' } }}
+            >
+              <Transaction />
             </Card>
           </Col>
         </Row>
-      </div>
+      )}
     </Layout>
   );
 };
