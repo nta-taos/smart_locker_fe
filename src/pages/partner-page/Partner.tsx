@@ -119,7 +119,7 @@ const BodyPage = () => (
               Đối tác của chúng tôi
             </Button>
 
-            <Row gutter={[24, 24]} className={styles.grid}>
+            <Row gutter={[24, 24]} style={{ margin: 0 }} className={styles.grid}>
               {tab.partners.map((p, i) => (
                 <Col xs={24} sm={12} md={12} lg={12} key={i}>
                   <Card className={styles.partnerCard}>
