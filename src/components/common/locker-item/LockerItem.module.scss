@@ -1,0 +1,40 @@
+p,
+h1 {
+  margin: 0;
+  text-align: center;
+}
+
+.container {
+  width: 25%;
+  border-radius: 10px;
+  background-color: red;
+
+  h1 {
+    width: 80%;
+    font-size: clamp(13px, 3vw, 16px);
+  }
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0.5rem 0;
+  gap: 5px;
+}
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 0.5rem 0;
+  border-radius: 0 0 9px 9px;
+}
+
+.size {
+  width: 100%;
+  background-color: white;
+  border-radius: 20px;
+}
