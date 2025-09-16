@@ -6,6 +6,7 @@ import MapView from '@/components/map/Map';
 import DashboardPage from '@/pages/dashboard-page/Dashboard';
 import LadingPage from '@/pages/lading-page/Lading';
 import LoginPage from '@/pages/login-page/Login';
+import PartnerPage from '@/pages/partner-page/Partner';
 import RegisterPage from '@/pages/register-page/Register';
 import SupportPage from '@/pages/support-page/Support';
 
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
       { index: true, element: <LadingPage /> },
       { path: 'map', element: <MapView /> },
       { path: 'support', element: <SupportPage /> },
+      { path: 'partner', element: <PartnerPage /> },
     ],
   },
   {

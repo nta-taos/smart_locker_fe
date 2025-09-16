@@ -1,0 +1,198 @@
+@use '../../styles/abstracts/color' as *;
+.partnersWrapper {
+  background-color: $bg-white;
+}
+
+.hero {
+  position: relative;
+  height: 500px;
+  display: flex;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.heroImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero h2 {
+  position: absolute;
+  z-index: 2;
+  color: $text-inverse;
+  font-size: 2rem;
+  top: 19rem;
+  left: 9rem;
+}
+
+.heroTabs {
+  position: relative;
+  top: -76px;
+  :global(.ant-tabs-nav) {
+    margin: 0 auto;
+  }
+  :global(.ant-tabs-tab-btn) {
+    font-size: 24px;
+    margin: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  :global(.ant-tabs-tab) {
+    flex: 1;
+    min-width: 100px !important;
+    max-width: 300px !important;
+    font-size: 24px !important;
+    font-weight: 600 !important;
+    padding: 0.8rem 2rem !important;
+    margin: 0 16px !important;
+    transition: all 0.3s ease !important;
+    background: rgba(255, 255, 255, 0.6) !important;
+  }
+  :global(.ant-tabs-tab-active) {
+    background: $bg-white !important;
+    font-weight: 700;
+    border-radius: 8px;
+  }
+}
+.tabLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tabIcon {
+  width: 50px;
+  height: 50px;
+  color: $text-link;
+}
+.tabText {
+  font-size: 24px;
+  font-weight: 600;
+  color: $text-link;
+  align-items: center;
+}
+@media (max-width: 992px) {
+  .hero {
+    height: 300px;
+  }
+  .hero h2 {
+    top: 11rem;
+    left: 2rem;
+    font-size: 18px;
+  }
+
+  .heroTabs {
+    top: -55px;
+
+    .tabText {
+      display: none;
+    }
+    .tabIcon {
+      width: 28px;
+      height: 28px;
+    }
+  }
+}
+
+.partnersSection {
+  margin-top: 2rem;
+  background-color: $bg-white;
+}
+
+.description {
+  font-size: 20px;
+  margin-bottom: 1.5rem;
+  color: $text-part;
+  padding: 0 clamp(2rem, 8vw, 9rem);
+}
+
+.partnerBtn {
+  border: none;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  margin-left: clamp(1rem, 8vw, 9rem);
+}
+@media (max-width: 992px) {
+  .description {
+    font-size: 15px;
+    margin-bottom: 2rem;
+    padding-left: 2rem;
+  }
+  .partnerBtn {
+    margin-left: 2rem;
+  }
+}
+
+.grid {
+  margin-top: 1rem;
+  margin: auto;
+  padding-left: clamp(2rem, 9vw, 8rem);
+  padding-right: clamp(2rem, 9vw, 8rem);
+}
+
+.partnerCard {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  transition: transform 0.2s ease;
+  align-items: flex-start;
+}
+
+.partnerCard:hover {
+  transform: translateY(-4px);
+}
+
+.partnerContent {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.partnerLogo {
+  width: 165px;
+  height: 165px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.text {
+  flex: 1;
+  text-align: left;
+}
+
+.text p {
+  color: #555;
+  font-size: 20px;
+}
+
+@media (max-width: 992px) {
+  .grid {
+    padding: 0 2rem;
+  }
+  .partnerContent {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .partnerLogo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .text p {
+    font-size: 16px;
+  }
+}
