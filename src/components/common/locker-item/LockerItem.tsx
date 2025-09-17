@@ -19,7 +19,7 @@ export const LockerItem: React.FC<{
       </div>
       <div className={styles.bottom}>
         <p>Ngăn trống</p>
-        <h1>{locker.slots}</h1>
+        <h1 className={styles.slot}>{locker.slots}</h1>
       </div>
     </div>
   );

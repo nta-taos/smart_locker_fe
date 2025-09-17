@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer, ZoomControl, useMap } from 'react-leaflet';
 
-import { AimOutlined, SearchOutlined, SettingOutlined } from '@ant-design/icons';
-import { Drawer } from 'antd';
+import { AimOutlined, SearchOutlined, SettingOutlined, WifiOutlined } from '@ant-design/icons';
+import { Button, Drawer } from 'antd';
 import { Icon, LatLngExpression } from 'leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
+import { useBuildingStateById } from '@/recoil/atom/building.atom';
+
+import LocationSvg from '../common/icon/LocationSvg';
 import { LockerItem } from '../common/locker-item/LockerItem';
 import styles from './Map.module.scss';
 import useMapHook from './useMap';
@@ -77,7 +80,6 @@ const BuildingMarker: React.FC<{
   id: number;
   onClick: (id: number) => void;
 }> = ({ id, onClick }) => {
-  const { useBuildingStateById } = useMapHook();
   const bd = useBuildingStateById(id);
   return (
     <Marker
@@ -99,12 +101,12 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
   const [userPos, setUserPos] = useState<LatLngExpression | null>(null);
 
   const {
+    buildingSelected,
     selectedBuildingId,
     setSelectedBuildingId,
     searchInput,
     setSearchInput,
     buildingIds,
-    useBuildingStateById,
   } = useMapHook();
   const lockerIds = useBuildingStateById(selectedBuildingId || 0).lockers;
 
@@ -112,10 +114,21 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
     if (!selectedBuildingId) return <div>err</div>;
 
     return (
-      <div className={styles.lockerContainer}>
-        {lockerIds.length !== 0 && lockerIds.map((id) => <LockerItem id={id} />)}
-        {lockerIds.length !== 0 && lockerIds.map((id) => <LockerItem id={id} />)}
-        {lockerIds.length !== 0 && lockerIds.map((id) => <LockerItem id={id} />)}
+      <div>
+        <div className={styles.titleContainer}>
+          <LocationSvg />
+          <div className={styles.title}>
+            <h1>{buildingSelected?.name}</h1>
+            <p>{buildingSelected?.address}</p>
+          </div>
+          <WifiOutlined />
+          <Button type="primary">Thuê tủ ngay</Button>
+        </div>
+        <div className={styles.lockerContainer}>
+          {lockerIds.length !== 0 && lockerIds.map((id) => <LockerItem id={id} />)}
+          {lockerIds.length !== 0 && lockerIds.map((id) => <LockerItem id={id} />)}
+          {lockerIds.length !== 0 && lockerIds.map((id) => <LockerItem id={id} />)}
+        </div>
       </div>
     );
   };
@@ -172,12 +185,12 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
       </MapContainer>
       {isShowDetail && renderSearchBar()}
       <Drawer
-        title="Thông tin"
         placement="bottom"
+        closeIcon={false}
         onClose={() => setSelectedBuildingId(null)}
         open={selectedBuildingId != null}
         className={styles.lockerPopup}
-        height={'300px'}
+        height={'280px'}
       >
         {renderPopupContent()}
       </Drawer>

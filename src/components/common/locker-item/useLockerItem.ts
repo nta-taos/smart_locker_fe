@@ -1,8 +1,7 @@
-import useMap from '@/components/map/useMap';
+import { useLockerStateById } from '@/recoil/atom/building.atom';
 
 export const useLockerItem = ({ id }: { id: number }) => {
-  const { getLockerStateById } = useMap();
-  const locker = getLockerStateById(id);
+  const locker = useLockerStateById(id);
 
   return { locker };
 };

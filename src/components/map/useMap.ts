@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilCallback, useRecoilState } from 'recoil';
 
 import { buildingApi } from '@/api/buildingApi';
-import { buildingAtom, buildingIdsAtom } from '@/recoil/atom/building.atom';
+import { buildingAtom, buildingIdsAtom, useBuildingStateById } from '@/recoil/atom/building.atom';
 import { lockerAtom } from '@/recoil/atom/locker.atom';
 import { slotAtom } from '@/recoil/atom/slot.atom';
 import { BuildingResponeType, BuildingType } from '@/types/building.type';
@@ -12,26 +12,16 @@ import { SlotType } from '@/types/slot.type';
 const useMap = () => {
   const [isShowLockerPopup, setIsShowLockerPopup] = useState(false);
   const [selectedBuildingId, setSelectedBuildingId] = useState<number | null>(null);
+  const buildingSelected = useBuildingStateById(selectedBuildingId || 1);
   const [searchInput, setSearchInput] = useState('');
   const [buildingIds, setBuildingIds] = useRecoilState(buildingIdsAtom);
 
-  const useBuildingStateById = (id: number) => {
-    return useRecoilValue(buildingAtom(id));
-  };
   const setBuildingState = useRecoilCallback(({ set }) => (id: number, data: BuildingType) => {
     set(buildingAtom(id), data);
   });
-
-  const useLockerStateById = (id: number) => {
-    return useRecoilValue(lockerAtom(id));
-  };
   const setLockerState = useRecoilCallback(({ set }) => (id: number, data: LockerType) => {
     set(lockerAtom(id), data);
   });
-
-  const useSlotStateById = (id: number) => {
-    return useRecoilValue(slotAtom(id));
-  };
   const setSlotState = useRecoilCallback(({ set }) => (id: number, data: SlotType) => {
     set(slotAtom(id), data);
   });
@@ -85,6 +75,7 @@ const useMap = () => {
   }, [buildingIds, getBuildings]);
 
   return {
+    buildingSelected,
     selectedBuildingId,
     setSelectedBuildingId,
     isShowLockerPopup,
@@ -92,9 +83,6 @@ const useMap = () => {
     searchInput,
     setSearchInput,
     buildingIds,
-    useBuildingStateById,
-    useLockerStateById,
-    useSlotStateById,
   };
 };
 

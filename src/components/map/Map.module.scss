@@ -4,7 +4,7 @@
   height: 400px;
   border-radius: 24px;
   overflow: hidden;
-  border: solid 4px #ffffff;
+  border: solid 4px $bg-white;
 }
 
 .searchBar {
@@ -29,6 +29,39 @@
   justify-content: space-evenly;
 }
 
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: $text-inverse;
+  padding: 0 3rem;
+  margin-bottom: 1rem;
+
+  button {
+    margin-left: auto;
+  }
+
+  path {
+    fill: $bg-white;
+  }
+
+  h1 {
+    font-size: clamp(12px, 2.5vw, 15px);
+    text-align: start;
+  }
+
+  p {
+    font-size: clamp(10px, 2.5vw, 13px);
+  }
+}
+
+.title {
+  p {
+    text-align: start;
+  }
+}
+
 .lockerPopup {
-  background: blue !important;
+  background: $bg-primary !important;
+  padding: 0 !important;
 }
