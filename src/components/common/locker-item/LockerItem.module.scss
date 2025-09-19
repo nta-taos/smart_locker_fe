@@ -8,6 +8,7 @@ h1 {
 
 .container {
   width: 25%;
+  min-width: 180px;
   border-radius: 10px;
   background-color: $bg-tertiary;
   overflow: hidden;

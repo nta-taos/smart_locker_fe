@@ -1,4 +1,4 @@
-import { atom, atomFamily, useRecoilValue } from 'recoil';
+import { atom, atomFamily, selectorFamily, useRecoilValue } from 'recoil';
 
 import { BuildingType } from '@/types/building.type';
 
@@ -34,3 +34,29 @@ export const useLockerStateById = (id: number) => {
 export const useSlotStateById = (id: number) => {
   return useRecoilValue(slotAtom(id));
 };
+
+export const slotCountBySizeSelector = selectorFamily<Record<number, number>, number>({
+  key: 'slotCountBySizeSelector',
+  get:
+    (buildingId: number) =>
+    ({ get }) => {
+      const building = get(buildingAtom(buildingId));
+      if (!building) return {};
+
+      const counts: Record<number, number> = {};
+
+      building.lockers.forEach((lockerId) => {
+        const locker = get(lockerAtom(lockerId));
+        if (!locker) return;
+
+        locker.slots.forEach((slotId) => {
+          const slot = get(slotAtom(slotId));
+          if (!slot) return;
+
+          counts[slot.size] = (counts[slot.size] || 0) + 1;
+        });
+      });
+
+      return counts;
+    },
+});

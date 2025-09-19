@@ -27,6 +27,8 @@
 .lockerContainer {
   display: flex;
   justify-content: space-evenly;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .titleContainer {
@@ -34,7 +36,7 @@
   align-items: center;
   gap: 0.5rem;
   color: $text-inverse;
-  padding: 0 3rem;
+  padding: 0 clamp(0.5rem, 3.5vw, 3rem);
   margin-bottom: 1rem;
 
   button {
@@ -64,4 +66,19 @@
 .lockerPopup {
   background: $bg-primary !important;
   padding: 0 !important;
+}
+
+.desktopButton {
+  display: none;
+  @include mq(md) {
+    display: block;
+  }
+}
+
+.mobileButton {
+  // display: none;
+  width: 80%;
+  @include mq(md) {
+    display: none;
+  }
 }

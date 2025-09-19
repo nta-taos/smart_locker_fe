@@ -1,8 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useRecoilCallback, useRecoilState } from 'recoil';
+import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil';
 
 import { buildingApi } from '@/api/buildingApi';
-import { buildingAtom, buildingIdsAtom, useBuildingStateById } from '@/recoil/atom/building.atom';
+import {
+  buildingAtom,
+  buildingIdsAtom,
+  slotCountBySizeSelector,
+  useBuildingStateById,
+} from '@/recoil/atom/building.atom';
 import { lockerAtom } from '@/recoil/atom/locker.atom';
 import { slotAtom } from '@/recoil/atom/slot.atom';
 import { BuildingResponeType, BuildingType } from '@/types/building.type';
@@ -15,6 +20,7 @@ const useMap = () => {
   const buildingSelected = useBuildingStateById(selectedBuildingId || 1);
   const [searchInput, setSearchInput] = useState('');
   const [buildingIds, setBuildingIds] = useRecoilState(buildingIdsAtom);
+  const countSlot = useRecoilValue(slotCountBySizeSelector(selectedBuildingId || 0));
 
   const setBuildingState = useRecoilCallback(({ set }) => (id: number, data: BuildingType) => {
     set(buildingAtom(id), data);
@@ -32,6 +38,7 @@ const useMap = () => {
 
       const res = await buildingApi.getBuildings();
       const result: BuildingResponeType[] = res.data.data;
+      console.log(result);
 
       const buildingIds: number[] = [];
       result.forEach((bd) => {
@@ -75,6 +82,7 @@ const useMap = () => {
   }, [buildingIds, getBuildings]);
 
   return {
+    countSlot,
     buildingSelected,
     selectedBuildingId,
     setSelectedBuildingId,
