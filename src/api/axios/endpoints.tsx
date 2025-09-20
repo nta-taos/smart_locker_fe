@@ -3,6 +3,7 @@ export const ENDPOINTS = {
     transactions: '/transactions',
     orders: '/orders',
     orderStats: '/orders/stats/last-7-days',
+    buildings: '/buildings',
   },
   post: {
     order: '/order/create',

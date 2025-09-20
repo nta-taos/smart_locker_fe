@@ -1,0 +1,84 @@
+@use '../../styles/abstracts/' as *;
+
+.container {
+  height: 400px;
+  border-radius: 24px;
+  overflow: hidden;
+  border: solid 4px $bg-white;
+}
+
+.searchBar {
+  position: absolute;
+  top: 75px;
+  left: 10px;
+  z-index: 1000;
+  padding: 0.5rem 1rem;
+  background-color: $bg-white;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  input {
+    all: unset;
+  }
+}
+
+.lockerContainer {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: $text-inverse;
+  padding: 0 clamp(0.5rem, 3.5vw, 3rem);
+  margin-bottom: 1rem;
+
+  button {
+    margin-left: auto;
+  }
+
+  path {
+    fill: $bg-white;
+  }
+
+  h1 {
+    font-size: clamp(12px, 2.5vw, 15px);
+    text-align: start;
+  }
+
+  p {
+    font-size: clamp(10px, 2.5vw, 13px);
+  }
+}
+
+.title {
+  p {
+    text-align: start;
+  }
+}
+
+.lockerPopup {
+  background: $bg-primary !important;
+  padding: 0 !important;
+}
+
+.desktopButton {
+  display: none;
+  @include mq(md) {
+    display: block;
+  }
+}
+
+.mobileButton {
+  // display: none;
+  width: 80%;
+  @include mq(md) {
+    display: none;
+  }
+}

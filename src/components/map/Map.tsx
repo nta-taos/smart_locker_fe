@@ -1,14 +1,16 @@
-import { useState } from 'react';
-import { MapContainer, Marker, Popup, TileLayer, ZoomControl, useMap } from 'react-leaflet';
+import React, { useState } from 'react';
+import { MapContainer, TileLayer, ZoomControl, useMap } from 'react-leaflet';
 
-import { AimOutlined } from '@ant-design/icons';
-import { Icon, LatLngExpression } from 'leaflet';
+import { AimOutlined, SearchOutlined, SettingOutlined, WifiOutlined } from '@ant-design/icons';
+import { Button, Drawer } from 'antd';
+import { LatLngExpression } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-const userIcon = new Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/512/64/64113.png',
-  iconSize: [32, 32],
-});
+import LocationSvg from '../common/icon/LocationSvg';
+import { LockerItem } from '../common/locker-item/LockerItem';
+import { BuildingMarker, UserMarker } from '../common/marker';
+import styles from './Map.module.scss';
+import useMapHook from './useMap';
 
 function LocateButton({ onLocate }: { onLocate: (pos: LatLngExpression) => void }) {
   const map = useMap();
@@ -48,32 +50,113 @@ function LocateButton({ onLocate }: { onLocate: (pos: LatLngExpression) => void 
   );
 }
 
-export default function MapView() {
+interface MapViewProps {
+  className?: string;
+  varriant: 'detail' | 'shorten';
+}
+
+const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' }) => {
+  const isShowDetail = varriant == 'detail';
+  const classes = [styles.container, className].filter(Boolean).join(' ');
   const [userPos, setUserPos] = useState<LatLngExpression | null>(null);
 
-  return (
-    <MapContainer
-      center={[16.047079, 108.20623]}
-      zoom={13}
-      style={{ height: '100%', width: '100%' }}
-      zoomControl={false}
-    >
-      <TileLayer
-        attribution="&copy; OpenStreetMap contributors"
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+  const {
+    countSlot,
+    buildingSelected,
+    selectedBuildingId,
+    setSelectedBuildingId,
+    searchInput,
+    setSearchInput,
+    buildingIds,
+  } = useMapHook();
 
-      {/* display location user */}
-      {userPos && (
-        <Marker position={userPos} icon={userIcon}>
-          <Popup>Bạn đang ở đây 🚶</Popup>
-        </Marker>
-      )}
+  const renderPopupContent = () => {
+    if (!selectedBuildingId) return <div>err</div>;
 
-      <ZoomControl position="bottomright" />
-      <div style={{ position: 'absolute', bottom: '100px', right: '10px', zIndex: 1000 }}>
-        <LocateButton onLocate={setUserPos} />
+    return (
+      <div>
+        <div className={styles.titleContainer}>
+          <LocationSvg />
+          <div className={styles.title}>
+            <h1>{buildingSelected?.name}</h1>
+            <p>{buildingSelected?.address}</p>
+          </div>
+          <WifiOutlined />
+          <Button type="primary" className={styles.desktopButton}>
+            Thuê tủ ngay
+          </Button>
+        </div>
+        <div className={styles.lockerContainer}>
+          <LockerItem num={countSlot[0]} size={0} />
+          <LockerItem num={countSlot[1]} size={1} />
+          <LockerItem num={countSlot[2]} size={2} />
+          <Button type="primary" className={styles.mobileButton}>
+            Thuê tủ ngay
+          </Button>
+        </div>
       </div>
-    </MapContainer>
+    );
+  };
+
+  const renderSearchBar = () => {
+    return (
+      <div className={styles.searchBar}>
+        <SearchOutlined />
+        <input
+          type="text"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          placeholder="Tìm kiếm tủ gần bạn"
+        />
+        <SettingOutlined />
+      </div>
+    );
+  };
+
+  return (
+    <div className={classes}>
+      <MapContainer
+        center={[16.047079, 108.20623]}
+        zoom={13}
+        style={{ height: '100%', width: '100%' }}
+        zoomControl={false}
+      >
+        <TileLayer
+          // attribution="&copy; OpenStreetMap contributors"
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+
+        {userPos && <UserMarker position={userPos} />}
+
+        {buildingIds.map((id) => (
+          <BuildingMarker
+            key={id}
+            id={id}
+            isSelected={selectedBuildingId == id}
+            onClick={() => {
+              setSelectedBuildingId(id);
+            }}
+          />
+        ))}
+
+        <ZoomControl position="bottomright" />
+        <div style={{ position: 'absolute', bottom: '100px', right: '10px', zIndex: 1000 }}>
+          <LocateButton onLocate={setUserPos} />
+        </div>
+      </MapContainer>
+      {isShowDetail && renderSearchBar()}
+      <Drawer
+        placement="bottom"
+        closeIcon={false}
+        onClose={() => setSelectedBuildingId(null)}
+        open={selectedBuildingId != null}
+        className={styles.lockerPopup}
+        height={'auto'}
+      >
+        {renderPopupContent()}
+      </Drawer>
+    </div>
   );
-}
+};
+
+export default MapView;
