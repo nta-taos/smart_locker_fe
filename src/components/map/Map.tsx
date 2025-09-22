@@ -68,6 +68,7 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
     searchInput,
     setSearchInput,
     buildingIds,
+    handleSubmitButton,
   } = useMapHook();
 
   const renderPopupContent = () => {
@@ -82,7 +83,7 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
             <p>{buildingSelected?.address}</p>
           </div>
           <WifiOutlined />
-          <Button type="primary" className={styles.desktopButton}>
+          <Button type="primary" className={styles.desktopButton} onClick={handleSubmitButton}>
             Thuê tủ ngay
           </Button>
         </div>
@@ -90,7 +91,7 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
           <LockerItem num={countSlot[0]} size={0} />
           <LockerItem num={countSlot[1]} size={1} />
           <LockerItem num={countSlot[2]} size={2} />
-          <Button type="primary" className={styles.mobileButton}>
+          <Button type="primary" className={styles.mobileButton} onClick={handleSubmitButton}>
             Thuê tủ ngay
           </Button>
         </div>

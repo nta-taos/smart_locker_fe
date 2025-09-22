@@ -10,4 +10,24 @@ export const orderApi = {
       params: { page, limit },
     });
   },
+  postOrderUser: async (userId: number, endTime: string, lockerSlotId: number) => {
+    return axiosInstance.post(ENDPOINTS.post.orderUser, {
+      userId,
+      endTime,
+      lockerSlotId,
+    });
+  },
+  postOrderShipper: async (
+    userId: number,
+    phone: string,
+    lockerSlotId: number,
+    order_code: string,
+  ) => {
+    return axiosInstance.post(ENDPOINTS.post.orderShipper, {
+      userId,
+      phone,
+      lockerSlotId,
+      order_code,
+    });
+  },
 };
