@@ -64,7 +64,7 @@ export const useRental = () => {
       }
 
       if (res?.status == 200) {
-        navigate('/smartbox');
+        navigate('/lockers');
         toast.success('Đặt tủ thành công');
       }
     } catch (error: unknown) {
@@ -78,7 +78,7 @@ export const useRental = () => {
 
   useEffect(() => {
     if (!id || isNaN(Number(id)) || buildingState.lockers.length == 0) {
-      navigate('/smartbox');
+      navigate('/lockers');
     }
   }, [id, buildingState, navigate]);
 

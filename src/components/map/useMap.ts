@@ -25,7 +25,7 @@ const useMap = () => {
   const countSlot = useRecoilValue(slotCountBySizeSelector(selectedBuildingId || 0));
 
   const handleSubmitButton = () => {
-    navigate(`/smartbox/rental/${selectedBuildingId}`);
+    navigate(`/lockers/rental/${selectedBuildingId}`);
   };
 
   const setBuildingState = useRecoilCallback(({ set }) => (id: number, data: BuildingType) => {

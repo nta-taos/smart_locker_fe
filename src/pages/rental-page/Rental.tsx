@@ -5,6 +5,7 @@ import { Button, DatePicker } from 'antd';
 
 import { LockerInfo } from '@/components/common/locker-info/LockerInfo';
 import { SlotItem } from '@/components/common/slot-item/SlotItem';
+import { OrderList } from '@/components/order-list/OrderList';
 import { slotListSelector } from '@/recoil/atom/locker.atom';
 import { SlotType } from '@/types/slot.type';
 
@@ -122,21 +123,7 @@ export const RentalPage = () => {
         <div className={styles.main}>
           <div className={styles.myInfo}>
             <h1>Thông tin của tôi</h1>
-            <hr />
-            <LockerInfo
-              address="kajshckaskasndkádasdasdqalkhfj asndkjasnjch"
-              lockerId="1"
-              building="âsfasasd"
-              slotId="21asdas"
-              type="detail"
-            />
-            <LockerInfo
-              address="kajshckasjch"
-              lockerId="1"
-              building="âsfasasd"
-              slotId="21asdas"
-              type="detail"
-            />
+            <OrderList variant="tag" />
           </div>
           <div className={styles.slotContainer}>
             <select value={selectedLockerId} className={styles.boxOption}>
@@ -155,7 +142,6 @@ export const RentalPage = () => {
                     status={sl.status}
                     onClick={() => {
                       setSlotIdSelected(sl.id);
-                      console.log('siuiu');
                     }}
                   />
                 ))}
@@ -214,7 +200,7 @@ export const RentalPage = () => {
             address={buildingState.address}
             lockerId={selectedLockerId + ''}
             building={buildingState.name}
-            slotId={slotIdSelected + ''}
+            slotId={slotIdSelected != -1 ? slotIdSelected + '' : ''}
             type="shorten"
           />
           <Button type="primary" onClick={handleRent}>

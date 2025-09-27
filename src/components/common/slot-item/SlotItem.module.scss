@@ -20,7 +20,7 @@ div {
   padding: 5px;
 
   .top {
-    width: 70%;
+    width: 90%;
     margin: 0 auto;
     flex-grow: 1;
     padding-top: 5px;
@@ -36,6 +36,10 @@ div {
       height: 2px;
       width: 100%;
       margin: 4px 0;
+    }
+
+    @include mq(md) {
+      width: 70%;
     }
   }
 }
@@ -64,25 +68,43 @@ div {
 
 .unavailable {
   background-color: $text-part;
-  padding: 0.5rem;
-  padding-top: 0.2rem;
-  width: 130px;
-  height: 100px;
+  padding: 0.3rem;
+  padding-top: 0.1rem;
+  width: 90px;
+  height: 70px;
   box-sizing: border-box;
+
+  @include mq(md) {
+    padding: 0.5rem;
+    padding-top: 0.2rem;
+    width: 130px;
+    height: 100px;
+  }
 }
 
 .available {
-  width: 130px;
-  height: 100px;
+  width: 90px;
+  height: 70px;
   box-sizing: border-box;
 
   background-color: #38454f;
   display: flex;
 
+  @include mq(md) {
+    width: 130px;
+    height: 100px;
+
+    .left,
+    .right {
+      padding: 0.5rem;
+      padding-top: 0.2rem;
+    }
+  }
+
   .left {
     flex-grow: 1;
-    padding: 0.5rem;
-    padding-top: 0.2rem;
+    padding: 0.3rem;
+    padding-top: 0.1rem;
     border-radius: 7px 0 0 7px;
 
     > div {
@@ -93,13 +115,17 @@ div {
   }
 
   .right {
-    width: 55%;
+    width: 65%;
     background-color: $text-part;
-    padding: 0.2rem;
-    padding-bottom: 0.5rem;
+    padding: 0.3rem;
+    padding-top: 0.1rem;
 
     .body {
       background-color: $bg-light;
+    }
+
+    @include mq(md) {
+      width: 55%;
     }
   }
 }

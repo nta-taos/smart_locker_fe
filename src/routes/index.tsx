@@ -28,8 +28,8 @@ export const router = createBrowserRouter([
     element: <AuthLayout />,
     children: [
       { path: 'dashboard', element: <DashboardPage /> },
-      { path: 'smartbox', element: <MapPage /> },
-      { path: 'smartbox/rental/:id', element: <RentalPage /> },
+      { path: 'lockers', element: <MapPage /> },
+      { path: 'lockers/rental/:id', element: <RentalPage /> },
     ],
   },
   {

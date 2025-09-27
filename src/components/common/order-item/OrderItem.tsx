@@ -3,9 +3,10 @@ import { Button } from 'antd';
 import { OrderItemType } from '@/types/order.type';
 import { formatDateTime, timeAgo } from '@/utils/format-datetime';
 
+import { LockerInfo } from '../locker-info/LockerInfo';
 import styles from './OrderItem.module.scss';
 
-export type OrderItemVariant = 'detail' | 'shorten';
+export type OrderItemVariant = 'detail' | 'shorten' | 'tag';
 
 interface OrderItemProps {
   data: OrderItemType;
@@ -35,6 +36,18 @@ export const OrderItem: React.FC<OrderItemProps> = ({
       );
     }
   };
+
+  if (variant === 'tag') {
+    return (
+      <LockerInfo
+        address={data.id + ''}
+        lockerId={data.lockerSlot.id + 'lsjdlasjdlasjldajslk'}
+        building="âsfasasdsdsadasd"
+        slotId={data.lockerSlot.id + ''}
+        type="detail"
+      />
+    );
+  }
 
   return (
     <div className={classes}>
