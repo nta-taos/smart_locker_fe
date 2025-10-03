@@ -52,7 +52,7 @@ function LocateButton({ onLocate }: { onLocate: (pos: LatLngExpression) => void 
 
 interface MapViewProps {
   className?: string;
-  varriant: 'detail' | 'shorten';
+  varriant?: 'detail' | 'shorten';
 }
 
 const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' }) => {

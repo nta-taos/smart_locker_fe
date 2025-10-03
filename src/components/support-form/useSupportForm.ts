@@ -1,4 +1,4 @@
-import { SupportFormData } from '../../types/supportform.types';
+import { SupportFormData } from '../../types/SupportForm.types';
 
 export const defaultFormData: SupportFormData = {
   name: '',

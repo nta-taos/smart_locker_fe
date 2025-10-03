@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 
-import { SupportFormData } from '../../types/supportform.types';
+import { SupportFormData } from '../../types/SupportForm.types';
 import styles from './SupportForm.module.scss';
 import { defaultFormData, handleChange, handleSubmit } from './useSupportForm';
 

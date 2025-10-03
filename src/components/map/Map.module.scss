@@ -1,10 +1,8 @@
 @use '../../styles/abstracts/' as *;
 
 .container {
-  height: 400px;
-  border-radius: 24px;
+  height: 100%;
   overflow: hidden;
-  border: solid 4px $bg-white;
 }
 
 .searchBar {
