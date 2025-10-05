@@ -26,6 +26,7 @@ export const useOrderList = (
         } else {
           setIsLoading(true);
         }
+        console.log('load', status);
 
         const res = await orderApi.getOrders(pageNum, limit, status);
         const result: OrderListResponType = res.data.data;
@@ -61,13 +62,14 @@ export const useOrderList = (
   );
   useEffect(() => {
     if (
-      (orderAll.orders.length === 0,
-      orderPending.orders.length === 0,
-      orderReceived.orders.length === 0)
+      orderAll.orders.length === 0 ||
+      orderPending.orders.length === 0 ||
+      orderReceived.orders.length === 0
     ) {
       getOrders(1, false);
     }
-  }, [orderAll.orders.length, orderPending.orders.length, orderReceived.orders.length, getOrders]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const loadMore = () => {
     if (!isLoading && orderAll.page < orderAll.totalPages && status === 'all') {
