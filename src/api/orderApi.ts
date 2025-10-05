@@ -5,9 +5,9 @@ export const orderApi = {
   getOrderStats: async () => {
     return axiosInstance.get(ENDPOINTS.get.orderStats);
   },
-  getOrders: async (page: number, limit: number) => {
+  getOrders: async (page: number, limit: number, status: 'pending' | 'received' | 'all') => {
     return axiosInstance.get(ENDPOINTS.get.orders, {
-      params: { page, limit },
+      params: { page, limit, status },
     });
   },
 };

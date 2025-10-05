@@ -9,10 +9,23 @@ import { useOrderList } from './useOrderList';
 interface OrderListProps {
   className?: string;
   variant: OrderItemVariant;
+  limit?: number;
+  status?: 'pending' | 'received' | 'all';
+  search?: string;
 }
 
-export const OrderList: React.FC<OrderListProps> = ({ className = '', variant = 'detail' }) => {
-  const { orders, loadMore, isLoading, isLoadMore, isHasMore } = useOrderList();
+export const OrderList: React.FC<OrderListProps> = ({
+  className = '',
+  variant = 'detail',
+  limit = 5,
+  status = 'all',
+  search = '',
+}) => {
+  const { orderAll, orderPending, orderReceived, loadMore, isLoading, isLoadMore } = useOrderList(
+    limit,
+    status,
+    search,
+  );
 
   const classes = [styles.container, className].filter(Boolean).join(' ');
 
@@ -25,17 +38,18 @@ export const OrderList: React.FC<OrderListProps> = ({ className = '', variant = 
   };
 
   const renderContent = () => {
+    const data = status == 'all' ? orderAll : status == 'pending' ? orderPending : orderReceived;
     return (
       <InfiniteScroll
-        dataLength={orders.length}
+        dataLength={data.orders.length}
         next={loadMore}
-        hasMore={isHasMore}
+        hasMore={data.page < data.totalPages}
         loader={isLoadMore && renderLoading()}
         scrollableTarget="scrollableOrderDiv"
         endMessage={<p style={{ textAlign: 'center' }}>Hết dữ liệu</p>}
         style={{ overflow: 'hidden' }}
       >
-        {orders.map((order, idx) => (
+        {data.orders.map((order, idx) => (
           <OrderItem key={idx} variant={variant} data={order} />
         ))}
       </InfiniteScroll>

@@ -8,7 +8,7 @@ export type OrderItemType = {
     size: number;
   };
   order_code?: number;
-  receiver: UserType;
+  receiver?: UserType;
   receiver_phone: string;
   sender: UserType;
   start_time: string;

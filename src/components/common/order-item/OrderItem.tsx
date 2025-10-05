@@ -28,7 +28,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({
             Người gửi: {data.sender.phone} ({data.sender.name})
           </p>
           <p>
-            Người nhận: {data.receiver.phone} ({data.receiver.name})
+            Người nhận: {data.receiver?.phone} ({data.receiver?.name})
           </p>
           <p>Thời gian gửi: {timeAgo(data.start_time)}</p>
         </div>
@@ -39,9 +39,14 @@ export const OrderItem: React.FC<OrderItemProps> = ({
   return (
     <div className={classes}>
       <div className={styles.iconContainer}>
-        <img src="/images/locker.png" alt="" />
+        <div className={styles.iconBody}>
+          <img src="/images/locker.png" alt="" />
+        </div>
       </div>
       <div className={styles.contentContainer}>
+        <div className={styles.iconBody}>
+          <img src="/images/locker.png" alt="" />
+        </div>
         <div>
           <p>Mã đơn: #{data.id}</p>
           <p>Mã tủ: #{data.lockerSlot.id}</p>
