@@ -1,0 +1,41 @@
+@use '../../styles/abstracts/' as *;
+
+.container {
+  display: flex;
+  // height: 100lvh;
+  padding: 1rem;
+}
+
+.body {
+  margin: 0 auto;
+  width: 95%;
+
+  @include mq(md) {
+    width: 70%;
+  }
+}
+
+.searchField {
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  border: 1px solid $border-secondary;
+  padding: 5px 10px;
+  gap: 10px;
+  margin-bottom: 1rem;
+
+  input {
+    all: unset;
+    flex-grow: 1;
+  }
+}
+
+.tabContainer {
+  border-radius: 15px;
+  border: 1px solid $border-secondary;
+  padding: 5px 10px;
+}
+
+.orderList {
+  height: calc(100vh - 230px);
+}

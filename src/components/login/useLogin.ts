@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import { authApi } from '@/api/authApi';
 import { authState } from '@/recoil/atom/authAtom';
+import { initSocket } from '@/socket';
+import { useSocketListener } from '@/socket/useSocketListener';
 import { AuthType } from '@/types/auth.type';
 
 export const useLogin = () => {
-  const setAuth = useSetRecoilState(authState);
+  const [auth, setAuth] = useRecoilState(authState);
   const navigation = useNavigate();
 
   const [phone, setPhone] = useState('');
@@ -64,6 +66,13 @@ export const useLogin = () => {
       toast.error('Sai tài khoản hoặc mật khẩu.');
     }
   };
+
+  useEffect(() => {
+    if (auth.isAuthenticated && auth.token) {
+      initSocket(auth.token);
+    }
+  }, [auth]);
+  useSocketListener();
 
   return {
     phone,
