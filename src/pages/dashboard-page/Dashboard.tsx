@@ -95,8 +95,11 @@ const DashboardPage: React.FC = () => {
 
         <Col xs={24} sm={24} md={8}>
           <div className={styles.sectionTitle}>Hoạt động gần đây</div>
-          <Card style={{ borderRadius: '24px' }}>
-            <OrderList variant="shorten" className={styles.itemHeight} />
+          <Card
+            style={{ borderRadius: '24px', height: '60vh' }}
+            styles={{ body: { height: '100%' } }}
+          >
+            <OrderList variant="shorten" />
           </Card>
         </Col>
       </Row>

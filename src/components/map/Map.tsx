@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import { MapContainer, TileLayer, ZoomControl, useMap } from 'react-leaflet';
 
-import { AimOutlined, SearchOutlined, SettingOutlined, WifiOutlined } from '@ant-design/icons';
-import { Button, Drawer } from 'antd';
+import {
+  AimOutlined,
+  LoginOutlined,
+  RiseOutlined,
+  SearchOutlined,
+  SettingOutlined,
+} from '@ant-design/icons';
+import { Button, Divider, Drawer } from 'antd';
 import { LatLngExpression } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import LocationSvg from '../common/icon/LocationSvg';
-import { LockerItem } from '../common/locker-item/LockerItem';
 import { BuildingMarker, UserMarker } from '../common/marker';
 import styles from './Map.module.scss';
 import useMapHook from './useMap';
@@ -52,7 +57,7 @@ function LocateButton({ onLocate }: { onLocate: (pos: LatLngExpression) => void 
 
 interface MapViewProps {
   className?: string;
-  varriant: 'detail' | 'shorten';
+  varriant?: 'detail' | 'shorten';
 }
 
 const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' }) => {
@@ -68,30 +73,61 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
     searchInput,
     setSearchInput,
     buildingIds,
+    handleSubmitButton,
   } = useMapHook();
 
   const renderPopupContent = () => {
     if (!selectedBuildingId) return <div>err</div>;
 
     return (
-      <div>
-        <div className={styles.titleContainer}>
-          <LocationSvg />
-          <div className={styles.title}>
-            <h1>{buildingSelected?.name}</h1>
-            <p>{buildingSelected?.address}</p>
+      <div className={styles.popupContent}>
+        <div className={styles.popupHeader}>
+          <div className={styles.locationInfo}>
+            <div className={styles.locationHeader}>
+              <div className={styles.locationIcon}>
+                <LocationSvg />
+              </div>
+              <h2 className={styles.locationTitle}>{buildingSelected?.name}</h2>
+            </div>
+            <p className={styles.locationAddress}>{buildingSelected?.address}</p>
+
+            <div className={styles.badgesContainer}>
+              <div className={styles.badge}>
+                <LoginOutlined className={styles.badgeIcon} />
+                <span className={styles.badgeText}>Mở cửa 24/7</span>
+              </div>
+              <div className={styles.badgeOutline}>
+                <RiseOutlined style={{ fontSize: '18px', color: '#CCC' }} />
+                <span className={styles.badgeTextOutline}>Còn trống</span>
+              </div>
+            </div>
           </div>
-          <WifiOutlined />
-          <Button type="primary" className={styles.desktopButton}>
-            Thuê tủ ngay
-          </Button>
+
+          <div className={styles.lockerStatsContainer}>
+            <div className={styles.lockerStats}>
+              <div className={styles.lockerStat}>
+                <div className={styles.lockerNumber}>{countSlot[0] || 0}</div>
+                <div className={styles.lockerLabel}>SIZE S</div>
+              </div>
+              <div className={styles.lockerStat}>
+                <div className={styles.lockerNumber}>{countSlot[1] || 0}</div>
+                <div className={styles.lockerLabel}>SIZE M</div>
+              </div>
+              <div className={styles.lockerStat}>
+                <div className={styles.lockerNumber}>{countSlot[2] || 0}</div>
+                <div className={styles.lockerLabel}>SIZE L</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className={styles.lockerContainer}>
-          <LockerItem num={countSlot[0]} size={0} />
-          <LockerItem num={countSlot[1]} size={1} />
-          <LockerItem num={countSlot[2]} size={2} />
-          <Button type="primary" className={styles.mobileButton}>
-            Thuê tủ ngay
+        <Divider style={{ margin: '16px 0', borderColor: '#e5e5e5' }} />
+
+        <div className={styles.actionButtons}>
+          <Button type="primary" className={styles.rentButton} onClick={handleSubmitButton}>
+            Thuê tủ
+          </Button>
+          <Button type="primary" className={styles.rentButton} onClick={handleSubmitButton}>
+            Gửi hàng
           </Button>
         </div>
       </div>

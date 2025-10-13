@@ -31,7 +31,7 @@ const DashboardHeader: React.FC = () => {
           </li>
           <li>
             <NavLink
-              to="/dashboard/lockers"
+              to="/lockers"
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
             >
               Tủ thông minh
@@ -39,7 +39,7 @@ const DashboardHeader: React.FC = () => {
           </li>
           <li>
             <NavLink
-              to="/dashboard/orders"
+              to="/orders"
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
             >
               Đơn hàng của tôi
@@ -47,7 +47,7 @@ const DashboardHeader: React.FC = () => {
           </li>
           <li>
             <NavLink
-              to="/dashboard/profile"
+              to="/profile"
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
             >
               Hồ sơ cá nhân

@@ -10,6 +10,7 @@ import { MapPage } from '@/pages/map-page/Map';
 import { OrdersPage } from '@/pages/orders-page/Orders';
 import PartnerPage from '@/pages/partner-page/Partner';
 import RegisterPage from '@/pages/register-page/Register';
+import { RentalPage } from '@/pages/rental-page/Rental';
 import SupportPage from '@/pages/support-page/Support';
 
 export const router = createBrowserRouter([
@@ -28,8 +29,9 @@ export const router = createBrowserRouter([
     element: <AuthLayout />,
     children: [
       { path: 'dashboard', element: <DashboardPage /> },
-      { path: 'smartbox', element: <MapPage /> },
+      { path: 'lockers', element: <MapPage /> },
       { path: 'orders', element: <OrdersPage /> },
+      { path: 'lockers/rental/:id', element: <RentalPage /> },
     ],
   },
   {

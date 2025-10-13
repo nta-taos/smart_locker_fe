@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil';
 
 import { buildingApi } from '@/api/buildingApi';
@@ -15,12 +16,17 @@ import { LockerType } from '@/types/locker.type';
 import { SlotType } from '@/types/slot.type';
 
 const useMap = () => {
+  const navigate = useNavigate();
   const [isShowLockerPopup, setIsShowLockerPopup] = useState(false);
   const [selectedBuildingId, setSelectedBuildingId] = useState<number | null>(null);
   const buildingSelected = useBuildingStateById(selectedBuildingId || 1);
   const [searchInput, setSearchInput] = useState('');
   const [buildingIds, setBuildingIds] = useRecoilState(buildingIdsAtom);
   const countSlot = useRecoilValue(slotCountBySizeSelector(selectedBuildingId || 0));
+
+  const handleSubmitButton = () => {
+    navigate(`/lockers/rental/${selectedBuildingId}`);
+  };
 
   const setBuildingState = useRecoilCallback(({ set }) => (id: number, data: BuildingType) => {
     set(buildingAtom(id), data);
@@ -91,6 +97,7 @@ const useMap = () => {
     searchInput,
     setSearchInput,
     buildingIds,
+    handleSubmitButton,
   };
 };
 

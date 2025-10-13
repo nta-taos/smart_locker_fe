@@ -7,6 +7,8 @@ export const ENDPOINTS = {
   },
   post: {
     order: '/order/create',
+    orderUser: '/orders/user',
+    orderShipper: '/orders/shipper',
     discount: '/checkdiscount',
     message: '/message',
     sendmessage: '/sendmessage',
