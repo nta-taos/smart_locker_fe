@@ -52,7 +52,7 @@ export const SlotItem: React.FC<SlotItemProps> = ({
   return (
     <button className={classes}>
       <div className={styles.unavailable}>
-        <div className={`${styles.body} ${status == 3 && styles.isMaintenance}`}>
+        <div className={`${styles.body} ${status == 1 && styles.isMaintenance}`}>
           <div className={styles.top}>
             <h1>{id}</h1>
             <div></div>

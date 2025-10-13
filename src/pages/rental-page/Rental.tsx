@@ -175,23 +175,23 @@ export const RentalPage = () => {
                 ))}
               </div>
             </div>
-          </div>
-          <div className={styles.instruct}>
-            <div>
-              <div></div>
-              <h1>Bạn đang chọn</h1>
-            </div>
-            <div>
-              <div></div>
-              <h1>Đã được thuê chọn</h1>
-            </div>
-            <div>
-              <div></div>
-              <h1>Đang bảo trì</h1>
-            </div>
-            <div>
-              <div></div>
-              <h1>Còn trống</h1>
+            <div className={styles.instruct}>
+              <div>
+                <div></div>
+                <h1>Đang chọn</h1>
+              </div>
+              <div>
+                <div></div>
+                <h1>Đã được thuê</h1>
+              </div>
+              <div>
+                <div></div>
+                <h1>Còn trống</h1>
+              </div>
+              <div>
+                <div></div>
+                <h1>Đang bảo trì</h1>
+              </div>
             </div>
           </div>
         </div>

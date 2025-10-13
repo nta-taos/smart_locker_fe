@@ -53,7 +53,7 @@ export const slotCountBySizeSelector = selectorFamily<Record<number, number>, nu
           const slot = get(slotAtom(slotId));
           if (!slot) return;
 
-          counts[slot.size] = (counts[slot.size] || 0) + 1;
+          if (slot.status === 0) counts[slot.size] = (counts[slot.size] || 0) + 1;
         });
       });
 

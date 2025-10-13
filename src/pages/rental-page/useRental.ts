@@ -23,8 +23,6 @@ export const useRental = () => {
   const [orderCode, setOrderCode] = useState('');
   const [dateTime, setDateTime] = useState('');
 
-  console.log(auth.user);
-
   const handleRent = () => {
     if (slotIdSelected == -1) {
       toast.error('Hãy chọn tủ !');
@@ -60,11 +58,11 @@ export const useRental = () => {
         res = await orderApi.postOrderUser(auth.user.id, dateTime, slotIdSelected);
       } else if (auth.user?.role === 1) {
         if (!validationOrderShipper()) return;
-        res = await orderApi.postOrderShipper(auth.user.id, phone, selectedLockerId, orderCode);
+        res = await orderApi.postOrderShipper(auth.user.id, phone, slotIdSelected, orderCode);
       }
 
       if (res?.status == 200) {
-        navigate('/lockers');
+        setIsStateOne(true);
         toast.success('Đặt tủ thành công');
       }
     } catch (error: unknown) {
