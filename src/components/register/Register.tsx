@@ -6,8 +6,8 @@ import {
   EyeOutlined,
   GoogleOutlined,
 } from '@ant-design/icons';
+import { Button } from 'antd';
 
-import Button from '../common/button/Button';
 import ShipperSvg from '../common/icon/ShipperSvg';
 import UserSvg from '../common/icon/UserSvg';
 import styles from './Register.module.scss';
@@ -120,14 +120,16 @@ const Register: React.FC = () => {
         </div>
         <span className={styles.inputMessage}>{repasswordMessage || '\u00A0'}</span>
       </div>
-      <button
+      <Button
         tabIndex={3}
-        className={styles.loginButton}
-        type="button"
+        size="large"
+        type="primary"
+        htmlType="button"
         onClick={handleRegisterStateOne}
+        style={{ width: '100%' }}
       >
         Đăng ký
-      </button>
+      </Button>
       <p>Hoặc</p>
       <button className={styles.loginWithGoogleButton}>
         <GoogleOutlined /> Đăng nhập với Google
@@ -180,7 +182,7 @@ const Register: React.FC = () => {
               <option value="">Tòa nhà B</option>
               <option value="">Tòa nhà C</option>
             </select>
-            <Button variant="main" className={styles.submitButton}>
+            <Button type="primary" className={styles.submitButton}>
               Xác nhận
             </Button>
           </div>

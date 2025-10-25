@@ -56,11 +56,6 @@
   justify-content: end;
   gap: 8px;
 
-  button {
-    width: clamp(5rem, 15vw, 8rem);
-    font-size: clamp(12px, 1.5vw, 14px);
-  }
-
   @include mq(sm) {
     flex-direction: column;
     grid-column: none;

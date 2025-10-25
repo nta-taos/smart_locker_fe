@@ -99,35 +99,6 @@
   align-items: center;
 }
 
-.loginButton {
-  margin-top: 3rem;
-  width: 100%;
-  height: 3rem;
-  background-color: $bg-primary;
-  border-radius: 7px;
-  cursor: pointer;
-
-  color: $text-inverse;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.loginWithGoogleButton {
-  width: 100%;
-  height: 3rem;
-  background-color: $bg-white;
-  border: 2px solid $border-secondary;
-  border-radius: 7px;
-  cursor: pointer;
-
-  font-size: 14px;
-  font-weight: 500;
-
-  &:hover {
-    border-color: $hover-border;
-  }
-}
-
 .circleContainer {
   display: none;
 

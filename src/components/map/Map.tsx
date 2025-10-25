@@ -123,10 +123,20 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
         <Divider style={{ margin: '16px 0', borderColor: '#e5e5e5' }} />
 
         <div className={styles.actionButtons}>
-          <Button type="primary" className={styles.rentButton} onClick={handleSubmitButton}>
+          <Button
+            type="primary"
+            className={styles.rentButton}
+            size="large"
+            onClick={handleSubmitButton}
+          >
             Thuê tủ
           </Button>
-          <Button type="primary" className={styles.rentButton} onClick={handleSubmitButton}>
+          <Button
+            type="primary"
+            className={styles.rentButton}
+            size="large"
+            onClick={handleSubmitButton}
+          >
             Gửi hàng
           </Button>
         </div>
