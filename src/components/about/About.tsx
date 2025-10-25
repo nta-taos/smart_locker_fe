@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Button } from 'antd';
+
 import styles from './About.module.scss';
 import useAbout from './useAbout';
 
@@ -11,7 +13,9 @@ const About: React.FC = () => {
         <span className={styles.subtitle}>{subtitle}</span>
         <h2 className={styles.title}>{title}</h2>
         <p className={styles.description}>{description}</p>
-        <button className={styles.button}>Tìm hiểu ngay</button>
+        <Button type="primary" size="large">
+          Tìm hiểu ngay
+        </Button>
       </div>
       <div className={styles.imagesGrid}>
         <img src={images[0]} alt="about1" className={styles.imgTop} />

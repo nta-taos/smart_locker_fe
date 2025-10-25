@@ -1,8 +1,8 @@
 import { ToastContainer } from 'react-toastify';
 
 import { EyeInvisibleOutlined, EyeOutlined, GoogleOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 
-import Button from '../common/button/Button';
 import styles from './Login.module.scss';
 import { useLogin } from './useLogin';
 
@@ -59,13 +59,19 @@ const Login: React.FC = () => {
         </div>
         <a href="http://">Quên mật khẩu</a>
       </div>
-      <Button variant="main" tabIndex={3} className={styles.loginButton} type="submit">
+      <Button
+        type="primary"
+        tabIndex={3}
+        style={{ width: '100%', marginTop: '3rem' }}
+        htmlType="submit"
+        size="large"
+      >
         Đăng nhập
       </Button>
       <span>Hoặc</span>
-      <button className={styles.loginWithGoogleButton}>
-        <GoogleOutlined /> Đăng nhập với Google
-      </button>
+      <Button size="large" style={{ width: '100%' }} icon={<GoogleOutlined />}>
+        Đăng nhập với Google
+      </Button>
       <span>
         Bạn chưa có tài khoản ? <a href="/register">Đăng ký ngay</a>
       </span>
