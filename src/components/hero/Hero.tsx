@@ -1,10 +1,12 @@
 import React from 'react';
 
+import { Button } from 'antd';
+
 import styles from './Hero.module.scss';
 import { useHero } from './useHero';
 
 const Hero: React.FC = () => {
-  const { title, subtitle, description, ctaText } = useHero();
+  const { title, subtitle, ctaText } = useHero();
 
   return (
     <section className={styles.hero}>
@@ -13,12 +15,17 @@ const Hero: React.FC = () => {
         <div className={styles.content}>
           <div className={styles.contentWrapper}>
             <h1>
-              {title}❤️ <br /> <span>{subtitle} </span>
+              {title}
+              <br /> <span>{subtitle} </span>
             </h1>
-            <p>
-              <i>{description}</i>
+            <p style={{ textAlign: 'justify' }}>
+              <b>ZipBox</b> là mô hình tủ giao nhận hàng thông minh tích hợp công nghệ{' '}
+              <b>IoT (Internet of Things)</b> và ứng dụng <b>PWA (Progressive Web App)</b>, cho phép
+              người dùng gửi hay nhận hàng mà <b>không cần tiếp xúc trực tiếp.</b>
             </p>
-            <button className={styles.cta}>{ctaText}</button>
+            <Button size="large" type="primary">
+              {ctaText}
+            </Button>
           </div>
         </div>
 

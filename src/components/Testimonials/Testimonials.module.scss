@@ -11,6 +11,12 @@
   justify-content: center;
 
   .title {
+    background: linear-gradient(90deg, #f7832d 9%, #ffb103 91%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-weight: bold;
     text-align: center;
     font-size: 2rem;
     margin-bottom: 0.5rem;

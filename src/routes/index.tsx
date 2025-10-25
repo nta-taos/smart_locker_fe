@@ -19,7 +19,14 @@ export const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <LadingPage /> },
-      { path: 'map', element: <MapView varriant="detail" /> },
+      {
+        path: 'map',
+        element: (
+          <div style={{ width: '100wh', height: '100vh' }}>
+            <MapView varriant="detail" />{' '}
+          </div>
+        ),
+      },
       { path: 'support', element: <SupportPage /> },
       { path: 'partner', element: <PartnerPage /> },
     ],
@@ -41,5 +48,8 @@ export const router = createBrowserRouter([
   {
     path: '/register',
     children: [{ index: true, element: <RegisterPage /> }],
+  },
+  {
+    path: '/test',
   },
 ]);

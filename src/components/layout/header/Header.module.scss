@@ -6,7 +6,7 @@
   background-color: transparent;
   padding: 0 2rem;
   box-sizing: border-box;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -17,9 +17,9 @@
 }
 
 .logo {
-  width: 40px;
+  width: 159px;
   height: 40px;
-  background: url('/favicon.svg') no-repeat center center;
+  background: url('/logo.svg') no-repeat center center;
   background-size: contain;
 }
 

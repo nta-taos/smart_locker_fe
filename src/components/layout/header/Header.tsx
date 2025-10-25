@@ -24,7 +24,7 @@ const Header: React.FC = () => {
             <NavLink
               to="/"
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
-              end
+              onClick={() => setIsOpen(false)}
             >
               Trang chủ
             </NavLink>
@@ -33,6 +33,7 @@ const Header: React.FC = () => {
             <NavLink
               to="/map"
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
+              onClick={() => setIsOpen(false)}
             >
               Bản đồ phân bố
             </NavLink>
@@ -41,14 +42,25 @@ const Header: React.FC = () => {
             <NavLink
               to="/support"
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
+              onClick={() => setIsOpen(false)}
             >
               Trung tâm hỗ trợ
             </NavLink>
           </li>
           <li>
             <NavLink
+              to="/partner"
+              className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
+              onClick={() => setIsOpen(false)}
+            >
+              Đối tác
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
               to="/login"
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
+              onClick={() => setIsOpen(false)}
             >
               Đăng nhập
             </NavLink>
