@@ -57,9 +57,13 @@
     padding: 0 1rem 0 4rem;
 
     h1 {
+      background: linear-gradient(90deg, #002b79 9%, #074ce7 78%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
       font-size: clamp(1.8rem, 3vw + 1rem, 2.8rem);
       font-weight: 700;
-      color: $fg-primary;
 
       span {
         color: $fg-primary;
@@ -69,7 +73,7 @@
     p {
       font-size: clamp(1rem, 1vw + 0.8rem, 1.2rem);
       margin-bottom: 2rem;
-      color: $text-default;
+      color: #002b79;
       line-height: 1.6;
     }
 

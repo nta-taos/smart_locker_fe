@@ -9,7 +9,7 @@
   position: absolute;
   top: 75px;
   left: 10px;
-  z-index: 1000;
+  z-index: 998;
   padding: 0.5rem 1rem;
   background-color: $bg-white;
   border-radius: 20px;
@@ -83,7 +83,8 @@
   color: rgba(255, 255, 255, 0.7);
   margin-bottom: 1rem;
   padding-left: 3.5rem;
-
+  height: 100%;
+  width: 100%;
   P {
     text-align: justify;
   }
