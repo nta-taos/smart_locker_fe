@@ -11,4 +11,10 @@ export const authApi = {
   register: async (name: string, phone: string, email: string, password: string) => {
     return axiosInstance.post(ENDPOINTS.auth.register, { name, phone, email, password });
   },
+  googleCheck: async (idToken: string) => {
+    return axiosInstance.post(ENDPOINTS.auth.googleCheck, { idToken });
+  },
+  googleRegisterComplete: async (idToken: string, phone: string) => {
+    return axiosInstance.post(ENDPOINTS.auth.googleRegisterComplete, { idToken, phone });
+  },
 };

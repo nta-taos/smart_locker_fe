@@ -84,7 +84,6 @@
   margin-bottom: 1rem;
   padding-left: 3.5rem;
   height: 100%;
-  width: 100%;
   P {
     text-align: justify;
   }
@@ -196,6 +195,10 @@
 
 .lockerStat {
   text-align: center;
+}
+
+.container :global(.leaflet-bottom) {
+  z-index: 999 !important;
 }
 
 .lockerNumber {

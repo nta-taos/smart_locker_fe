@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { MenuFoldOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar } from 'antd';
 
-import BellIcon from '@/components/common/icon/BellSvg';
+import NotificationBell from '@/components/notification-bell/NotificationBell';
 
 import styles from './Header.module.scss';
 import useDashboardHeader from './useHeader';
@@ -57,9 +57,7 @@ const DashboardHeader: React.FC = () => {
       </nav>
       <div>
         <div className={styles.right}>
-          <button className={styles.iconBtn} title="Thông báo">
-            <BellIcon />
-          </button>
+          <NotificationBell />
           {/* USE */}
           <div className={styles.user}>
             <Avatar src={user?.avatar} size={40} alt={user?.name} icon={<UserOutlined />}></Avatar>

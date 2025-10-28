@@ -25,7 +25,7 @@ const useMap = () => {
   const countSlot = useRecoilValue(slotCountBySizeSelector(selectedBuildingId || 0));
 
   const handleSubmitButton = () => {
-    navigate(`/lockers/rental/${selectedBuildingId}`);
+    navigate(`/send/${selectedBuildingId}`);
   };
 
   const setBuildingState = useRecoilCallback(({ set }) => (id: number, data: BuildingType) => {
@@ -47,6 +47,7 @@ const useMap = () => {
       console.log(result);
 
       const buildingIds: number[] = [];
+      if (!result || result.length === 0) return;
       result.forEach((bd) => {
         buildingIds.push(bd.id);
 
@@ -85,7 +86,7 @@ const useMap = () => {
     if (buildingIds.length === 0) {
       getBuildings();
     }
-  }, [buildingIds, getBuildings]);
+  }, [buildingIds.length, getBuildings]);
 
   return {
     countSlot,

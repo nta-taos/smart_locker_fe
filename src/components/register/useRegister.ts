@@ -1,135 +1,142 @@
-import React, { useState } from 'react';
+// @/hooks/useRegister.ts (hoặc đường dẫn tương tự)
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
-import axios from 'axios';
+import { useRecoilState } from 'recoil';
 
 import { authApi } from '@/api/authApi';
+import { authState } from '@/recoil/atom/authAtom';
+import { initSocket } from '@/socket';
+import { useSocketListener } from '@/socket/useSocketListener';
+import { AuthType } from '@/types/auth.type';
+import { UserType } from '@/types/user.type';
+
+// Giả sử bạn có type này
 
 export const useRegister = () => {
-  const navigate = useNavigate();
-  const [isStateOne, setIsStateOne] = useState(true);
+  const [auth, setAuth] = useRecoilState(authState);
+  const navigation = useNavigate();
 
-  const [name, setName] = useState('');
-  const [nameMessage, setNameMessage] = useState('');
+  // Loading state cho form đăng ký thường
+  const [loading, setLoading] = useState(false);
+  // Loading state cho nút Google (kiểm tra ban đầu)
+  const [googleLoading, setGoogleLoading] = useState(false);
+  // Loading state cho modal hoàn tất (gửi SĐT)
+  const [completeLoading, setCompleteLoading] = useState(false);
 
-  const [phone, setPhone] = useState('');
-  const [phoneMessage, setPhoneMessage] = useState('');
+  const [showPhonePopup, setShowPhonePopup] = useState(false);
+  const [tempIdToken, setTempIdToken] = useState<string | null>(null);
 
-  const [email, setEmail] = useState('');
-  const [emailMessage, setEmailMessage] = useState('');
+  /**
+   * Hàm trợ giúp: Xử lý khi đăng nhập/đăng ký thành công
+   */
+  const handleAuthSuccess = (token: string, user: UserType, message: string) => {
+    const newAuth: AuthType = {
+      isAuthenticated: true,
+      token,
+      user,
+    };
 
-  const [password, setPassword] = useState('');
-  const [passwordMessage, setPasswordMessage] = useState('');
-  const [isShowPassword, setIsShowPassword] = useState(false);
-
-  const [repassword, setRepassword] = useState('');
-  const [repasswordMessage, setRepasswordMessage] = useState('');
-  const [isShowRepassword, setIsShowRepassword] = useState(false);
-
-  const [role, setRole] = useState('user');
-  // const [building, setbuilding] = useState('');
-
-  const toggleShowPassword = () => {
-    setIsShowPassword((prev) => !prev);
-  };
-  const toggleShowRepassword = () => {
-    setIsShowRepassword((prev) => !prev);
-  };
-
-  const toggleUser = () => {
-    setRole('user');
+    setAuth(newAuth);
+    localStorage.setItem('auth', JSON.stringify(newAuth));
+    toast.success(message);
+    navigation('/dashboard'); // Chuyển hướng đến dashboard
   };
 
-  const toggleShipper = () => {
-    setRole('shipper');
-  };
-
-  const validation = () => {
-    if (name == '') {
-      setNameMessage('Hãy nhập họ và tên');
-      return false;
-    }
-    if (phone == '') {
-      setPhoneMessage('Hãy nhập số điện thoại');
-      return false;
-    }
-    if (email == '') {
-      setEmailMessage('Hãy nhập email');
-      return false;
-    }
-    if (password.length < 8) {
-      setPasswordMessage('Hãy nhập mật khẩu dài hơn 8 ký tự');
-      return false;
-    }
-    if (password != repassword) {
-      setRepasswordMessage('Nhập lại mật khẩu không khớp');
-      return false;
-    }
-
-    setPhoneMessage('');
-    setPasswordMessage('');
-    return true;
-  };
-
-  const handleRegisterStateOne = () => {
-    if (!validation()) {
-      return;
-    }
-
-    setIsStateOne(false);
-  };
-
-  const handleBackState = () => {
-    setIsStateOne(true);
-  };
-
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!validation()) {
-      return;
-    }
-
+  /**
+   * Xử lý đăng ký bằng form thông thường
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleRegister = async (values: any) => {
+    setLoading(true);
     try {
-      const res = await authApi.register(name, phone, email, password, role);
-      console.log(res);
-      navigate('/login');
-    } catch (err: unknown) {
-      if (axios.isAxiosError(err)) {
-        toast.error(err.response?.data?.message || 'Đăng ký không thành công');
-      } else {
-        toast.error('Lỗi không xác định');
-      }
+      const res = await authApi.register(values.name, values.phone, values.email, values.password);
+      const { token, user } = res.data.data;
+
+      handleAuthSuccess(token, user, 'Đăng ký thành công!');
+    } catch (error) {
+      console.log(error);
+      toast.error('Đăng ký thất bại. Số điện thoại hoặc email có thể đã tồn tại.');
+    } finally {
+      setLoading(false);
     }
   };
+
+  /**
+   * Xử lý khi nhấn nút Google Login
+   */
+  const handleGoogleLogin = async (idToken: string) => {
+    setGoogleLoading(true);
+    try {
+      const res = await authApi.googleCheck(idToken);
+      const responseData = res.data.data;
+
+      // Case 1: Người dùng đã tồn tại -> Đăng nhập thành công
+      if (responseData.token && responseData.user) {
+        const { token, user } = responseData;
+        handleAuthSuccess(token, user, 'Đăng nhập Google thành công');
+      }
+      // Case 2: Người dùng mới -> Mở popup yêu cầu SĐT
+      else if (responseData.status === 'new_user') {
+        toast.info('Tài khoản chưa tồn tại, vui lòng nhập SĐT để hoàn tất đăng ký.');
+        setTempIdToken(idToken); // Lưu lại idToken để gửi cùng SĐT
+        setShowPhonePopup(true);
+      }
+      // Case 3: Lỗi không mong muốn
+      else {
+        throw new Error('Phản hồi API không hợp lệ');
+      }
+    } catch {
+      const message = 'Đăng nhập Google thất bại.';
+      toast.error(message);
+    } finally {
+      setGoogleLoading(false);
+    }
+  };
+
+  /**
+   * Xử lý khi người dùng nhập SĐT trong popup và nhấn "Hoàn tất"
+   */
+  const handleCompleteGoogleRegistration = async (values: { phone: string }) => {
+    if (!tempIdToken) {
+      toast.error('Lỗi: Không tìm thấy token Google. Vui lòng thử lại.');
+      return;
+    }
+
+    setCompleteLoading(true);
+    try {
+      const res = await authApi.googleRegisterComplete(tempIdToken, values.phone);
+      const { token, user } = res.data.data;
+
+      handleAuthSuccess(token, user, 'Đăng ký và đăng nhập thành công!');
+      setShowPhonePopup(false);
+      setTempIdToken(null);
+    } catch {
+      const message = 'Hoàn tất đăng ký thất bại. SĐT có thể đã được sử dụng.';
+      toast.error(message);
+    } finally {
+      setCompleteLoading(false);
+    }
+  };
+
+  // Khởi tạo socket khi đã xác thực
+  useEffect(() => {
+    if (auth.isAuthenticated && auth.token) {
+      initSocket(auth.token);
+    }
+  }, [auth]);
+
+  // Lắng nghe các sự kiện socket
+  useSocketListener();
 
   return {
-    isStateOne,
-    handleRegisterStateOne,
-    handleBackState,
-    name,
-    setName,
-    nameMessage,
-    phone,
-    setPhone,
-    phoneMessage,
-    email,
-    setEmail,
-    emailMessage,
-    password,
-    setPassword,
-    passwordMessage,
-    isShowPassword,
-    repassword,
-    toggleShowPassword,
-    setRepassword,
-    repasswordMessage,
-    isShowRepassword,
-    toggleShowRepassword,
-    role,
-    toggleUser,
-    toggleShipper,
+    loading,
+    googleLoading,
+    completeLoading,
+    showPhonePopup,
+    setShowPhonePopup,
     handleRegister,
+    handleGoogleLogin,
+    handleCompleteGoogleRegistration,
   };
 };

@@ -1,3 +1,4 @@
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 
@@ -15,9 +16,11 @@ function App() {
   useSocketListener();
 
   return (
-    <ThemeProvider>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <GoogleOAuthProvider clientId="1007200303137-g9lv9khro354fulr4ssoio3p8c8f31rl.apps.googleusercontent.com">
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </GoogleOAuthProvider>
   );
 }
 
