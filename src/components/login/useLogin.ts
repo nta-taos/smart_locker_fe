@@ -12,42 +12,13 @@ import { AuthType } from '@/types/auth.type';
 export const useLogin = () => {
   const [auth, setAuth] = useRecoilState(authState);
   const navigation = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  const [phone, setPhone] = useState('');
-  const [phoneMessage, setPhoneMessage] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordMessage, setPasswordMessage] = useState('');
-  const [isShowPassword, setIsShowPassword] = useState(false);
-
-  const toggleShowPassword = () => {
-    setIsShowPassword((prev) => !prev);
-  };
-
-  const validation = () => {
-    if (phone == '') {
-      setPhoneMessage('Hãy nhập số điện thoại');
-      return false;
-    }
-
-    if (password == '') {
-      setPasswordMessage('Hãy nhập mật khẩu');
-      return false;
-    }
-
-    setPhoneMessage('');
-    setPasswordMessage('');
-    return true;
-  };
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!validation()) {
-      return;
-    }
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleLogin = async (values: any) => {
+    setLoading(true);
     try {
-      const res = await authApi.login(phone, password);
+      const res = await authApi.login(values.phone, values.password);
       const { token, user } = res.data.data;
 
       const newAuth: AuthType = {
@@ -64,6 +35,8 @@ export const useLogin = () => {
     } catch (error) {
       console.log(error);
       toast.error('Sai tài khoản hoặc mật khẩu.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -75,14 +48,7 @@ export const useLogin = () => {
   useSocketListener();
 
   return {
-    phone,
-    setPhone,
-    phoneMessage,
-    password,
-    setPassword,
-    passwordMessage,
-    isShowPassword,
-    toggleShowPassword,
+    loading,
     handleLogin,
   };
 };

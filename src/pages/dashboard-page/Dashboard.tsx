@@ -19,7 +19,7 @@ import styles from './Dashboard.module.scss';
 import { useDashboard } from './useDashboard';
 
 const DashboardPage: React.FC = () => {
-  const { isBalanceVisible, toggleBalanceVisibility, userRole } = useDashboard();
+  const { auth, isBalanceVisible, toggleBalanceVisibility, userRole } = useDashboard();
   return (
     <Layout className={styles.dashboard}>
       <Row justify="center" gutter={[20, 20]} style={{ paddingTop: '1rem' }}>
@@ -75,7 +75,11 @@ const DashboardPage: React.FC = () => {
                   width: '100%',
                 }}
               >
-                {isBalanceVisible ? '100.000.000 VND' : '********'}{' '}
+                {isBalanceVisible ? (
+                  <text style={{ color: '#52c41a' }}>{`${auth.user?.wallet.balance} VND`}</text>
+                ) : (
+                  '********'
+                )}{' '}
                 {isBalanceVisible ? <EyeOutlined /> : <EyeInvisibleOutlined />}
               </div>
             </Space>
