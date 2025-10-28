@@ -17,5 +17,7 @@ export const ENDPOINTS = {
     login: '/auth/login',
     logout: '/auth/logout',
     register: '/auth/register',
+    googleCheck: '/auth/google-check',
+    googleRegisterComplete: '/auth/google-register-complete',
   },
 };

@@ -1,318 +1,64 @@
 @use '../../styles/abstracts' as *;
 
-.loginContainer {
-  height: 100vh;
-  flex-grow: 1;
+.loginWrapper {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 3rem 7%;
+  background: linear-gradient(145deg, #f0f5ff, #e6f4ff);
+  padding: 1rem;
   min-width: 40%;
-  background-color: $bg-white;
-  min-height: 100vh;
-
-  a {
-    color: $text-link;
-    text-decoration: none;
-  }
-
-  h1 {
-    margin: 0;
-  }
-
-  span {
-    font-weight: 500;
-    font-size: 13px;
-  }
-
-  p {
-    margin: 7px 0;
-  }
-
-  @include mq(sm) {
-    padding: 5rem 9rem;
-  }
-
-  @include mq(lg) {
-    padding: 0 7%;
-    height: auto;
-  }
 }
 
-.inputContainer {
+.loginCard {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem 1.5rem;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 4px;
-
-  label {
-    font-size: 16px;
-    font-weight: 500;
-  }
-}
-
-.phoneInput {
-  min-height: 2.2rem;
-  border: 2px solid #5b5b5b;
-  border-radius: 7px;
-  padding: 0 0.7rem;
-}
-
-.inputMessage {
-  color: $text-error;
-  text-align: right;
-  font-weight: 600;
-  margin: 0;
-}
-
-.passwordInput {
-  min-height: 2.2rem;
-  height: auto;
-  border: 2px solid #5b5b5b;
-  border-radius: 7px;
-
-  display: flex;
-  gap: 10px;
-  justify-content: space-between;
-  background-color: $bg-white;
-  padding: 0 0.7rem;
-
-  input {
-    border: none;
-    flex-grow: 1;
-    border-radius: 7px;
-  }
-
-  input:focus {
-    outline: none;
-    border: none;
-    box-shadow: none;
-  }
-
-  button {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-  }
-}
-
-.rememberContainer {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.loginButton {
-  margin-top: 1rem;
-  width: 100%;
-  min-height: 2.5rem;
-  background-color: $bg-primary;
-  border-radius: 7px;
-  cursor: pointer;
-
-  color: $text-inverse;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.loginWithGoogleButton {
-  width: 100%;
-  // height: 3rem;
-  min-height: 40px;
-  background-color: $bg-white;
-  border: 2px solid $border-secondary;
-  border-radius: 7px;
-  cursor: pointer;
-
-  font-size: 14px;
-  font-weight: 500;
-
-  &:hover {
-    border-color: $hover-border;
-  }
-}
-
-.circleContainer {
-  display: none;
-
-  @include mq(lg) {
-    display: block;
-  }
-}
-
-.circle {
-  position: absolute;
-  width: 80px;
-  height: 80px;
-  bottom: 0;
-  left: 0;
-  background: #000;
-  border-radius: 0 100% 0 0;
-  z-index: 4;
-}
-
-.border1 {
-  position: absolute;
-  width: 85px;
-  height: 85px;
-  bottom: 0;
-  left: 0;
-  background: transparent;
-  border: 2px solid black;
-  border-radius: 0 100% 0 0;
-  z-index: 3;
-}
-
-.border2 {
-  position: absolute;
-  width: 95px;
-  height: 95px;
-  bottom: 0;
-  left: 0;
-  background: transparent;
-  border: 1px solid black;
-  border-radius: 0 100% 0 0;
-  z-index: 2;
-}
-
-.border3 {
-  position: absolute;
-  width: 105px;
-  height: 105px;
-  bottom: 0;
-  left: 0;
-  background: transparent;
-  border: 1px solid black;
-  border-radius: 0 100% 0 0;
-  z-index: 1;
-}
-
-.alertContainer {
-  position: absolute;
-  top: 70px;
-  left: 10px;
-}
-
-.roleSelectContainer {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  background-color: rgba(129, 129, 129, 0.559);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.roleSelectBody {
-  width: 70%;
-  padding: 2rem;
+  max-width: 480px;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  background-color: $bg-light;
-  border-radius: 10px;
-  text-align: center;
-  font-size: clamp(0.5rem, 3vw, 1rem);
-
-  @include mq(md) {
-    width: 30%;
-    padding: 4rem 7rem;
-  }
-}
-
-.backButton {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-
-  svg {
-    font-size: 20px;
-  }
-}
-
-.selectButtonContainer {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  width: 100%;
-
-  button {
-    width: 100%;
-    margin: 1rem 0;
-    border: 3px solid $border-secondary;
-    border-radius: 10px;
-    background-color: $bg-white;
-    cursor: pointer;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-
-    padding: 1rem 2rem;
-
-    &:hover {
-      border-color: $hover-border;
-      background-color: $hover-gray-button;
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 16px;
-    }
-  }
+  overflow: hidden;
+  transition: all 0.3s ease;
+  margin-top: 40px;
+  margin-bottom: 1rem;
 
   @include mq(lg) {
-    flex-direction: row;
-
-    button {
-      margin: 0 1rem;
-    }
+    padding: 1.5rem 2.5rem;
   }
 }
 
-.active {
-  border-color: $bg-primary !important;
+.registerTitle {
+  text-align: center;
+  color: #1677ff;
+  margin-bottom: 0.5rem;
 }
 
-.hidden {
-  visibility: hidden !important;
+.registerSubtitle {
+  display: block;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 15px;
+  color: #555;
 }
 
-.dropdown {
-  width: 85%;
-  min-height: 2.2rem;
-  height: auto;
-  border: 2px solid #5b5b5b;
-  border-radius: 7px;
-  cursor: pointer;
-
-  display: flex;
-  gap: 10px;
-  justify-content: space-between;
-  background-color: $bg-white;
-  padding: 0 0.7rem;
-
-  option {
-    border: 2px solid #5b5b5b;
-  }
+.submitWrapper {
+  padding-top: 1rem;
 }
 
 .submitButton {
-  width: 80%;
-  padding: 15px;
+  border-radius: 8px;
+  height: 48px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.googleButtonWrapper {
+  margin-bottom: 1.5rem;
+  height: 48px;
+}
+
+.registerText {
+  text-align: center;
+  margin-top: 1rem;
+  color: #1d1d1f;
 }
