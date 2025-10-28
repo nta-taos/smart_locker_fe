@@ -5,11 +5,11 @@
   position: relative;
   background-color: #002a7979;
   width: 100%;
-  display: flex;
   justify-content: center;
+  display: none;
 
   @include mq(lg) {
-    width: 60%;
+    display: flex;
     overflow: hidden;
   }
 }

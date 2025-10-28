@@ -1,155 +1,79 @@
 @use '../../styles/abstracts' as *;
 
-.loginContainer {
-  height: 100vh;
-  flex-grow: 1;
+.loginWrapper {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 3rem 7%;
-  // gap: 10px;
-  background-color: $bg-white;
-
-  a {
-    color: $text-link;
-    text-decoration: none;
-  }
-
-  h1 {
-    margin: 2rem;
-  }
-
-  span {
-    font-weight: 500;
-    margin: 0.5rem;
-  }
-
-  @include mq(sm) {
-    padding: 5rem 9rem;
-  }
+  background: linear-gradient(145deg, #f0f5ff, #e6f4ff);
+  padding: 1rem;
+  min-height: 100vh;
+  min-width: 40%;
 
   @include mq(lg) {
-    padding: 5rem 7%;
-    height: auto;
+    min-height: 0;
   }
 }
 
-.inputContainer {
+.loginCard {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 3rem 2.5rem;
+  max-width: 420px;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 6px;
-
-  label {
-    font-size: 16px;
-    font-weight: 500;
-  }
+  position: relative;
+  overflow: hidden;
 }
 
-.phoneInput {
-  height: 2.5rem;
-  border: 2px solid #5b5b5b;
-  border-radius: 7px;
-  padding: 0 0.7rem;
+.loginTitle {
+  text-align: center;
+  margin-bottom: 0.25rem !important;
+  color: #1d1d1f;
 }
 
-.inputMessage {
-  color: $text-error;
-  text-align: right;
-  font-weight: 600;
-  margin: 0;
+.subText {
+  display: block;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
-.passwordInput {
-  height: 2.5rem;
-  border: 2px solid #5b5b5b;
-  border-radius: 7px;
-
-  display: flex;
-  gap: 10px;
-  justify-content: space-between;
-  background-color: $bg-white;
-  padding: 0 0.7rem;
-
-  input {
-    border: none;
-    flex-grow: 1;
-    border-radius: 7px;
-  }
-
-  input:focus {
-    outline: none;
-    border: none;
-    box-shadow: none;
-  }
-
-  button {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-  }
+.loginForm {
+  margin-top: 1rem;
 }
 
 .rememberContainer {
-  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 1.5rem;
 }
 
-.circleContainer {
-  display: none;
+.loginButton {
+  font-weight: 500;
+  border-radius: 8px;
+  height: 45px;
+}
 
-  @include mq(lg) {
-    display: block;
+.googleButton {
+  font-weight: 500;
+  border-radius: 8px;
+  height: 45px;
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+
+  &:hover {
+    border-color: #1890ff;
+    color: #1890ff;
   }
 }
 
-.circle {
-  position: absolute;
-  width: 80px;
-  height: 80px;
-  bottom: 0;
-  left: 0;
-  background: #000;
-  border-radius: 0 100% 0 0;
-  z-index: 4;
-}
+.registerText {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 14px;
 
-.border1 {
-  position: absolute;
-  width: 85px;
-  height: 85px;
-  bottom: 0;
-  left: 0;
-  background: transparent;
-  border: 2px solid black;
-  border-radius: 0 100% 0 0;
-  z-index: 3;
-}
-
-.border2 {
-  position: absolute;
-  width: 95px;
-  height: 95px;
-  bottom: 0;
-  left: 0;
-  background: transparent;
-  border: 1px solid black;
-  border-radius: 0 100% 0 0;
-  z-index: 2;
-}
-
-.border3 {
-  position: absolute;
-  width: 105px;
-  height: 105px;
-  bottom: 0;
-  left: 0;
-  background: transparent;
-  border: 1px solid black;
-  border-radius: 0 100% 0 0;
-  z-index: 1;
+  a {
+    margin-left: 4px;
+    font-weight: 500;
+  }
 }
