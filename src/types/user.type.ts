@@ -5,5 +5,11 @@ export type UserType = {
   id: number;
   name: string;
   role: number;
+  wallet: {
+    id: number;
+    balance: string;
+    updated_at: string;
+  };
+  updated_at: string;
   token: string;
 };
