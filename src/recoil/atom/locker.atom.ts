@@ -11,6 +11,7 @@ export const lockerAtom = atomFamily<LockerType, number>({
     code: '',
     status: 0,
     slots: [],
+    floor: null,
   }),
 });
 

@@ -76,7 +76,9 @@ const DashboardPage: React.FC = () => {
                 }}
               >
                 {isBalanceVisible ? (
-                  <text style={{ color: '#52c41a' }}>{`${auth.user?.wallet.balance} VND`}</text>
+                  <text
+                    style={{ color: '#52c41a' }}
+                  >{`${Number(auth.user?.wallet.balance).toLocaleString('vi-VN')} VND`}</text>
                 ) : (
                   '********'
                 )}{' '}
