@@ -14,4 +14,12 @@ export type OrderItemType = {
   start_time: string;
 };
 
+export type SendPackagePayload = {
+  lockerId: number;
+  receiveDateTime: string;
+  orderCode: string;
+  receiverPhoneNumber: string;
+  size: number;
+};
+
 export type OrderListResponType = PaginationType<OrderItemType>;

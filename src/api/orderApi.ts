@@ -1,3 +1,5 @@
+import { SendPackagePayload } from '@/types/order.type';
+
 import axiosInstance from './axios/config';
 import { ENDPOINTS } from './axios/endpoints';
 
@@ -29,5 +31,8 @@ export const orderApi = {
       lockerSlotId,
       order_code,
     });
+  },
+  postSendPackageOrder: async (data: SendPackagePayload) => {
+    return axiosInstance.post(ENDPOINTS.post.sendPackage, data);
   },
 };

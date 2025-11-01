@@ -28,12 +28,12 @@ export const Chart: React.FC<ChartProps> = ({ className = '' }) => {
         <Legend />
         <Line
           type="monotone"
-          name="Đơn giao"
+          name="Gửi hàng"
           dataKey="shipperOrders"
           stroke="#8884d8"
           activeDot={{ r: 8 }}
         />
-        <Line type="monotone" name="Đơn đặt" dataKey="userOrders" stroke="#82ca9d" />
+        <Line type="monotone" name="Thuê Tủ" dataKey="userOrders" stroke="#82ca9d" />
       </LineChart>
     </ResponsiveContainer>
   );

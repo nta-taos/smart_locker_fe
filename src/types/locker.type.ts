@@ -5,6 +5,7 @@ export type LockerType = {
   code: string;
   status: number;
   slots: number[];
+  floor: number | null;
 };
 
 export type LockerResponeType = {
@@ -12,4 +13,5 @@ export type LockerResponeType = {
   code: string;
   status: number;
   slots: SlotType[];
+  floor: number | null;
 };
