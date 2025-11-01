@@ -9,6 +9,7 @@ export const ENDPOINTS = {
     order: '/order/create',
     orderUser: '/orders/user',
     orderShipper: '/orders/shipper',
+    sendPackage: 'orders/send',
     discount: '/checkdiscount',
     message: '/message',
     sendmessage: '/sendmessage',

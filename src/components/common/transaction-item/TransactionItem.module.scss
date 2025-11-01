@@ -5,37 +5,50 @@
   justify-content: space-between;
   padding: 10px;
   border-bottom: 1px solid $border-tertiary;
-
-  h1 {
-    font-size: clamp(11px, 2.5vw, 16px);
-    font-weight: 600;
-    margin: 0;
-    white-space: nowrap;
-  }
-
-  p {
-    font-size: clamp(8px, 2vw, 13px);
-    margin: 0;
-    white-space: nowrap;
-  }
+  gap: 10px;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .left {
   display: flex;
   gap: 10px;
-  width: 70%;
+  flex: 1;
+  min-width: 0;
 
   svg {
     margin-top: 10px;
+    flex-shrink: 0;
   }
 
-  h1 {
-    color: $text-default;
+  .content {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
     margin: 0.3rem 0;
   }
 
+  h1 {
+    font-size: clamp(11px, 2.5vw, 16px);
+    font-weight: 600;
+    margin: 0;
+    color: $text-default;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   p {
+    font-size: clamp(8px, 2vw, 13px);
+    margin: 0;
     color: $text-weak;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -44,13 +57,25 @@
   flex-direction: column;
   align-items: end;
   gap: 10px;
-  font-size: clamp(14px, 2.5vw, 16px);
+  flex-shrink: 0;
 
   svg {
     margin-top: 5px;
   }
 
+  h1,
   p {
+    white-space: nowrap;
+    margin: 0;
+  }
+
+  h1 {
+    font-size: clamp(14px, 2.5vw, 16px);
+    font-weight: 600;
+  }
+
+  p {
+    font-size: clamp(8px, 2vw, 13px);
     color: $text-link;
     font-weight: 600;
   }

@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { TransactionItemType } from '@/types/transaction.type';
 import { formatCurrency } from '@/utils/format-currentcy';
 import { formatDateTime } from '@/utils/format-datetime';
@@ -11,7 +13,8 @@ interface TransactionItemProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const TransactionItem: React.FC<TransactionItemProps> = ({ data, className = '', ...props }) => {
-  const variant = data.type == 1 ? 'add' : 'minus';
+  const isCredit = data.type === 1;
+  const variant = isCredit ? 'add' : 'minus';
   const classes = [styles.container, styles[variant], className].filter(Boolean).join(' ');
 
   const amount = formatCurrency(data.amount);
@@ -19,16 +22,14 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ data, className = '',
   return (
     <div className={classes} {...props}>
       <div className={styles.left}>
-        <div>
-          <WalletSvg />
-        </div>
-        <div>
-          <h1>{variant == 'add' ? 'Nạp tiền vào ví' : 'Thanh toán'}</h1>
+        <WalletSvg />
+        <div className={styles.content}>
+          <h1>{isCredit ? 'Nạp tiền vào ví' : 'Thanh toán'}</h1>
           <p>{data.description}</p>
         </div>
       </div>
       <div className={styles.right}>
-        <h1 className={variant}>{`${variant == 'add' ? '+ ' : '- '} ${amount} VND`}</h1>
+        <h1 className={styles[variant]}>{isCredit ? `+ ${amount} VND` : `- ${amount} VND`}</h1>
         <p>{datetime}</p>
       </div>
     </div>

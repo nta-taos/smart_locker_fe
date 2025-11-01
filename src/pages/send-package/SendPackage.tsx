@@ -1,4 +1,3 @@
-import { useCallback, useEffect, useState } from 'react';
 import {
   FaArrowLeft,
   FaBox,
@@ -8,14 +7,12 @@ import {
   FaLock,
   FaPaperPlane,
   FaPhoneAlt,
-  FaPlus,
   FaWallet,
 } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import {
   Button,
@@ -33,50 +30,17 @@ import {
 } from 'antd';
 import dayjs from 'dayjs';
 
-import { buildingApi } from '@/api/buildingApi';
-import { authState } from '@/recoil/atom/authAtom';
-import {
-  buildingAtom,
-  buildingIdsAtom,
-  slotCountBySizeSelector,
-} from '@/recoil/atom/building.atom';
+import { sizeOptions } from '@/constants/sizeOptions';
 import { lockerAtom } from '@/recoil/atom/locker.atom';
 import { slotAtom } from '@/recoil/atom/slot.atom';
-import { BuildingResponeType } from '@/types/building.type';
 
 import styles from './SendPackage.module.scss';
 import CustomSteps from './Steps';
+import { useSendPackage } from './useSendPackage';
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
 const { useBreakpoint } = Grid;
-
-const sizeOptions = [
-  {
-    id: 0,
-    name: 'Nhỏ',
-    price: 400,
-    priceText: '400đ',
-    dimensions: '30×30×30cm',
-    description: 'Phù hợp cho túi xách, hộp nhỏ',
-  },
-  {
-    id: 1,
-    name: 'Trung bình',
-    price: 600,
-    priceText: '600đ',
-    dimensions: '40×40×40cm',
-    description: 'Phù hợp cho ba lô, hộp vừa',
-  },
-  {
-    id: 2,
-    name: 'Lớn',
-    price: 800,
-    priceText: '800đ',
-    dimensions: '50×50×50cm',
-    description: 'Phù hợp cho vali, hộp lớn',
-  },
-];
 
 const paymentMethods = [{ id: 'zipbox', name: 'Ví ZipBox', icon: '📦' }];
 
@@ -88,180 +52,77 @@ export default function SendPage() {
   const { buildingId } = useParams<{ buildingId: string }>();
   const currentBuildingId = Number(buildingId) || 1;
 
-  const [buildingIds] = useRecoilState(buildingIdsAtom);
-
-  const populateRecoilState = useRecoilCallback(
-    ({ set }) =>
-      (buildings: BuildingResponeType[]) => {
-        const allBuildingIds: number[] = [];
-        if (!buildings || buildings.length === 0) return;
-
-        buildings.forEach((bd) => {
-          allBuildingIds.push(bd.id);
-          const lockerIds: number[] = [];
-
-          bd.lockers.forEach((lk) => {
-            lockerIds.push(lk.id);
-            const slotIds: number[] = [];
-
-            lk.slots.forEach((sl) => {
-              slotIds.push(sl.id);
-              set(slotAtom(sl.id), sl);
-            });
-
-            set(lockerAtom(lk.id), {
-              ...lk,
-              slots: slotIds,
-            });
-          });
-
-          set(buildingAtom(bd.id), {
-            ...bd,
-            lockers: lockerIds,
-          });
-        });
-
-        set(buildingIdsAtom, allBuildingIds);
-      },
-    [],
-  );
-
-  const getBuildings = useCallback(async () => {
-    try {
-      const res = await buildingApi.getBuildings();
-      const result: BuildingResponeType[] = res.data.data;
-      populateRecoilState(result);
-    } catch (error) {
-      console.log(error);
-      toast.error('Lỗi khi tải dữ liệu toà nhà.');
-    }
-  }, [populateRecoilState]);
-
-  useEffect(() => {
-    if (buildingIds.length === 0) {
-      getBuildings();
-    }
-  }, [buildingIds.length, getBuildings]);
-
-  const [step, setStep] = useState(0);
-  const [selectedSize, setSelectedSize] = useState<number>(1);
-  const [selectedSlot, setSelectedSlot] = useState<{ id: number; code: string } | null>(null);
-  const [duration, setDuration] = useState(1);
-  const auth = useRecoilValue(authState);
-  const [walletBalance] = useState(Number(auth.user?.wallet.balance));
-
-  const availableSizesCount = useRecoilValue(slotCountBySizeSelector(currentBuildingId));
-  const currentBuilding = useRecoilValue(buildingAtom(currentBuildingId));
-
-  const selectedSizeData = sizeOptions.find((s) => s.id === selectedSize);
-  const rawTotal = (selectedSizeData?.price || 0) * duration;
-  const total = rawTotal;
-
-  const handleTopUp = () => {
-    toast.info('Đang chuyển đến cổng nạp tiền PayOS...');
-  };
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
-  };
-
-  const handleSubmit = () => {
-    toast.success(
-      `Đã thanh toán ${formatCurrency(total)} bằng Ví ZipBox cho tủ ${selectedSlot?.code}!`,
-      {
-        position: 'top-right',
-        autoClose: 5000,
-      },
-    );
-  };
-
-  const handleNextStep = async () => {
-    try {
-      const values = await form.validateFields();
-      if (step === 0 && selectedSlot) {
-        setStep(1);
-      } else if (
-        step === 1 &&
-        values.receiveDate &&
-        values.receiveTime &&
-        values.phoneNumber &&
-        values.orderCode
-      ) {
-        const { receiveDate, receiveTime } = values;
-        const combinedReceiveDateTime = receiveDate
-          .hour(receiveTime.hour())
-          .minute(receiveTime.minute())
-          .second(0);
-        const now = dayjs();
-        const diffInHoursFloat = combinedReceiveDateTime.diff(now, 'hour', true);
-        const finalDuration = diffInHoursFloat;
-
-        if (finalDuration < 1) {
-          toast.error('Thời gian nhận hàng phải tối thiểu sau 1 giờ kể từ hiện tại.', {
-            position: 'top-right',
-            autoClose: 3000,
-          });
-          return;
-        }
-
-        setDuration(finalDuration);
-        setStep(2);
-      } else {
-        toast.error('Vui lòng điền đủ thông tin bắt buộc và chọn tủ.', {
-          position: 'top-right',
-          autoClose: 3000,
-        });
-      }
-    } catch {
-      toast.error('Vui lòng điền đủ thông tin bắt buộc.', {
-        position: 'top-right',
-        autoClose: 3000,
-      });
-    }
-  };
+  const {
+    step,
+    setStep,
+    selectedSize,
+    setSelectedSize,
+    selectedLocker,
+    setselectedLocker,
+    duration,
+    total,
+    walletBalance,
+    availableSizesCount,
+    currentBuilding,
+    selectedSizeData,
+    handleTopUp,
+    handleNextStep,
+    handleFinalSubmit,
+    formatCurrency,
+  } = useSendPackage(currentBuildingId, form);
 
   const SlotItem = ({
     slotId,
     lockerCode,
     lockerFloor,
+    lockerId,
   }: {
     slotId: number;
+    lockerId: number;
     lockerCode: string;
     lockerFloor: string | null;
   }) => {
     const slot = useRecoilValue(slotAtom(slotId));
-
+    if (!slot) return null;
     if (slot.size !== selectedSize || slot.status !== 0) {
       return null;
     }
 
-    const slotCode = `${lockerCode}`;
+    const slotCode = `${lockerCode}-${slotId}`;
 
     return (
-      <Col xs={8} sm={6} md={4} key={slot.id}>
+      <Col xs={8} sm={6} md={4} key={slotId}>
         <div
           className={`${styles.lockerBox} ${
-            selectedSlot?.id === slot.id ? styles.lockerBoxSelected : styles.lockerBoxDefault
+            selectedLocker?.lockerId === lockerId && selectedLocker?.size === slot.size
+              ? styles.lockerBoxSelected
+              : styles.lockerBoxDefault
           }`}
-          onClick={() => setSelectedSlot({ id: slot.id, code: slotCode })}
+          onClick={() => setselectedLocker({ size: slot.size, lockerId: lockerId, code: slotCode })}
+          role="button"
+          tabIndex={0}
+          onKeyDown={() => {}}
         >
-          <Text className={styles.lockerId}>{slotCode}</Text> <br />
+          <Text className={styles.lockerId}>{slotCode}</Text>
+          <br />
           {lockerFloor && <Text className={styles.lockerFloor}>Tầng {lockerFloor}</Text>}
         </div>
       </Col>
     );
   };
 
+  // LockerGroup component
   const LockerGroup = ({ lockerId }: { lockerId: number }) => {
     const locker = useRecoilValue(lockerAtom(lockerId));
     if (!locker || !locker.slots) return null;
 
     return (
       <>
-        {locker.slots.map((slotId) => (
+        {locker.slots.map((slotId: number) => (
           <SlotItem
-            key={slotId}
+            key={`${lockerId}-${slotId}`}
             slotId={slotId}
+            lockerId={lockerId}
             lockerCode={locker.code}
             lockerFloor={locker.floor !== null ? String(locker.floor) : null}
           />
@@ -284,14 +145,14 @@ export default function SendPage() {
         <Radio.Group
           onChange={(e) => {
             setSelectedSize(e.target.value);
-            setSelectedSlot(null);
+            setselectedLocker(null);
           }}
           value={selectedSize}
           className={styles.fullWidthGroup}
         >
           <div className={styles.sizeOptionsContainer}>
             {sizeOptions.map((size) => {
-              const count = availableSizesCount[size.id] || 0;
+              const count = availableSizesCount?.[size.id] || 0;
               const isAvailable = count > 0;
 
               return (
@@ -337,15 +198,15 @@ export default function SendPage() {
               <FaLock size={screens.sm ? 20 : 16} className={styles.sectionIcon} /> Chọn tủ cụ thể
             </Title>
             <span className={styles.availableLockerTag}>
-              {availableSizesCount[selectedSize] || 0} tủ khả dụng
+              {availableSizesCount?.[selectedSize] || 0} tủ khả dụng
             </span>
           </div>
         }
         className={styles.antdCard}
       >
-        {(availableSizesCount[selectedSize] || 0) > 0 ? (
+        {(availableSizesCount?.[selectedSize] || 0) > 0 ? (
           <Row gutter={[12, 12]} className={styles.lockerGrid}>
-            {currentBuilding.lockers.map((lockerId) => (
+            {currentBuilding?.lockers?.map((lockerId: number) => (
               <LockerGroup key={lockerId} lockerId={lockerId} />
             ))}
           </Row>
@@ -490,7 +351,7 @@ export default function SendPage() {
               <Text type="secondary">Tủ:</Text>
             </Col>
             <Col span={12} style={{ textAlign: 'right' }}>
-              <Text strong>{selectedSlot?.code}</Text>
+              <Text strong>{selectedLocker?.code}</Text>
             </Col>
           </Row>
           <Row className={styles.summaryRow}>
@@ -584,11 +445,7 @@ export default function SendPage() {
                     </div>
                   </div>
                 </div>
-                <Button
-                  icon={<FaPlus className={styles.topUpIcon} />}
-                  onClick={handleTopUp}
-                  size="middle"
-                >
+                <Button onClick={handleTopUp} size="middle">
                   Nạp tiền
                 </Button>
               </div>
@@ -599,9 +456,8 @@ export default function SendPage() {
     </div>
   );
 
-  // --- Main Render (Giữ nguyên) ---
-
-  if (!currentBuilding.id && buildingIds.length > 0) {
+  // --- Main Render checks ---
+  if (!currentBuilding?.id) {
     return (
       <Layout className={styles.antdLayout}>
         <Header className={styles.antdHeader}>
@@ -626,8 +482,7 @@ export default function SendPage() {
     );
   }
 
-  // Trạng thái đang tải
-  if (buildingIds.length === 0) {
+  if (!currentBuildingId) {
     return (
       <Layout className={styles.antdLayout}>
         <Header className={styles.antdHeader}>
@@ -678,7 +533,7 @@ export default function SendPage() {
                   type="secondary"
                   style={{ fontSize: '1rem', marginLeft: 10, fontWeight: 400 }}
                 >
-                  ({currentBuilding.name})
+                  ({currentBuilding?.name})
                 </Text>
               </Title>
             </div>
@@ -689,7 +544,13 @@ export default function SendPage() {
           <div className={styles.maxWidthWrapper}>
             <CustomSteps step={step} screens={{ sm: screens.sm }} />
 
-            <Form form={form} layout="vertical" className={styles.formContainer} initialValues={{}}>
+            <Form
+              form={form}
+              layout="vertical"
+              className={styles.formContainer}
+              preserve={true}
+              initialValues={{}}
+            >
               {step === 0 && Step0Content}
               {step === 1 && Step1Content}
               {step === 2 && Step2Content}
@@ -705,7 +566,7 @@ export default function SendPage() {
                 size="large"
                 block
                 onClick={handleNextStep}
-                disabled={!selectedSlot}
+                disabled={!selectedLocker}
               >
                 Tiếp tục
               </Button>
@@ -748,9 +609,9 @@ export default function SendPage() {
                     type="primary"
                     size="large"
                     block
-                    onClick={handleSubmit}
+                    onClick={handleFinalSubmit}
                     icon={<FaCreditCard size={screens.sm ? 20 : 16} />}
-                    disabled={walletBalance < total}
+                    disabled={walletBalance < total || !selectedLocker}
                   >
                     {walletBalance < total ? 'Số dư không đủ' : 'Thanh toán'}
                   </Button>
@@ -760,6 +621,7 @@ export default function SendPage() {
           </div>
         </div>
       </Layout>
+
       <ToastContainer
         position="top-right"
         autoClose={3000}
