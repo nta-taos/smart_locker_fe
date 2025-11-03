@@ -3,11 +3,11 @@ import { createBrowserRouter } from 'react-router-dom';
 import { AuthLayout } from '@/components/layout/auth-layout/AuthLayout';
 import Layout from '@/components/layout/layout/Layout';
 import MapView from '@/components/map/Map';
-import NotificationBell from '@/components/notification-bell/NotificationBell';
 import DashboardPage from '@/pages/dashboard-page/Dashboard';
 import LadingPage from '@/pages/lading-page/Lading';
 import LoginPage from '@/pages/login-page/Login';
 import { MapPage } from '@/pages/map-page/Map';
+import AntOrderDetails from '@/pages/order-detail/OrderDetail';
 import { OrdersPage } from '@/pages/orders-page/Orders';
 import PartnerPage from '@/pages/partner-page/Partner';
 import RegisterPage from '@/pages/register-page/Register';
@@ -54,23 +54,11 @@ export const router = createBrowserRouter([
     children: [{ index: true, element: <SendPage /> }],
   },
   {
-    path: '/test',
+    path: '/orders/:orderId',
     children: [
       {
         index: true,
-        element: (
-          <div
-            style={{
-              width: '100wh',
-              height: '100vh',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <NotificationBell />
-          </div>
-        ),
+        element: <AntOrderDetails />,
       },
     ],
   },
