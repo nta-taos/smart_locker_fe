@@ -4,6 +4,14 @@ export const ENDPOINTS = {
     orders: '/orders',
     orderStats: '/orders/stats/last-7-days',
     buildings: '/buildings',
+    notifications: '/notifications',
+  },
+  patch: {
+    notificationRead: (id: number | string) => `/notifications/${id}/read`,
+    notificationReadAll: '/notifications/read-all',
+  },
+  delete: {
+    notification: (id: number | string) => `/notifications/${id}`,
   },
   post: {
     order: '/order/create',

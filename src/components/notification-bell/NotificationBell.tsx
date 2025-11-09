@@ -1,7 +1,11 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { BellOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Avatar, Badge, Button, Drawer, Grid, List, Popover, Spin, Typography } from 'antd';
+
+import { notificationApi } from '@/api/notificationApi';
+import { getSocket } from '@/socket';
 
 const { Text } = Typography;
 const { useBreakpoint } = Grid;
@@ -11,6 +15,9 @@ interface NotificationItem {
   title: string;
   time: string;
   read: boolean;
+  type?: number;
+  data?: Record<string, unknown> | null;
+  orderId?: number | null;
 }
 
 const NotificationBell = () => {
@@ -22,42 +29,97 @@ const NotificationBell = () => {
 
   const screens = useBreakpoint();
   const unreadCount = notifications.filter((n) => !n.read).length;
+  const navigate = useNavigate();
 
-  // 🧩 Mock API giả lập gọi server với phân trang
-  const fetchNotifications = async (pageNumber: number) => {
-    if (loading || (totalPages && pageNumber > totalPages)) return;
-    setLoading(true);
-
-    try {
-      // ⏱ Giả lập độ trễ API 1 giây
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // 🔢 Cấu hình mock
-      const pageSize = 10;
-      const totalItems = 35; // tổng 35 thông báo
-      const totalPagesMock = Math.ceil(totalItems / pageSize);
-
-      // 🧠 Sinh dữ liệu giả cho mỗi trang
-      const data = Array.from({ length: pageSize }, (_, i) => {
-        const id = (pageNumber - 1) * pageSize + i + 1;
-        return {
-          id,
-          title: `Thông báo #${id} - Đơn hàng ${1000 + id}`,
-          time: `${Math.floor(Math.random() * 60)} phút trước`,
-          read: Math.random() > 0.5,
-        };
-      }).filter((item) => item.id <= totalItems);
-
-      // 📝 Cập nhật state
-      setNotifications((prev) => [...prev, ...data]);
-      setPage(pageNumber);
-      setTotalPages(totalPagesMock);
-    } catch (err) {
-      console.error('Lỗi khi tải mock data:', err);
-    } finally {
-      setLoading(false);
+  const getOrderId = (dataObj: Record<string, unknown> | null): number | null => {
+    if (!dataObj) return null;
+    const v = dataObj['orderId'] ?? dataObj['order_id'];
+    if (typeof v === 'number') return v;
+    if (typeof v === 'string' && /^[0-9]+$/.test(v)) return Number(v);
+    const order = dataObj['order'];
+    if (order && typeof order === 'object') {
+      const id = (order as Record<string, unknown>)['id'];
+      if (typeof id === 'number') return id;
+      if (typeof id === 'string' && /^[0-9]+$/.test(id)) return Number(id);
     }
+    return null;
   };
+
+  // Fetch notifications from backend with pagination
+  const fetchNotifications = useCallback(
+    async (pageNumber: number) => {
+      if (loading || (totalPages && pageNumber > totalPages)) return;
+      setLoading(true);
+
+      try {
+        const res = await notificationApi.getNotifications(pageNumber, 10);
+        // res.data.data is the pagination payload from backend
+        const payload = res.data.data;
+        type BackendNotification = {
+          id: number;
+          title?: string;
+          message?: string;
+          created_at?: string;
+          createdAt?: string;
+          isRead?: boolean;
+        };
+
+        const list = (payload.data || []).map((n: BackendNotification) => ({
+          id: n.id,
+          title: n.title || n.message || 'Thông báo',
+          time: n.created_at || n.createdAt || '',
+          read: !!n.isRead,
+        }));
+
+        setNotifications((prev) => (pageNumber === 1 ? list : [...prev, ...list]));
+        setPage(payload.page || pageNumber);
+        setTotalPages(payload.totalPages || 1);
+      } catch (err) {
+        console.error('Lỗi khi tải notifications:', err);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [loading, totalPages],
+  );
+
+  // Call API immediately on mount to load notifications
+  useEffect(() => {
+    fetchNotifications(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Listen for incoming notifications from socket and prepend to list
+  useEffect(() => {
+    const socket = getSocket();
+    if (!socket) return;
+
+    const handler = (payload: unknown) => {
+      try {
+        const n = payload as Record<string, unknown>;
+        const dataField = (n['data'] ?? null) as Record<string, unknown> | null;
+        const orderId = getOrderId(dataField);
+        const mapped = {
+          id: (n['id'] as number) || 0,
+          title: (n['title'] as string) || (n['message'] as string) || 'Thông báo',
+          time:
+            (n['created_at'] as string) || (n['createdAt'] as string) || new Date().toISOString(),
+          read: !!n['isRead'],
+          type: (n['type'] as number) || undefined,
+          data: dataField,
+          orderId,
+        };
+        setNotifications((prev) => [mapped, ...prev]);
+      } catch (e) {
+        console.error('Error handling incoming notification', e);
+      }
+    };
+
+    socket.on('notification:created', handler);
+    return () => {
+      socket.off('notification:created', handler);
+    };
+  }, []);
 
   // ✅ Gọi lần đầu khi mở Drawer hoặc Popover
   const handleOpen = () => {
@@ -66,7 +128,16 @@ const NotificationBell = () => {
 
   // ✅ Đánh dấu tất cả đã đọc
   const markAllAsRead = () => {
+    // optimistic update
     setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+    notificationApi
+      .markAllAsRead()
+      .then(() => {
+        // optionally refresh or handle response
+      })
+      .catch((err) => {
+        console.error('Lỗi markAllAsRead:', err);
+      });
   };
 
   // ✅ Khi cuộn gần cuối danh sách -> tải thêm trang mới
@@ -107,6 +178,23 @@ const NotificationBell = () => {
                 borderRadius: 4,
                 padding: '8px 12px',
                 cursor: 'pointer',
+              }}
+              onClick={async () => {
+                if (!item.read) {
+                  try {
+                    await notificationApi.markAsRead(item.id);
+                    setNotifications((prev) =>
+                      prev.map((p) => (p.id === item.id ? { ...p, read: true } : p)),
+                    );
+                  } catch (err) {
+                    console.error('Lỗi khi đánh dấu read:', err);
+                  }
+                }
+
+                if (item.orderId) {
+                  setOpenDrawer(false);
+                  navigate(`/orders/${item.orderId}`);
+                }
               }}
             >
               <List.Item.Meta

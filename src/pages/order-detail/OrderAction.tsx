@@ -1,26 +1,7 @@
-'use client';
-
 import { useState } from 'react';
 
-import {
-  CheckCircleOutlined,
-  PhoneOutlined,
-  UnlockOutlined,
-  UsergroupAddOutlined,
-} from '@ant-design/icons';
-import {
-  Alert,
-  Avatar,
-  Button,
-  Card,
-  Col,
-  Input,
-  Modal,
-  Row,
-  Space,
-  Typography,
-  message,
-} from 'antd';
+import { CheckCircleOutlined, PhoneOutlined, UsergroupAddOutlined } from '@ant-design/icons';
+import { Avatar, Button, Card, Col, Input, Modal, Row, Space, Typography, message } from 'antd';
 
 import { OrderItemType } from '@/types/order.type';
 
@@ -39,7 +20,6 @@ export function OrderActions({ order, isReceiving }: OrderActionsProps) {
 
   const handleReceive = () => setAction('receive');
   const handleAuthorize = () => setAction('authorize');
-  const handleOpenLocker = () => setAction('open-locker');
 
   const handleCancel = () => {
     if (isReceiving) return;
@@ -65,62 +45,43 @@ export function OrderActions({ order, isReceiving }: OrderActionsProps) {
           Chọn một trong các cách sau để nhận hàng từ tủ:
         </Text>
 
-        <Row gutter={[16, 16]}>
-          {/* Receive by phone */}
-          <Col xs={24} md={8}>
+        <Row gutter={[16, 16]} justify="center">
+          <Col xs={24} sm={12}>
             <Card
               hoverable
               onClick={isReceiving ? undefined : handleReceive}
-              style={{ opacity: isReceiving ? 0.5 : 1 }}
-            >
-              <Card.Meta
-                avatar={
-                  <Avatar
-                    style={{ backgroundColor: '#e6f7ff', color: '#1677ff' }}
-                    icon={<PhoneOutlined />}
-                  />
-                }
-                title="Nhận hàng"
-                description="Xác nhận với số điện thoại"
-              />
-            </Card>
-          </Col>
-
-          <Col xs={24} md={8}>
-            <Card
-              hoverable
-              onClick={isReceiving ? undefined : handleAuthorize}
-              style={{ opacity: isReceiving ? 0.5 : 1 }}
-            >
-              <Card.Meta
-                avatar={
-                  <Avatar
-                    style={{ backgroundColor: '#f6ffed', color: '#52c41a' }}
-                    icon={<UsergroupAddOutlined />}
-                  />
-                }
-                title="Ủy quyền nhận"
-                description="Cho người khác nhận hàng"
-              />
-            </Card>
-          </Col>
-
-          {/* Open locker */}
-          <Col xs={24} md={8}>
-            <Card
-              hoverable
-              onClick={isReceiving ? undefined : handleOpenLocker}
               style={{ opacity: isReceiving ? 0.5 : 1, height: '100%' }}
             >
               <Card.Meta
                 avatar={
                   <Avatar
-                    style={{ backgroundColor: '#f9f0ff', color: '#722ed1' }}
-                    icon={<UnlockOutlined />}
+                    size={48}
+                    style={{ backgroundColor: '#e6f7ff', color: '#1677ff' }}
+                    icon={<PhoneOutlined />}
                   />
                 }
-                title="Mở tủ"
-                description="Gửi mã mở tủ"
+                title={<Text strong>Nhận hàng</Text>}
+                description="Xác nhận với số điện thoại"
+              />
+            </Card>
+          </Col>
+
+          <Col xs={24} sm={12}>
+            <Card
+              hoverable
+              onClick={isReceiving ? undefined : handleAuthorize}
+              style={{ opacity: isReceiving ? 0.5 : 1, height: '100%' }}
+            >
+              <Card.Meta
+                avatar={
+                  <Avatar
+                    size={48}
+                    style={{ backgroundColor: '#f6ffed', color: '#52c41a' }}
+                    icon={<UsergroupAddOutlined />}
+                  />
+                }
+                title={<Text strong>Ủy quyền nhận</Text>}
+                description="Cho người khác nhận hàng"
               />
             </Card>
           </Col>
@@ -134,7 +95,7 @@ export function OrderActions({ order, isReceiving }: OrderActionsProps) {
         title={
           <Space>
             <CheckCircleOutlined style={{ color: '#1677ff' }} />
-            Nhận hàng
+            <span>Xác nhận nhận hàng</span>
           </Space>
         }
         open={action === 'receive'}
@@ -143,33 +104,13 @@ export function OrderActions({ order, isReceiving }: OrderActionsProps) {
           <Button key="cancel" onClick={handleCancel} disabled={isReceiving}>
             Hủy
           </Button>,
-          <Button
-            key="submit"
-            type="primary"
-            loading={isReceiving}
-            onClick={confirmAction}
-            disabled={!authCode}
-          >
-            {isReceiving ? 'Đang xử lý...' : 'Xác nhận'}
+          <Button key="confirm" type="primary" loading={isReceiving} onClick={confirmAction}>
+            {isReceiving ? 'Đang xử lý...' : 'Nhận hàng ngay'}
           </Button>,
         ]}
       >
         <Space direction="vertical" style={{ width: '100%' }}>
-          <Text type="secondary">Xác nhận nhận hàng bằng số điện thoại</Text>
-          <div>
-            <Text>Số điện thoại người nhận</Text>
-            <Input type="tel" value={order.receiver_phone} disabled style={{ marginTop: 8 }} />
-          </div>
-          <div>
-            <Text>Mã OTP</Text>
-            <Input
-              type="text"
-              placeholder="Nhập mã OTP gửi tới số điện thoại"
-              value={authCode}
-              onChange={(e) => setAuthCode(e.target.value)}
-              style={{ marginTop: 8 }}
-            />
-          </div>
+          <Text type="secondary">Bạn có chắc chắn muốn nhận hàng ngay bây giờ không?</Text>
         </Space>
       </Modal>
 
@@ -231,48 +172,6 @@ export function OrderActions({ order, isReceiving }: OrderActionsProps) {
               style={{ marginTop: 8 }}
             />
           </div>
-        </Space>
-      </Modal>
-
-      {/* Open Locker Modal */}
-      <Modal
-        title={
-          <Space>
-            <UnlockOutlined style={{ color: '#722ed1' }} />
-            Mở tủ
-          </Space>
-        }
-        open={action === 'open-locker'}
-        onCancel={handleCancel}
-        footer={[
-          <Button key="cancel" onClick={handleCancel} disabled={isReceiving}>
-            Hủy
-          </Button>,
-          <Button
-            key="submit"
-            type="primary"
-            style={{ backgroundColor: '#722ed1', borderColor: '#722ed1' }}
-            loading={isReceiving}
-            onClick={() => {
-              // SỬA LỖI: Xóa 'setAuthCode('pending');' không cần thiết
-              confirmAction();
-            }}
-          >
-            {isReceiving ? 'Đang gửi...' : 'Gửi mã'}
-          </Button>,
-        ]}
-      >
-        <Space direction="vertical" style={{ width: '100%' }}>
-          <Text type="secondary">Yêu cầu mã mở tủ được gửi tới số điện thoại</Text>
-          <div>
-            <Text>Số điện thoại</Text>
-            <Input type="tel" value={order.receiver_phone} disabled style={{ marginTop: 8 }} />
-          </div>
-          <Alert
-            type="info"
-            message="Mã sẽ được gửi tới số điện thoại"
-            description="Chúng tôi sẽ gửi mã OTP để mở tủ trong giây lát"
-          />
         </Space>
       </Modal>
     </>

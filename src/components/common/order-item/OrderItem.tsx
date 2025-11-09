@@ -79,14 +79,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({
         <Tag
           icon={statusInfo.icon}
           color={statusInfo.color}
-          style={{
-            borderRadius: '24px',
-            padding: '2px 8px',
-            fontSize: '14px',
-            width: '100%',
-            lineHeight: 'normal',
-            margin: 0,
-          }}
+          className={variant == 'detail' ? styles.statusTagsDetail : styles.statusTags}
         >
           {statusInfo.label}
         </Tag>
