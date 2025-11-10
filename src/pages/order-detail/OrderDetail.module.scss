@@ -1,0 +1,119 @@
+$color-primary: #2d3e50; // Màu xanh đen đậm - Navy Blue
+$color-secondary: #d97757; // Màu cam đất - Burnt Orange
+$color-background: #faf9f7; // Màu nền nhẹ - Off-White
+$color-border-light: #e8e6e1; // Màu viền nhẹ
+$color-text-dark: #1a1a1a; // Màu chữ đậm
+$color-text-medium: #6b6660; // Màu chữ trung bình
+$color-text-light: #8b8680; // Màu chữ nhạt
+$color-success: #52c41a;
+
+.container {
+  min-height: 100vh;
+  background-color: $color-background;
+}
+
+// ===== HEADER =====
+.antdHeader {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid $color-border-light;
+  backdrop-filter: blur(8px);
+  padding: 0 16px;
+  height: auto;
+  line-height: normal;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  .headerContent {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+
+    @media (min-width: 640px) {
+      padding: 12px 0;
+    }
+  }
+
+  .backButtonAntd {
+    height: 44px;
+    width: 44px;
+    color: $color-text-dark;
+
+    &:hover {
+      background-color: #f5f3ef !important;
+    }
+  }
+
+  .headerTitleGroup {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .headerIconWrapper {
+    padding: 8px;
+    background-color: rgba($color-secondary, 0.1);
+    border-radius: 12px;
+
+    .headerIcon {
+      color: $color-secondary;
+    }
+  }
+
+  .pageTitle {
+    margin: 0 !important;
+    font-size: 20px !important;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    color: $color-text-dark;
+
+    @media (min-width: 640px) {
+      font-size: 24px !important;
+    }
+  }
+}
+
+// ===== CONTENT =====
+.antdContent {
+  padding: 16px;
+  padding-bottom: 40px;
+
+  @media (min-width: 640px) {
+    padding: 24px 32px;
+  }
+}
+
+.maxWidthWrapper {
+  max-width: 800px;
+  margin: 0 auto;
+
+  @media (max-width: 576px) {
+    padding: 0 16px;
+  }
+}
+
+.actionCard {
+  border-color: #334155;
+  height: 100%;
+  transition: all 0.2s ease-in-out;
+
+  .ant-card-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 20px;
+  }
+
+  &:hover {
+    border-color: #2563eb !important;
+  }
+}
+
+.gradientLayout {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #020617, #0f172a, #1e293b);
+}

@@ -1,17 +1,35 @@
 import { PaginationType } from './pagination.type';
-import { UserType } from './user.type';
 
 export type OrderItemType = {
   id: number;
+  order_code: string;
+  receiver_phone: string;
+  status: number;
+  fee: number | string;
+  start_time: string;
+  end_time: string;
+  type: number;
+  payment_status: number;
+  sender: {
+    id: number;
+    phone: string;
+    name: string;
+    role: number;
+    avatar: string | null;
+  };
+  receiver: {
+    id: number;
+    phone: string;
+    name: string;
+    role: number;
+    avatar: string | null;
+  };
   lockerSlot: {
     id: number;
     size: number;
   };
-  order_code?: number;
-  receiver?: UserType;
-  receiver_phone: string;
-  sender: UserType;
-  start_time: string;
+  updated_at: string;
+  hours: number;
 };
 
 export type SendPackagePayload = {
@@ -19,6 +37,12 @@ export type SendPackagePayload = {
   receiveDateTime: string;
   orderCode: string;
   receiverPhoneNumber: string;
+  size: number;
+};
+
+export type RentalPayload = {
+  lockerId: number;
+  receiveDateTime: string;
   size: number;
 };
 

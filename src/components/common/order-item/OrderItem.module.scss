@@ -56,6 +56,24 @@
   justify-content: end;
   gap: 8px;
 
+  .statusTags {
+    border-radius: 24px;
+    padding: 2px 8px;
+    font-size: 14px;
+    width: 100%;
+    line-height: normal;
+    margin: 0;
+  }
+
+  .statusTagsDetail {
+    border-radius: 24px;
+    padding: 9px 20px;
+    font-size: 14px;
+    width: 100%;
+    line-height: normal;
+    margin: 0;
+  }
+
   @include mq(sm) {
     flex-direction: column;
     grid-column: none;

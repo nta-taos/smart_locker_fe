@@ -1,8 +1,8 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
-import { MenuFoldOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar } from 'antd';
+import { LogoutOutlined, MenuFoldOutlined, ProfileOutlined, UserOutlined } from '@ant-design/icons';
+import { Avatar, Dropdown, MenuProps, message } from 'antd';
 
 import NotificationBell from '@/components/notification-bell/NotificationBell';
 
@@ -10,19 +10,52 @@ import styles from './Header.module.scss';
 import useDashboardHeader from './useHeader';
 
 const DashboardHeader: React.FC = () => {
+  const navigate = useNavigate();
   const { user, isOpen, toggleMenu } = useDashboardHeader();
+
+  const handleNavClick = () => {
+    if (isOpen) toggleMenu();
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('auth');
+    message.success('Đăng xuất thành công');
+    navigate('/login', { replace: true });
+  };
+
+  const handleProfile = () => {
+    navigate('/profile');
+  };
+
+  const items: MenuProps['items'] = [
+    {
+      key: 'profile',
+      label: 'Hồ sơ cá nhân',
+      icon: <ProfileOutlined />,
+      onClick: handleProfile,
+    },
+    {
+      type: 'divider',
+    },
+    {
+      key: 'logout',
+      label: 'Đăng xuất',
+      icon: <LogoutOutlined />,
+      danger: true,
+      onClick: handleLogout,
+    },
+  ];
 
   return (
     <header className={styles.header}>
-      {/* Logo */}
       <div className={styles.logo}></div>
 
-      {/* Menu desktop + mobile */}
       <nav className={`${styles.nav} ${isOpen ? styles.navOpen : ''}`}>
         <ul>
           <li>
             <NavLink
               to="/dashboard"
+              onClick={handleNavClick}
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
               end
             >
@@ -32,6 +65,7 @@ const DashboardHeader: React.FC = () => {
           <li>
             <NavLink
               to="/lockers"
+              onClick={handleNavClick}
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
             >
               Tủ thông minh
@@ -40,6 +74,7 @@ const DashboardHeader: React.FC = () => {
           <li>
             <NavLink
               to="/orders"
+              onClick={handleNavClick}
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
             >
               Đơn hàng của tôi
@@ -48,6 +83,7 @@ const DashboardHeader: React.FC = () => {
           <li>
             <NavLink
               to="/profile"
+              onClick={handleNavClick}
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
             >
               Hồ sơ cá nhân
@@ -55,17 +91,19 @@ const DashboardHeader: React.FC = () => {
           </li>
         </ul>
       </nav>
-      <div>
-        <div className={styles.right}>
-          <NotificationBell />
-          {/* USE */}
-          <div className={styles.user}>
-            <Avatar src={user?.avatar} size={40} alt={user?.name} icon={<UserOutlined />}></Avatar>
+
+      <div className={styles.right}>
+        <NotificationBell />
+
+        {/* Avatar + Dropdown */}
+        <Dropdown menu={{ items }} placement="bottomRight" arrow>
+          <div className={styles.user} style={{ cursor: 'pointer' }}>
+            <Avatar src={user?.avatar} size={40} alt={user?.name} icon={<UserOutlined />} />
           </div>
-          {/* Icon toggle (mobile) */}
-          <div className={styles.menuToggle} onClick={toggleMenu}>
-            <MenuFoldOutlined />
-          </div>
+        </Dropdown>
+
+        <div className={styles.menuToggle} onClick={toggleMenu}>
+          <MenuFoldOutlined />
         </div>
       </div>
     </header>

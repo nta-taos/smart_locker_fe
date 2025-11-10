@@ -1,9 +1,16 @@
-import { Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
+
+import {
+  CheckCircleOutlined,
+  ClockCircleOutlined,
+  ExclamationCircleOutlined,
+  SyncOutlined,
+} from '@ant-design/icons';
+import { Button, Tag } from 'antd';
 
 import { OrderItemType } from '@/types/order.type';
 import { formatDateTime, timeAgo } from '@/utils/format-datetime';
 
-import { LockerInfo } from '../locker-info/LockerInfo';
 import styles from './OrderItem.module.scss';
 
 export type OrderItemVariant = 'detail' | 'shorten' | 'tag';
@@ -14,12 +21,25 @@ interface OrderItemProps {
   className?: string;
 }
 
+const statusTags = {
+  0: { label: 'Chờ hàng', color: 'warning', icon: <ClockCircleOutlined /> },
+  1: { label: 'Đang gửi', color: 'processing', icon: <SyncOutlined spin /> },
+  2: { label: 'Đã nhận', color: 'success', icon: <CheckCircleOutlined /> },
+  3: { label: 'Quá hạn', color: 'error', icon: <ExclamationCircleOutlined /> },
+};
+
 export const OrderItem: React.FC<OrderItemProps> = ({
   data,
   variant = 'shorten',
   className = '',
 }) => {
+  const navigate = useNavigate();
   const classes = [styles.container, styles[variant], className].filter(Boolean).join(' ');
+  const statusInfo = statusTags[data.status as keyof typeof statusTags] ?? statusTags[0];
+
+  const handleDetailClick = () => {
+    navigate(`/orders/${data.id}`);
+  };
 
   const renderDetail = () => {
     if (variant === 'detail') {
@@ -36,18 +56,6 @@ export const OrderItem: React.FC<OrderItemProps> = ({
       );
     }
   };
-
-  if (variant === 'tag') {
-    return (
-      <LockerInfo
-        address={data.id + ''}
-        lockerId={data.lockerSlot.id + 'lsjdlasjdlasjldajslk'}
-        building="âsfasasdsdsadasd"
-        slotId={data.lockerSlot.id + ''}
-        type="detail"
-      />
-    );
-  }
 
   return (
     <div className={classes}>
@@ -68,58 +76,24 @@ export const OrderItem: React.FC<OrderItemProps> = ({
         {variant === 'detail' && renderDetail()}
       </div>
       <div className={styles.actionContainer}>
-        {data.order_code === 1 && (
-          <Button
-            color="danger"
-            shape="round"
-            size={variant == 'detail' ? 'middle' : 'small'}
-            variant="solid"
-          >
-            Chưa nhận
-          </Button>
-        )}
-        {data.order_code === 1 && (
-          <Button
-            color="blue"
-            shape="round"
-            size={variant == 'detail' ? 'middle' : 'small'}
-            variant="solid"
-          >
-            Nhận ngay
-          </Button>
-        )}
+        <Tag
+          icon={statusInfo.icon}
+          color={statusInfo.color}
+          className={variant == 'detail' ? styles.statusTagsDetail : styles.statusTags}
+        >
+          {statusInfo.label}
+        </Tag>
 
-        {data.order_code === 2 && (
-          <Button
-            color="green"
-            shape="round"
-            size={variant == 'detail' ? 'middle' : 'small'}
-            variant="solid"
-          >
-            Đã nhận
-          </Button>
-        )}
-
-        {(data.order_code === 0 || !data.order_code) && (
-          <Button
-            disabled={true}
-            shape="round"
-            size={variant == 'detail' ? 'middle' : 'small'}
-            variant="solid"
-          >
-            Đang xử lý
-          </Button>
-        )}
-        {data.order_code === 3 && (
-          <Button
-            disabled={true}
-            shape="round"
-            size={variant == 'detail' ? 'middle' : 'small'}
-            variant="solid"
-          >
-            Hết hạn
-          </Button>
-        )}
+        <Button
+          color="blue"
+          shape="round"
+          size={variant == 'detail' ? 'middle' : 'small'}
+          variant="solid"
+          style={{ width: '100%' }}
+          onClick={handleDetailClick}
+        >
+          Chi tiết
+        </Button>
       </div>
     </div>
   );
