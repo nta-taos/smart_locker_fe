@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { CheckCircleOutlined, PhoneOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 import { Avatar, Button, Card, Col, Input, Modal, Row, Space, Typography, message } from 'antd';
 
+import { orderAuthApi } from '@/api/orderAuthApi';
 import { OrderItemType } from '@/types/order.type';
 
 const { Text } = Typography;
@@ -13,29 +14,61 @@ interface OrderActionsProps {
 }
 
 export function OrderActions({ order, isReceiving }: OrderActionsProps) {
-  const [action, setAction] = useState<string | null>(null);
-  const [authCode, setAuthCode] = useState('');
-  const [newPhone, setNewPhone] = useState('');
+  const [isReceiveModalOpen, setReceiveModalOpen] = useState(false);
+  const [isAuthorizeModalOpen, setAuthorizeModalOpen] = useState(false);
+
+  const [newEmail, setNewEmail] = useState('');
   const [newName, setNewName] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleReceive = () => setAction('receive');
-  const handleAuthorize = () => setAction('authorize');
-
+  const handleReceiveOpen = () => setReceiveModalOpen(true);
+  const handleAuthorizeOpen = () => setAuthorizeModalOpen(true);
   const handleCancel = () => {
     if (isReceiving) return;
-    setAction(null);
-    setAuthCode('');
+    setReceiveModalOpen(false);
+    setAuthorizeModalOpen(false);
     setNewName('');
-    setNewPhone('');
+    setNewEmail('');
+    setLoading(false);
   };
 
-  const confirmAction = () => {
-    console.log(`Đang thực thi hành động: ${action} cho Order ID: ${order.id}`);
-
-    setTimeout(() => {
-      message.success(`Hành động '${action}' đã được xử lý thành công`);
+  const handleReceiveConfirm = async () => {
+    setLoading(true);
+    try {
+      message.success('Nhận hàng thành công!');
       handleCancel();
-    }, 1500);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      console.error(err);
+      message.error('Có lỗi khi nhận hàng.');
+      setLoading(false);
+    }
+  };
+
+  const handleAuthorizeConfirm = async () => {
+    if (!newName || !newEmail) {
+      message.warning('Vui lòng nhập đầy đủ họ tên và email người được ủy quyền.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await orderAuthApi.createAuthorization(order.id, newEmail, newName);
+      const authorization = res.data?.data;
+      if (authorization) {
+        message.success('Gửi yêu cầu ủy quyền thành công!');
+        console.log('Authorization result:', authorization);
+        handleCancel();
+      } else {
+        message.error('Không nhận được phản hồi hợp lệ từ server.');
+        setLoading(false);
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      console.error(err);
+      message.error(err?.response?.data?.message || 'Có lỗi xảy ra khi gửi yêu cầu ủy quyền.');
+      setLoading(false);
+    }
   };
 
   return (
@@ -49,8 +82,11 @@ export function OrderActions({ order, isReceiving }: OrderActionsProps) {
           <Col xs={24} sm={12}>
             <Card
               hoverable
-              onClick={isReceiving ? undefined : handleReceive}
-              style={{ opacity: isReceiving ? 0.5 : 1, height: '100%' }}
+              onClick={order.status === 0 || order.status === 2 ? undefined : handleReceiveOpen}
+              style={{
+                opacity: order.status === 0 || order.status === 2 ? 0.5 : 1,
+                height: '100%',
+              }}
             >
               <Card.Meta
                 avatar={
@@ -69,8 +105,11 @@ export function OrderActions({ order, isReceiving }: OrderActionsProps) {
           <Col xs={24} sm={12}>
             <Card
               hoverable
-              onClick={isReceiving ? undefined : handleAuthorize}
-              style={{ opacity: isReceiving ? 0.5 : 1, height: '100%' }}
+              onClick={order.status === 0 || order.status === 2 ? undefined : handleAuthorizeOpen}
+              style={{
+                opacity: order.status === 0 || order.status === 2 ? 0.5 : 1,
+                height: '100%',
+              }}
             >
               <Card.Meta
                 avatar={
@@ -88,41 +127,35 @@ export function OrderActions({ order, isReceiving }: OrderActionsProps) {
         </Row>
       </Card>
 
-      {/* Modals */}
-
       {/* Receive Modal */}
       <Modal
         title={
           <Space>
-            <CheckCircleOutlined style={{ color: '#1677ff' }} />
-            <span>Xác nhận nhận hàng</span>
+            <CheckCircleOutlined style={{ color: '#1677ff' }} /> Xác nhận nhận hàng
           </Space>
         }
-        open={action === 'receive'}
+        open={isReceiveModalOpen}
         onCancel={handleCancel}
         footer={[
           <Button key="cancel" onClick={handleCancel} disabled={isReceiving}>
             Hủy
           </Button>,
-          <Button key="confirm" type="primary" loading={isReceiving} onClick={confirmAction}>
-            {isReceiving ? 'Đang xử lý...' : 'Nhận hàng ngay'}
+          <Button key="confirm" type="primary" loading={loading} onClick={handleReceiveConfirm}>
+            {loading ? 'Đang xử lý...' : 'Nhận hàng ngay'}
           </Button>,
         ]}
       >
-        <Space direction="vertical" style={{ width: '100%' }}>
-          <Text type="secondary">Bạn có chắc chắn muốn nhận hàng ngay bây giờ không?</Text>
-        </Space>
+        <Text type="secondary">Bạn có chắc chắn muốn nhận hàng ngay bây giờ không?</Text>
       </Modal>
 
       {/* Authorize Modal */}
       <Modal
         title={
           <Space>
-            <UsergroupAddOutlined style={{ color: '#52c41a' }} />
-            Ủy quyền nhận hàng
+            <UsergroupAddOutlined style={{ color: '#52c41a' }} /> Ủy quyền nhận hàng
           </Space>
         }
-        open={action === 'authorize'}
+        open={isAuthorizeModalOpen}
         onCancel={handleCancel}
         footer={[
           <Button key="cancel" onClick={handleCancel} disabled={isReceiving}>
@@ -132,11 +165,11 @@ export function OrderActions({ order, isReceiving }: OrderActionsProps) {
             key="submit"
             type="primary"
             style={{ backgroundColor: '#52c41a', borderColor: '#52c41a' }}
-            loading={isReceiving}
-            onClick={confirmAction}
-            disabled={!authCode || !newName || !newPhone}
+            loading={loading}
+            onClick={handleAuthorizeConfirm}
+            disabled={!newName || !newEmail}
           >
-            {isReceiving ? 'Đang xử lý...' : 'Gửi ủy quyền'}
+            {loading ? 'Đang xử lý...' : 'Gửi ủy quyền'}
           </Button>,
         ]}
       >
@@ -153,22 +186,12 @@ export function OrderActions({ order, isReceiving }: OrderActionsProps) {
             />
           </div>
           <div>
-            <Text>Số điện thoại</Text>
+            <Text>Email</Text>
             <Input
-              type="tel"
-              placeholder="Nhập số điện thoại"
-              value={newPhone}
-              onChange={(e) => setNewPhone(e.target.value)}
-              style={{ marginTop: 8 }}
-            />
-          </div>
-          <div>
-            <Text>Mã xác thực</Text>
-            <Input
-              type="text"
-              placeholder="Nhập mã OTP của BẠN"
-              value={authCode}
-              onChange={(e) => setAuthCode(e.target.value)}
+              type="email"
+              placeholder="Nhập địa chỉ email"
+              value={newEmail}
+              onChange={(e) => setNewEmail(e.target.value)}
               style={{ marginTop: 8 }}
             />
           </div>

@@ -73,7 +73,8 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
     searchInput,
     setSearchInput,
     buildingIds,
-    handleSubmitButton,
+    handleSendPackage,
+    handleRentLocker,
   } = useMapHook();
 
   const renderPopupContent = () => {
@@ -127,7 +128,7 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
             type="primary"
             className={styles.rentButton}
             size="large"
-            onClick={handleSubmitButton}
+            onClick={handleRentLocker}
           >
             Thuê tủ
           </Button>
@@ -135,7 +136,7 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
             type="primary"
             className={styles.rentButton}
             size="large"
-            onClick={handleSubmitButton}
+            onClick={handleSendPackage}
           >
             Gửi hàng
           </Button>

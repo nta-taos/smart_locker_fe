@@ -3,10 +3,8 @@ import {
   FaBox,
   FaCalendarAlt,
   FaCreditCard,
-  FaFileAlt,
   FaLock,
   FaPaperPlane,
-  FaPhoneAlt,
   FaWallet,
 } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -21,7 +19,6 @@ import {
   DatePicker,
   Form,
   Grid,
-  Input,
   Layout,
   Radio,
   Row,
@@ -35,9 +32,9 @@ import { sizeOptions } from '@/constants/sizeOptions';
 import { lockerAtom } from '@/recoil/atom/locker.atom';
 import { slotAtom } from '@/recoil/atom/slot.atom';
 
-import styles from './SendPackage.module.scss';
+import styles from './Rental.module.scss';
 import CustomSteps from './Steps';
-import { useSendPackage } from './useSendPackage';
+import { useSendPackage } from './useRental';
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
@@ -45,7 +42,7 @@ const { useBreakpoint } = Grid;
 
 const paymentMethods = [{ id: 'zipbox', name: 'Ví ZipBox', icon: '📦' }];
 
-export default function SendPage() {
+export default function RentalPage() {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const screens = useBreakpoint();
@@ -294,46 +291,6 @@ export default function SendPage() {
           </Col>
         </Row>
       </Card>
-
-      {/* Recipient Info */}
-      <Card
-        title={
-          <Title level={4} className={styles.sectionTitle}>
-            <FaPhoneAlt size={screens.sm ? 20 : 16} className={styles.sectionIconOrange} /> Thông
-            tin người nhận
-          </Title>
-        }
-        className={styles.antdCard}
-      >
-        <Row gutter={[16, 16]}>
-          <Col xs={24} sm={12}>
-            <Form.Item
-              label={<Text strong>Số điện thoại</Text>}
-              name="phoneNumber"
-              rules={[{ required: true, message: 'Vui lòng nhập số điện thoại!' }]}
-            >
-              <Input
-                prefix={<FaPhoneAlt size={16} />}
-                placeholder="Nhập số điện thoại"
-                className={styles.antInput}
-              />
-            </Form.Item>
-          </Col>
-          <Col xs={24} sm={12}>
-            <Form.Item
-              label={<Text strong>Mã đơn hàng</Text>}
-              name="orderCode"
-              rules={[{ required: true, message: 'Vui lòng nhập mã đơn hàng!' }]}
-            >
-              <Input
-                prefix={<FaFileAlt size={16} />}
-                placeholder="Nhập mã đơn hàng"
-                className={styles.antInput}
-              />
-            </Form.Item>
-          </Col>
-        </Row>
-      </Card>
     </div>
   );
 
@@ -501,7 +458,7 @@ export default function SendPage() {
                 <FaPaperPlane className={styles.headerIcon} size={screens.sm ? 24 : 20} />
               </div>
               <Title level={2} className={styles.pageTitle}>
-                Gửi hàng
+                Thuê tủ
               </Title>
             </div>
           </div>
@@ -531,7 +488,7 @@ export default function SendPage() {
                 <FaPaperPlane className={styles.headerIcon} size={screens.sm ? 24 : 20} />
               </div>
               <Title level={2} className={styles.pageTitle}>
-                Gửi hàng
+                Thuê tủ
                 <Text
                   type="secondary"
                   style={{ fontSize: '1rem', marginLeft: 10, fontWeight: 400 }}

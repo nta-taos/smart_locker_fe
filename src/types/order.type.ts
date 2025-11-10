@@ -40,4 +40,10 @@ export type SendPackagePayload = {
   size: number;
 };
 
+export type RentalPayload = {
+  lockerId: number;
+  receiveDateTime: string;
+  size: number;
+};
+
 export type OrderListResponType = PaginationType<OrderItemType>;

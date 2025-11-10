@@ -42,7 +42,7 @@ const { useBreakpoint } = Grid;
 const { Content, Header } = Layout;
 
 const statusTags = {
-  0: { label: 'Chờ nhận hàng', color: 'warning', icon: <ClockCircleOutlined /> },
+  0: { label: 'Chờ hàng', color: 'warning', icon: <ClockCircleOutlined /> },
   1: { label: 'Đang gửi', color: 'processing', icon: <SyncOutlined spin /> },
   2: { label: 'Đã nhận', color: 'success', icon: <CheckCircleOutlined /> },
   3: { label: 'Quá hạn', color: 'error', icon: <ExclamationCircleOutlined /> },

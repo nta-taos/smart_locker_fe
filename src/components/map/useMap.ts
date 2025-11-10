@@ -24,7 +24,11 @@ const useMap = () => {
   const [buildingIds, setBuildingIds] = useRecoilState(buildingIdsAtom);
   const countSlot = useRecoilValue(slotCountBySizeSelector(selectedBuildingId || 0));
 
-  const handleSubmitButton = () => {
+  const handleRentLocker = () => {
+    navigate(`/rent/${selectedBuildingId}`);
+  };
+
+  const handleSendPackage = () => {
     navigate(`/send/${selectedBuildingId}`);
   };
 
@@ -98,7 +102,8 @@ const useMap = () => {
     searchInput,
     setSearchInput,
     buildingIds,
-    handleSubmitButton,
+    handleSendPackage,
+    handleRentLocker,
   };
 };
 
