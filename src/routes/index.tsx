@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@/components/layout/layout/Layout';
 import MapView from '@/components/map/Map';
+import AccountPage from '@/pages/account-page/account';
 import DashboardPage from '@/pages/dashboard-page/Dashboard';
 import LadingPage from '@/pages/lading-page/Lading';
 import LoginPage from '@/pages/login-page/Login';
@@ -29,5 +30,9 @@ export const router = createBrowserRouter([
   {
     path: '/dashboard',
     children: [{ index: true, element: <DashboardPage /> }],
+  },
+  {
+    path: '/account',
+    children: [{ index: true, element: <AccountPage /> }],
   },
 ]);
