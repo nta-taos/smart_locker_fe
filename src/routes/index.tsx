@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { AuthLayout } from '@/components/layout/auth-layout/AuthLayout';
 import Layout from '@/components/layout/layout/Layout';
 import MapView from '@/components/map/Map';
+import AccountPage from '@/pages/account-page/account';
 import DashboardPage from '@/pages/dashboard-page/Dashboard';
 import LadingPage from '@/pages/lading-page/Lading';
 import RentalPage from '@/pages/locker-rental/Rental';
@@ -82,5 +83,9 @@ export const router = createBrowserRouter([
         element: <AntOrderDetails />,
       },
     ],
+  },
+  {
+    path: '/account',
+    children: [{ index: true, element: <AccountPage /> }],
   },
 ]);
