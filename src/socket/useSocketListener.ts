@@ -35,6 +35,13 @@ export const useSocketListener = () => {
         }));
       },
 
+      onOrderUpdated: (updatedOrder: OrderItemType) => {
+        setOrders((prev) => ({
+          ...prev,
+          orders: prev.orders.map((order) => (order.id === updatedOrder.id ? updatedOrder : order)),
+        }));
+      },
+
       onSlotUpdated: (updatedSlot: SlotType) => {
         setSlotState(updatedSlot.id, updatedSlot);
       },
@@ -56,6 +63,7 @@ export const useSocketListener = () => {
 
     return () => {
       socket.off('order:created');
+      socket.off('order:updated');
       socket.off('slot:updated');
       socket.off('wallet:updated');
     };

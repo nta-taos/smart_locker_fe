@@ -1,4 +1,5 @@
 import axiosInstance from './axios/config';
+import { ENDPOINTS } from './axios/endpoints';
 
 export const orderAuthApi = {
   /**
@@ -7,7 +8,7 @@ export const orderAuthApi = {
    */
   createAuthorization: (orderId: number, email: string, name: string) => {
     // Sửa lại URL cho nhất quán (từ /order-authorizations -> /order-authorization)
-    return axiosInstance.post('/order-authorization', {
+    return axiosInstance.post('/order-authorizations', {
       orderId,
       email,
       name,
@@ -42,5 +43,5 @@ export const orderAuthApi = {
    * Tạm thời giữ lại nếu bạn dùng ở nơi khác.
    */
   confirmAuthorization: (orderId: number, token: string | null) =>
-    axiosInstance.post(`/order-authorization/${orderId}/confirm`, { token }),
+    axiosInstance.post(ENDPOINTS.post.confirmOrderAuthorization(orderId), { token }),
 };

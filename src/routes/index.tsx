@@ -8,6 +8,7 @@ import LadingPage from '@/pages/lading-page/Lading';
 import RentalPage from '@/pages/locker-rental/Rental';
 import LoginPage from '@/pages/login-page/Login';
 import { MapPage } from '@/pages/map-page/Map';
+import OrderAuthorizationPage from '@/pages/order-authorization-page/OrderAuthorizationPage';
 import AntOrderDetails from '@/pages/order-detail/OrderDetail';
 import OrderReceiveSuccess from '@/pages/order-receive/OrderReceiveSuccess';
 import { OrdersPage } from '@/pages/orders-page/Orders';
@@ -63,6 +64,15 @@ export const router = createBrowserRouter([
   {
     path: '/rent/:buildingId',
     children: [{ index: true, element: <RentalPage /> }],
+  },
+  {
+    path: '/order-authorization/:orderId',
+    children: [
+      {
+        index: true,
+        element: <OrderAuthorizationPage />,
+      },
+    ],
   },
   {
     path: '/orders/:orderId',

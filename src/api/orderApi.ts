@@ -35,4 +35,7 @@ export const orderApi = {
   postSendPackageOrder: async (data: SendPackagePayload) => {
     return axiosInstance.post(ENDPOINTS.post.sendPackage, data);
   },
+  postOpenOrder: async (orderId: number) => {
+    return axiosInstance.post(ENDPOINTS.post.openOrder.replace(':orderId', String(orderId)));
+  },
 };

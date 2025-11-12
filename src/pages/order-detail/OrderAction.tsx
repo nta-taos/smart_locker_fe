@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { CheckCircleOutlined, PhoneOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 import { Avatar, Button, Card, Col, Input, Modal, Row, Space, Typography, message } from 'antd';
 
+import { orderApi } from '@/api/orderApi';
 import { orderAuthApi } from '@/api/orderAuthApi';
 import { OrderItemType } from '@/types/order.type';
 
@@ -35,6 +36,7 @@ export function OrderActions({ order, isReceiving }: OrderActionsProps) {
   const handleReceiveConfirm = async () => {
     setLoading(true);
     try {
+      await orderApi.postOpenOrder(order.id);
       message.success('Nhận hàng thành công!');
       handleCancel();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

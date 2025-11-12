@@ -17,10 +17,14 @@ export const ENDPOINTS = {
     order: '/order/create',
     orderUser: '/orders/user',
     orderShipper: '/orders/shipper',
+    openOrder: '/orders/:orderId/open',
     sendPackage: 'orders/send',
     discount: '/checkdiscount',
     message: '/message',
     sendmessage: '/sendmessage',
+    createOrderAuthorization: '/order-authorizations',
+    confirmOrderAuthorization: (orderId: number | string) =>
+      `/order-authorizations/${orderId}/confirm`,
   },
   auth: {
     login: '/auth/login',

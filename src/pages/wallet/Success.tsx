@@ -17,7 +17,7 @@ const Success: React.FC = () => {
       title="Thanh toán thành công!"
       subTitle="Số dư trong ví của bạn đã được cập nhật."
       extra={[
-        <Button type="primary" key="console" onClick={() => navigate('/send-package')}>
+        <Button type="primary" key="console" onClick={() => navigate('/dashboard')}>
           Tiếp tục gửi hàng
         </Button>,
       ]}

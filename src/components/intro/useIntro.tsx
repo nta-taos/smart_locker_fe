@@ -1,8 +1,7 @@
 import { InstagramOutlined, TwitterOutlined } from '@ant-design/icons';
 
 export const useIntro = () => {
-  const title =
-    'Một chiếc tủ nhỏ nhưng mang lại trải nghiệm lớn – an toàn, nhanh chóng, tiện lợi cùng Zipbox.⚡📱📦';
+  const title = 'Giải pháp giao - nhận thông minh cho cuộc sống hiện đại';
   const image = '/images/intro-bg.png';
   const xName = 'Zipbox';
   const xLink = 'Zipbox';

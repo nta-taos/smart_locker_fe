@@ -46,7 +46,7 @@ export default function Login() {
     <div className={styles.loginWrapper}>
       <div className={styles.loginCard}>
         <Title level={2} className={styles.loginTitle}>
-          Chào mừng trở lại 👋
+          Chào mừng trở lại
         </Title>
         <Text type="secondary" className={styles.subText}>
           Vui lòng đăng nhập để tiếp tục
