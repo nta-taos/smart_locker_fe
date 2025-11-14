@@ -10,8 +10,6 @@ import {
   FaWallet,
 } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useRecoilValue } from 'recoil';
 
 import {
@@ -72,6 +70,7 @@ export default function SendPage() {
     formatCurrency,
     isDepositModalOpen,
     handleCloseDepositModal,
+    isSubmitting,
   } = useSendPackage(currentBuildingId, form);
 
   const SlotItem = ({
@@ -614,9 +613,14 @@ export default function SendPage() {
                     block
                     onClick={handleFinalSubmit}
                     icon={<FaCreditCard size={screens.sm ? 20 : 16} />}
-                    disabled={walletBalance < total || !selectedLocker}
+                    disabled={walletBalance < total || !selectedLocker || isSubmitting}
+                    loading={isSubmitting}
                   >
-                    {walletBalance < total ? 'Số dư không đủ' : 'Thanh toán'}
+                    {isSubmitting
+                      ? 'Đang xử lý...'
+                      : walletBalance < total
+                        ? 'Số dư không đủ'
+                        : 'Thanh toán'}
                   </Button>
                 </Col>
               </Row>
@@ -624,18 +628,6 @@ export default function SendPage() {
           </div>
         </div>
       </Layout>
-
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
 
       <DepositModal isOpen={isDepositModalOpen} onClose={handleCloseDepositModal} />
     </>

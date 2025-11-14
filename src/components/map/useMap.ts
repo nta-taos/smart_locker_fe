@@ -14,6 +14,7 @@ import { slotAtom } from '@/recoil/atom/slot.atom';
 import { BuildingResponeType, BuildingType } from '@/types/building.type';
 import { LockerType } from '@/types/locker.type';
 import { SlotType } from '@/types/slot.type';
+import { extractErrorMessage } from '@/utils/error.utils';
 
 const useMap = () => {
   const navigate = useNavigate();
@@ -44,11 +45,8 @@ const useMap = () => {
 
   const getBuildings = useCallback(async () => {
     try {
-      console.log('calllling');
-
       const res = await buildingApi.getBuildings();
-      const result: BuildingResponeType[] = res.data.data;
-      console.log(result);
+      const result: BuildingResponeType[] = res.data;
 
       const buildingIds: number[] = [];
       if (!result || result.length === 0) return;
@@ -82,7 +80,8 @@ const useMap = () => {
 
       setBuildingIds(buildingIds);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      extractErrorMessage(error);
     }
   }, [setBuildingIds, setBuildingState, setLockerState, setSlotState]);
 

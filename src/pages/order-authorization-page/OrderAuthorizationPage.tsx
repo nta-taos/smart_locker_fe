@@ -6,6 +6,7 @@ import { Button, Result, Spin, message } from 'antd';
 import { motion } from 'framer-motion';
 
 import { orderAuthApi } from '@/api/orderAuthApi';
+import { extractErrorMessage } from '@/utils/error.utils';
 
 const OrderAuthorizationPage = () => {
   const { orderId } = useParams();
@@ -28,9 +29,9 @@ const OrderAuthorizationPage = () => {
         message.success('Xác nhận mở khóa thành công!');
         setConfirmed(true);
       }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      message.error(err.response?.data?.message || 'Xác nhận thất bại!');
+    } catch (err) {
+      console.log(err);
+      extractErrorMessage(err);
     } finally {
       setLoading(false);
     }

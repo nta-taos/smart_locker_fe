@@ -116,7 +116,6 @@ export default function Login() {
                 theme="outline"
                 size="large"
                 logo_alignment="center"
-                width="100%"
               />
             )}
           </div>

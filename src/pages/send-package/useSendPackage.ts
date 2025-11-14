@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil';
 
-import { FormInstance } from 'antd';
+import { FormInstance, message } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 
 import { buildingApi } from '@/api/buildingApi';
@@ -19,6 +18,7 @@ import { lockerAtom } from '@/recoil/atom/locker.atom';
 import { slotAtom } from '@/recoil/atom/slot.atom';
 import { BuildingResponeType } from '@/types/building.type';
 import { SendPackagePayload } from '@/types/order.type';
+import { extractErrorMessage } from '@/utils/error.utils';
 
 interface SelectedLockerState {
   size: number;
@@ -52,6 +52,7 @@ export const useSendPackage = (buildingId: number, form: FormInstance) => {
   const [selectedLocker, setselectedLocker] = useState<SelectedLockerState | null>(null);
   const [duration, setDuration] = useState(1);
   const [walletBalance] = useState(Number(auth.user?.wallet.balance));
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const selectedSizeData = useMemo(
     () => sizeOptions.find((s) => s.id === selectedSize),
@@ -99,11 +100,11 @@ export const useSendPackage = (buildingId: number, form: FormInstance) => {
   const getBuildings = useCallback(async () => {
     try {
       const res = await buildingApi.getBuildings();
-      const result: BuildingResponeType[] = res.data.data;
+      const result: BuildingResponeType[] = res.data;
       populateRecoilState(result);
     } catch (error) {
       console.log(error);
-      toast.error('Lỗi khi tải dữ liệu toà nhà.');
+      extractErrorMessage(error);
     }
   }, [populateRecoilState]);
 
@@ -111,7 +112,7 @@ export const useSendPackage = (buildingId: number, form: FormInstance) => {
     if (buildingIds.length === 0) {
       getBuildings();
     }
-  }, [buildingIds.length, getBuildings]); // --- Logic Xử lý Form và Bước ---
+  }, [buildingIds.length, getBuildings]);
 
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
 
@@ -146,42 +147,33 @@ export const useSendPackage = (buildingId: number, form: FormInstance) => {
         const finalDuration = diffInHoursFloat;
 
         if (finalDuration < 1) {
-          toast.error('Thời gian nhận hàng phải tối thiểu sau 1 giờ kể từ hiện tại.', {
-            position: 'top-right',
-            autoClose: 3000,
-          });
+          message.error('Thời gian nhận hàng phải tối thiểu sau 1 giờ kể từ hiện tại.', 3);
           return;
         }
 
         setDuration(finalDuration);
         setStep(2);
       } else {
-        toast.error('Vui lòng điền đủ thông tin bắt buộc và chọn tủ.', {
-          position: 'top-right',
-          autoClose: 3000,
-        });
+        message.error('Vui lòng điền đủ thông tin bắt buộc và chọn tủ.', 3);
       }
     } catch {
-      toast.error('Vui lòng điền đủ thông tin bắt buộc.', {
-        position: 'top-right',
-        autoClose: 3000,
-      });
+      message.error('Vui lòng điền đủ thông tin bắt buộc.', 3);
     }
   };
 
   const handleFinalSubmit = async () => {
+    if (isSubmitting) return;
     if (!selectedLocker || walletBalance < total) {
-      toast.error('Thông tin chưa hoàn chỉnh hoặc số dư không đủ.', { position: 'top-right' });
+      message.error('Thông tin chưa hoàn chỉnh hoặc số dư không đủ.');
       return;
     }
 
     try {
       if (!selectedLocker || !step1Values || walletBalance < total) {
-        toast.error('Thông tin chưa hoàn chỉnh, số dư không đủ hoặc thiếu dữ liệu bước 1.', {
-          position: 'top-right',
-        });
+        message.error('Thông tin chưa hoàn chỉnh, số dư không đủ hoặc thiếu dữ liệu bước 1.');
         return;
       }
+      setIsSubmitting(true);
       const { receiveDate, receiveTime, phoneNumber, orderCode } = step1Values;
 
       const combinedReceiveDateTime: Dayjs = receiveDate
@@ -201,19 +193,15 @@ export const useSendPackage = (buildingId: number, form: FormInstance) => {
 
       const res = await orderApi.postSendPackageOrder(payload);
 
-      toast.success(
-        `Đã thanh toán ${formatCurrency(total)} và tạo đơn hàng ${res.data.data.order_code} thành công!`,
-        {
-          position: 'top-right',
-          autoClose: 5000,
-        },
+      message.success(
+        `Đã thanh toán ${formatCurrency(total)} và tạo đơn hàng ${res.data.order_code} thành công!`,
+        5,
       );
       navigate('/dashboard');
     } catch {
-      toast.error(`Thất bại: `, {
-        position: 'top-right',
-        autoClose: 5000,
-      });
+      message.error(`Tạo đơn hàng thất bại. Vui lòng thử lại.`, 5);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -238,5 +226,6 @@ export const useSendPackage = (buildingId: number, form: FormInstance) => {
     sizeOptions,
     isDepositModalOpen,
     handleCloseDepositModal,
+    isSubmitting,
   };
 };

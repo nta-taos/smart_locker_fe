@@ -23,10 +23,11 @@ export const useTransaction = () => {
         }
 
         const res = await transactionApi.getAll(pageNum, limit);
-        const result: TransactionResponeType = res.data.data;
+        const result: TransactionResponeType = res.data;
+        const data = result.data || [];
 
         setState((prev) => ({
-          transactions: append ? [...prev.transactions, ...result.data] : result.data,
+          transactions: append ? [...prev.transactions, ...data] : data,
           page: pageNum,
           totalPages: result.totalPages,
         }));
@@ -42,10 +43,10 @@ export const useTransaction = () => {
   );
 
   useEffect(() => {
-    if (state.transactions.length === 0) {
+    if (state.transactions?.length === 0) {
       getTransactions(1, false);
     }
-  }, [state.transactions.length, getTransactions]);
+  }, [state.transactions, getTransactions]);
 
   const loadMore = () => {
     if (!isLoading && state.page < state.totalPages) {

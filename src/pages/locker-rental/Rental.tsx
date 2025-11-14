@@ -5,11 +5,12 @@ import {
   FaCreditCard,
   FaLock,
   FaPaperPlane,
+  // Giữ lại icon header, hoặc đổi thành FaBox
   FaWallet,
 } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer } from 'react-toastify'; // <--- Xoá
+// import 'react-toastify/dist/ReactToastify.css'; // <--- Xoá
 import { useRecoilValue } from 'recoil';
 
 import {
@@ -25,6 +26,7 @@ import {
   TimePicker,
   Typography,
 } from 'antd';
+// Xoá 'Input' vì không dùng
 import dayjs from 'dayjs';
 
 import DepositModal from '@/components/deposit-modal/DepositModal';
@@ -32,9 +34,11 @@ import { sizeOptions } from '@/constants/sizeOptions';
 import { lockerAtom } from '@/recoil/atom/locker.atom';
 import { slotAtom } from '@/recoil/atom/slot.atom';
 
+import CustomSteps from '../send-package/Steps';
 import styles from './Rental.module.scss';
-import CustomSteps from './Steps';
-import { useSendPackage } from './useRental';
+import { useRental } from './useRental';
+
+// <--- Đổi tên import
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
@@ -50,6 +54,7 @@ export default function RentalPage() {
   const { buildingId } = useParams<{ buildingId: string }>();
   const currentBuildingId = Number(buildingId) || 1;
 
+  // <--- Đổi tên hook và thêm isSubmitting
   const {
     step,
     setStep,
@@ -69,8 +74,10 @@ export default function RentalPage() {
     formatCurrency,
     isDepositModalOpen,
     handleCloseDepositModal,
-  } = useSendPackage(currentBuildingId, form);
+    isSubmitting, // <--- Thêm state loading
+  } = useRental(currentBuildingId, form); // <--- Đổi tên hook
 
+  // ... (SlotItem và LockerGroup giữ nguyên) ...
   const SlotItem = ({
     slotId,
     lockerCode,
@@ -111,7 +118,6 @@ export default function RentalPage() {
     );
   };
 
-  // LockerGroup component
   const LockerGroup = ({ lockerId }: { lockerId: number }) => {
     const locker = useRecoilValue(lockerAtom(lockerId));
     if (!locker || !locker.slots) return null;
@@ -131,6 +137,7 @@ export default function RentalPage() {
     );
   };
 
+  // ... (Step0Content giữ nguyên) ...
   const Step0Content = (
     <div className={styles.stepContent}>
       {/* Size Selection */}
@@ -225,6 +232,7 @@ export default function RentalPage() {
     </div>
   );
 
+  // ... (Step1Content giữ nguyên, vì nó đã đúng) ...
   const Step1Content = (
     <div className={styles.stepContent}>
       {/* Date & Time Selection */}
@@ -232,7 +240,7 @@ export default function RentalPage() {
         title={
           <Title level={4} className={styles.sectionTitle}>
             <FaCalendarAlt size={screens.sm ? 20 : 16} className={styles.sectionIcon} /> Chọn thời
-            gian nhận hàng
+            gian thuê tủ
           </Title>
         }
         className={styles.antdCard}
@@ -240,9 +248,9 @@ export default function RentalPage() {
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={12}>
             <Form.Item
-              label={<Text strong>Ngày nhận hàng</Text>}
+              label={<Text strong>Ngày kết thúc</Text>} // Đổi tên label cho rõ
               name="receiveDate"
-              rules={[{ required: true, message: 'Vui lòng chọn ngày nhận hàng!' }]}
+              rules={[{ required: true, message: 'Vui lòng chọn ngày!' }]}
             >
               <DatePicker
                 style={{ width: '100%' }}
@@ -254,9 +262,9 @@ export default function RentalPage() {
 
           <Col xs={24} sm={12}>
             <Form.Item
-              label={<Text strong>Giờ & Phút nhận hàng</Text>}
+              label={<Text strong>Giờ & Phút kết thúc</Text>} // Đổi tên label cho rõ
               name="receiveTime"
-              rules={[{ required: true, message: 'Vui lòng chọn giờ nhận hàng!' }]}
+              rules={[{ required: true, message: 'Vui lòng chọn giờ!' }]}
             >
               <TimePicker
                 style={{ width: '100%' }}
@@ -294,13 +302,15 @@ export default function RentalPage() {
     </div>
   );
 
+  // <--- Sửa lại Step2Content
   const Step2Content = (
     <div className={styles.stepContent}>
       {/* Order Summary */}
       <Card
         title={
           <Title level={4} className={styles.sectionTitle}>
-            <FaBox size={screens.sm ? 20 : 16} className={styles.sectionIcon} /> Thông tin gửi hàng
+            {/* Đổi Title */}
+            <FaBox size={screens.sm ? 20 : 16} className={styles.sectionIcon} /> Thông tin thuê tủ
           </Title>
         }
         className={`${styles.antdCard} ${styles.summaryCard}`}
@@ -322,6 +332,9 @@ export default function RentalPage() {
               <Text strong>{selectedSizeData?.name}</Text>
             </Col>
           </Row>
+
+          {/* <--- Xoá Mã đơn hàng --- /> */}
+          {/*
           <Row className={styles.summaryRow}>
             <Col span={12}>
               <Text type="secondary">Mã đơn hàng:</Text>
@@ -330,6 +343,7 @@ export default function RentalPage() {
               <Text strong>{form.getFieldValue('orderCode')}</Text>
             </Col>
           </Row>
+          */}
 
           <Row className={styles.summaryRow}>
             <Col span={12}>
@@ -343,7 +357,7 @@ export default function RentalPage() {
           </Row>
           <Row className={styles.summaryRow}>
             <Col span={12}>
-              <Text type="secondary">Thời gian gửi:</Text>
+              <Text type="secondary">Thời gian thuê:</Text> {/* Đổi text */}
             </Col>
             <Col span={12} style={{ textAlign: 'right' }}>
               <Text strong>{duration.toFixed(2)} giờ</Text>
@@ -416,7 +430,7 @@ export default function RentalPage() {
     </div>
   );
 
-  // --- Main Render checks ---
+  // ... (Main Render checks giữ nguyên) ...
   if (!currentBuilding?.id) {
     return (
       <Layout className={styles.antdLayout}>
@@ -455,6 +469,7 @@ export default function RentalPage() {
             />
             <div className={styles.headerTitleGroup}>
               <div className={styles.headerIconWrapper}>
+                {/* Bạn có thể đổi icon này thành FaBox */}
                 <FaPaperPlane className={styles.headerIcon} size={screens.sm ? 24 : 20} />
               </div>
               <Title level={2} className={styles.pageTitle}>
@@ -485,6 +500,7 @@ export default function RentalPage() {
             />
             <div className={styles.headerTitleGroup}>
               <div className={styles.headerIconWrapper}>
+                {/* Bạn có thể đổi icon này thành FaBox */}
                 <FaPaperPlane className={styles.headerIcon} size={screens.sm ? 24 : 20} />
               </div>
               <Title level={2} className={styles.pageTitle}>
@@ -552,6 +568,7 @@ export default function RentalPage() {
               </Row>
             )}
 
+            {/* <--- Cập nhật Button cho Step 2 --- /> */}
             {step === 2 && (
               <Row gutter={16}>
                 <Col span={12}>
@@ -571,9 +588,14 @@ export default function RentalPage() {
                     block
                     onClick={handleFinalSubmit}
                     icon={<FaCreditCard size={screens.sm ? 20 : 16} />}
-                    disabled={walletBalance < total || !selectedLocker}
+                    disabled={walletBalance < total || !selectedLocker || isSubmitting}
+                    loading={isSubmitting} // Thêm loadin
                   >
-                    {walletBalance < total ? 'Số dư không đủ' : 'Thanh toán'}
+                    {isSubmitting
+                      ? 'Đang xử lý...'
+                      : walletBalance < total
+                        ? 'Số dư không đủ'
+                        : 'Thanh toán'}
                   </Button>
                 </Col>
               </Row>
@@ -581,18 +603,6 @@ export default function RentalPage() {
           </div>
         </div>
       </Layout>
-
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
 
       <DepositModal isOpen={isDepositModalOpen} onClose={handleCloseDepositModal} />
     </>

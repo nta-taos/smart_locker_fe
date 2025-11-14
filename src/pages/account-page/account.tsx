@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 
 import {
   CameraOutlined,
-  EnvironmentOutlined,
   EyeOutlined,
   MailOutlined,
   PhoneOutlined,
@@ -12,6 +12,9 @@ import {
   WalletOutlined,
 } from '@ant-design/icons';
 import { Avatar, Card, Col, Divider, Row, Space, Typography, Upload } from 'antd';
+
+import DepositModal from '@/components/deposit-modal/DepositModal';
+import { authState } from '@/recoil/atom/authAtom';
 
 import { Transaction } from '../../components/transaction/Transaction';
 import styles from './account.module.scss';
@@ -30,6 +33,8 @@ const userInfo = {
 };
 const AccountPage: React.FC = () => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const auth = useRecoilValue(authState);
+  const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
   const isShipper = userInfo.type === 'Shipper';
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChange = (info: any) => {
@@ -88,7 +93,10 @@ const AccountPage: React.FC = () => {
                         </Text>
                         <Space>
                           <Text style={{ fontSize: 16, fontWeight: 600, color: '#00A86B' }}>
-                            100.000.000 VND
+                            {new Intl.NumberFormat('vi-VN', {
+                              style: 'currency',
+                              currency: 'VND',
+                            }).format(Number(auth?.user?.wallet?.balance || 0))}
                           </Text>
                           <EyeOutlined style={{ fontSize: 24, color: '#002B79', paddingLeft: 8 }} />
                         </Space>
@@ -106,6 +114,7 @@ const AccountPage: React.FC = () => {
                         size={8}
                         align="center"
                         style={{ cursor: 'pointer', fontWeight: 600 }}
+                        onClick={() => setIsDepositModalOpen(true)}
                       >
                         <WalletOutlined style={{ fontSize: 32, color: '#002B79' }} />
 
@@ -151,7 +160,7 @@ const AccountPage: React.FC = () => {
                   </Space>
                   <Space direction="vertical" size={8} align="end">
                     <Text className={styles.cardValue}>
-                      Chưa xác minh
+                      Đã xác minh
                       <RightOutlined />
                     </Text>
                     <Text className={styles.cardValue}>
@@ -178,7 +187,7 @@ const AccountPage: React.FC = () => {
               </Col>
               <Col>
                 <p className={styles.cardValue}>
-                  Lê Đình Quốc <RightOutlined />
+                  {auth?.user?.name} <RightOutlined />
                 </p>
               </Col>
             </Row>
@@ -193,7 +202,7 @@ const AccountPage: React.FC = () => {
               </Col>
               <Col>
                 <p className={styles.cardValue}>
-                  0866047651 <RightOutlined />
+                  {auth?.user?.phone} <RightOutlined />
                 </p>
               </Col>
             </Row>
@@ -208,32 +217,25 @@ const AccountPage: React.FC = () => {
               </Col>
               <Col>
                 <p className={styles.cardValue}>
-                  lequoc@gmail.com <RightOutlined />
+                  {auth?.user?.email} <RightOutlined />
                 </p>
               </Col>
             </Row>
             <Divider style={{ margin: 0 }} />
-
-            {/* Địa chỉ */}
-            <Row
-              justify="space-between"
-              align="middle"
-              style={{ display: 'flex', flexWrap: 'nowrap' }}
-            >
-              <Col style={{ minWidth: '30%' }}>
-                <h3 className={styles.cardLabel}>
-                  <EnvironmentOutlined style={{ marginRight: 8, fontSize: 24 }} /> Địa chỉ
-                </h3>
-              </Col>
-              <Col style={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
-                <span className={styles.cardValue}>36/6 Mẹ suốt, Q.Liên Chiểu, TP.Đà Nẵng</span>
-                <RightOutlined />
-              </Col>
-            </Row>
           </Card>
-          {!isShipper && <Transaction />}
+          <div style={{ marginTop: 32 }}>
+            <h2 className={styles.sectionTitle}>Lịch sử giao dịch</h2>
+            <Card
+              className={styles.detailCard}
+              bodyStyle={{ padding: 0 }}
+              style={{ overflow: 'hidden' }}
+            >
+              <Transaction />
+            </Card>
+          </div>
         </div>
       </div>
+      <DepositModal isOpen={isDepositModalOpen} onClose={() => setIsDepositModalOpen(false)} />
     </div>
   );
 };

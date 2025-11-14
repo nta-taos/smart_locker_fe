@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
 
 import { orderApi } from '@/api/orderApi';
 import { orderPendingState, orderReceivedState, orderState } from '@/recoil/atom/order.atom';
 import { OrderListResponType } from '@/types/order.type';
+import { extractErrorMessage } from '@/utils/error.utils';
 
 export const useOrderList = (
   limit: number,
@@ -26,33 +26,33 @@ export const useOrderList = (
         } else {
           setIsLoading(true);
         }
-        console.log('load', status);
 
         const res = await orderApi.getOrders(pageNum, limit, status);
-        const result: OrderListResponType = res.data.data;
+        const result: OrderListResponType = res.data;
+        const data = result.data || [];
 
         if (status === 'all') {
           setOrderAll((prev) => ({
-            orders: append ? [...prev.orders, ...result.data] : result.data,
+            orders: append ? [...prev.orders, ...data] : data,
             page: pageNum,
             totalPages: result.totalPages,
           }));
         } else if (status === 'pending') {
           setOrderPending((prev) => ({
-            orders: append ? [...prev.orders, ...result.data] : result.data,
+            orders: append ? [...prev.orders, ...data] : data,
             page: pageNum,
             totalPages: result.totalPages,
           }));
         } else if (status === 'received') {
           setOrderReceived((prev) => ({
-            orders: append ? [...prev.orders, ...result.data] : result.data,
+            orders: append ? [...prev.orders, ...data] : data,
             page: pageNum,
             totalPages: result.totalPages,
           }));
         }
       } catch (error) {
-        toast.error('Lấy lịch sử giao dịch thất bại');
         console.error(error);
+        extractErrorMessage(error);
       } finally {
         setIsLoading(false);
         setIsLoadMore(false);

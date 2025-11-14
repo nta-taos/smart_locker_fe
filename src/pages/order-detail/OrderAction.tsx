@@ -6,6 +6,7 @@ import { Avatar, Button, Card, Col, Input, Modal, Row, Space, Typography, messag
 import { orderApi } from '@/api/orderApi';
 import { orderAuthApi } from '@/api/orderAuthApi';
 import { OrderItemType } from '@/types/order.type';
+import { extractErrorMessage } from '@/utils/error.utils';
 
 const { Text } = Typography;
 
@@ -39,10 +40,9 @@ export function OrderActions({ order, isReceiving }: OrderActionsProps) {
       await orderApi.postOpenOrder(order.id);
       message.success('Nhận hàng thành công!');
       handleCancel();
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
+    } catch (err) {
       console.error(err);
-      message.error('Có lỗi khi nhận hàng.');
+      extractErrorMessage(err);
       setLoading(false);
     }
   };
@@ -56,7 +56,7 @@ export function OrderActions({ order, isReceiving }: OrderActionsProps) {
     setLoading(true);
     try {
       const res = await orderAuthApi.createAuthorization(order.id, newEmail, newName);
-      const authorization = res.data?.data;
+      const authorization = res.data;
       if (authorization) {
         message.success('Gửi yêu cầu ủy quyền thành công!');
         console.log('Authorization result:', authorization);
@@ -65,10 +65,9 @@ export function OrderActions({ order, isReceiving }: OrderActionsProps) {
         message.error('Không nhận được phản hồi hợp lệ từ server.');
         setLoading(false);
       }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
+    } catch (err) {
       console.error(err);
-      message.error(err?.response?.data?.message || 'Có lỗi xảy ra khi gửi yêu cầu ủy quyền.');
+      extractErrorMessage(err);
       setLoading(false);
     }
   };

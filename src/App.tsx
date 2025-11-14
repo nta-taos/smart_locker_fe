@@ -7,6 +7,8 @@ import { initSocket } from './socket';
 import { useSocketListener } from './socket/useSocketListener';
 import { ThemeProvider } from './theme/theme-provider';
 
+const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
 function App() {
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('auth') || '{}')?.token;
@@ -16,7 +18,7 @@ function App() {
   useSocketListener();
 
   return (
-    <GoogleOAuthProvider clientId="1007200303137-g9lv9khro354fulr4ssoio3p8c8f31rl.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={googleClientId}>
       <ThemeProvider>
         <RouterProvider router={router} />
       </ThemeProvider>

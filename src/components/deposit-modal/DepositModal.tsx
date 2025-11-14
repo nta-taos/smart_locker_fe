@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { toast } from 'react-toastify';
 
-import { Button, Form, InputNumber, Modal } from 'antd';
+import { Button, Form, InputNumber, Modal, message } from 'antd';
 
 import { createPaymentRequest } from '@/api/paymentApi';
+import { extractErrorMessage } from '@/utils/error.utils';
 
 interface DepositModalProps {
   isOpen: boolean;
@@ -20,19 +20,20 @@ const DepositModal: React.FC<DepositModalProps> = ({ isOpen, onClose }) => {
       const { amount } = values;
 
       if (!amount || amount <= 0) {
-        toast.error('Số tiền phải lớn hơn 0');
+        message.error('Số tiền phải lớn hơn 0');
         return;
       }
 
       const response = await createPaymentRequest(amount);
-      if (response.data.paymentUrl) {
-        window.location.href = response.data.paymentUrl;
+      console.log(response);
+      if (response.paymentUrl) {
+        window.location.href = response.paymentUrl;
       } else {
-        toast.error('Không thể tạo liên kết thanh toán.');
+        message.error('Không thể tạo liên kết thanh toán.');
       }
     } catch (err) {
       console.error('Payment request error:', err);
-      toast.error('Lỗi khi tạo yêu cầu thanh toán.');
+      extractErrorMessage(err);
     } finally {
       setLoading(false);
     }

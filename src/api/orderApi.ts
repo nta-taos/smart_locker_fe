@@ -1,4 +1,4 @@
-import { SendPackagePayload } from '@/types/order.type';
+import { RentalPayload, SendPackagePayload } from '@/types/order.type';
 
 import axiosInstance from './axios/config';
 import { ENDPOINTS } from './axios/endpoints';
@@ -37,5 +37,9 @@ export const orderApi = {
   },
   postOpenOrder: async (orderId: number) => {
     return axiosInstance.post(ENDPOINTS.post.openOrder.replace(':orderId', String(orderId)));
+  },
+
+  postRentalOrder: async (data: RentalPayload) => {
+    return axiosInstance.post(ENDPOINTS.post.rentalOrder, data);
   },
 };

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
+
+import { message } from 'antd';
 
 import { authApi } from '@/api/authApi';
 import { authState } from '@/recoil/atom/authAtom';
@@ -9,6 +10,7 @@ import { initSocket } from '@/socket';
 import { useSocketListener } from '@/socket/useSocketListener';
 import { AuthType } from '@/types/auth.type';
 import { UserType } from '@/types/user.type';
+import { extractErrorMessage } from '@/utils/error.utils';
 
 export const useLogin = () => {
   const [auth, setAuth] = useRecoilState(authState);
@@ -19,7 +21,7 @@ export const useLogin = () => {
   const [showPhonePopup, setShowPhonePopup] = useState(false);
   const [tempIdToken, setTempIdToken] = useState<string | null>(null);
 
-  const handleAuthSuccess = (token: string, user: UserType, message: string) => {
+  const handleAuthSuccess = (token: string, user: UserType, msg: string) => {
     const newAuth: AuthType = {
       isAuthenticated: true,
       token,
@@ -28,7 +30,8 @@ export const useLogin = () => {
 
     setAuth(newAuth);
     localStorage.setItem('auth', JSON.stringify(newAuth));
-    toast.success(message);
+
+    message.success(msg);
     navigation('/dashboard');
   };
 
@@ -37,12 +40,12 @@ export const useLogin = () => {
     setLoading(true);
     try {
       const res = await authApi.login(values.phone, values.password);
-      const { token, user } = res.data.data;
-      // Gọi hàm dùng chung
+      console.log('check');
+      const { token, user } = res.data;
       handleAuthSuccess(token, user, 'Đăng nhập thành công');
     } catch (error) {
-      console.log(error);
-      toast.error('Sai tài khoản hoặc mật khẩu.');
+      console.error(error);
+      extractErrorMessage(error);
     } finally {
       setLoading(false);
     }
@@ -52,21 +55,21 @@ export const useLogin = () => {
     setGoogleLoading(true);
     try {
       const res = await authApi.googleCheck(idToken);
-      const responseData = res.data.data;
+      const responseData = res.data;
 
       if (responseData.token && responseData.user) {
         const { token, user } = responseData;
         handleAuthSuccess(token, user, 'Đăng nhập Google thành công');
       } else if (responseData.status === 'new_user') {
-        toast.info('Tài khoản chưa tồn tại, vui lòng nhập SĐT để hoàn tất đăng ký.');
+        message.info('Tài khoản chưa tồn tại, vui lòng nhập SĐT để hoàn tất đăng ký.');
         setTempIdToken(idToken);
-        setShowPhonePopup(true); // Mở popup
+        setShowPhonePopup(true);
       } else {
         throw new Error('Phản hồi API không hợp lệ');
       }
-    } catch {
-      const message = 'Đăng nhập Google thất bại.';
-      toast.error(message);
+    } catch (error) {
+      console.error(error);
+      extractErrorMessage(error);
     } finally {
       setGoogleLoading(false);
     }
@@ -74,21 +77,21 @@ export const useLogin = () => {
 
   const handleCompleteGoogleRegistration = async (values: { phone: string }) => {
     if (!tempIdToken) {
-      toast.error('Lỗi: Không tìm thấy token Google. Vui lòng thử lại.');
+      message.error('Lỗi: Không tìm thấy token Google. Vui lòng thử lại.');
       return;
     }
 
     setCompleteLoading(true);
     try {
       const res = await authApi.googleRegisterComplete(tempIdToken, values.phone);
-      const { token, user } = res.data.data;
+      const { token, user } = res.data;
 
       handleAuthSuccess(token, user, 'Đăng ký và đăng nhập thành công!');
       setShowPhonePopup(false);
       setTempIdToken(null);
-    } catch {
-      const message = 'Hoàn tất đăng ký thất bại.';
-      toast.error(message);
+    } catch (error) {
+      console.error(error);
+      extractErrorMessage(error);
     } finally {
       setCompleteLoading(false);
     }

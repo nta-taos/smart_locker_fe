@@ -6,6 +6,7 @@ import { Avatar, Badge, Button, Drawer, Grid, List, Popover, Spin, Typography } 
 
 import { notificationApi } from '@/api/notificationApi';
 import { getSocket } from '@/socket';
+import { extractErrorMessage } from '@/utils/error.utils';
 
 const { Text } = Typography;
 const { useBreakpoint } = Grid;
@@ -53,8 +54,7 @@ const NotificationBell = () => {
 
       try {
         const res = await notificationApi.getNotifications(pageNumber, 10);
-        // res.data.data is the pagination payload from backend
-        const payload = res.data.data;
+        const payload = res.data;
         type BackendNotification = {
           id: number;
           title?: string;
@@ -75,7 +75,8 @@ const NotificationBell = () => {
         setPage(payload.page || pageNumber);
         setTotalPages(payload.totalPages || 1);
       } catch (err) {
-        console.error('Lỗi khi tải notifications:', err);
+        console.error(err);
+        extractErrorMessage(err);
       } finally {
         setLoading(false);
       }
