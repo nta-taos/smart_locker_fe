@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import {
   AppstoreOutlined,
@@ -19,12 +20,16 @@ import styles from './Dashboard.module.scss';
 import { useDashboard } from './useDashboard';
 
 const DashboardPage: React.FC = () => {
+  const navigate = useNavigate();
   const { auth, isBalanceVisible, toggleBalanceVisibility, userRole } = useDashboard();
+
+  const goLockers = () => navigate('/lockers');
+  const goOrders = () => navigate('/orders');
   return (
     <Layout className={styles.dashboard}>
       <Row justify="center" gutter={[20, 20]} style={{ paddingTop: '1rem' }}>
         <Col xs={12} sm={12} md={12} lg={6}>
-          <Card className={styles.statsCard}>
+          <Card className={styles.statsCard} onClick={goLockers}>
             <Space direction="vertical">
               <Space align="center" style={{ color: '#074CE7' }}>
                 <AppstoreOutlined style={{ fontSize: 24 }} />
@@ -36,7 +41,7 @@ const DashboardPage: React.FC = () => {
         </Col>
 
         <Col xs={12} sm={12} md={12} lg={6}>
-          <Card className={styles.statsCard}>
+          <Card className={styles.statsCard} onClick={goLockers}>
             <Space direction="vertical">
               <Space align="center" style={{ color: '#074CE7' }}>
                 <EnvironmentOutlined style={{ fontSize: 24 }} />
@@ -48,7 +53,7 @@ const DashboardPage: React.FC = () => {
         </Col>
 
         <Col xs={12} sm={12} md={12} lg={6}>
-          <Card className={styles.statsCard}>
+          <Card className={styles.statsCard} onClick={goOrders}>
             <Space direction="vertical">
               <Space align="center" style={{ color: '#074CE7' }}>
                 <ShoppingCartOutlined style={{ fontSize: 24 }} />
@@ -60,14 +65,13 @@ const DashboardPage: React.FC = () => {
         </Col>
 
         <Col xs={12} sm={12} md={12} lg={6}>
-          <Card className={styles.statsCard}>
+          <Card className={styles.statsCard} onClick={toggleBalanceVisibility}>
             <Space direction="vertical" style={{ width: '100%' }}>
               <Space align="center" style={{ color: '#074CE7' }}>
                 <WalletOutlined style={{ fontSize: 24 }} />
                 <span>Ví của tôi</span>
               </Space>
               <div
-                onClick={toggleBalanceVisibility}
                 style={{
                   cursor: 'pointer',
                   display: 'flex',
@@ -102,6 +106,7 @@ const DashboardPage: React.FC = () => {
         <Col xs={24} sm={24} md={8}>
           <div className={styles.sectionTitle}>Hoạt động gần đây</div>
           <Card
+            className={styles.orderCard}
             style={{ borderRadius: '24px', height: '60vh' }}
             styles={{ body: { height: '100%' } }}
           >

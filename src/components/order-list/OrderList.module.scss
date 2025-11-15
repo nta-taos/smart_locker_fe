@@ -13,3 +13,11 @@
   justify-content: center;
   align-items: center;
 }
+
+.emptyContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: 250px;
+}

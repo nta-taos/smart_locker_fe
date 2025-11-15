@@ -1,6 +1,6 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { Spin } from 'antd';
+import { Empty, Spin } from 'antd';
 
 import TransactionItem from '../common/transaction-item/TransactionItem';
 import styles from './Transaction.module.scss';
@@ -24,6 +24,14 @@ export const Transaction: React.FC<TransactionProps> = ({ className = '' }) => {
   };
 
   const renderContent = () => {
+    if (transactions.length === 0) {
+      return (
+        <div className={styles.emptyContainer}>
+          <Empty description="Không có giao dịch" />
+        </div>
+      );
+    }
+
     return (
       <InfiniteScroll
         dataLength={transactions.length}

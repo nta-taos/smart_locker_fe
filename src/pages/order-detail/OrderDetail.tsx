@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import {
   AppstoreOutlined,
@@ -30,6 +30,7 @@ import {
   Typography,
 } from 'antd';
 
+import { authState } from '@/recoil/atom/authAtom';
 import { orderState } from '@/recoil/atom/order.atom';
 import { OrderItemType } from '@/types/order.type';
 import { formatDateTime } from '@/utils/format-datetime';
@@ -55,6 +56,7 @@ const typeLabels: Record<number, string> = {
 
 const AntOrderDetails: React.FC = () => {
   const { orderId } = useParams<{ orderId: string }>();
+  const auth = useRecoilValue(authState);
   const [orderStateValue] = useRecoilState(orderState);
   const screens = useBreakpoint();
   const navigate = useNavigate();
@@ -68,8 +70,7 @@ const AntOrderDetails: React.FC = () => {
   }, [order, navigate]);
   if (!order) return null;
 
-  const isReceived = order.status === 2;
-  const canReceive = !isReceived;
+  const canReceive = order.receiver.id === auth.user?.id;
 
   const OrderInfoCard = () => (
     <Card

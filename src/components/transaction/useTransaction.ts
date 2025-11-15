@@ -43,10 +43,10 @@ export const useTransaction = () => {
   );
 
   useEffect(() => {
-    if (state.transactions?.length === 0) {
+    if (state.page === 0) {
       getTransactions(1, false);
     }
-  }, [state.transactions, getTransactions]);
+  }, [state.page, getTransactions]);
 
   const loadMore = () => {
     if (!isLoading && state.page < state.totalPages) {

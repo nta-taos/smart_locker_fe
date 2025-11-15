@@ -83,10 +83,7 @@ const AccountPage: React.FC = () => {
                         </Text>
                         <Space>
                           <Text style={{ fontSize: 16, fontWeight: 600, color: '#00A86B' }}>
-                            {new Intl.NumberFormat('vi-VN', {
-                              style: 'currency',
-                              currency: 'VND',
-                            }).format(Number(auth?.user?.wallet?.balance || 0))}
+                            {`${Number(auth.user?.wallet.balance).toLocaleString('vi-VN')} VND`}
                           </Text>
                           <EyeOutlined style={{ fontSize: 24, color: '#002B79', paddingLeft: 8 }} />
                         </Space>

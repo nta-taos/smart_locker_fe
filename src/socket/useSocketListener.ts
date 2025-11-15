@@ -4,8 +4,10 @@ import { useRecoilCallback, useSetRecoilState } from 'recoil';
 import { authState } from '@/recoil/atom/authAtom';
 import { orderState } from '@/recoil/atom/order.atom';
 import { slotAtom } from '@/recoil/atom/slot.atom';
+import { transactionState } from '@/recoil/atom/transaction.atom';
 import { OrderItemType } from '@/types/order.type';
 import { SlotType } from '@/types/slot.type';
+import { TransactionItemType } from '@/types/transaction.type';
 import { WalletType } from '@/types/wallet.type';
 
 import { getSocket } from '.';
@@ -14,6 +16,7 @@ import { registerSocketEvents } from './socketEvents';
 export const useSocketListener = () => {
   const setOrders = useSetRecoilState(orderState);
   const setAuth = useSetRecoilState(authState);
+  const setTransaction = useSetRecoilState(transactionState);
 
   const setSlotState = useRecoilCallback(
     ({ set }) =>
@@ -28,6 +31,12 @@ export const useSocketListener = () => {
     if (!socket) return;
 
     registerSocketEvents({
+      onTransactionCreated: (transactionItem: TransactionItemType) => {
+        setTransaction((prev) => ({
+          ...prev,
+          transactions: [transactionItem, ...prev.transactions],
+        }));
+      },
       onOrderCreated: (newOrder: OrderItemType) => {
         setOrders((prev) => ({
           ...prev,
@@ -66,6 +75,7 @@ export const useSocketListener = () => {
       socket.off('order:updated');
       socket.off('slot:updated');
       socket.off('wallet:updated');
+      socket.off('transaction:created');
     };
-  }, [setOrders, setSlotState, setAuth]);
+  }, [setOrders, setSlotState, setAuth, setTransaction]);
 };

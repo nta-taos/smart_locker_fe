@@ -2,7 +2,10 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil';
 
+import { message } from 'antd';
+
 import { buildingApi } from '@/api/buildingApi';
+import { useAuth } from '@/hooks/useAuth';
 import {
   buildingAtom,
   buildingIdsAtom,
@@ -24,12 +27,23 @@ const useMap = () => {
   const [searchInput, setSearchInput] = useState('');
   const [buildingIds, setBuildingIds] = useRecoilState(buildingIdsAtom);
   const countSlot = useRecoilValue(slotCountBySizeSelector(selectedBuildingId || 0));
+  const { isAuthenticated } = useAuth();
 
   const handleRentLocker = () => {
+    if (!isAuthenticated) {
+      navigate('/login');
+      message.error('Vui lòng đăng nhập để thuê tủ');
+      return;
+    }
     navigate(`/rent/${selectedBuildingId}`);
   };
 
   const handleSendPackage = () => {
+    if (!isAuthenticated) {
+      navigate('/login');
+      message.error('Vui lòng đăng nhập để gửi hàng');
+      return;
+    }
     navigate(`/send/${selectedBuildingId}`);
   };
 

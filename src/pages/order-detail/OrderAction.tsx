@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { CheckCircleOutlined, PhoneOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 import { Avatar, Button, Card, Col, Input, Modal, Row, Space, Typography, message } from 'antd';
@@ -22,6 +23,7 @@ export function OrderActions({ order, isReceiving }: OrderActionsProps) {
   const [newEmail, setNewEmail] = useState('');
   const [newName, setNewName] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleReceiveOpen = () => setReceiveModalOpen(true);
   const handleAuthorizeOpen = () => setAuthorizeModalOpen(true);
@@ -39,6 +41,8 @@ export function OrderActions({ order, isReceiving }: OrderActionsProps) {
     try {
       await orderApi.postOpenOrder(order.id);
       message.success('Nhận hàng thành công!');
+      navigate(-1);
+
       handleCancel();
     } catch (err) {
       console.error(err);

@@ -10,7 +10,7 @@ export const transactionState = atom<{
   key: 'transactionState',
   default: {
     transactions: [],
-    page: 1,
-    totalPages: 1,
+    page: 0,
+    totalPages: 0,
   },
 });

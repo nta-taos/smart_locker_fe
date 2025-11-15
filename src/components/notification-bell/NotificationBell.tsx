@@ -2,11 +2,12 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { BellOutlined, LoadingOutlined } from '@ant-design/icons';
-import { Avatar, Badge, Button, Drawer, Grid, List, Popover, Spin, Typography } from 'antd';
+import { Avatar, Badge, Button, Drawer, Empty, Grid, List, Popover, Spin, Typography } from 'antd';
 
 import { notificationApi } from '@/api/notificationApi';
 import { getSocket } from '@/socket';
 import { extractErrorMessage } from '@/utils/error.utils';
+import { formatDateTime } from '@/utils/format-datetime';
 
 const { Text } = Typography;
 const { useBreakpoint } = Grid;
@@ -208,16 +209,18 @@ const NotificationBell = () => {
                   />
                 }
                 title={<Text strong={!item.read}>{item.title}</Text>}
-                description={<Text type="secondary">{item.time}</Text>}
+                description={<Text type="secondary">{formatDateTime(item.time)}</Text>}
               />
             </List.Item>
           )}
         />
       ) : (
         !loading && (
-          <div style={{ textAlign: 'center', padding: '24px 0', color: '#999' }}>
-            Không có thông báo
-          </div>
+          <Empty
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+            description="Không có thông báo"
+            style={{ padding: '24px 0' }}
+          />
         )
       )}
 

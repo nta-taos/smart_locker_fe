@@ -1,6 +1,6 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { Spin } from 'antd';
+import { Empty, Spin } from 'antd';
 
 import { OrderItem, OrderItemVariant } from '../common/order-item/OrderItem';
 import styles from './OrderList.module.scss';
@@ -39,6 +39,15 @@ export const OrderList: React.FC<OrderListProps> = ({
 
   const renderContent = () => {
     const data = status == 'all' ? orderAll : status == 'pending' ? orderPending : orderReceived;
+
+    if (data.orders.length === 0) {
+      return (
+        <div className={styles.emptyContainer}>
+          <Empty description="Không có đơn hàng" />
+        </div>
+      );
+    }
+
     return (
       <InfiniteScroll
         dataLength={data.orders.length}

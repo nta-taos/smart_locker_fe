@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Button } from 'antd';
 
@@ -7,6 +8,11 @@ import { useHero } from './useHero';
 
 const Hero: React.FC = () => {
   const { title, subtitle, ctaText } = useHero();
+  const navigate = useNavigate();
+
+  const handleCTA = () => {
+    navigate('/dashboard');
+  };
 
   return (
     <section className={styles.hero}>
@@ -23,7 +29,7 @@ const Hero: React.FC = () => {
               <b>IoT (Internet of Things)</b> và ứng dụng <b>PWA (Progressive Web App)</b>, cho phép
               người dùng gửi hay nhận hàng mà <b>không cần tiếp xúc trực tiếp.</b>
             </p>
-            <Button type="primary" size="large">
+            <Button type="primary" size="large" onClick={handleCTA}>
               {ctaText}
             </Button>
           </div>
@@ -39,7 +45,7 @@ const Hero: React.FC = () => {
               alt="Hero people 2"
               className={styles.peopleRight}
             />
-            <img src="/images/locker.png" alt="Hero locker" className={styles.locker} />
+            <img src="/images/locker2.png" alt="Hero locker" className={styles.locker} />
           </div>
         </div>
       </div>
