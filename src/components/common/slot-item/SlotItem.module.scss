@@ -1,0 +1,131 @@
+@use '../../../styles/abstracts/' as *;
+
+.container {
+  cursor: pointer;
+}
+
+button {
+  all: unset;
+}
+
+div {
+  border-radius: 7px;
+}
+
+.body {
+  background-color: $bg-primary;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+
+  .top {
+    width: 90%;
+    margin: 0 auto;
+    flex-grow: 1;
+    padding-top: 5px;
+
+    h1 {
+      background-color: $bg-white;
+      border-radius: 5px;
+      font-size: 13px;
+    }
+
+    div {
+      background-color: $text-part;
+      height: 2px;
+      width: 100%;
+      margin: 4px 0;
+    }
+
+    @include mq(md) {
+      width: 70%;
+    }
+  }
+}
+
+.line1 {
+  width: 20%;
+  background-color: $text-part;
+  height: 2px;
+  margin: 4px 0;
+}
+
+.line2 {
+  width: 15%;
+  background-color: gray;
+  height: 2px;
+  margin: 4px 0;
+}
+
+.isMaintenance {
+  background-color: $bg-notify !important;
+}
+
+.isSelected {
+  background-color: $text-success !important;
+}
+
+.unavailable {
+  background-color: $text-part;
+  padding: 0.3rem;
+  padding-top: 0.1rem;
+  width: 90px;
+  height: 70px;
+  box-sizing: border-box;
+
+  @include mq(md) {
+    padding: 0.5rem;
+    padding-top: 0.2rem;
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.available {
+  width: 90px;
+  height: 70px;
+  box-sizing: border-box;
+
+  background-color: #38454f;
+  display: flex;
+
+  @include mq(md) {
+    width: 100px;
+    height: 100px;
+
+    .left,
+    .right {
+      padding: 0.5rem;
+      padding-top: 0.2rem;
+    }
+  }
+
+  .left {
+    flex-grow: 1;
+    padding: 0.3rem;
+    padding-top: 0.1rem;
+    border-radius: 7px 0 0 7px;
+
+    > div {
+      background-color: $bg-dark;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .right {
+    width: 65%;
+    background-color: $text-part;
+    padding: 0.3rem;
+    padding-top: 0.1rem;
+
+    .body {
+      background-color: $bg-light;
+    }
+
+    @include mq(md) {
+      width: 55%;
+    }
+  }
+}

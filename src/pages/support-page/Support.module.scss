@@ -1,0 +1,284 @@
+@use '../../styles/abstracts/color' as *;
+
+.searchSection {
+  padding: 4rem 8rem;
+  background: $bg-white;
+
+  .content {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .subTitle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $bg-secondary;
+    margin: 2rem 0 1rem;
+  }
+
+  h1 {
+    font-size: 40px;
+    font-weight: 700;
+    color: $fg-primary;
+    margin: 0 0 1rem;
+  }
+
+  p {
+    font-size: 16px;
+    margin-bottom: 1rem;
+    max-width: 600px;
+    color: $text-default;
+  }
+
+  .searchBox {
+    display: flex;
+    align-items: center;
+    max-width: 600px;
+    border: 1px solid $border-primary;
+    border-radius: 999px;
+    padding: 0.4rem 0.6rem;
+    box-sizing: border-box;
+
+    input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+      color: $text-default;
+    }
+
+    .searchBtn {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 999px;
+      color: $text-inverse;
+      font-weight: 600;
+      cursor: pointer;
+      max-width: 100px;
+    }
+  }
+
+  .popular {
+    margin-top: 1rem;
+
+    .label {
+      font-weight: 600;
+      margin-right: 1rem;
+      color: $text-default;
+    }
+
+    .tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+
+      .tag {
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        border: 1px solid $border-primary;
+        background: $border-primary;
+        cursor: pointer;
+        color: $text-weak;
+
+        &:hover {
+          background: $hover-gray-button;
+        }
+      }
+    }
+  }
+
+  .right {
+    img {
+      width: 100%;
+      max-width: 588px;
+      height: auto;
+      padding-top: 2rem;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 992px) {
+    padding: 3rem 2rem;
+
+    .content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 28px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+
+    .searchBox {
+      border-radius: 999px;
+      flex-direction: row;
+      align-items: center;
+
+      input {
+        flex: 1;
+        width: 75%;
+      }
+
+      .searchBtn {
+        width: 25%;
+        margin-top: 0.5rem;
+      }
+    }
+
+    .right img {
+      max-width: 100%;
+    }
+  }
+}
+
+/* ================== FORM SECTION ================== */
+.formSection {
+  background-color: $bg-light;
+  width: 100%;
+  padding-bottom: 1rem;
+
+  .formImage,
+  .formBox {
+    flex: 1;
+    max-width: 500px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 4rem;
+  }
+
+  .formImage {
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+  }
+
+  @media (max-width: 992px) {
+    flex-direction: column;
+    padding: 1rem 0;
+    text-align: center;
+    gap: 1rem;
+
+    .formImage {
+      display: none;
+    }
+
+    .formBox {
+      max-width: 100%;
+      padding-right: 0;
+    }
+  }
+}
+
+/* ================== STATS SECTION ================== */
+.statsSection {
+  background-color: $bg-light;
+  padding: 1rem 1rem;
+
+  .statsCard {
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+    height: 200px;
+    padding: 2rem 0;
+    background-color: $bg-white;
+
+    .ant-space {
+      height: 100%;
+    }
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+/* ================== OFFICE SECTION ================== */
+.office {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 3rem 6rem;
+  margin: 0 auto;
+  max-width: 1200px;
+
+  .officeText {
+    flex: 1;
+    max-width: 532px;
+
+    h2 {
+      color: $fg-primary;
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      margin: 1rem 0;
+      padding: 0;
+      list-style: none;
+
+      li {
+        margin-bottom: 0.5rem;
+        color: $text-default;
+      }
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .mapBtn {
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 5px;
+      background: $bg-notify;
+      color: $text-inverse;
+      font-weight: 600;
+      cursor: pointer;
+
+      &:hover {
+        background: $bg-notify;
+      }
+    }
+  }
+
+  .officeMap {
+    img {
+      width: 100%;
+      max-width: 588px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 992px) {
+    flex-direction: column;
+    padding: 2rem;
+    text-align: center;
+
+    .officeMap img {
+      max-width: 100%;
+      margin: 1rem auto;
+    }
+  }
+}

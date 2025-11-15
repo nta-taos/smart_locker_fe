@@ -1,0 +1,69 @@
+@use '../../../styles/abstracts/' as *;
+
+.container {
+  border-radius: 15px;
+  border: 1px solid $border-secondary;
+  overflow: hidden;
+  width: 200px;
+  margin-bottom: 10px;
+
+  @include mq(md) {
+    width: 250px;
+  }
+}
+
+.header {
+  h1 {
+    background-color: $bg-primary;
+    padding: 0.3rem;
+    text-align: center;
+    color: $text-inverse;
+    font-size: clamp(10px, 2.5vw, 13px);
+  }
+}
+
+.body {
+  display: grid;
+  grid-template-columns: min-content auto;
+  grid-template-rows: auto auto auto;
+  gap: 0.3rem;
+  align-items: center;
+  margin: auto;
+  width: fit-content;
+  padding: 5px 10px;
+
+  h2 {
+    vertical-align: middle;
+    margin: 0;
+    white-space: nowrap;
+    color: $text-part;
+    font-size: clamp(10px, 2.5vw, 13px);
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  path {
+    fill: $text-part;
+  }
+
+  mask {
+    height: 24px;
+  }
+}
+
+.shorten {
+  padding: 5px 10px;
+  h1 {
+    background-color: $bg-primary;
+    border-radius: 15px;
+  }
+
+  h2 {
+    color: $text-link;
+  }
+
+  path {
+    fill: $text-link;
+  }
+}

@@ -1,0 +1,64 @@
+@use '../../styles/abstracts' as *;
+
+.loginWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(145deg, #f0f5ff, #e6f4ff);
+  padding: 1rem;
+  min-width: 40%;
+}
+
+.loginCard {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem 1.5rem;
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  margin-top: 40px;
+  margin-bottom: 1rem;
+
+  @include mq(lg) {
+    padding: 1.5rem 2.5rem;
+  }
+}
+
+.registerTitle {
+  text-align: center;
+  color: #1677ff;
+  margin-bottom: 0.5rem;
+}
+
+.registerSubtitle {
+  display: block;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 15px;
+  color: #555;
+}
+
+.submitWrapper {
+  padding-top: 1rem;
+}
+
+.submitButton {
+  border-radius: 8px;
+  height: 48px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.googleButtonWrapper {
+  margin-bottom: 1.5rem;
+  height: 48px;
+}
+
+.registerText {
+  text-align: center;
+  margin-top: 1rem;
+  color: #1d1d1f;
+}

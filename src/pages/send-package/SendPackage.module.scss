@@ -1,0 +1,559 @@
+/* --- Variables --- */
+$color-primary: #2d3e50; // Màu xanh đen đậm - Navy Blue
+$color-secondary: #d97757; // Màu cam đất - Burnt Orange
+$color-background: #faf9f7; // Màu nền nhẹ - Off-White
+$color-border-light: #e8e6e1; // Màu viền nhẹ
+$color-text-dark: #1a1a1a; // Màu chữ đậm
+$color-text-medium: #6b6660; // Màu chữ trung bình
+$color-text-light: #8b8680; // Màu chữ nhạt
+$color-success: #52c41a;
+
+/* --- Layout Overrides (Antd) --- */
+.antdLayout {
+  min-height: 100vh;
+  background-color: $color-background;
+}
+
+.antdHeader {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid $color-border-light;
+  backdrop-filter: blur(8px);
+  padding: 0 16px;
+  height: auto; // Remove fixed height
+  line-height: normal;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.headerContent {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+
+  @media (min-width: 640px) {
+    padding: 12px 0;
+  }
+}
+
+.backButtonAntd {
+  height: 44px;
+  width: 44px;
+  color: $color-text-dark;
+  &:hover {
+    background-color: #f5f3ef !important;
+  }
+}
+
+.headerTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.headerIconWrapper {
+  padding: 8px;
+  background-color: rgba($color-secondary, 0.1);
+  border-radius: 12px;
+}
+
+.headerIcon {
+  color: $color-secondary;
+}
+
+.pageTitle {
+  margin: 0 !important;
+  font-size: 20px !important;
+  font-weight: bold;
+  letter-spacing: -0.5px;
+  color: $color-text-dark;
+
+  @media (min-width: 640px) {
+    font-size: 24px !important;
+  }
+}
+
+.antdContent {
+  padding: 16px;
+  padding-bottom: 80px;
+  @media (min-width: 640px) {
+    padding: 24px 32px;
+  }
+}
+
+.maxWidthWrapper {
+  max-width: 800px;
+  margin: 0 auto;
+
+  @media (max-width: 576px) {
+    padding: 0 16px;
+  }
+}
+
+/* --- Form Content --- */
+.formContainer {
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
+.stepContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.antdCard {
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid $color-border-light;
+
+  :global(.ant-card-head) {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 !important;
+  color: $color-text-dark;
+}
+
+.sectionIcon {
+  color: $color-primary;
+  padding: 4px;
+  background-color: rgba($color-primary, 0.1);
+  border-radius: 8px;
+}
+
+.sectionIconOrange {
+  color: $color-secondary;
+  padding: 4px;
+  background-color: rgba($color-secondary, 0.1);
+  border-radius: 8px;
+}
+
+.antInputDate {
+  height: 40px;
+  border-radius: 8px;
+  border: 2px solid $color-border-light;
+  &:focus,
+  &:hover {
+    border-color: $color-primary !important;
+    box-shadow: 0 0 0 2px rgba($color-primary, 0.2) !important;
+  }
+}
+
+.antInput {
+  height: 40px;
+  border-radius: 8px;
+  border: 2px solid $color-border-light;
+
+  :global(.ant-input-prefix) {
+    color: $color-text-light;
+  }
+
+  &:focus,
+  &:hover {
+    border-color: $color-primary !important;
+    box-shadow: 0 0 0 2px rgba($color-primary, 0.2) !important;
+  }
+}
+
+/* --- Step 0: Size & Locker Selection --- */
+.fullWidthGroup {
+  width: 100%;
+}
+
+.sizeOptionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sizeRadio {
+  width: 100%;
+  height: auto;
+  padding: 12px;
+  border-radius: 8px !important;
+  border: 2px solid $color-border-light !important;
+  background: white;
+  transition: all 0.3s;
+
+  &:hover {
+    border-color: rgba($color-primary, 0.5) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  // Hide AntD's default radio button
+  :global(.ant-radio-button) {
+    display: none;
+  }
+}
+
+.sizeRadioSelected {
+  @extend .sizeRadio;
+  border-color: $color-primary !important;
+  background: rgba($color-primary, 0.05);
+  box-shadow: 0 4px 12px rgba($color-primary, 0.1);
+
+  // Custom checkmark or indicator if needed, but AntD handles radio state visually
+}
+
+.sizeRadioContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sizeRadioText {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sizeTitle {
+  font-size: 16px;
+  color: $color-text-dark;
+}
+
+.dimensionTag {
+  font-size: 10px;
+  padding: 0px 16px;
+  border-radius: 16px;
+  background-color: rgba($color-primary, 0.1);
+  color: $color-primary;
+  border: 1px solid $color-border-light;
+  white-space: nowrap;
+}
+
+.priceTag {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding-top: 4px;
+}
+
+.priceAmount {
+  font-size: 20px;
+  font-weight: bold;
+  color: $color-secondary;
+}
+
+.availableLockerTag {
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background-color: rgba($color-primary, 0.1);
+  color: $color-primary;
+  font-weight: 500;
+}
+
+.lockerBox {
+  padding: 16px 8px;
+  text-align: center;
+  border-radius: 8px;
+  border: 2px solid $color-border-light;
+  cursor: pointer;
+  transition: all 0.3s;
+  height: 100%;
+
+  &:hover {
+    border-color: rgba($color-primary, 0.5);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.lockerBoxDefault {
+  background: white;
+  .lockerId {
+    color: $color-text-dark;
+  }
+  .lockerFloor {
+    color: $color-text-light;
+  }
+}
+
+.lockerBoxSelected {
+  background: $color-primary;
+  border-color: $color-primary;
+  box-shadow: 0 8px 16px rgba($color-primary, 0.3);
+  transform: scale(1.05);
+
+  .lockerId,
+  .lockerFloor {
+    color: white;
+    opacity: 0.9;
+  }
+}
+
+.lockerId {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.lockerFloor {
+  font-size: 10px;
+}
+
+.noLocker {
+  text-align: center;
+  padding: 48px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.noLockerIcon {
+  color: $color-text-light;
+  background-color: #f5f3ef;
+  padding: 12px;
+  border-radius: 9999px;
+  margin-bottom: 8px;
+}
+.noLockerText {
+  font-size: 14px;
+}
+.noLockerSubText {
+  font-size: 12px;
+}
+
+/* --- Step 1: Info Selection --- */
+.durationRadio {
+  width: 100%;
+  text-align: center;
+  border-radius: 8px !important;
+  border: 2px solid $color-border-light !important;
+  height: auto;
+  padding: 12px 8px;
+  transition: all 0.3s;
+  background: white;
+
+  &:hover {
+    border-color: rgba($color-primary, 0.5) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.durationRadioSelected {
+  @extend .durationRadio;
+  border-color: $color-primary !important;
+  background: $color-primary !important;
+
+  span {
+    color: white !important;
+  }
+}
+
+.durationText {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.durationUnit {
+  display: block;
+  font-size: 10px;
+  color: $color-text-light;
+}
+
+/* --- Step 2: Summary & Payment --- */
+
+.summaryCard {
+  background: linear-gradient(
+    to bottom right,
+    rgba($color-primary, 0.05),
+    rgba($color-secondary, 0.05),
+    rgba($color-primary, 0.05)
+  );
+}
+
+.summaryList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.summaryRow {
+  padding: 8px 0;
+  border-bottom: 1px solid $color-border-light;
+}
+
+.priceTextSmall {
+  color: $color-secondary;
+}
+
+.totalRowAntd {
+  margin: 16px -24px -16px; // Adjust for Card padding
+  padding: 12px 24px;
+  background-color: rgba($color-primary, 0.05);
+  border-radius: 12px;
+}
+
+.totalLabel {
+  font-size: 16px;
+  @media (min-width: 640px) {
+    font-size: 18px;
+  }
+}
+
+.totalAmount {
+  font-size: 24px;
+  font-weight: bold;
+  color: $color-secondary;
+
+  @media (min-width: 640px) {
+    font-size: 30px;
+  }
+}
+
+.paymentMethodContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.paymentRadio {
+  @extend .sizeRadio;
+  padding: 16px 16px;
+}
+
+.paymentRadioSelected {
+  @extend .sizeRadioSelected;
+  padding: 16px 16px;
+}
+
+.paymentRadioContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.paymentIcon {
+  font-size: 24px;
+}
+
+.paymentName {
+  flex-grow: 1;
+  text-align: left;
+  margin-left: 16px;
+  font-size: 16px;
+  color: $color-text-dark;
+}
+
+.paymentCheck {
+  color: white;
+  background-color: $color-primary;
+  padding: 4px;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.walletCard {
+  @extend .sizeRadio;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border: 2px solid $color-primary;
+  background-color: rgba($color-primary, 0.05);
+
+  @media (max-width: 420px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+
+    :global(.ant-btn) {
+      width: 100%;
+    }
+  }
+}
+
+.walletInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.walletIcon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.walletDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.walletName {
+  font-size: 16px;
+  display: block;
+  color: $color-text-dark;
+}
+
+.walletBalance {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.walletBalanceLabel {
+  font-size: 14px;
+  color: $color-text-medium;
+}
+
+.walletBalanceAmount {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.walletBalanceAmount--sufficient {
+  color: $color-success;
+}
+
+.walletBalanceAmount--insufficient {
+  color: #f5222d;
+}
+
+.topUpIcon {
+  margin-right: 4px;
+  font-size: 12px;
+}
+
+/* --- Fixed Bottom Bar --- */
+.fixedBottomBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  backdrop-filter: blur(8px);
+  border-top: 1px solid $color-border-light;
+  padding: 16px 0;
+
+  @media (min-width: 640px) {
+    position: relative;
+    border-top: none;
+    padding: 16px 0;
+  }
+}

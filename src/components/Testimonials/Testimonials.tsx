@@ -28,9 +28,6 @@ const Testimonials: React.FC = () => {
             </p>
             <div className={styles.author}>{item.author}</div>
             <div className={styles.position}>{item.position}</div>
-            <a href={item.companyUrl} className={styles.company}>
-              {item.company}
-            </a>
           </div>
         ))}
       </div>

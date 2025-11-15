@@ -1,0 +1,24 @@
+@use '../../styles/abstracts' as *;
+
+.container {
+  background: $bg-white;
+  border-radius: 10px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.spinLoading {
+  margin: 1rem;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.emptyContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: 200px;
+}
