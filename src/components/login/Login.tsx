@@ -1,9 +1,7 @@
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Divider, Form, Input, Modal, Typography } from 'antd';
+import { Button, Checkbox, Divider, Form, Input, Modal, Typography, message } from 'antd';
 
 import styles from './Login.module.scss';
 import { useLogin } from './useLogin';
@@ -29,12 +27,12 @@ export default function Login() {
     if (idToken) {
       handleGoogleLogin(idToken);
     } else {
-      toast.error('Không thể lấy thông tin từ Google.');
+      message.error('Không thể lấy thông tin từ Google.');
     }
   };
 
   const onGoogleError = () => {
-    toast.error('Đăng nhập Google thất bại.');
+    message.error('Đăng nhập Google thất bại.');
   };
 
   const handleCancelPopup = () => {
@@ -161,8 +159,6 @@ export default function Login() {
           </Form.Item>
         </Form>
       </Modal>
-
-      <ToastContainer position="top-right" autoClose={3000} theme="light" />
     </div>
   );
 }

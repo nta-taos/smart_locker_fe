@@ -5,12 +5,9 @@ import {
   FaCreditCard,
   FaLock,
   FaPaperPlane,
-  // Giữ lại icon header, hoặc đổi thành FaBox
   FaWallet,
 } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
-// import { ToastContainer } from 'react-toastify'; // <--- Xoá
-// import 'react-toastify/dist/ReactToastify.css'; // <--- Xoá
 import { useRecoilValue } from 'recoil';
 
 import {
@@ -26,7 +23,6 @@ import {
   TimePicker,
   Typography,
 } from 'antd';
-// Xoá 'Input' vì không dùng
 import dayjs from 'dayjs';
 
 import DepositModal from '@/components/deposit-modal/DepositModal';
@@ -37,8 +33,6 @@ import { slotAtom } from '@/recoil/atom/slot.atom';
 import CustomSteps from '../send-package/Steps';
 import styles from './Rental.module.scss';
 import { useRental } from './useRental';
-
-// <--- Đổi tên import
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
@@ -54,7 +48,6 @@ export default function RentalPage() {
   const { buildingId } = useParams<{ buildingId: string }>();
   const currentBuildingId = Number(buildingId) || 1;
 
-  // <--- Đổi tên hook và thêm isSubmitting
   const {
     step,
     setStep,
@@ -74,10 +67,9 @@ export default function RentalPage() {
     formatCurrency,
     isDepositModalOpen,
     handleCloseDepositModal,
-    isSubmitting, // <--- Thêm state loading
-  } = useRental(currentBuildingId, form); // <--- Đổi tên hook
+    isSubmitting,
+  } = useRental(currentBuildingId, form);
 
-  // ... (SlotItem và LockerGroup giữ nguyên) ...
   const SlotItem = ({
     slotId,
     lockerCode,
@@ -137,7 +129,6 @@ export default function RentalPage() {
     );
   };
 
-  // ... (Step0Content giữ nguyên) ...
   const Step0Content = (
     <div className={styles.stepContent}>
       {/* Size Selection */}
@@ -232,7 +223,6 @@ export default function RentalPage() {
     </div>
   );
 
-  // ... (Step1Content giữ nguyên, vì nó đã đúng) ...
   const Step1Content = (
     <div className={styles.stepContent}>
       {/* Date & Time Selection */}
@@ -248,7 +238,7 @@ export default function RentalPage() {
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={12}>
             <Form.Item
-              label={<Text strong>Ngày kết thúc</Text>} // Đổi tên label cho rõ
+              label={<Text strong>Ngày kết thúc</Text>}
               name="receiveDate"
               rules={[{ required: true, message: 'Vui lòng chọn ngày!' }]}
             >
@@ -262,7 +252,7 @@ export default function RentalPage() {
 
           <Col xs={24} sm={12}>
             <Form.Item
-              label={<Text strong>Giờ & Phút kết thúc</Text>} // Đổi tên label cho rõ
+              label={<Text strong>Giờ & Phút kết thúc</Text>}
               name="receiveTime"
               rules={[{ required: true, message: 'Vui lòng chọn giờ!' }]}
             >
@@ -302,14 +292,12 @@ export default function RentalPage() {
     </div>
   );
 
-  // <--- Sửa lại Step2Content
   const Step2Content = (
     <div className={styles.stepContent}>
       {/* Order Summary */}
       <Card
         title={
           <Title level={4} className={styles.sectionTitle}>
-            {/* Đổi Title */}
             <FaBox size={screens.sm ? 20 : 16} className={styles.sectionIcon} /> Thông tin thuê tủ
           </Title>
         }
@@ -333,18 +321,6 @@ export default function RentalPage() {
             </Col>
           </Row>
 
-          {/* <--- Xoá Mã đơn hàng --- /> */}
-          {/*
-          <Row className={styles.summaryRow}>
-            <Col span={12}>
-              <Text type="secondary">Mã đơn hàng:</Text>
-            </Col>
-            <Col span={12} style={{ textAlign: 'right' }}>
-              <Text strong>{form.getFieldValue('orderCode')}</Text>
-            </Col>
-          </Row>
-          */}
-
           <Row className={styles.summaryRow}>
             <Col span={12}>
               <Text type="secondary">Đơn giá:</Text>
@@ -357,7 +333,7 @@ export default function RentalPage() {
           </Row>
           <Row className={styles.summaryRow}>
             <Col span={12}>
-              <Text type="secondary">Thời gian thuê:</Text> {/* Đổi text */}
+              <Text type="secondary">Thời gian thuê:</Text>
             </Col>
             <Col span={12} style={{ textAlign: 'right' }}>
               <Text strong>{duration.toFixed(2)} giờ</Text>
@@ -430,7 +406,6 @@ export default function RentalPage() {
     </div>
   );
 
-  // ... (Main Render checks giữ nguyên) ...
   if (!currentBuilding?.id) {
     return (
       <Layout className={styles.antdLayout}>
@@ -469,7 +444,6 @@ export default function RentalPage() {
             />
             <div className={styles.headerTitleGroup}>
               <div className={styles.headerIconWrapper}>
-                {/* Bạn có thể đổi icon này thành FaBox */}
                 <FaPaperPlane className={styles.headerIcon} size={screens.sm ? 24 : 20} />
               </div>
               <Title level={2} className={styles.pageTitle}>
@@ -500,7 +474,6 @@ export default function RentalPage() {
             />
             <div className={styles.headerTitleGroup}>
               <div className={styles.headerIconWrapper}>
-                {/* Bạn có thể đổi icon này thành FaBox */}
                 <FaPaperPlane className={styles.headerIcon} size={screens.sm ? 24 : 20} />
               </div>
               <Title level={2} className={styles.pageTitle}>
@@ -568,7 +541,6 @@ export default function RentalPage() {
               </Row>
             )}
 
-            {/* <--- Cập nhật Button cho Step 2 --- /> */}
             {step === 2 && (
               <Row gutter={16}>
                 <Col span={12}>
@@ -589,7 +561,7 @@ export default function RentalPage() {
                     onClick={handleFinalSubmit}
                     icon={<FaCreditCard size={screens.sm ? 20 : 16} />}
                     disabled={walletBalance < total || !selectedLocker || isSubmitting}
-                    loading={isSubmitting} // Thêm loadin
+                    loading={isSubmitting}
                   >
                     {isSubmitting
                       ? 'Đang xử lý...'

@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
 
 import { transactionApi } from '@/api/transactionApi';
 import { transactionState } from '@/recoil/atom/transaction.atom';
 import { TransactionResponeType } from '@/types/transaction.type';
+import { extractErrorMessage } from '@/utils/error.utils';
 
 export const useTransaction = () => {
   const [state, setState] = useRecoilState(transactionState);
@@ -32,8 +32,8 @@ export const useTransaction = () => {
           totalPages: result.totalPages,
         }));
       } catch (error) {
-        toast.error('Lấy lịch sử giao dịch thất bại');
         console.error(error);
+        extractErrorMessage(error);
       } finally {
         setIsLoading(false);
         setIsLoadMore(false);

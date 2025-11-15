@@ -20,22 +20,11 @@ import { Transaction } from '../../components/transaction/Transaction';
 import styles from './account.module.scss';
 
 const { Text } = Typography;
-const userInfo = {
-  name: 'Lê Đình Quốc',
-  phone: '+840866047652',
-  email: '2zipquoc@gmail.com',
-  address: '36/6 Mẹ Suốt, Q.Liên Chiểu, TP.Đà Nẵng',
-  balance: 100000000,
-  verified: false,
-  type: 'Khachs hang',
-  avatar: '/images/avatar.png',
-  background: '/images/backgroundAccount.png',
-};
+
 const AccountPage: React.FC = () => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const auth = useRecoilValue(authState);
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
-  const isShipper = userInfo.type === 'Shipper';
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChange = (info: any) => {
     const file = info.file.originFileObj;
@@ -47,18 +36,20 @@ const AccountPage: React.FC = () => {
   };
   return (
     <div className={styles.main}>
-      {/* <DashboardHeader /> */}
-      {/* Background */}
       <div className={styles.backgroundWrapper}>
-        <img src={userInfo.background} alt="background" className={styles.backgroundImg} />
+        <img
+          src={'/images/backgroundAccount.png'}
+          alt="background"
+          className={styles.backgroundImg}
+        />
       </div>
 
-      {/* Avatar chính giữa */}
       <div className={styles.avatarWrapper} style={{ position: 'relative', width: 250 }}>
         <div style={{ position: 'relative', width: 250 }}>
           <Avatar
             size={250}
-            src={imageUrl || userInfo.avatar}
+            src={imageUrl || auth.user?.avatar}
+            icon={!imageUrl && !auth.user?.avatar ? <UserOutlined /> : undefined}
             className={styles.avatar}
             style={{ cursor: 'pointer' }}
           />
@@ -68,12 +59,11 @@ const AccountPage: React.FC = () => {
         </div>
       </div>
 
-      {/* 2 card cân đối */}
       <div className={styles.bodyAccount}>
         <div className={styles.cardsWrapper}>
           <Row align="middle" justify="space-between" className={styles.infoRow}>
             {/* Card trái */}
-            {!isShipper ? (
+            {auth.user?.role === 0 ? (
               <Col xs={24} sm={24} md={12} lg={12} style={{ display: 'flex' }}>
                 <Card
                   className={styles.infoCard}
