@@ -187,7 +187,7 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
         ))}
 
         <ZoomControl position="bottomright" />
-        <div style={{ position: 'absolute', bottom: '100px', right: '10px', zIndex: 2 }}>
+        <div style={{ position: 'absolute', bottom: '100px', right: '10px', zIndex: 1000 }}>
           <LocateButton onLocate={setUserPos} />
         </div>
       </MapContainer>

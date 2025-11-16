@@ -42,4 +42,8 @@ export const orderApi = {
   postRentalOrder: async (data: RentalPayload) => {
     return axiosInstance.post(ENDPOINTS.post.rentalOrder, data);
   },
+
+  getOrder: (orderId: number | string) => {
+    return axiosInstance.get(`orders/${orderId}`);
+  },
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
-// import Footer from '../footer/Footer';
+import Footer from '../footer/Footer';
 import Header from '../header/Header';
 import styles from './Layout.module.scss';
 
@@ -12,7 +12,7 @@ const Layout: React.FC = () => {
       <main className={styles.main}>
         <Outlet />
       </main>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };

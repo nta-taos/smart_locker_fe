@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -24,12 +24,15 @@ import {
   Layout,
   Row,
   Space,
+  Spin,
   Tabs,
   Tag,
   Timeline,
   Typography,
+  message,
 } from 'antd';
 
+import { orderApi } from '@/api/orderApi';
 import { authState } from '@/recoil/atom/authAtom';
 import { orderState } from '@/recoil/atom/order.atom';
 import { OrderItemType } from '@/types/order.type';
@@ -60,14 +63,34 @@ const AntOrderDetails: React.FC = () => {
   const [orderStateValue] = useRecoilState(orderState);
   const screens = useBreakpoint();
   const navigate = useNavigate();
-
-  const order = orderStateValue.orders.find((o) => o.id === Number(orderId)) as OrderItemType;
-
+  const [order, setOrder] = useState<OrderItemType | null>(
+    orderStateValue.orders.find((o) => o.id === Number(orderId)) || null,
+  );
+  const [isLoading, setIsLoading] = useState(!order);
   useEffect(() => {
+    const fetchOrder = async () => {
+      try {
+        const res = await orderApi.getOrder(Number(orderId));
+        const fetchedOrder = res.data as OrderItemType;
+        setOrder(fetchedOrder);
+      } catch (err) {
+        console.error(err);
+        message.error('Không tìm thấy đơn hàng hoặc bạn không có quyền xem.');
+        navigate('/dashboard', { replace: true });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     if (!order) {
-      navigate('/dashboard', { replace: true });
+      fetchOrder();
     }
-  }, [order, navigate]);
+  }, [orderId, order, navigate, setOrder]);
+
+  if (isLoading) {
+    return <Spin size="large" style={{ display: 'block', margin: '100px auto' }} />;
+  }
+
   if (!order) return null;
 
   const canReceive = order.receiver.id === auth.user?.id;
