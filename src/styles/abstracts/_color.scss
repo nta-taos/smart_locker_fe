@@ -1,3 +1,6 @@
+$color-secondary: #f7832d;
+$color-primary: #002b79;
+
 // Foreground
 $fg-primary: #002b79;
 $fg-secondary: #e6e6e6;
@@ -6,7 +9,8 @@ $fg-quaternary: #0e0f10;
 $fg-muted: #babfc3;
 
 // Text
-$text-default: #1c2124;
+$color-text-light: #8b8680;
+$text-default: #002b79;
 $text-weak: #6e7379;
 $text-muted: #8a8f94;
 $text-inverse: #ffffff;
@@ -16,6 +20,7 @@ $text-link: #002b79;
 $text-part: #6b6b6b;
 
 // Border
+$color-border-light: #e8e6e1;
 $border-primary: #dadfe3;
 $border-secondary: #c5c9ce;
 $border-tertiary: #e6e6e6;
@@ -42,3 +47,4 @@ $system-in-edited: #fdf4aa;
 
 // Thumb
 $thumb-bar: #a8a8a7;
+$color-success: #52c41a;

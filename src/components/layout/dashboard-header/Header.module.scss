@@ -27,11 +27,16 @@
   background: url('/logo1.svg') no-repeat center center;
   background-size: contain;
   margin-left: 3rem;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .nav {
   width: 100%;
   padding-right: 2rem;
+
   ul {
     display: flex;
     gap: 2rem;
@@ -47,22 +52,35 @@
       align-items: center;
 
       a {
+        position: relative;
         text-decoration: none;
         color: #fff;
         padding: 0.4rem 0.6rem;
         border-radius: 6px;
         transition: all 0.3s ease;
         font-weight: 600;
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         letter-spacing: 1.5px;
-      }
 
-      a:hover {
-        color: #000;
+        &:hover {
+          color: rgba(#f7832d, 0.8);
+        }
+
+        &.activeLink::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: -3px;
+          width: 0;
+          height: 2px;
+          background: #f7832d;
+          border-radius: 2px;
+          animation: underlineSlide 0.3s forwards;
+        }
       }
     }
   }
 }
+
 .right {
   display: flex;
   align-items: center;
@@ -102,8 +120,19 @@
   cursor: pointer;
   transition: transform 0.3s ease;
 }
+@keyframes underlineSlide {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
 
-/* Mobile */
+.activeLink {
+  color: #f7832d !important;
+}
+
 @media (max-width: 768px) {
   .logo {
     margin-left: 0;
@@ -160,10 +189,5 @@
 }
 
 .activeLink {
-  color: #000 !important;
-  font-weight: 700;
-  background: #fff;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  padding: 0.4rem 0.6rem;
+  color: #f7832d;
 }

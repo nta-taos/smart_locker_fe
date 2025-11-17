@@ -319,11 +319,7 @@ export default function SendPage() {
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item
-              label={<Text strong>Mã đơn hàng</Text>}
-              name="orderCode"
-              rules={[{ required: true, message: 'Vui lòng nhập mã đơn hàng!' }]}
-            >
+            <Form.Item label={<Text strong>Mã đơn hàng</Text>} name="orderCode">
               <Input
                 prefix={<FaFileAlt size={16} />}
                 placeholder="Nhập mã đơn hàng"

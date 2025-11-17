@@ -27,6 +27,10 @@ const DashboardHeader: React.FC = () => {
     navigate('/profile');
   };
 
+  const handleAvatar = () => {
+    navigate('/');
+  };
+
   const items: MenuProps['items'] = [
     {
       key: 'profile',
@@ -48,7 +52,7 @@ const DashboardHeader: React.FC = () => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.logo}></div>
+      <div className={styles.logo} onClick={handleAvatar}></div>
 
       <nav className={`${styles.nav} ${isOpen ? styles.navOpen : ''}`}>
         <ul>
@@ -77,7 +81,25 @@ const DashboardHeader: React.FC = () => {
               onClick={handleNavClick}
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
             >
-              Đơn hàng của tôi
+              Đơn hàng
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="account/support"
+              onClick={handleNavClick}
+              className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
+            >
+              Hỗ trợ
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="account/partner"
+              onClick={handleNavClick}
+              className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
+            >
+              Đối tác
             </NavLink>
           </li>
           <li>
@@ -86,7 +108,7 @@ const DashboardHeader: React.FC = () => {
               onClick={handleNavClick}
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
             >
-              Hồ sơ cá nhân
+              Cá nhân
             </NavLink>
           </li>
         </ul>

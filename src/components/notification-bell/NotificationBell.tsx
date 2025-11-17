@@ -246,7 +246,7 @@ const NotificationBell = () => {
             style={{
               fontSize: 22,
               cursor: 'pointer',
-              color: unreadCount > 0 ? '#1890ff' : '#555',
+              color: unreadCount > 0 ? '#f7832d' : '#FFFFFF',
             }}
             onClick={() => {
               setOpenDrawer(true);
@@ -281,7 +281,7 @@ const NotificationBell = () => {
           style={{
             fontSize: 22,
             cursor: 'pointer',
-            color: unreadCount > 0 ? '#1890ff' : '#555',
+            color: unreadCount > 0 ? '#f7832d' : '#FFFFFF',
           }}
         />
       </Badge>

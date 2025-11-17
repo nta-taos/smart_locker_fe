@@ -7,6 +7,7 @@ import {
   RiseOutlined,
   SearchOutlined,
   SettingOutlined,
+  WarningOutlined,
 } from '@ant-design/icons';
 import { Button, Divider, Drawer } from 'antd';
 import { LatLngExpression } from 'leaflet';
@@ -94,8 +95,17 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
 
             <div className={styles.badgesContainer}>
               <div className={styles.badge}>
-                <LoginOutlined className={styles.badgeIcon} />
-                <span className={styles.badgeText}>Mở cửa 24/7</span>
+                {!buildingSelected?.isPublic ? (
+                  <>
+                    <WarningOutlined className={styles.badgeIcon} />
+                    <span className={styles.badgeText}>Có thể không vào được</span>
+                  </>
+                ) : (
+                  <>
+                    <LoginOutlined className={styles.badgeIcon} />
+                    <span className={styles.badgeText}>Mở cửa 24/7</span>
+                  </>
+                )}
               </div>
               <div className={styles.badgeOutline}>
                 <RiseOutlined style={{ fontSize: '18px', color: '#CCC' }} />

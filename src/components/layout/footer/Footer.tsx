@@ -1,14 +1,7 @@
 import React from 'react';
-import { FaTiktok } from 'react-icons/fa';
+import { FaFacebook, FaTiktok, FaTwitter } from 'react-icons/fa';
 
-import {
-  ClockCircleFilled,
-  EnvironmentFilled,
-  FacebookFilled,
-  MailFilled,
-  PhoneFilled,
-  TwitterOutlined,
-} from '@ant-design/icons';
+import { ClockCircleFilled, EnvironmentFilled, MailFilled, PhoneFilled } from '@ant-design/icons';
 
 import styles from './Footer.module.scss';
 
@@ -17,8 +10,8 @@ const Footer: React.FC = () => {
 
   // ======= SOCIAL LINKS =======
   const socials = [
-    { icon: <FacebookFilled />, href: 'https://www.facebook.com/profile.php?id=100069962634792' },
-    { icon: <TwitterOutlined />, href: 'https://x.com/zipboxvn' },
+    { icon: <FaFacebook />, href: 'https://www.facebook.com/profile.php?id=100069962634792' },
+    { icon: <FaTwitter />, href: 'https://x.com/zipboxvn' },
     { icon: <FaTiktok />, href: 'https://www.tiktok.com/@zipbox_' },
   ];
 
@@ -58,11 +51,6 @@ const Footer: React.FC = () => {
         {/* Logo + Description + Socials */}
         <div className={styles.column}>
           <h2 className={styles.logo}>CÔNG TY TNHH ZIPBOX VIỆT NAM</h2>
-
-          <p className={styles.description}>
-            Dẫn đầu công nghệ bảo mật thông minh tại Việt Nam với hơn 10 năm kinh nghiệm trong lĩnh
-            vực an ninh.
-          </p>
 
           {/* Social icons */}
           <div className={styles.socials}>

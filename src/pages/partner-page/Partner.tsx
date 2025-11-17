@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button, Card, Col, Row, Tabs } from 'antd';
 
-import { PartnerIcon1, PartnerIcon2, PartnerIcon3 } from '@/components/common/icon/Partner';
+import { PartnerIcon2, PartnerIcon3 } from '@/components/common/icon/Partner';
 import PartnerForm from '@/components/partner-form/PartnerForm';
 
 import styles from './Partner.module.scss';
@@ -10,35 +10,6 @@ import styles from './Partner.module.scss';
 const partnersData = [
   {
     key: '1',
-    label: (
-      <span className={styles.tabLabel}>
-        <PartnerIcon1 className={styles.tabIcon} />
-        <span className={styles.tabText}>Đối tác chiến lược</span>
-      </span>
-    ),
-    description:
-      'Đồng hành cùng Zipbox để kiến tạo cuộc sống thông minh, bứt phá trong kỷ nguyên số và mang lại giá trị bền vững cho doanh nghiệp của bạn.',
-    partners: [
-      {
-        logo: '/images/sugarlogo.png',
-        text: 'Đơn vị cung cấp giải pháp thành lập năm 2015 với hai trụ sở chính được đặt tại TP. HCM & Singapore. Suga là một doanh nghiệp hoạt động đa dạng trên nhiều lĩnh vực với quy mô hiện tại gần 200 nhân viên.',
-      },
-      {
-        logo: '/images/sugarlogo.png',
-        text: 'Đơn vị cung cấp giải pháp thành lập năm 2015 với hai trụ sở chính đặt tại TP. HCM & Singapore. Suga là một doanh nghiệp hoạt động đa dạng trên nhiều lĩnh vực với quy mô hiện tại gần 200 nhân viên.',
-      },
-      {
-        logo: '/images/sugarlogo.png',
-        text: 'Đơn vị cung cấp giải pháp thành lập năm 2015 với hai trụ sở chính đặt tại TP. HCM & Singapore. Suga là một doanh nghiệp hoạt động đa dạng trên nhiều lĩnh vực với quy mô hiện tại gần 200 nhân viên.',
-      },
-      {
-        logo: '/images/sugarlogo.png',
-        text: 'Đơn vị cung cấp giải pháp thành lập năm 2015 với hai trụ sở chính đặt tại TP. HCM & Singapore. Suga là một doanh nghiệp hoạt động đa dạng trên nhiều lĩnh vực với quy mô hiện tại gần 200 nhân viên.',
-      },
-    ],
-  },
-  {
-    key: '2',
     label: (
       <span className={styles.tabLabel}>
         <PartnerIcon2 className={styles.tabIcon} />
@@ -59,7 +30,7 @@ const partnersData = [
     ],
   },
   {
-    key: '3',
+    key: '2',
     label: (
       <span className={styles.tabLabel}>
         <PartnerIcon3 className={styles.tabIcon} />
@@ -96,7 +67,7 @@ const partnersData = [
 const BodyPage = () => (
   <div className={styles.partnersWrapper}>
     <div className={styles.hero}>
-      <img src="./images/partner.png" alt="Hero" className={styles.heroImg} />
+      <img src="/images/partner.png" alt="Hero" className={styles.heroImg} />
       <h2>Cùng hợp tác, cùng phát triển.</h2>
     </div>
 

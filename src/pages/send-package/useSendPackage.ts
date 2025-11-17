@@ -129,13 +129,7 @@ export const useSendPackage = (buildingId: number, form: FormInstance) => {
       const values = await form.validateFields();
       if (step === 0 && selectedLocker) {
         setStep(1);
-      } else if (
-        step === 1 &&
-        values.receiveDate &&
-        values.receiveTime &&
-        values.phoneNumber &&
-        values.orderCode
-      ) {
+      } else if (step === 1 && values.receiveDate && values.receiveTime && values.phoneNumber) {
         setStep1Values(values as Step1FormValues);
         const { receiveDate, receiveTime } = values;
         const combinedReceiveDateTime: Dayjs = receiveDate

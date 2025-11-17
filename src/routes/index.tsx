@@ -65,6 +65,8 @@ export const router = createBrowserRouter([
           { path: 'wallet/cancel', element: <Cancel /> },
           { path: 'order-receive/success', element: <OrderReceiveSuccess /> },
           { path: 'profile', element: <AccountPage /> },
+          { path: 'account/support', element: <SupportPage /> },
+          { path: 'account/partner', element: <PartnerPage /> },
         ],
       },
       { path: '/send/:buildingId', element: <SendPage /> },

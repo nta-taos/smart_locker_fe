@@ -177,10 +177,11 @@ const OfficeSection = () => (
       <ul>
         <EnvironmentOutlined style={{ color: '#074CE7', marginRight: '8px' }} /> Địa chỉ
         <li></li>
-        <li>36 Xuân Thủy, Q. Cầu Giấy, Hà Nội</li>
+        <li> 55 Đông Hải 8, Ngũ Hành Sơn, Đà Nẵng</li>
         <ClockCircleOutlined style={{ color: '#074CE7', marginRight: '8px' }} /> Giờ làm việc
         <li></li>
-        <li>T2 – T6: 8:00 – 17:00</li>
+        <li>T2 - T6: 8:00 - 17:00</li>
+        <li>T7: 8:00 - 12:00</li>
       </ul>
 
       <Button type="primary" size="large">

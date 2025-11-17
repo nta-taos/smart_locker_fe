@@ -19,11 +19,13 @@ const About: React.FC = () => {
       </div>
       <div className={styles.imagesGrid}>
         <img src={images[0]} alt="about1" className={styles.imgTop} />
-        <img src={images[1]} alt="about2" className={styles.imgMid} />
-        <div className={styles.imgBottomWrap}>
-          <img src={images[2]} alt="about3" className={styles.imgBottom} />
+        <div>
+          <img src={images[1]} alt="about2" className={styles.imgMid} />
+          <div>
+            <img src={images[2]} alt="about3" className={styles.imgBottom} />
+          </div>
           <div className={styles.badge}>
-            <span className={styles.badgeNumber}>{locationCount}+</span>
+            <h1 className={styles.badgeNumber}>{locationCount}+</h1>
             <span className={styles.badgeText}>Địa điểm</span>
           </div>
         </div>

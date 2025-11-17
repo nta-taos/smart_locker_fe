@@ -5,8 +5,6 @@ export const useIntro = () => {
   const image = '/images/intro-bg.png';
   const xName = 'Zipbox';
   const xLink = 'Zipbox';
-  const igName = 'Zipbox.vn';
-  const igLink = 'Zipbox';
   const socials = [
     {
       name: 'ZipBox',
@@ -29,8 +27,6 @@ export const useIntro = () => {
     socials,
     xName,
     xLink,
-    igName,
-    igLink,
     startLable,
     startLink,
   };

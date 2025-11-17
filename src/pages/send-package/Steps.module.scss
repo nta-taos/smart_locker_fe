@@ -1,12 +1,4 @@
-/* --- Variables --- */
-$color-primary: #2d3e50;
-$color-secondary: #d97757;
-$color-background: #faf9f7;
-$color-border-light: #e8e6e1;
-$color-text-dark: #1a1a1a;
-$color-text-medium: #6b6660;
-$color-text-light: #8b8680;
-$color-success: #52c41a;
+@use '../../styles/abstracts/color' as *;
 
 @keyframes shimmer {
   0% {
@@ -214,12 +206,12 @@ $color-success: #52c41a;
   @media (min-width: 640px) {
     display: block;
     font-size: 14px;
-    color: $color-text-medium;
+    color: $text-weak;
   }
 }
 
 .nameActive {
-  color: $color-text-dark;
+  color: $text-default;
 }
 .nameInactive {
   color: $color-text-light;

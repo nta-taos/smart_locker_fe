@@ -52,7 +52,6 @@ const PartnerForm: React.FC = () => {
               size="large"
               placeholder="Danh mục hợp tác"
               options={[
-                { label: 'Đối tác chiến lược', value: 'chienluoc' },
                 { label: 'Đối tác vận chuyển', value: 'vanchuyen' },
                 { label: 'Đối tác địa điểm', value: 'diadiem' },
               ]}
