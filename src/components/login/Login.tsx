@@ -1,4 +1,5 @@
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
+import { Link as RouterLink } from 'react-router-dom';
 
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Divider, Form, Input, Modal, Typography, message } from 'antd';
@@ -6,7 +7,7 @@ import { Button, Checkbox, Divider, Form, Input, Modal, Typography, message } fr
 import styles from './Login.module.scss';
 import { useLogin } from './useLogin';
 
-const { Title, Text, Link } = Typography;
+const { Title, Text } = Typography;
 
 export default function Login() {
   const {
@@ -83,7 +84,9 @@ export default function Login() {
             <Form.Item name="remember" valuePropName="checked" noStyle>
               <Checkbox>Ghi nhớ đăng nhập</Checkbox>
             </Form.Item>
-            <Link href="#">Quên mật khẩu?</Link>
+            <RouterLink to="/forgot-password" className={styles.forgotLink}>
+              Quên mật khẩu?
+            </RouterLink>
           </div>
 
           <Form.Item>
@@ -120,7 +123,7 @@ export default function Login() {
 
           <div className={styles.registerText}>
             <Text>Bạn chưa có tài khoản? </Text>
-            <Link href="/register">Đăng ký ngay</Link>
+            <RouterLink to="/register">Đăng ký ngay</RouterLink>
           </div>
         </Form>
       </div>
