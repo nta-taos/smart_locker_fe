@@ -24,6 +24,10 @@
     flex-direction: column;
     gap: 0.4rem;
 
+    .textarea {
+      font-family: 'Gilroy', sans-serif;
+    }
+
     label {
       font-size: 1rem;
       font-weight: 600;
