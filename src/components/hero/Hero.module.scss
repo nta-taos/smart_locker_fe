@@ -7,7 +7,7 @@
   position: relative;
 
   @include mq(lg) {
-    height: calc(100vh - 64px);
+    height: calc(100vh - 58px);
   }
 }
 
@@ -116,6 +116,8 @@
     max-height: 100%;
     width: 90%;
     height: auto;
+    padding-bottom: 50px;
+    padding-right: 30px;
     object-fit: contain;
     position: relative;
     flex-shrink: 0;
@@ -169,7 +171,9 @@
   /* Mobile */
   @media (max-width: 768px) {
     .locker {
-      max-width: 400px;
+      max-width: 500px;
+      padding-bottom: 10px;
+      padding-right: 0;
     }
     .peopleLeft {
       max-height: 250px;

@@ -141,7 +141,7 @@ const StatsSection = () => (
               <EnvironmentOutlined style={{ fontSize: 24 }} />
               <span>Địa chỉ</span>
             </Space>
-            <div>36/6 Mẹ Suốt, Hòa Khánh Nam, TP. Đà Nẵng</div>
+            <div> 55 Đông Hải 8, Ngũ Hành Sơn, Đà Nẵng</div>
           </Space>
         </Card>
       </Col>

@@ -38,6 +38,7 @@ export const router = createBrowserRouter([
       },
       { path: 'support', element: <SupportPage /> },
       { path: 'partner', element: <PartnerPage /> },
+      { path: '/forgot-password', element: <ForgotPasswordPage /> },
     ],
   },
 
@@ -46,7 +47,6 @@ export const router = createBrowserRouter([
     children: [
       { path: '/login', element: <LoginPage /> },
       { path: '/register', element: <RegisterPage /> },
-      { path: '/forgot-password', element: <ForgotPasswordPage /> },
       { path: '/reset-password', element: <ResetPasswordPage /> },
     ],
   },

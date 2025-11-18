@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { Alert, Button, Form, Input, Typography, message } from 'antd';
 
 import { authApi } from '@/api/authApi';
@@ -108,6 +108,17 @@ const ResetPasswordForm = () => {
               loading={loading}
             >
               Đặt lại mật khẩu
+            </Button>
+          </Form.Item>
+          <Form.Item>
+            <Button
+              type="default"
+              block
+              icon={<ArrowLeftOutlined />}
+              onClick={() => navigate('/login')}
+              style={{ height: '48px' }}
+            >
+              Quay về đăng nhập
             </Button>
           </Form.Item>
         </Form>

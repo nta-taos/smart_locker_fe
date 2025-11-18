@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import { MenuFoldOutlined } from '@ant-design/icons';
 
@@ -8,10 +8,11 @@ import styles from './Header.module.scss';
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen((prev) => !prev);
+  const navigate = useNavigate();
 
   return (
     <header className={styles.header}>
-      <div className={styles.logo}></div>
+      <div className={styles.logo} onClick={() => navigate('/')}></div>
 
       <nav className={`${styles.nav} ${isOpen ? styles.navOpen : ''}`}>
         <ul>

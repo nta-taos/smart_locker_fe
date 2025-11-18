@@ -1,5 +1,22 @@
 @use '../../styles/abstracts' as *;
 
+/* ================================
+   KEYFRAMES
+================================ */
+@keyframes fadeCard {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================================
+   FEATURES SECTION
+================================ */
 .featuresSection {
   background: $bg-primary;
   padding: 4rem 1rem;
@@ -31,6 +48,9 @@
     flex-wrap: wrap;
   }
 
+  /* ================================
+     CARD ANIMATION
+  ================================= */
   .card {
     background: $bg-light;
     border-radius: 0.5rem;
@@ -41,6 +61,25 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    /* Animation mặc định */
+    opacity: 0;
+    transform: translateY(25px);
+    animation: fadeCard 0.6s ease forwards;
+
+    /* Delay theo vị trí */
+    &:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+    &:nth-child(2) {
+      animation-delay: 0.4s;
+    }
+    &:nth-child(3) {
+      animation-delay: 0.6s;
+    }
+    &:nth-child(4) {
+      animation-delay: 0.8s;
+    }
 
     .image {
       width: 100%;

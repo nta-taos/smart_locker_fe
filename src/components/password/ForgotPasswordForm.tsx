@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { MailOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, MailOutlined } from '@ant-design/icons';
 import { Alert, Button, Form, Input, Typography, message } from 'antd';
 
 import { authApi } from '@/api/authApi';
@@ -13,15 +14,16 @@ const { Title, Text } = Typography;
 const ForgotPasswordForm = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (values: { email: string }) => {
     setLoading(true);
+
     try {
       await authApi.forgotPassword(values.email);
       setSuccess(true);
       message.success('Kiểm tra email của bạn để đặt lại mật khẩu.');
     } catch (error) {
-      console.error(error);
       setSuccess(false);
       extractErrorMessage(error);
     } finally {
@@ -35,6 +37,7 @@ const ForgotPasswordForm = () => {
         <Title level={2} className={styles.title}>
           Quên mật khẩu
         </Title>
+
         <Text type="secondary" className={styles.subText}>
           Nhập email để nhận liên kết đặt lại mật khẩu.
         </Text>
@@ -43,8 +46,8 @@ const ForgotPasswordForm = () => {
           <Alert
             type="success"
             showIcon
-            message="Đã gửi liên kết đặt lại mật khẩu"
-            description="Vui lòng kiểm tra hộp thư, nhấn vào liên kết trong email để tạo mật khẩu mới."
+            message="Đã gửi liên kết đặt lại mật khẩu!"
+            description="Hãy kiểm tra email và làm theo hướng dẫn."
             className={styles.alert}
           />
         )}
@@ -69,6 +72,19 @@ const ForgotPasswordForm = () => {
           <Form.Item>
             <Button type="primary" htmlType="submit" block size="large" loading={loading}>
               Gửi liên kết đặt lại
+            </Button>
+          </Form.Item>
+
+          {/* Nút quay về login */}
+          <Form.Item>
+            <Button
+              type="default"
+              block
+              icon={<ArrowLeftOutlined />}
+              onClick={() => navigate('/login')}
+              style={{ height: '48px' }}
+            >
+              Quay về đăng nhập
             </Button>
           </Form.Item>
         </Form>
