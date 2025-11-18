@@ -6,7 +6,7 @@
   align-items: center;
   background: linear-gradient(145deg, #f0f5ff, #e6f4ff);
   padding: 1rem;
-  min-height: 100vh;
+  min-height: calc(100vh - 64px);
   min-width: 40%;
 
   @include mq(lg) {

@@ -3,7 +3,6 @@ import { createBrowserRouter } from 'react-router-dom';
 // 2. Import Layout và các trang của bạn
 import { AuthLayout } from '@/components/layout/auth-layout/AuthLayout';
 import Layout from '@/components/layout/layout/Layout';
-import MapView from '@/components/map/Map';
 import AccountPage from '@/pages/account-page/account';
 import DashboardPage from '@/pages/dashboard-page/Dashboard';
 import LadingPage from '@/pages/lading-page/Lading';
@@ -33,11 +32,7 @@ export const router = createBrowserRouter([
       { index: true, element: <LadingPage /> },
       {
         path: 'map',
-        element: (
-          <div style={{ width: '100vw', height: '100vh' }}>
-            <MapView varriant="detail" />
-          </div>
-        ),
+        element: <MapPage />,
       },
       { path: 'support', element: <SupportPage /> },
       { path: 'partner', element: <PartnerPage /> },
