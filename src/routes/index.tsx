@@ -5,6 +5,7 @@ import { AuthLayout } from '@/components/layout/auth-layout/AuthLayout';
 import Layout from '@/components/layout/layout/Layout';
 import AccountPage from '@/pages/account-page/account';
 import DashboardPage from '@/pages/dashboard-page/Dashboard';
+import ForgotPasswordPage from '@/pages/forgot-password/ForgotPasswordPage';
 import LadingPage from '@/pages/lading-page/Lading';
 import RentalPage from '@/pages/locker-rental/Rental';
 import LoginPage from '@/pages/login-page/Login';
@@ -16,6 +17,7 @@ import OrderReceiveSuccess from '@/pages/order-receive/OrderReceiveSuccess';
 import { OrdersPage } from '@/pages/orders-page/Orders';
 import PartnerPage from '@/pages/partner-page/Partner';
 import RegisterPage from '@/pages/register-page/Register';
+import ResetPasswordPage from '@/pages/reset-password/ResetPasswordPage';
 import SendPage from '@/pages/send-package/SendPackage';
 import SupportPage from '@/pages/support-page/Support';
 import Cancel from '@/pages/wallet/Cancel';
@@ -44,6 +46,8 @@ export const router = createBrowserRouter([
     children: [
       { path: '/login', element: <LoginPage /> },
       { path: '/register', element: <RegisterPage /> },
+      { path: '/forgot-password', element: <ForgotPasswordPage /> },
+      { path: '/reset-password', element: <ResetPasswordPage /> },
     ],
   },
 

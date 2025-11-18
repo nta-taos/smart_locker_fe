@@ -33,5 +33,7 @@ export const ENDPOINTS = {
     register: '/auth/register',
     googleCheck: '/auth/google-check',
     googleRegisterComplete: '/auth/google-register-complete',
+    forgotPassword: '/auth/forgot-password',
+    resetPassword: '/auth/reset-password',
   },
 };
