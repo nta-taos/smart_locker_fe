@@ -6,7 +6,9 @@ import {
   MessageOutlined,
   SendOutlined,
 } from '@ant-design/icons';
-import { FloatButton } from 'antd';
+import { FloatButton, message } from 'antd';
+
+import { chatApi } from '@/api/chatApi';
 
 import styles from './ChatWidget.module.scss';
 import { ChatMessage, mockMessages } from './chatMessages';
@@ -15,31 +17,44 @@ const ChatWidget: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>(mockMessages);
   const [input, setInput] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
 
   const messageRef = useRef<HTMLDivElement>(null);
 
-  const sendMessage = () => {
-    if (!input.trim()) return;
+  const sendMessage = async () => {
+    if (!input.trim() || isTyping) return;
 
+    const text = input.trim();
     const newMsg: ChatMessage = {
       id: Date.now(),
-      text: input,
+      text,
       sender: 'user',
       time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),
     };
 
     setMessages((prev) => [...prev, newMsg]);
     setInput('');
+    setIsTyping(true);
 
-    setTimeout(() => {
+    try {
+      const response = await chatApi.ask(text);
+      const replyContent =
+        response.data?.reply ||
+        'ZIPBOX đang kiểm tra thêm thông tin cho bạn, vui lòng chờ trong giây lát nhé!';
+
       const reply: ChatMessage = {
         id: Date.now() + 1,
-        text: 'Cảm ơn bạn! Chúng tôi sẽ hỗ trợ ngay.',
+        text: replyContent,
         sender: 'support',
         time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),
       };
       setMessages((prev) => [...prev, reply]);
-    }, 700);
+    } catch (err) {
+      console.error(err);
+      message.error('Không thể kết nối trợ lý ZIPBOX. Vui lòng thử lại sau.');
+    } finally {
+      setIsTyping(false);
+    }
   };
 
   useEffect(() => {
@@ -82,6 +97,11 @@ const ChatWidget: React.FC = () => {
                 <span className={styles.time}>{msg.time}</span>
               </div>
             ))}
+            {isTyping && (
+              <div className={`${styles.msg} ${styles.support}`}>
+                <p>ZIPBOX đang soạn phản hồi…</p>
+              </div>
+            )}
           </div>
 
           <div className={styles.inputArea}>
@@ -92,7 +112,7 @@ const ChatWidget: React.FC = () => {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
             />
-            <button onClick={sendMessage} disabled={!input.trim()}>
+            <button onClick={sendMessage} disabled={!input.trim() || isTyping}>
               <SendOutlined />
             </button>
           </div>

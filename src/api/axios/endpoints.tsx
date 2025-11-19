@@ -26,6 +26,7 @@ export const ENDPOINTS = {
     confirmOrderAuthorization: (orderId: number | string) =>
       `/order-authorizations/${orderId}/confirm`,
     rentalOrder: '/orders/rent',
+    chatAsk: '/chat/ask',
   },
   auth: {
     login: '/auth/login',
