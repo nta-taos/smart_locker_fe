@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
+import ChatWidget from '@/components/chat/ChatWidget';
 import ScrollToTop from '@/components/common/scroll/ScrollToTop';
 
 import DashboardHeader from '../dashboard-header/Header';
@@ -13,6 +14,7 @@ export const AuthLayout: React.FC = () => {
       <main className={styles.main}>
         <Outlet />
       </main>
+      <ChatWidget />
     </div>
   );
 };

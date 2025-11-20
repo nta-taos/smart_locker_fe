@@ -341,7 +341,7 @@ const Register: React.FC = () => {
             <Checkbox>
               Tôi đồng ý với{' '}
               <a onClick={() => setShowTerms(true)} style={{ color: '#1677ff' }}>
-                Điều khoản sử dụng ZipBox
+                Điều khoản sử dụng ZIPBOX
               </a>
             </Checkbox>
           </Form.Item>

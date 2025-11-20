@@ -1,5 +1,6 @@
 import React from 'react';
-import { FaFacebook, FaTiktok, FaTwitter } from 'react-icons/fa';
+import { FaFacebook, FaTiktok } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 
 import { ClockCircleFilled, EnvironmentFilled, MailFilled, PhoneFilled } from '@ant-design/icons';
 
@@ -11,7 +12,7 @@ const Footer: React.FC = () => {
   // ======= SOCIAL LINKS =======
   const socials = [
     { icon: <FaFacebook />, href: 'https://www.facebook.com/profile.php?id=100069962634792' },
-    { icon: <FaTwitter />, href: 'https://x.com/zipboxvn' },
+    { icon: <FaXTwitter />, href: 'https://x.com/zipboxvn' },
     { icon: <FaTiktok />, href: 'https://www.tiktok.com/@zipbox_' },
   ];
 
