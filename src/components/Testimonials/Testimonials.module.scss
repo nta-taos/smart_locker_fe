@@ -107,9 +107,9 @@
 
       .statNumber {
         font-size: 2rem;
-        font-weight: bold;
-        margin-bottom: 0.2rem;
-        color: $text-inverse;
+        font-weight: 800;
+        color: $color-secondary;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
       }
 
       .statLabel {

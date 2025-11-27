@@ -8,7 +8,7 @@ export type ChatMessage = {
 export const mockMessages: ChatMessage[] = [
   {
     id: 1,
-    text: 'Xin chào! Bạn cần hỗ trợ gì không?',
+    text: 'Xin chào! Mình là ZIPBOX Care Bot. Bạn muốn hỏi về chính sách tủ, thanh toán hay cần hướng dẫn sử dụng PWA?',
     sender: 'support',
     time: '09:00',
   },
