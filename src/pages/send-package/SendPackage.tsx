@@ -1,16 +1,12 @@
 import {
   FaArrowLeft,
-  FaBox,
   FaCalendarAlt,
   FaCreditCard,
   FaFileAlt,
-  FaLock,
   FaPaperPlane,
   FaPhoneAlt,
-  FaWallet,
 } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 
 import {
   Button,
@@ -21,7 +17,6 @@ import {
   Grid,
   Input,
   Layout,
-  Radio,
   Row,
   TimePicker,
   Typography,
@@ -29,9 +24,10 @@ import {
 import dayjs from 'dayjs';
 
 import DepositModal from '@/components/deposit-modal/DepositModal';
-import { sizeOptions } from '@/constants/sizeOptions';
-import { lockerAtom } from '@/recoil/atom/locker.atom';
-import { slotAtom } from '@/recoil/atom/slot.atom';
+import { LockerSelection } from '@/components/locker-flow/LockerSelection';
+import OrderSummary from '@/components/locker-flow/OrderSummary';
+import PaymentMethodCard from '@/components/locker-flow/PaymentMethodCard';
+import { SizeSelection } from '@/components/locker-flow/SizeSelection';
 
 import styles from './SendPackage.module.scss';
 import CustomSteps from './Steps';
@@ -73,157 +69,23 @@ export default function SendPage() {
     isSubmitting,
   } = useSendPackage(currentBuildingId, form);
 
-  const SlotItem = ({
-    slotId,
-    lockerCode,
-    lockerFloor,
-    lockerId,
-  }: {
-    slotId: number;
-    lockerId: number;
-    lockerCode: string;
-    lockerFloor: string | null;
-  }) => {
-    const slot = useRecoilValue(slotAtom(slotId));
-    if (!slot) return null;
-    if (slot.size !== selectedSize || slot.status !== 0) {
-      return null;
-    }
-
-    const slotCode = `${lockerCode}-${slotId}`;
-
-    return (
-      <Col xs={8} sm={6} md={4} key={slotId}>
-        <div
-          className={`${styles.lockerBox} ${
-            selectedLocker?.lockerId === lockerId && selectedLocker?.size === slot.size
-              ? styles.lockerBoxSelected
-              : styles.lockerBoxDefault
-          }`}
-          onClick={() => setselectedLocker({ size: slot.size, lockerId: lockerId, code: slotCode })}
-          role="button"
-          tabIndex={0}
-          onKeyDown={() => {}}
-        >
-          <Text className={styles.lockerId}>{slotCode}</Text>
-          <br />
-          {lockerFloor && <Text className={styles.lockerFloor}>Tầng {lockerFloor}</Text>}
-        </div>
-      </Col>
-    );
-  };
-
-  // LockerGroup component
-  const LockerGroup = ({ lockerId }: { lockerId: number }) => {
-    const locker = useRecoilValue(lockerAtom(lockerId));
-    if (!locker || !locker.slots) return null;
-
-    return (
-      <>
-        {locker.slots.map((slotId: number) => (
-          <SlotItem
-            key={`${lockerId}-${slotId}`}
-            slotId={slotId}
-            lockerId={lockerId}
-            lockerCode={locker.code}
-            lockerFloor={locker.floor !== null ? String(locker.floor) : null}
-          />
-        ))}
-      </>
-    );
-  };
-
   const Step0Content = (
     <div className={styles.stepContent}>
-      {/* Size Selection */}
-      <Card
-        title={
-          <Title level={4} className={styles.sectionTitle}>
-            <FaBox size={screens.sm ? 20 : 16} className={styles.sectionIcon} /> Chọn kích thước tủ
-          </Title>
-        }
-        className={styles.antdCard}
-      >
-        <Radio.Group
-          onChange={(e) => {
-            setSelectedSize(e.target.value);
-            setselectedLocker(null);
-          }}
-          value={selectedSize}
-          className={styles.fullWidthGroup}
-        >
-          <div className={styles.sizeOptionsContainer}>
-            {sizeOptions.map((size) => {
-              const count = availableSizesCount?.[size.id] || 0;
-              const isAvailable = count > 0;
-
-              return (
-                <Radio.Button
-                  key={size.id}
-                  value={size.id}
-                  className={selectedSize === size.id ? styles.sizeRadioSelected : styles.sizeRadio}
-                  disabled={!isAvailable}
-                >
-                  <div className={styles.sizeRadioContent}>
-                    <div className={styles.sizeRadioText}>
-                      <Text strong className={styles.sizeTitle}>
-                        Size {size.name}{' '}
-                        <Text
-                          type={isAvailable ? 'secondary' : 'danger'}
-                          className={styles.sizeCount}
-                        >
-                          ({count})
-                        </Text>
-                      </Text>
-                      <span className={styles.dimensionTag}>{size.dimensions}</span>
-                    </div>
-                    <Text type="secondary" className={styles.sizeDescription}>
-                      {size.description}
-                    </Text>
-                    <div className={styles.priceTag}>
-                      <Text className={styles.priceAmount}>{size.priceText}</Text>
-                      <Text type="secondary">/giờ</Text>
-                    </div>
-                  </div>
-                </Radio.Button>
-              );
-            })}
-          </div>
-        </Radio.Group>
-      </Card>
-
-      {/* Locker Selection */}
-      <Card
-        title={
-          <div className={styles.sectionHeader}>
-            <Title level={4} className={styles.sectionTitle}>
-              <FaLock size={screens.sm ? 20 : 16} className={styles.sectionIcon} /> Chọn tủ cụ thể
-            </Title>
-            <span className={styles.availableLockerTag}>
-              {availableSizesCount?.[selectedSize] || 0} tủ khả dụng
-            </span>
-          </div>
-        }
-        className={styles.antdCard}
-      >
-        {(availableSizesCount?.[selectedSize] || 0) > 0 ? (
-          <Row gutter={[12, 12]} className={styles.lockerGrid}>
-            {currentBuilding?.lockers?.map((lockerId: number) => (
-              <LockerGroup key={lockerId} lockerId={lockerId} />
-            ))}
-          </Row>
-        ) : (
-          <div className={styles.noLocker}>
-            <FaLock size={48} className={styles.noLockerIcon} />
-            <Text type="secondary" className={styles.noLockerText}>
-              Không có tủ size {sizeOptions.find((s) => s.id === selectedSize)?.name} khả dụng
-            </Text>
-            <Text type="secondary" className={styles.noLockerSubText}>
-              Vui lòng chọn size khác
-            </Text>
-          </div>
-        )}
-      </Card>
+      <SizeSelection
+        selectedSize={selectedSize}
+        onSizeChange={(sizeId) => {
+          setSelectedSize(sizeId);
+          setselectedLocker(null);
+        }}
+        availableSizesCount={availableSizesCount}
+      />
+      <LockerSelection
+        selectedSize={selectedSize}
+        selectedLocker={selectedLocker}
+        onLockerSelect={setselectedLocker}
+        availableSizesCount={availableSizesCount}
+        lockerIds={currentBuilding?.lockers || []}
+      />
     </div>
   );
 
@@ -334,123 +196,24 @@ export default function SendPage() {
 
   const Step2Content = (
     <div className={styles.stepContent}>
-      {/* Order Summary */}
-      <Card
-        title={
-          <Title level={4} className={styles.sectionTitle}>
-            <FaBox size={screens.sm ? 20 : 16} className={styles.sectionIcon} /> Thông tin gửi hàng
-          </Title>
-        }
-        className={`${styles.antdCard} ${styles.summaryCard}`}
-      >
-        <div className={styles.summaryList}>
-          <Row className={styles.summaryRow}>
-            <Col span={12}>
-              <Text type="secondary">Tủ:</Text>
-            </Col>
-            <Col span={12} style={{ textAlign: 'right' }}>
-              <Text strong>{selectedLocker?.code}</Text>
-            </Col>
-          </Row>
-          <Row className={styles.summaryRow}>
-            <Col span={12}>
-              <Text type="secondary">Size:</Text>
-            </Col>
-            <Col span={12} style={{ textAlign: 'right' }}>
-              <Text strong>{selectedSizeData?.name}</Text>
-            </Col>
-          </Row>
-          <Row className={styles.summaryRow}>
-            <Col span={12}>
-              <Text type="secondary">Mã đơn hàng:</Text>
-            </Col>
-            <Col span={12} style={{ textAlign: 'right' }}>
-              <Text strong>{form.getFieldValue('orderCode')}</Text>
-            </Col>
-          </Row>
-
-          <Row className={styles.summaryRow}>
-            <Col span={12}>
-              <Text type="secondary">Đơn giá:</Text>
-            </Col>
-            <Col span={12} style={{ textAlign: 'right' }}>
-              <Text strong className={styles.priceTextSmall}>
-                {selectedSizeData?.priceText} / giờ
-              </Text>
-            </Col>
-          </Row>
-          <Row className={styles.summaryRow}>
-            <Col span={12}>
-              <Text type="secondary">Thời gian gửi:</Text>
-            </Col>
-            <Col span={12} style={{ textAlign: 'right' }}>
-              <Text strong>{duration.toFixed(2)} giờ</Text>
-            </Col>
-          </Row>
-        </div>
-        <div className={styles.totalRowAntd}>
-          <Row align="middle">
-            <Col span={12}>
-              <Text strong className={styles.totalLabel}>
-                Tổng cộng:
-              </Text>
-            </Col>
-            <Col span={12} style={{ textAlign: 'right' }}>
-              <Text strong className={styles.totalAmount}>
-                {formatCurrency(total)}
-              </Text>
-            </Col>
-          </Row>
-        </div>
-      </Card>
-
-      {/* Payment Method Selection */}
-      <Card
-        title={
-          <Title level={4} className={styles.sectionTitle}>
-            <FaWallet size={screens.sm ? 20 : 16} className={styles.sectionIconOrange} /> Phương
-            thức thanh toán
-          </Title>
-        }
-        className={styles.antdCard}
-      >
-        <div className={styles.paymentMethodContainer}>
-          {paymentMethods.map((method) => {
-            const hasEnoughBalance = walletBalance >= total;
-
-            return (
-              <div key={method.id} className={styles.walletCard}>
-                <div className={styles.walletInfo}>
-                  <Text className={styles.walletIcon}>{method.icon}</Text>
-                  <div className={styles.walletDetails}>
-                    <Text strong className={styles.walletName}>
-                      {method.name}
-                    </Text>
-                    <div className={styles.walletBalance}>
-                      <Text type="secondary" className={styles.walletBalanceLabel}>
-                        Số dư:
-                      </Text>
-                      <Text
-                        strong
-                        className={`${styles.walletBalanceAmount} ${
-                          hasEnoughBalance
-                            ? styles['walletBalanceAmount--sufficient']
-                            : styles['walletBalanceAmount--insufficient']
-                        }`}
-                      >
-                        {formatCurrency(walletBalance)}
-                      </Text>
-                    </div>
-                  </div>
-                </div>
-                <Button onClick={handleTopUp} size="middle">
-                  Nạp tiền
-                </Button>
-              </div>
-            );
-          })}
-        </div>
-      </Card>
+      <OrderSummary
+        items={[
+          { label: 'Tủ', value: selectedLocker?.code || '' },
+          { label: 'Size', value: selectedSizeData?.name || '' },
+          { label: 'Mã đơn hàng', value: form.getFieldValue('orderCode') || '' },
+          { label: 'Đơn giá', value: `${selectedSizeData?.priceText} / giờ` },
+          { label: 'Thời gian gửi', value: `${duration.toFixed(2)} giờ` },
+        ]}
+        total={formatCurrency(total)}
+        title="Thông tin gửi hàng"
+      />
+      <PaymentMethodCard
+        methods={paymentMethods}
+        walletBalance={walletBalance}
+        total={total}
+        onTopUp={handleTopUp}
+        formatCurrency={formatCurrency}
+      />
     </div>
   );
 
