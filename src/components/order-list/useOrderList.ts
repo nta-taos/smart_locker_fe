@@ -9,14 +9,15 @@ import { extractErrorMessage } from '@/utils/error.utils';
 export const useOrderList = (
   limit: number,
   status: 'pending' | 'received' | 'all',
-  search: string,
+  searchCode?: string,
+  from?: string,
+  to?: string,
 ) => {
   const [orderAll, setOrderAll] = useRecoilState(orderState);
   const [orderPending, setOrderPending] = useRecoilState(orderPendingState);
   const [orderReceived, setOrderReceived] = useRecoilState(orderReceivedState);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadMore, setIsLoadMore] = useState(false);
-  console.log(search);
 
   const getOrders = useCallback(
     async (pageNum: number, append = false) => {
@@ -27,7 +28,11 @@ export const useOrderList = (
           setIsLoading(true);
         }
 
-        const res = await orderApi.getOrders(pageNum, limit, status);
+        const res = await orderApi.getOrders(pageNum, limit, status, {
+          code: searchCode,
+          from,
+          to,
+        });
         const result: OrderListResponType = res.data;
         const data = result.data || [];
 
@@ -58,31 +63,22 @@ export const useOrderList = (
         setIsLoadMore(false);
       }
     },
-    [setOrderAll, setOrderPending, setOrderReceived, status, limit],
+    [setOrderAll, setOrderPending, setOrderReceived, status, limit, searchCode, from, to],
   );
   useEffect(() => {
-    if (
-      orderAll.orders.length === 0 ||
-      orderPending.orders.length === 0 ||
-      orderReceived.orders.length === 0
-    ) {
-      getOrders(1, false);
-    }
+    // Load first page on mount or when search params change
+    getOrders(1, false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [searchCode, from, to, status, limit]);
 
   const loadMore = () => {
-    if (!isLoading && orderAll.page < orderAll.totalPages && status === 'all') {
-      getOrders(orderAll.page + 1, true);
-      return;
-    }
-    if (!isLoading && orderPending.page < orderPending.totalPages && status === 'pending') {
-      getOrders(orderPending.page + 1, true);
-      return;
-    }
-    if (!isLoading && orderReceived.page < orderReceived.totalPages && status === 'received') {
-      getOrders(orderReceived.page + 1, true);
-      return;
+    if (isLoading) return;
+
+    const currentData =
+      status === 'all' ? orderAll : status === 'pending' ? orderPending : orderReceived;
+
+    if (currentData.page < currentData.totalPages) {
+      getOrders(currentData.page + 1, true);
     }
   };
 

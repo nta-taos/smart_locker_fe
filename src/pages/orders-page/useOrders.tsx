@@ -7,20 +7,45 @@ import { OrderList } from '@/components/order-list/OrderList';
 import styles from './Orders.module.scss';
 
 export const useOrders = () => {
-  const [search, setSearch] = useState('');
+  const [codeFilter, setCodeFilter] = useState<string | undefined>(undefined);
+  const [dateRange, setDateRange] = useState<[string | undefined, string | undefined] | null>(null);
+
+  const setFilters = (filters: { code?: string; from?: string; to?: string }) => {
+    setCodeFilter(filters.code);
+    if (filters.from || filters.to) {
+      setDateRange([filters.from, filters.to]);
+    } else {
+      setDateRange(null);
+    }
+  };
+
   const tabItems: TabsProps['items'] = [
     {
       key: '1',
       label: 'Tất cả',
       children: (
-        <OrderList className={styles.orderList} variant="detail" status="all" search={search} />
+        <OrderList
+          className={styles.orderList}
+          variant="detail"
+          status="all"
+          codeFilter={codeFilter}
+          from={dateRange?.[0]}
+          to={dateRange?.[1]}
+        />
       ),
     },
     {
       key: '2',
       label: 'Chưa nhận',
       children: (
-        <OrderList className={styles.orderList} variant="detail" status="pending" search={search} />
+        <OrderList
+          className={styles.orderList}
+          variant="detail"
+          status="pending"
+          codeFilter={codeFilter}
+          from={dateRange?.[0]}
+          to={dateRange?.[1]}
+        />
       ),
     },
     {
@@ -31,15 +56,18 @@ export const useOrders = () => {
           className={styles.orderList}
           variant="detail"
           status="received"
-          search={search}
+          codeFilter={codeFilter}
+          from={dateRange?.[0]}
+          to={dateRange?.[1]}
         />
       ),
     },
   ];
 
   return {
-    search,
-    setSearch,
+    codeFilter,
+    dateRange,
+    setFilters,
     tabItems,
   };
 };

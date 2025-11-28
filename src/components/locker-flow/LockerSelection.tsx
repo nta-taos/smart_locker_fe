@@ -50,7 +50,7 @@ const SlotItem = ({
     return null;
   }
 
-  const slotCode = `${lockerCode}-${slotId}`;
+  const slotCode = `${lockerCode}`;
   const isSelected = selectedLocker?.lockerId === lockerId && selectedLocker?.size === slot.size;
 
   return (
@@ -76,7 +76,7 @@ const SlotItem = ({
 
             <Text className={styles.lockerId}>{slotCode}</Text>
 
-            {lockerFloor && <Text className={styles.lockerFloor}>F{lockerFloor}</Text>}
+            {lockerFloor && <Text className={styles.lockerFloor}>Tầng {lockerFloor}</Text>}
 
             {isSelected && (
               <div className={styles.selectedBadge}>

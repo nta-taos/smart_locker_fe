@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Button } from 'antd';
 
@@ -6,6 +7,7 @@ import styles from './About.module.scss';
 import useAbout from './useAbout';
 
 const About: React.FC = () => {
+  const navigate = useNavigate();
   const { images, locationCount } = useAbout();
   return (
     <section className={styles.aboutSection}>
@@ -42,7 +44,12 @@ const About: React.FC = () => {
         </div>
 
         <div className={styles.btn}>
-          <Button className={styles.discoverButton} type="primary" size="large">
+          <Button
+            className={styles.discoverButton}
+            type="primary"
+            size="large"
+            onClick={() => navigate('/support')}
+          >
             Khám phá ngay
           </Button>
         </div>

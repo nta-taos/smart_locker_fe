@@ -213,7 +213,7 @@
 
 /* --- Locker Selection --- */
 .availableLockerTag {
-  font-size: 12px;
+  font-size: 11px;
   padding: 4px 12px;
   border-radius: 20px;
   background-color: rgba($color-primary, 0.1);
@@ -227,18 +227,46 @@
 }
 
 .lockerBox {
-  padding: 16px 8px;
+  position: relative;
+  padding: 12px 8px;
   text-align: center;
   border-radius: 8px;
   border: 2px solid $color-border-light;
   cursor: pointer;
   transition: all 0.3s;
   height: 100%;
+  min-width: 100px;
 
   &:hover {
     border-color: rgba($color-primary, 0.5);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
+}
+
+.lockerBoxContainer {
+  padding: 6px;
+}
+
+.lockerContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.lockerIconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background-color: rgba($color-primary, 0.04);
+}
+
+.lockerBoxIcon {
+  font-size: 18px;
+  color: $color-primary;
 }
 
 .lockerBoxDefault {
@@ -265,12 +293,35 @@
 }
 
 .lockerId {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
 }
 
 .lockerFloor {
   font-size: 10px;
+  display: inline-block;
+  margin-top: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background-color: rgba($color-primary, 0.06);
+  border: 1px solid $color-border-light;
+  color: $color-text-light;
+  width: 100%;
+}
+
+.selectedBadge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: $color-secondary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
 }
 
 .noLocker {
@@ -291,11 +342,11 @@
 }
 
 .noLockerText {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .noLockerSubText {
-  font-size: 12px;
+  font-size: 11px;
 }
 
 /* --- Order Summary --- */
