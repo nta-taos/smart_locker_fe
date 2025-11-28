@@ -6,17 +6,12 @@ import { orderPendingState, orderReceivedState, orderState } from '@/recoil/atom
 import { OrderListResponType } from '@/types/order.type';
 import { extractErrorMessage } from '@/utils/error.utils';
 
-export const useOrderList = (
-  limit: number,
-  status: 'pending' | 'received' | 'all',
-  search: string,
-) => {
+export const useOrderList = (limit: number, status: 'pending' | 'received' | 'all') => {
   const [orderAll, setOrderAll] = useRecoilState(orderState);
   const [orderPending, setOrderPending] = useRecoilState(orderPendingState);
   const [orderReceived, setOrderReceived] = useRecoilState(orderReceivedState);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadMore, setIsLoadMore] = useState(false);
-  console.log(search);
 
   const getOrders = useCallback(
     async (pageNum: number, append = false) => {

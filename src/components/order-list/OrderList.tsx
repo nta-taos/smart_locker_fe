@@ -19,12 +19,10 @@ export const OrderList: React.FC<OrderListProps> = ({
   variant = 'detail',
   limit = 5,
   status = 'all',
-  search = '',
 }) => {
   const { orderAll, orderPending, orderReceived, loadMore, isLoading, isLoadMore } = useOrderList(
     limit,
     status,
-    search,
   );
 
   const classes = [styles.container, className].filter(Boolean).join(' ');

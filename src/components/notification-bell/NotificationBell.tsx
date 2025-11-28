@@ -1,10 +1,24 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { BellOutlined, LoadingOutlined } from '@ant-design/icons';
-import { Avatar, Badge, Button, Drawer, Empty, Grid, List, Popover, Spin, Typography } from 'antd';
+import { BellOutlined, CheckOutlined, CloseOutlined, LoadingOutlined } from '@ant-design/icons';
+import {
+  Avatar,
+  Badge,
+  Button,
+  Drawer,
+  Empty,
+  Grid,
+  List,
+  Popover,
+  Spin,
+  Switch,
+  Tooltip,
+  Typography,
+} from 'antd';
 
 import { notificationApi } from '@/api/notificationApi';
+import usePush from '@/hooks/usePush';
 import { getSocket } from '@/socket';
 import { extractErrorMessage } from '@/utils/error.utils';
 import { formatDateTime } from '@/utils/format-datetime';
@@ -47,6 +61,9 @@ const NotificationBell = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [pushEnabled, setPushEnabled] = useState(false);
+  const [pushChecking, setPushChecking] = useState(true);
+  const { register: registerPush } = usePush();
 
   const screens = useBreakpoint();
   const navigate = useNavigate();
@@ -98,6 +115,31 @@ const NotificationBell = () => {
   useEffect(() => {
     fetchNotifications(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Check push notification status on mount
+  useEffect(() => {
+    const checkPushStatus = async () => {
+      setPushChecking(true);
+      try {
+        const permission = Notification.permission;
+        const hasSubscription = 'serviceWorker' in navigator && 'pushManager' in window;
+
+        if (permission === 'granted' && hasSubscription) {
+          const registration = await navigator.serviceWorker.ready;
+          const subscription = await registration.pushManager.getSubscription();
+          setPushEnabled(!!subscription);
+        } else {
+          setPushEnabled(false);
+        }
+      } catch (err) {
+        console.error('Error checking push status:', err);
+        setPushEnabled(false);
+      } finally {
+        setPushChecking(false);
+      }
+    };
+    checkPushStatus();
   }, []);
 
   useEffect(() => {
@@ -171,6 +213,34 @@ const NotificationBell = () => {
     }
   };
 
+  const handlePushToggle = async (checked: boolean) => {
+    if (checked) {
+      // Enable push
+      try {
+        const result = await registerPush();
+        if (result.ok) {
+          setPushEnabled(true);
+        } else {
+          console.error('Push registration failed:', result.reason);
+        }
+      } catch (err) {
+        console.error('Error enabling push:', err);
+      }
+    } else {
+      // Disable push (unsubscribe)
+      try {
+        const registration = await navigator.serviceWorker.ready;
+        const subscription = await registration.pushManager.getSubscription();
+        if (subscription) {
+          await subscription.unsubscribe();
+          setPushEnabled(false);
+        }
+      } catch (err) {
+        console.error('Error disabling push:', err);
+      }
+    }
+  };
+
   const NotificationList = (
     <div style={{ width: '100%', maxHeight: '70vh', overflowY: 'auto' }} onScroll={handleScroll}>
       <div
@@ -183,11 +253,35 @@ const NotificationBell = () => {
         }}
       >
         <Text strong>Thông báo</Text>
-        {unreadCount > 0 && (
-          <Button type="link" size="small" onClick={markAllAsRead}>
-            Đánh dấu đã đọc
-          </Button>
-        )}
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <Tooltip title={pushEnabled ? 'Tắt Web Push' : 'Bật Web Push'}>
+            <span style={{ fontSize: 12, color: '#666' }}>
+              {pushChecking ? (
+                <Spin size="small" />
+              ) : pushEnabled ? (
+                <span style={{ color: '#52c41a' }}>
+                  <CheckOutlined /> Web Push
+                </span>
+              ) : (
+                <span style={{ color: '#d9d9d9' }}>
+                  <CloseOutlined /> Web Push
+                </span>
+              )}
+            </span>
+          </Tooltip>
+          <Switch
+            size="small"
+            checked={pushEnabled}
+            onChange={handlePushToggle}
+            loading={pushChecking}
+            disabled={pushChecking}
+          />
+          {unreadCount > 0 && (
+            <Button type="link" size="small" onClick={markAllAsRead}>
+              Đánh dấu đã đọc
+            </Button>
+          )}
+        </div>
       </div>
 
       {notifications.length > 0 ? (
