@@ -67,7 +67,7 @@ const partnersData = [
 const BodyPage = () => (
   <div className={styles.partnersWrapper}>
     <div className={styles.hero}>
-      <img src="/images/partner.png" alt="Hero" className={styles.heroImg} />
+      <img src="/images/partner.jpg" alt="Hero" className={styles.heroImg} />
       <h2>Cùng hợp tác, cùng phát triển.</h2>
     </div>
 

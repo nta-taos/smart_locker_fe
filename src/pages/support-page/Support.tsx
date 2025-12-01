@@ -52,7 +52,7 @@ const SearchSection = () => (
       </div>
 
       <div className={styles.right}>
-        <img src="/images/support.png" alt="Support Search" />
+        <img src="/images/support.jpg" loading="lazy" alt="Support Search" />
       </div>
     </div>
   </section>
