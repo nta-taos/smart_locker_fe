@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, ZoomControl, useMap } from 'react-leaflet';
 
 import {
@@ -6,10 +6,9 @@ import {
   LoginOutlined,
   RiseOutlined,
   SearchOutlined,
-  SettingOutlined,
   WarningOutlined,
 } from '@ant-design/icons';
-import { Button, Divider, Drawer } from 'antd';
+import { Button, Divider, Drawer, Input } from 'antd';
 import { LatLngExpression } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -56,6 +55,26 @@ function LocateButton({ onLocate }: { onLocate: (pos: LatLngExpression) => void 
   );
 }
 
+function MapFocus({
+  position,
+  selectedBuildingId,
+}: {
+  position: LatLngExpression | null;
+  selectedBuildingId: number | null;
+}) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!selectedBuildingId || !position) return;
+
+    map.flyTo(position, 16, {
+      duration: 0.6,
+    });
+  }, [map, position, selectedBuildingId]);
+
+  return null;
+}
+
 interface MapViewProps {
   className?: string;
   varriant?: 'detail' | 'shorten';
@@ -74,8 +93,10 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
     searchInput,
     setSearchInput,
     buildingIds,
+    searchResults,
     handleSendPackage,
     handleRentLocker,
+    isDrawerOpen,
   } = useMapHook();
 
   const renderPopupContent = () => {
@@ -158,14 +179,35 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
   const renderSearchBar = () => {
     return (
       <div className={styles.searchBar}>
-        <SearchOutlined />
-        <input
-          type="text"
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-          placeholder="Tìm kiếm tủ gần bạn"
-        />
-        <SettingOutlined />
+        <div className={styles.searchInputWrapper}>
+          <Input
+            value={searchInput}
+            style={{ borderRadius: '6px' }}
+            onChange={(e) => setSearchInput(e.target.value)}
+            placeholder="Tìm kiếm tủ gần bạn"
+            allowClear
+            size="middle"
+            prefix={<SearchOutlined style={{ color: '#999' }} />}
+          />
+        </div>
+        {searchInput.trim() && searchResults.length > 0 && (
+          <div className={styles.searchResults}>
+            {searchResults.map((b) => (
+              <button
+                key={b.id}
+                type="button"
+                className={styles.searchResultItem}
+                onClick={() => {
+                  setSelectedBuildingId(b.id);
+                  setSearchInput(b.name);
+                }}
+              >
+                <div className={styles.searchResultName}>{b.name}</div>
+                <div className={styles.searchResultAddress}>{b.address}</div>
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     );
   };
@@ -178,6 +220,15 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
         style={{ height: '100%', width: '100%' }}
         zoomControl={false}
       >
+        <MapFocus
+          position={
+            selectedBuildingId && buildingSelected
+              ? ([buildingSelected.latitude, buildingSelected.longitude] as LatLngExpression)
+              : null
+          }
+          selectedBuildingId={selectedBuildingId}
+        />
+
         <TileLayer
           // attribution="&copy; OpenStreetMap contributors"
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -206,7 +257,7 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
         placement="bottom"
         closeIcon={false}
         onClose={() => setSelectedBuildingId(null)}
-        open={selectedBuildingId != null}
+        open={isDrawerOpen}
         className={styles.lockerPopup}
         height={'auto'}
       >
