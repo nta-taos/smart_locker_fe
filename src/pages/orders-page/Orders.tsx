@@ -21,6 +21,17 @@ export const OrdersPage = () => {
     const newRange: [string?, string?] = [...(dateRange || [])];
     newRange[index] = value ? dayjs(value).format('YYYY-MM-DD') : undefined;
 
+    const from = newRange[0];
+    const to = newRange[1];
+
+    if (from && to && dayjs(from).isAfter(dayjs(to))) {
+      if (index === 0) {
+        newRange[1] = from;
+      } else {
+        newRange[0] = to;
+      }
+    }
+
     setFilters({
       code: codeFilter,
       from: newRange[0],
@@ -60,6 +71,11 @@ export const OrdersPage = () => {
                 value={dateRange?.[0] ? dayjs(dateRange[0]) : undefined}
                 style={{ width: '100%' }}
                 size="large"
+                disabledDate={(current) => {
+                  if (!current) return false;
+                  const today = dayjs().endOf('day');
+                  return current > today;
+                }}
               />
             </Col>
 
@@ -70,6 +86,15 @@ export const OrdersPage = () => {
                 value={dateRange?.[1] ? dayjs(dateRange[1]) : undefined}
                 style={{ width: '100%' }}
                 size="large"
+                disabledDate={(current) => {
+                  if (!current) return false;
+                  const today = dayjs().endOf('day');
+                  if (current > today) return true;
+                  if (dateRange?.[0]) {
+                    return current < dayjs(dateRange[0]).startOf('day');
+                  }
+                  return false;
+                }}
               />
             </Col>
 

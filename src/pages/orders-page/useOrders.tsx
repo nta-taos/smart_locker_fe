@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { TabsProps } from 'antd';
+import dayjs from 'dayjs';
 
 import { OrderList } from '@/components/order-list/OrderList';
 
@@ -8,7 +9,11 @@ import styles from './Orders.module.scss';
 
 export const useOrders = () => {
   const [codeFilter, setCodeFilter] = useState<string | undefined>(undefined);
-  const [dateRange, setDateRange] = useState<[string | undefined, string | undefined] | null>(null);
+  const today = dayjs().format('YYYY-MM-DD');
+  const [dateRange, setDateRange] = useState<[string | undefined, string | undefined] | null>([
+    today,
+    today,
+  ]);
 
   const setFilters = (filters: { code?: string; from?: string; to?: string }) => {
     setCodeFilter(filters.code);
