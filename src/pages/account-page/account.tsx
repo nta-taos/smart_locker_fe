@@ -38,7 +38,7 @@ const AccountPage: React.FC = () => {
     <div className={styles.main}>
       <div className={styles.backgroundWrapper}>
         <img
-          src={'/images/backgroundAccount.png'}
+          src={'/images/background-account.webp'}
           alt="background"
           className={styles.backgroundImg}
         />
