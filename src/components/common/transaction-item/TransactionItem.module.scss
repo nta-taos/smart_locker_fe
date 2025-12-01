@@ -42,7 +42,8 @@
   }
 
   p {
-    font-size: clamp(8px, 2vw, 13px);
+    font-size: 13px;
+    font-weight: 600;
     margin: 0;
     color: $text-weak;
 
@@ -66,6 +67,8 @@
   h1,
   p {
     white-space: nowrap;
+    font-size: clamp(14px, 1.5vw, 16px);
+    font-weight: 600;
     margin: 0;
   }
 

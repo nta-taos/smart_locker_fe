@@ -69,8 +69,8 @@ export const OrderItem: React.FC<OrderItemProps> = ({
           <img src="/images/locker.png" alt="" />
         </div>
         <div>
-          <p>Mã đơn: #{data.order_code || data.id}</p>
-          <p>Mã tủ: #{data.lockerSlot.id}</p>
+          <p>Mã đơn: {data.order_code || data.id}</p>
+          <p>Mã tủ: {data.lockerSlot.id}</p>
           <p className={styles.time}>{formatDateTime(data.start_time)}</p>
         </div>
         {variant === 'detail' && renderDetail()}
