@@ -67,7 +67,6 @@ const BuildingMarker: React.FC<{
   onClick: (id: number) => void;
 }> = ({ id, isSelected, onClick }) => {
   const bd = useBuildingStateById(id);
-  console.log(bd);
   const countSlot = useRecoilValue(slotCountBySizeSelector(id));
   const isFullSlot = Object.keys(countSlot).length == 0;
   const isPrivate = !bd.isPublic;
