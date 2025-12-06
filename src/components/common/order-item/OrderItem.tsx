@@ -61,12 +61,12 @@ export const OrderItem: React.FC<OrderItemProps> = ({
     <div className={classes}>
       <div className={styles.iconContainer}>
         <div className={styles.iconBody}>
-          <img src="/images/locker.png" alt="" />
+          <img src="/images/locker4.webp" alt="" />
         </div>
       </div>
       <div className={styles.contentContainer}>
         <div className={styles.iconBody}>
-          <img src="/images/locker.png" alt="" />
+          <img src="/images/locker4.webp" alt="" />
         </div>
         <div>
           <p>Mã đơn: {data.order_code || data.id}</p>
