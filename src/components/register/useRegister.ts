@@ -30,7 +30,6 @@ export const useRegister = () => {
     };
 
     setAuth(newAuth);
-    localStorage.setItem('auth', JSON.stringify(newAuth));
     message.success(msg);
     navigation('/dashboard');
   };
