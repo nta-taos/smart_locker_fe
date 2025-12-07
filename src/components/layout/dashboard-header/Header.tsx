@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import { LogoutOutlined, MenuFoldOutlined, ProfileOutlined, UserOutlined } from '@ant-design/icons';
@@ -11,7 +11,25 @@ import useDashboardHeader from './useHeader';
 
 const DashboardHeader: React.FC = () => {
   const navigate = useNavigate();
-  const { user, isOpen, toggleMenu } = useDashboardHeader();
+  const { user, isOpen, toggleMenu, setIsOpen } = useDashboardHeader();
+  const headerRef = useRef<HTMLElement>(null);
+
+  // Click outside to close menu
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isOpen && headerRef.current && !headerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen, setIsOpen]);
 
   const handleNavClick = () => {
     if (isOpen) toggleMenu();
@@ -51,7 +69,7 @@ const DashboardHeader: React.FC = () => {
   ];
 
   return (
-    <header className={styles.header}>
+    <header className={styles.header} ref={headerRef}>
       <div className={styles.logo} onClick={handleAvatar}></div>
 
       <nav className={`${styles.nav} ${isOpen ? styles.navOpen : ''}`}>

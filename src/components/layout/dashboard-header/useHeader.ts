@@ -16,6 +16,7 @@ const useDashboardHeader = () => {
   return {
     user,
     isOpen,
+    setIsOpen,
     toggleMenu,
   };
 };
