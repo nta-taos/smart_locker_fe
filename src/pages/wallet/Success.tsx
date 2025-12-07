@@ -19,7 +19,7 @@ const Success: React.FC = () => {
         const updatedWallet = await walletApi.getWallet();
         setWallet(updatedWallet);
         setLoading(false);
-        navigate('/dasboard');
+        navigate(-3);
       } catch {
         setError(true);
         setLoading(false);
