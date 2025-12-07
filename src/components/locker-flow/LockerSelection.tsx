@@ -27,69 +27,6 @@ interface LockerSelectionProps {
   lockerIds: number[];
 }
 
-const SlotItem = ({
-  slotId,
-  lockerCode,
-  lockerFloor,
-  lockerId,
-  selectedSize,
-  selectedLocker,
-  onLockerSelect,
-}: {
-  slotId: number;
-  lockerId: number;
-  lockerCode: string;
-  lockerFloor: string | null;
-  selectedSize: number;
-  selectedLocker: SelectedLocker | null;
-  onLockerSelect: (locker: SelectedLocker) => void;
-}) => {
-  const slot = useRecoilValue(slotAtom(slotId));
-  if (!slot) return null;
-  if (slot.size !== selectedSize || slot.status !== 0) {
-    return null;
-  }
-
-  const slotCode = `${lockerCode}`;
-  const isSelected = selectedLocker?.lockerId === lockerId && selectedLocker?.size === slot.size;
-
-  return (
-    <Col xs={8} sm={6} md={4} lg={3} key={slotId}>
-      <div
-        className={`${styles.lockerBoxContainer} ${isSelected ? styles.lockerBoxContainerActive : ''}`}
-        onClick={() => onLockerSelect({ size: slot.size, lockerId: lockerId, code: slotCode })}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            onLockerSelect({ size: slot.size, lockerId: lockerId, code: slotCode });
-          }
-        }}
-      >
-        <div
-          className={`${styles.lockerBox} ${isSelected ? styles.lockerBoxSelected : styles.lockerBoxDefault}`}
-        >
-          <div className={styles.lockerContent}>
-            <div className={styles.lockerIconWrapper}>
-              <FaLock className={styles.lockerBoxIcon} />
-            </div>
-
-            <Text className={styles.lockerId}>{slotCode}</Text>
-
-            {lockerFloor && <Text className={styles.lockerFloor}>Tầng {lockerFloor}</Text>}
-
-            {isSelected && (
-              <div className={styles.selectedBadge}>
-                <span className={styles.checkmark}>✓</span>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </Col>
-  );
-};
-
 const LockerGroup = ({
   lockerId,
   selectedSize,
@@ -102,24 +39,62 @@ const LockerGroup = ({
   onLockerSelect: (locker: SelectedLocker) => void;
 }) => {
   const locker = useRecoilValue(lockerAtom(lockerId));
-  if (!locker || !locker.slots) return null;
 
-  return (
-    <>
-      {locker.slots.map((slotId: number) => (
-        <SlotItem
-          key={`${lockerId}-${slotId}`}
-          slotId={slotId}
-          lockerId={lockerId}
-          lockerCode={locker.code}
-          lockerFloor={locker.floor !== null ? String(locker.floor) : null}
-          selectedSize={selectedSize}
-          selectedLocker={selectedLocker}
-          onLockerSelect={onLockerSelect}
-        />
-      ))}
-    </>
-  );
+  if (!locker || !locker.slots || locker.slots.length === 0) return null;
+
+  // Render all slots and let React filter out the nulls
+  // Only the first matching slot will be shown
+  const slotElements = locker.slots.map((slotId: number) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const slot = useRecoilValue(slotAtom(slotId));
+
+    if (!slot || slot.size !== selectedSize || slot.status !== 0) {
+      return null;
+    }
+
+    const slotCode = `${locker.code}`;
+    const isSelected = selectedLocker?.lockerId === lockerId && selectedLocker?.size === slot.size;
+
+    return (
+      <Col xs={12} sm={6} md={4} lg={4} key={slotId}>
+        <div
+          className={`${styles.lockerBoxContainer} ${isSelected ? styles.lockerBoxContainerActive : ''}`}
+          onClick={() => onLockerSelect({ size: slot.size, lockerId: lockerId, code: slotCode })}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              onLockerSelect({ size: slot.size, lockerId: lockerId, code: slotCode });
+            }
+          }}
+        >
+          <div
+            className={`${styles.lockerBox} ${isSelected ? styles.lockerBoxSelected : styles.lockerBoxDefault}`}
+          >
+            <div className={styles.lockerContent}>
+              <div className={styles.lockerIconWrapper}>
+                <FaLock className={styles.lockerBoxIcon} />
+              </div>
+
+              <Text className={styles.lockerId}>{slotCode}</Text>
+
+              {locker.floor && <Text className={styles.lockerFloor}>Tầng {locker.floor}</Text>}
+
+              {isSelected && (
+                <div className={styles.selectedBadge}>
+                  <span className={styles.checkmark}>✓</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </Col>
+    );
+  });
+
+  // Only render the first non-null element
+  const firstSlot = slotElements.find((el) => el !== null);
+  return firstSlot || null;
 };
 
 export const LockerSelection: React.FC<LockerSelectionProps> = ({
@@ -139,7 +114,7 @@ export const LockerSelection: React.FC<LockerSelectionProps> = ({
           <Title level={4} className={styles.sectionTitle}>
             <FaLock size={screens.sm ? 20 : 16} className={styles.sectionIcon} /> Chọn tủ cụ thể
           </Title>
-          <span className={styles.availableLockerTag}>{count} tủ khả dụng</span>
+          <span className={styles.availableLockerTag}>{count} ngăn khả dụng</span>
         </div>
       }
       className={styles.antdCard}

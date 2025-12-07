@@ -149,7 +149,7 @@ export default function RentalPage() {
 
           <Col xs={24}>
             <Form.Item name="isFood" valuePropName="checked" label={<Text strong>Loại hàng</Text>}>
-              <Checkbox>Đồ ăn</Checkbox>
+              <Checkbox>Đồ ăn / thức uống</Checkbox>
             </Form.Item>
           </Col>
         </Row>
