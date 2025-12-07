@@ -21,7 +21,7 @@ import { useDashboard } from './useDashboard';
 
 const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
-  const { auth, isBalanceVisible, toggleBalanceVisibility, userRole } = useDashboard();
+  const { wallet, isBalanceVisible, toggleBalanceVisibility, userRole } = useDashboard();
 
   const goLockers = () => navigate('/lockers');
   const goOrders = () => navigate('/orders');
@@ -82,7 +82,7 @@ const DashboardPage: React.FC = () => {
                 {isBalanceVisible ? (
                   <text
                     style={{ color: '#52c41a' }}
-                  >{`${Number(auth.user?.wallet.balance).toLocaleString('vi-VN')} VND`}</text>
+                  >{`${Number(wallet?.balance || 0).toLocaleString('vi-VN')} VND`}</text>
                 ) : (
                   '********'
                 )}{' '}

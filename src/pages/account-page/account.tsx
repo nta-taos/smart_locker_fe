@@ -14,6 +14,7 @@ import {
 import { Avatar, Card, Col, Divider, Row, Space, Typography, Upload } from 'antd';
 
 import DepositModal from '@/components/deposit-modal/DepositModal';
+import { useWallet } from '@/hooks/useWallet';
 import { authState } from '@/recoil/atom/authAtom';
 
 import { Transaction } from '../../components/transaction/Transaction';
@@ -24,6 +25,7 @@ const { Text } = Typography;
 const AccountPage: React.FC = () => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const auth = useRecoilValue(authState);
+  const { wallet } = useWallet();
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChange = (info: any) => {
@@ -83,7 +85,7 @@ const AccountPage: React.FC = () => {
                         </Text>
                         <Space>
                           <Text style={{ fontSize: 16, fontWeight: 600, color: '#00A86B' }}>
-                            {`${Number(auth.user?.wallet.balance).toLocaleString('vi-VN')} VND`}
+                            {`${Number(wallet?.balance || 0).toLocaleString('vi-VN')} VND`}
                           </Text>
                           <EyeOutlined style={{ fontSize: 24, color: '#002B79', paddingLeft: 8 }} />
                         </Space>

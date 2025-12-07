@@ -4,34 +4,21 @@ import { useSetRecoilState } from 'recoil';
 
 import { Result, Spin } from 'antd';
 
-import { getWallet } from '@/api/walletApi';
-import { authState } from '@/recoil/atom/authAtom';
+import { walletApi } from '@/api/walletApi';
+import { walletState } from '@/recoil/atom/walletAtom';
 
 const Success: React.FC = () => {
   const navigate = useNavigate();
-  const setAuth = useSetRecoilState(authState);
+  const setWallet = useSetRecoilState(walletState);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchWallet = async () => {
       try {
-        const response = await getWallet();
-        const updatedWallet = response.data;
-
-        setAuth((prevAuth) => {
-          if (!prevAuth?.user) return prevAuth;
-          return {
-            ...prevAuth,
-            user: {
-              ...prevAuth.user,
-              wallet: updatedWallet,
-            },
-          };
-        });
-
+        const updatedWallet = await walletApi.getWallet();
+        setWallet(updatedWallet);
         setLoading(false);
-
         navigate(-2);
       } catch {
         setError(true);
@@ -41,7 +28,7 @@ const Success: React.FC = () => {
     };
 
     fetchWallet();
-  }, [setAuth, navigate]);
+  }, [setWallet, navigate]);
 
   if (loading) {
     return (

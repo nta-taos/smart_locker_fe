@@ -7,7 +7,7 @@ import dayjs, { Dayjs } from 'dayjs';
 
 import { buildingApi } from '@/api/buildingApi';
 import { sizeOptions } from '@/constants/sizeOptions';
-import { authState } from '@/recoil/atom/authAtom';
+import { useWallet } from '@/hooks/useWallet';
 import {
   buildingAtom,
   buildingIdsAtom,
@@ -41,13 +41,13 @@ export const useLockerFlow = (buildingId: number, form: FormInstance) => {
   const [buildingIds] = useRecoilState(buildingIdsAtom);
   const availableSizesCount = useRecoilValue(slotCountBySizeSelector(currentBuildingId));
   const currentBuilding = useRecoilValue(buildingAtom(currentBuildingId));
-  const auth = useRecoilValue(authState);
+  const { wallet } = useWallet();
 
   const [step, setStep] = useState(0);
   const [selectedSize, setSelectedSize] = useState<number>(1);
   const [selectedLocker, setselectedLocker] = useState<SelectedLockerState | null>(null);
   const [duration, setDuration] = useState(1);
-  const [walletBalance] = useState(Number(auth.user?.wallet.balance));
+  const walletBalance = Number(wallet?.balance || 0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
 
