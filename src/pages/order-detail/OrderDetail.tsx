@@ -95,7 +95,13 @@ const AntOrderDetails: React.FC = () => {
 
   if (!order) return null;
 
-  const canReceive = order.receiver.id === auth.user?.id;
+  const userId = auth.user?.id;
+  const isReceiver = order.receiver.id === userId;
+  const isSender = order.sender.id === userId;
+  const isAuthorizedUser = !isReceiver && !isSender;
+
+  const canReceive = isReceiver || isAuthorizedUser;
+  const canAuthorize = isReceiver;
 
   const OrderInfoCard = () => (
     <Card
@@ -389,7 +395,9 @@ const AntOrderDetails: React.FC = () => {
             centered
             style={{ paddingBottom: '16px' }}
           />
-          {canReceive && <OrderActions order={order} isReceiving={false} />}
+          {canReceive && (
+            <OrderActions order={order} isReceiving={false} canAuthorize={canAuthorize} />
+          )}
         </div>
       </Content>
     </Layout>

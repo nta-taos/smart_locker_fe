@@ -149,6 +149,10 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
                 <div className={styles.lockerNumber}>{countSlot[2] || 0}</div>
                 <div className={styles.lockerLabel}>SIZE L</div>
               </div>
+              <div className={styles.lockerStat}>
+                <div className={styles.lockerNumber}>{countSlot[3] || 0}</div>
+                <div className={styles.lockerLabel}>SIZE XL</div>
+              </div>
             </div>
           </div>
         </div>

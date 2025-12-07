@@ -41,6 +41,7 @@ export const router = createBrowserRouter([
       { path: '/forgot-password', element: <ForgotPasswordPage /> },
     ],
   },
+  { path: '/order-authorization/:orderId', element: <OrderAuthorizationPage /> },
 
   {
     element: <GuestRoute />,
@@ -70,7 +71,6 @@ export const router = createBrowserRouter([
       },
       { path: '/send/:buildingId', element: <SendPage /> },
       { path: '/rent/:buildingId', element: <RentalPage /> },
-      { path: '/order-authorization/:orderId', element: <OrderAuthorizationPage /> },
       { path: '/orders/:orderId', element: <AntOrderDetails /> },
     ],
   },

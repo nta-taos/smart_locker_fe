@@ -165,6 +165,10 @@ export default function RentalPage() {
           { label: 'Size', value: selectedSizeData?.name || '' },
           { label: 'Đơn giá', value: `${selectedSizeData?.priceText} / giờ` },
           { label: 'Thời gian thuê', value: `${duration.toFixed(2)} giờ` },
+          {
+            label: 'Loại hàng',
+            value: form.getFieldValue('isFood') ? 'Đồ ăn / thức uống' : 'Hàng bình thường',
+          },
         ]}
         total={formatCurrency(total)}
         title="Thông tin thuê tủ"
