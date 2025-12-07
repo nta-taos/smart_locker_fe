@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
+import { MdFastfood } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
@@ -11,6 +12,7 @@ import {
   DollarCircleOutlined,
   EnvironmentOutlined,
   ExclamationCircleOutlined,
+  InboxOutlined,
   PhoneOutlined,
   SyncOutlined,
   UserOutlined,
@@ -144,6 +146,21 @@ const AntOrderDetails: React.FC = () => {
                 <Space align="center" style={{ color: '#22c55e', fontWeight: 500 }}>
                   <CheckCircleOutlined />
                   Đã thanh toán
+                </Space>
+              )}
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+              <Text type="secondary" style={{ minWidth: 100 }}>
+                Loại hàng
+              </Text>
+              {order.is_food === 1 ? (
+                <Space align="center" style={{ color: '#f59e0b', fontWeight: 500 }}>
+                  <MdFastfood /> Đồ ăn / thức uống
+                </Space>
+              ) : (
+                <Space align="center" style={{ color: '#6b7280', fontWeight: 500 }}>
+                  <InboxOutlined /> Hàng hóa thường
                 </Space>
               )}
             </div>

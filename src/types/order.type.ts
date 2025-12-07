@@ -10,6 +10,7 @@ export type OrderItemType = {
   end_time: string;
   type: number;
   payment_status: number;
+  is_food: number;
   sender: {
     id: number;
     phone: string;
@@ -38,12 +39,14 @@ export type SendPackagePayload = {
   orderCode: string;
   receiverPhoneNumber: string;
   size: number;
+  isFood?: boolean;
 };
 
 export type RentalPayload = {
   lockerId: number;
   receiveDateTime: string;
   size: number;
+  isFood?: boolean;
 };
 
 export type OrderListResponType = PaginationType<OrderItemType>;

@@ -183,6 +183,7 @@ export const useSendPackage = (buildingId: number, form: FormInstance) => {
         orderCode: orderCode,
         receiverPhoneNumber: phoneNumber,
         size: selectedLocker.size,
+        isFood: Boolean(form.getFieldValue('isFood')),
       };
 
       const res = await orderApi.postSendPackageOrder(payload);

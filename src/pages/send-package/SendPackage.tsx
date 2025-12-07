@@ -11,6 +11,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {
   Button,
   Card,
+  Checkbox,
   Col,
   DatePicker,
   Form,
@@ -187,6 +188,12 @@ export default function SendPage() {
                 placeholder="Nhập mã đơn hàng"
                 className={styles.antInput}
               />
+            </Form.Item>
+          </Col>
+
+          <Col xs={24}>
+            <Form.Item name="isFood" valuePropName="checked" label={<Text strong>Loại hàng</Text>}>
+              <Checkbox>Đồ ăn / thức uống</Checkbox>
             </Form.Item>
           </Col>
         </Row>

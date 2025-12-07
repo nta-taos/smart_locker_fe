@@ -176,6 +176,7 @@ export const useRental = (buildingId: number, form: FormInstance) => {
         lockerId: selectedLocker.lockerId,
         receiveDateTime: receiveDateTimeISO,
         size: selectedLocker.size,
+        isFood: Boolean(form.getFieldValue('isFood')),
       };
 
       const res = await orderApi.postRentalOrder(payload);
