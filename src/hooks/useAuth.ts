@@ -10,5 +10,5 @@ export const useAuth = () => {
     return !!auth.token && !!auth.user;
   }, [auth]);
 
-  return { isAuthenticated };
+  return { isAuthenticated, user: auth.user };
 };

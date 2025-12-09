@@ -31,7 +31,14 @@ export const useLogin = () => {
     setAuth(newAuth);
 
     message.success(msg);
-    navigation('/dashboard');
+
+    // Redirect based on user role
+    // UserRole: USER=0, ADMIN=1
+    if (user.role >= 1) {
+      navigation('/admin');
+    } else {
+      navigation('/dashboard');
+    }
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

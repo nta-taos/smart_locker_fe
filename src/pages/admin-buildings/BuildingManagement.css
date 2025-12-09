@@ -1,0 +1,89 @@
+.building-management {
+  animation: fadeIn 0.3s ease-in;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.page-header h1 {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.page-header h1 .anticon {
+  color: #667eea;
+}
+
+.page-header p {
+  margin: 0;
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+/* Table Customization */
+.ant-table-wrapper {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.ant-table-thead > tr > th {
+  background: #fafafa;
+  font-weight: 600;
+  color: #262626;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: #f5f7ff !important;
+}
+
+/* Modal Customization */
+.ant-modal-header {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 20px 24px;
+}
+
+.ant-modal-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .page-header h1 {
+    font-size: 20px;
+  }
+
+  .page-header button {
+    width: 100%;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
