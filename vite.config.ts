@@ -15,8 +15,31 @@ export default defineConfig({
       // switch to "true" to enable sw on development
       devOptions: { enabled: false },
       registerType: 'autoUpdate',
-      workbox: { globPatterns: ['**/*.{js,css,html}', '**/*.{svg,png,jpg,gif}'] },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html}', '**/*.{svg,png,jpg,gif}'],
+        // Increase the file size limit to 5MB (from default 2MB)
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5 MB
+      },
     }),
   ],
   resolve: { alias: { '@': path.resolve(__dirname, './src') } },
+  build: {
+    // Increase chunk size warning limit
+    chunkSizeWarningLimit: 1000, // 1000 kB
+    rollupOptions: {
+      output: {
+        // Manual chunks for better code splitting
+        manualChunks: {
+          // React core libraries
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          // Ant Design UI library
+          'antd-vendor': ['antd', '@ant-design/icons'],
+          // State management
+          'recoil-vendor': ['recoil'],
+          // Axios for API calls
+          'axios-vendor': ['axios'],
+        },
+      },
+    },
+  },
 });
