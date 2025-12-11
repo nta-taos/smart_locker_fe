@@ -25,7 +25,7 @@
   display: block;
 }
 
-.hero h2 {
+.heroTitle {
   position: absolute;
   z-index: 2;
   color: $text-inverse;
@@ -87,10 +87,8 @@
       height: 35%;
     }
   }
-  .hero h2 {
-    bottom: 20%;
-    left: 2rem;
-    font-size: 16px;
+  .heroTitle {
+    display: none;
   }
 
   .heroTabs {
@@ -131,7 +129,9 @@
     padding-left: 2rem;
   }
   .partnerBtn {
-    margin-left: 2rem;
+    display: block;
+    margin: 0 auto 2rem;
+    width: fit-content;
   }
 }
 

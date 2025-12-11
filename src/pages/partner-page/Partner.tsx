@@ -68,7 +68,7 @@ const BodyPage = () => (
   <div className={styles.partnersWrapper}>
     <div className={styles.hero}>
       <img src="/images/partner.webp" alt="Hero" className={styles.heroImg} />
-      <h2>Cùng hợp tác, cùng phát triển.</h2>
+      <h2 className={styles.heroTitle}>Cùng hợp tác, cùng phát triển.</h2>
     </div>
 
     <Tabs
