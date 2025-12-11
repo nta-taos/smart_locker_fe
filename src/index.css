@@ -50,4 +50,19 @@ body {
   margin: 0;
   font-family: 'SVN-Gilroy', sans-serif;
   background-color: #f5f5f5;
+
+  /* Ngăn zoom khi double-tap */
+  touch-action: manipulation;
+
+  /* Ngăn text size adjustment tự động trên iOS */
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Disable auto-zoom khi focus input trên iOS */
+input,
+textarea,
+select {
+  font-size: 16px; /* iOS auto zoom nếu font-size < 16px */
 }
