@@ -2,11 +2,7 @@
   "name": "Zipbox",
   "short_name": "Zipbox",
   "description": "Zipbox Smart Locker System",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#ffffff",
   "theme_color": "#ffffff",
-  "scope": "/",
   "icons": [
     {
       "src": "pwa-192x192.png",
