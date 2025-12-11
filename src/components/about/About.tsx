@@ -8,7 +8,7 @@ import useAbout from './useAbout';
 
 const About: React.FC = () => {
   const navigate = useNavigate();
-  const { images, locationCount } = useAbout();
+  const { locationCount } = useAbout();
   return (
     <section className={styles.aboutSection}>
       <div className={styles.info}>
@@ -55,7 +55,18 @@ const About: React.FC = () => {
         </div>
       </div>
       <div className={styles.imagesGrid}>
-        <img src={images[0]} alt="about1" className={styles.imgTop} />
+        <div className={styles.imageItem1}>
+          <img src="/images/about1.webp" alt="Smart locker lobby" />
+        </div>
+        <div className={styles.imageItem2}>
+          <img src="/images/about2.webp" alt="Using smartphone with locker" />
+        </div>
+        <div className={styles.imageItem3}>
+          <img src="/images/about5.webp" alt="Smart locker row" />
+        </div>
+        <div className={styles.imageItem4}>
+          <img src="/images/about4.webp" alt="Delivery to locker" />
+        </div>
         <div className={styles.badge}>
           <h1 className={styles.badgeNumber}>{locationCount}+</h1>
           <span className={styles.badgeText}>Địa điểm</span>

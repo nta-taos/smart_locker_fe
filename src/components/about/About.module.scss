@@ -115,25 +115,64 @@
 
   /* ========== Image grid ========== */
   .imagesGrid {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 200px);
+    gap: 1rem;
     min-width: 340px;
     position: relative;
     width: 50%;
-    align-items: flex-end;
 
-    .imgTop {
-      width: 90%;
-      margin-bottom: 1rem;
-      object-fit: cover;
+    // Individual image containers
+    .imageItem1,
+    .imageItem2,
+    .imageItem3,
+    .imageItem4 {
       border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+    }
+
+    // Grid layout - masonry style
+    .imageItem1 {
+      grid-column: 1 / 2;
+      grid-row: 1 / 3; // Spans 2 rows (tall)
+    }
+
+    .imageItem2 {
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+    }
+
+    .imageItem3 {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+    }
+
+    .imageItem4 {
+      grid-column: 1 / 3; // Spans both columns (wide)
+      grid-row: 3 / 4;
+      height: 180px;
     }
 
     .badge {
       position: absolute;
-      bottom: -20px;
-      left: 45%;
-      width: 150px;
+      bottom: 15px;
+      right: 15px;
+      width: 140px;
       background: $bg-tertiary;
       color: $text-inverse;
       border-radius: 0.7rem;
@@ -143,6 +182,8 @@
       justify-content: center;
       padding: 1rem;
       text-align: center;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      z-index: 10;
 
       .badgeNumber {
         font-size: 2.5rem;
@@ -218,17 +259,36 @@
     .imagesGrid {
       width: 100%;
       min-width: 0;
-      align-items: center;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      gap: 0.8rem;
 
-      .imgTop {
-        width: 100%;
+      .imageItem1,
+      .imageItem2,
+      .imageItem3,
+      .imageItem4 {
+        grid-column: 1 / 2;
+        grid-row: auto;
+        height: 200px;
+      }
+
+      .imageItem4 {
+        height: 180px;
       }
 
       .badge {
-        position: absolute;
-        bottom: -20;
-        left: 30%;
-        margin: 20px auto 0;
+        bottom: 10px;
+        right: 10px;
+        width: 120px;
+        padding: 0.8rem;
+
+        .badgeNumber {
+          font-size: 2rem;
+        }
+
+        .badgeText {
+          font-size: 0.9rem;
+        }
       }
     }
   }

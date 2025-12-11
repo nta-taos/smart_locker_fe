@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Card, Col, Row, Tabs } from 'antd';
+import { Card, Col, Row, Tabs } from 'antd';
 
 import { PartnerIcon2, PartnerIcon3 } from '@/components/common/icon/Partner';
 import PartnerForm from '@/components/partner-form/PartnerForm';
@@ -81,11 +81,6 @@ const BodyPage = () => (
         children: (
           <div className={styles.partnersSection}>
             <p className={styles.description}>{tab.description}</p>
-
-            <Button type="primary" className={styles.partnerBtn}>
-              Đối tác của chúng tôi
-            </Button>
-
             <Row gutter={[24, 24]} style={{ margin: 0 }} className={styles.grid}>
               {tab.partners.map((p, i) => (
                 <Col xs={24} sm={12} md={12} lg={12} key={i}>
