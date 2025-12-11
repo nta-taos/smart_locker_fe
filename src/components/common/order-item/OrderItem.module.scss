@@ -104,3 +104,36 @@
     filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.5));
   }
 }
+
+.detailInfo {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba($border-secondary, 0.5);
+
+  p {
+    margin: 6px 0;
+    color: $text-link;
+    font-size: clamp(14px, 1.5vw, 16px);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .label {
+    font-weight: 700;
+    color: $text-default;
+    min-width: fit-content;
+  }
+
+  .foodTag {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff9201 0%, #f57838 100%);
+    color: $text-inverse;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}

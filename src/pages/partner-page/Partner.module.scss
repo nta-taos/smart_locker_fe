@@ -92,14 +92,21 @@
   }
 
   .heroTabs {
-    top: -55px;
+    top: -40px;
+
+    :global(.ant-tabs-tab) {
+      padding: 0.5rem 0.75rem !important;
+      margin: 0 8px !important;
+      min-width: 140px !important;
+    }
 
     .tabText {
-      display: none;
+      font-size: 13px;
+      font-weight: 600;
     }
     .tabIcon {
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
     }
   }
 }

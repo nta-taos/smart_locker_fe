@@ -9,7 +9,7 @@ import {
 import { Button, Tag } from 'antd';
 
 import { OrderItemType } from '@/types/order.type';
-import { formatDateTime, timeAgo } from '@/utils/format-datetime';
+import { formatDateTime } from '@/utils/format-datetime';
 
 import styles from './OrderItem.module.scss';
 
@@ -43,15 +43,39 @@ export const OrderItem: React.FC<OrderItemProps> = ({
 
   const renderDetail = () => {
     if (variant === 'detail') {
+      // Type 0: Thuê tủ (Rent Locker) - Chỉ hiển thị thời gian thuê
+      // Type 1: Gửi hàng (Send Package) - Hiển thị người gửi, người nhận
+      const isRentLocker = data.type === 0;
+
       return (
-        <div>
+        <div className={styles.detailInfo}>
+          {!isRentLocker && (
+            <>
+              <p>
+                <span className={styles.label}>Người gửi:</span>
+                {data.sender.name}
+              </p>
+              <p>
+                <span className={styles.label}>Người nhận:</span>
+                {data.receiver?.name}
+              </p>
+            </>
+          )}
           <p>
-            Người gửi: {data.sender.phone} ({data.sender.name})
+            <span className={styles.label}>
+              {isRentLocker ? 'Thời gian thuê:' : 'Tổng thời gian:'}
+            </span>{' '}
+            {data.hours} giờ
           </p>
           <p>
-            Người nhận: {data.receiver?.phone} ({data.receiver?.name})
+            <span className={styles.label}>Phí dịch vụ:</span>{' '}
+            {data.fee ? `${Number(data.fee).toLocaleString('vi-VN')} ₫` : 'Chưa thanh toán'}
           </p>
-          <p>Thời gian gửi: {timeAgo(data.start_time)}</p>
+          {data.is_food === 1 && (
+            <p>
+              <span className={styles.foodTag}>🍜 Đồ ăn</span>
+            </p>
+          )}
         </div>
       );
     }
