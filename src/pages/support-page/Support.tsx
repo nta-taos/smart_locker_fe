@@ -159,7 +159,7 @@ const FormSection = () => (
       style={{ marginLeft: 0, marginRight: 0 }}
     >
       <Col xs={24} md={12} className={styles.formImage}>
-        <img src="/images/support2.png" alt="Support action" />
+        <img src="/images/support2.webp" alt="Support action" />
       </Col>
       <Col xs={24} md={12} className={styles.formBox}>
         <SupportForm />
