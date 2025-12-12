@@ -88,7 +88,6 @@ const LockerManagement: React.FC = () => {
     try {
       const values = await form.validateFields();
       const data: CreateLockerDto = {
-        code: values.code,
         buildingId: values.buildingId,
         status: values.status ?? 1,
         floor: values.floor ? parseInt(values.floor) : undefined,
@@ -236,13 +235,14 @@ const LockerManagement: React.FC = () => {
         width={500}
       >
         <Form form={form} layout="vertical" style={{ marginTop: 24 }}>
-          <Form.Item
-            label="Mã tủ"
-            name="code"
-            rules={[{ required: true, message: 'Vui lòng nhập mã tủ' }]}
-          >
-            <Input placeholder="Nhập mã tủ" />
-          </Form.Item>
+          {editingLocker && (
+            <Form.Item label="Mã tủ">
+              <Input value={editingLocker.code} disabled />
+              <div style={{ fontSize: '12px', color: '#888', marginTop: '4px' }}>
+                Mã tủ không thể thay đổi sau khi tạo
+              </div>
+            </Form.Item>
+          )}
 
           <Form.Item
             label="Tòa nhà"

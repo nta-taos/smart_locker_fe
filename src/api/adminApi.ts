@@ -53,7 +53,6 @@ export interface CreateBuildingDto {
 }
 
 export interface CreateLockerDto {
-  code: string;
   buildingId: number;
   status?: number;
   floor?: number;
