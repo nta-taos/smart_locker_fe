@@ -160,9 +160,10 @@ const SlotManagement: React.FC = () => {
   };
 
   const sizeOptions = [
-    { value: 'SMALL', label: 'Nhỏ' },
-    { value: 'MEDIUM', label: 'Trung bình' },
-    { value: 'LARGE', label: 'Lớn' },
+    { value: 0, label: 'Nhỏ' },
+    { value: 1, label: 'Trung bình' },
+    { value: 2, label: 'Lớn' },
+    { value: 3, label: 'Rất lớn' },
   ];
 
   const statusOptions = [
@@ -189,6 +190,10 @@ const SlotManagement: React.FC = () => {
       title: 'Kích thước',
       dataIndex: 'size',
       key: 'size',
+      render: (size) => {
+        const option = sizeOptions.find((opt) => opt.value === size);
+        return option?.label || size;
+      },
     },
     {
       title: 'HW Index',

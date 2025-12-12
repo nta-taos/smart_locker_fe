@@ -84,10 +84,10 @@ const RemoteControl: React.FC = () => {
   };
 
   const filteredLockers = selectedBuilding
-    ? lockers.filter((l) => l.building.id === selectedBuilding)
+    ? lockers.filter((l) => l.building?.id === selectedBuilding)
     : [];
 
-  const filteredSlots = selectedLocker ? slots.filter((s) => s.locker.id === selectedLocker) : [];
+  const filteredSlots = selectedLocker ? slots.filter((s) => s.locker?.id === selectedLocker) : [];
 
   return (
     <div className="building-management">
