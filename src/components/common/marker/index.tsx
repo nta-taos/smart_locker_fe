@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Marker, Popup } from 'react-leaflet';
 import { useRecoilValue } from 'recoil';
 
@@ -85,9 +86,10 @@ const BuildingMarker: React.FC<{
 const UserMarker: React.FC<{
   position: LatLngExpression;
 }> = ({ position }) => {
+  const { t } = useTranslation('common');
   return (
     <Marker position={position} icon={userIcon}>
-      <Popup>Bạn đang ở đây 🚶</Popup>
+      <Popup>{t('map.yourLocation')} 🚶</Popup>
     </Marker>
   );
 };

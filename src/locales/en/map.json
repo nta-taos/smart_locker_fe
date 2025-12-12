@@ -1,0 +1,14 @@
+{
+  "open247": "Open 24/7",
+  "available": "Available",
+  "sendPackage": "Send Package",
+  "rentLocker": "Rent Locker",
+  "selectLocation": "Select Location",
+  "nearYou": "Near You",
+  "searchLocation": "Search location...",
+  "locationError": "Location Error",
+  "cannotGetLocation": "Cannot get current location",
+  "geolocationNotSupported": "Geolocation is not supported by this browser",
+  "restrictedAccess": "Restricted Access",
+  "searchPlaceholder": "Search by name or address..."
+}

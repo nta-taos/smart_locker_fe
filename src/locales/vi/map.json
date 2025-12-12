@@ -1,0 +1,14 @@
+{
+  "open247": "Mở cửa 24/7",
+  "available": "Còn trống",
+  "sendPackage": "Gửi hàng",
+  "rentLocker": "Thuê tủ",
+  "selectLocation": "Chọn vị trí",
+  "nearYou": "Gần bạn",
+  "searchLocation": "Tìm kiếm vị trí...",
+  "locationError": "Lỗi lấy vị trí",
+  "cannotGetLocation": "Không thể lấy vị trí hiện tại",
+  "geolocationNotSupported": "Trình duyệt không hỗ trợ định vị",
+  "restrictedAccess": "Hạn chế ra vào",
+  "searchPlaceholder": "Tìm kiếm theo tên hoặc địa chỉ..."
+}

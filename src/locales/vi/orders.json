@@ -1,0 +1,107 @@
+{
+  "title": "Đơn hàng",
+  "status": {
+    "pending": "Chờ hàng",
+    "sending": "Đang gửi",
+    "received": "Đã nhận",
+    "overdue": "Quá hạn"
+  },
+  "types": {
+    "rental": "Thuê tủ",
+    "send": "Gửi hàng",
+    "undefined": "Không xác định"
+  },
+  "detail": {
+    "title": "Thông tin đơn hàng",
+    "orderCode": "Mã đơn",
+    "lockerCode": "Mã tủ",
+    "sender": "Người gửi",
+    "receiver": "Người nhận",
+    "rentalTime": "Thời gian thuê",
+    "totalTime": "Tổng thời gian",
+    "hours": "giờ",
+    "serviceFee": "Phí dịch vụ",
+    "unpaid": "Chưa thanh toán",
+    "food": "Đồ ăn",
+    "viewDetail": "Chi tiết",
+    "orderInfo": "Thông tin đơn hàng",
+    "serviceType": "Loại dịch vụ",
+    "payment": "Thanh toán",
+    "notPaid": "Chưa thanh toán",
+    "paid": "Đã thanh toán",
+    "itemType": "Loại hàng",
+    "foodDrink": "Đồ ăn / thức uống",
+    "normalGoods": "Hàng hóa thường",
+    "sendTime": "Thời gian gửi",
+    "lockerPosition": "Vị trí tủ",
+    "statusLabel": "Trạng thái",
+    "senderInfo": "Thông tin người gửi",
+    "receiverInfo": "Thông tin người nhận",
+    "fullName": "Họ tên",
+    "phone": "Số điện thoại",
+    "notDefined": "Chưa xác định",
+    "orderDetails": "Chi tiết đơn hàng",
+    "orderStatus": "Trạng thái đơn hàng",
+    "statusHistory": "Lịch sử trạng thái",
+    "notFound": "Không tìm thấy đơn hàng hoặc bạn không có quyền xem.",
+    "readyAlert": "Hàng đã sẵn sàng tại tủ",
+    "readyDescription": "Vui lòng nhận hàng trong thời gian quy định để tránh phát sinh phí quá hạn."
+  },
+  "timeline": {
+    "created": "Đơn hàng được tạo",
+    "sending": "Hàng đang gửi",
+    "sent": "Đã gửi",
+    "waitingSend": "Chờ gửi",
+    "received": "Hàng đã được nhận",
+    "confirmed": "Đã xác nhận",
+    "waitingReceive": "Chờ nhận"
+  },
+  "actions": {
+    "receive": "Nhận hàng",
+    "receiveTitle": "Nhận hàng",
+    "receiveDescription": "Chọn một trong các cách sau để nhận hàng từ tủ:",
+    "receiveWithPhone": "Xác nhận với số điện thoại",
+    "authorize": "Ủy quyền nhận",
+    "authorizeDescription": "Cho người khác nhận hàng",
+    "confirmReceive": "Xác nhận nhận hàng",
+    "confirmQuestion": "Bạn có chắc chắn muốn nhận hàng ngay bây giờ không?",
+    "receiveNow": "Nhận hàng ngay",
+    "receiveSuccess": "Nhận hàng thành công!",
+    "processing": "Đang xử lý...",
+    "authorizeTitle": "Ủy quyền nhận hàng",
+    "authorizeInfo": "Nhập thông tin người được ủy quyền nhận hàng",
+    "authorizeRecipient": "Họ tên người nhận",
+    "enterFullName": "Nhập họ tên",
+    "enterEmail": "Nhập địa chỉ email",
+    "sendAuthorize": "Gửi ủy quyền",
+    "authorizeSuccess": "Gửi yêu cầu ủy quyền thành công!",
+    "noResponse": "Không nhận được phản hồi hợp lệ từ server.",
+    "fillRequired": "Vui lòng nhập đầy đủ họ tên và email người được ủy quyền."
+  },
+  "authorization": {
+    "title": "Ủy quyền đơn hàng",
+    "description": "Nhấn nút bên dưới để xác nhận mở khóa đơn hàng được ủy quyền.",
+    "confirmUnlock": "Xác nhận mở khóa",
+    "confirming": "Đang xác nhận...",
+    "success": "Mở khóa thành công!",
+    "orderConfirmed": "đã được xác nhận.",
+    "backHome": "Quay lại trang chủ",
+    "noToken": "Thiếu token xác thực!",
+    "unlockSuccess": "Xác nhận mở khóa thành công!",
+    "ignoreInfo": "Nếu bạn không yêu cầu hành động này, vui lòng bỏ qua email."
+  },
+  "search": {
+    "placeholder": "Tìm kiếm đơn hàng...",
+    "startDate": "Từ ngày",
+    "endDate": "Đến ngày"
+  },
+  "tabs": {
+    "all": "Tất cả",
+    "pending": "Chờ hàng",
+    "sending": "Đang gửi",
+    "completed": "Hoàn thành"
+  },
+  "filters": {
+    "clear": "Xóa"
+  }
+}

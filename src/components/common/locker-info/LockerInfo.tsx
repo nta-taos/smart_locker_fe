@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import { joinClass } from '@/utils/join-class';
 
 import BoxSvg from '../icon/BoxSvg';
@@ -23,17 +25,24 @@ export const LockerInfo: React.FC<LockerInfoProps> = ({
   type,
 }) => {
   const classes = joinClass([className, styles.container, styles[type]]);
+  const { t } = useTranslation('locker');
   return (
     <div className={classes}>
       <div className={styles.header}>
-        <h1>{type == 'detail' ? building : `Tủ ${lockerId}`}</h1>
+        <h1>{type == 'detail' ? building : `${t('info.locker')} ${lockerId}`}</h1>
       </div>
       <div>
         <div className={styles.body}>
           {type == 'detail' && <BoxSvg />}
-          {type == 'detail' && <h2>Tủ: {lockerId}</h2>}
+          {type == 'detail' && (
+            <h2>
+              {t('info.locker')}: {lockerId}
+            </h2>
+          )}
           <SlotSvg />
-          <h2>Ngăn tủ: {slotId}</h2>
+          <h2>
+            {t('info.slot')}: {slotId}
+          </h2>
           <LocationSvg />
           <h2>{address}</h2>
         </div>

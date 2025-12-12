@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { ArrowLeftOutlined, EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
@@ -16,6 +17,7 @@ const ResetPasswordForm = () => {
   const navigate = useNavigate();
   const token = searchParams.get('token');
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation(['auth', 'validation']);
 
   const tokenMissing = useMemo(() => !token, [token]);
 
@@ -24,7 +26,7 @@ const ResetPasswordForm = () => {
     setLoading(true);
     try {
       await authApi.resetPassword(token, values.newPassword);
-      message.success('Đặt lại mật khẩu thành công. Vui lòng đăng nhập.');
+      message.success(t('auth:resetPassword.successMessage'));
       navigate('/login');
     } catch (error) {
       console.error(error);
@@ -38,18 +40,18 @@ const ResetPasswordForm = () => {
     <div className={styles.wrapper}>
       <div className={styles.card}>
         <Title level={2} className={styles.title}>
-          Tạo mật khẩu mới
+          {t('auth:resetPassword.title')}
         </Title>
         <Text type="secondary" className={styles.subText}>
-          Nhập mật khẩu mới để hoàn tất quá trình.
+          {t('auth:resetPassword.subtitle')}
         </Text>
 
         {tokenMissing && (
           <Alert
             type="error"
             showIcon
-            message="Token không hợp lệ"
-            description="Liên kết đặt lại không hợp lệ hoặc đã hết hạn. Vui lòng yêu cầu lại."
+            message={t('auth:resetPassword.tokenInvalid')}
+            description={t('auth:resetPassword.tokenInvalidDescription')}
             className={styles.alert}
           />
         )}
@@ -61,11 +63,11 @@ const ResetPasswordForm = () => {
           requiredMark={false}
         >
           <Form.Item
-            label="Mật khẩu mới"
+            label={t('auth:resetPassword.newPassword')}
             name="newPassword"
             rules={[
-              { required: true, message: 'Vui lòng nhập mật khẩu mới' },
-              { min: 8, message: 'Mật khẩu phải có ít nhất 8 ký tự' },
+              { required: true, message: t('auth:resetPassword.newPasswordRequired') },
+              { min: 8, message: t('validation:password.minLength', { min: 8 }) },
             ]}
           >
             <Input.Password
@@ -76,17 +78,17 @@ const ResetPasswordForm = () => {
           </Form.Item>
 
           <Form.Item
-            label="Xác nhận mật khẩu"
+            label={t('auth:resetPassword.confirmPassword')}
             name="confirmPassword"
             dependencies={['newPassword']}
             rules={[
-              { required: true, message: 'Vui lòng xác nhận mật khẩu' },
+              { required: true, message: t('auth:resetPassword.confirmPasswordRequired') },
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (!value || getFieldValue('newPassword') === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject(new Error('Mật khẩu không khớp'));
+                  return Promise.reject(new Error(t('validation:password.notMatch')));
                 },
               }),
             ]}
@@ -107,7 +109,7 @@ const ResetPasswordForm = () => {
               disabled={tokenMissing}
               loading={loading}
             >
-              Đặt lại mật khẩu
+              {t('auth:resetPassword.submitButton')}
             </Button>
           </Form.Item>
           <Form.Item>
@@ -118,7 +120,7 @@ const ResetPasswordForm = () => {
               onClick={() => navigate('/login')}
               style={{ height: '48px' }}
             >
-              Quay về đăng nhập
+              {t('auth:resetPassword.backToLogin')}
             </Button>
           </Form.Item>
         </Form>

@@ -1,0 +1,71 @@
+{
+  "hero": {
+    "title": "Smart, Convenient,",
+    "subtitle": "Fast!",
+    "description": "<strong>ZipBox</strong> is a smart locker delivery model integrated with <strong>IoT (Internet of Things)</strong> technology and <strong>PWA (Progressive Web App)</strong>, allowing users to send or receive packages <strong>without direct contact.</strong>",
+    "cta": "Explore Now"
+  },
+  "features": {
+    "title": "Special Features",
+    "subtitle": "The difference lies in convenience.",
+    "mapTitle": "Locker Distribution Map",
+    "mapDescription": "Easily search and select the nearest locker through an intuitive map.",
+    "unlockTitle": "Smart Locker Unlock",
+    "unlockDescription": "Authenticate via app to unlock quickly and securely.",
+    "orderTitle": "My Orders",
+    "orderDescription": "Manage all order history and status in one interface.",
+    "feature1": {
+      "title": "Smart Unlock",
+      "description": "Open lockers easily via app or QR code, no physical keys needed."
+    },
+    "feature2": {
+      "title": "24/7 Delivery",
+      "description": "Send and receive packages anytime, not limited by business hours."
+    },
+    "feature3": {
+      "title": "Absolute Security",
+      "description": "Multi-layer security system, 24/7 camera surveillance ensures packages are always safe."
+    },
+    "feature4": {
+      "title": "Flexible Payment",
+      "description": "Multiple payment methods: e-wallet, cards, bank transfer."
+    }
+  },
+  "about": {
+    "subtitle": "A BIT",
+    "title": "ABOUT US",
+    "visionTitle": "VISION",
+    "visionContent": "\"Become the <strong>leading smart locker system in Vietnam and the region</strong>, optimizing delivery and storage in the <strong>smart city era</strong>.\"",
+    "missionTitle": "MISSION",
+    "missionContent": "\"Provide <strong>safe, convenient and flexible delivery and storage solutions 24/7</strong>, saving time and costs while promoting <strong>sustainable logistics development</strong>.\"",
+    "discoverButton": "Explore Now",
+    "locationBadge": "Location"
+  },
+  "testimonials": {
+    "title": "Customer Reviews",
+    "subtitle": "Thousands of customers have trusted and are satisfied with our products.",
+    "stats": {
+      "trust": "Trust Rating",
+      "customers": "Customers",
+      "rating": "Rating"
+    },
+    "reviews": {
+      "review1": "Using the locker saves me time and gives me more control whenever packages arrive. Such a good service at a very reasonable price. Very satisfied.",
+      "author1": "Ly Thu Ha",
+      "position1": "Locker User",
+      "review2": "After installing the SmartLock Pro system, our company is completely assured about security. No more worries about lost or copied keys.",
+      "author2": "Nguyen Van Quy",
+      "position2": "Shipper",
+      "review3": "After installing the SmartLock Pro system, our company is completely assured about security. No more worries about lost or copied keys.",
+      "author3": "Nguyen Anh Tuan",
+      "position3": "Logistics Representative",
+      "review4": "Since ZIPBOX installed smart lockers in our building lobby, the chaos of messy packages, wrong deliveries, and lost items has been significantly resolved. A worthy partnership model.",
+      "author4": "Tran Thi Hong Tho",
+      "position4": "Partner Location Representative"
+    }
+  },
+  "intro": {
+    "title": "Smart delivery and storage solution for modern life",
+    "startButton": "Get Started"
+  }
+}

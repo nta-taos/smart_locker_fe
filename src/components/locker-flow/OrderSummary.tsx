@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FaBox } from 'react-icons/fa';
 
 import { Card, Col, Grid, Row, Typography } from 'antd';
@@ -27,6 +28,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
   title = 'Thông tin đơn hàng',
 }) => {
   const screens = useBreakpoint();
+  const { t } = useTranslation('common');
   const IconComponent = icon || (
     <FaBox size={screens.sm ? 20 : 16} className={styles.sectionIcon} />
   );
@@ -35,7 +37,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
     <Card
       title={
         <Title level={4} className={styles.sectionTitle}>
-          {IconComponent} {title}
+          {IconComponent} {title || t('orderSummary.title')}
         </Title>
       }
       className={`${styles.antdCard} ${styles.summaryCard}`}
@@ -56,7 +58,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
         <Row align="middle">
           <Col span={12}>
             <Text strong className={styles.totalLabel}>
-              Tổng cộng:
+              {t('orderSummary.total')}:
             </Text>
           </Col>
           <Col span={12} style={{ textAlign: 'right' }}>

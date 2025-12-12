@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MapContainer, TileLayer, ZoomControl, useMap } from 'react-leaflet';
 
 import {
@@ -19,6 +20,7 @@ import useMapHook from './useMap';
 
 function LocateButton({ onLocate }: { onLocate: (pos: LatLngExpression) => void }) {
   const map = useMap();
+  const { t } = useTranslation(['common', 'map']);
 
   const handleClick = () => {
     if (navigator.geolocation) {
@@ -29,12 +31,12 @@ function LocateButton({ onLocate }: { onLocate: (pos: LatLngExpression) => void 
           onLocate(coords);
         },
         (err) => {
-          console.error('Lỗi lấy vị trí:', err);
-          alert('Không thể lấy vị trí của bạn!');
+          console.error(t('map:locationError'), err);
+          alert(t('map:cannotGetLocation'));
         },
       );
     } else {
-      alert('Trình duyệt không hỗ trợ Geolocation!');
+      alert(t('map:geolocationNotSupported'));
     }
   };
 
@@ -84,6 +86,7 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
   const isShowDetail = varriant == 'detail';
   const classes = [styles.container, className].filter(Boolean).join(' ');
   const [userPos, setUserPos] = useState<LatLngExpression | null>(null);
+  const { t } = useTranslation(['common', 'locker', 'map']);
 
   const {
     countSlot,
@@ -119,18 +122,18 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
                 {!buildingSelected?.isPublic ? (
                   <>
                     <WarningOutlined className={styles.badgeIcon} />
-                    <span className={styles.badgeText}>Có thể không vào được</span>
+                    <span className={styles.badgeText}>{t('map:restrictedAccess')}</span>
                   </>
                 ) : (
                   <>
                     <LoginOutlined className={styles.badgeIcon} />
-                    <span className={styles.badgeText}>Mở cửa 24/7</span>
+                    <span className={styles.badgeText}>{t('map:open247')}</span>
                   </>
                 )}
               </div>
               <div className={styles.badgeOutline}>
                 <RiseOutlined style={{ fontSize: '18px', color: '#CCC' }} />
-                <span className={styles.badgeTextOutline}>Còn trống</span>
+                <span className={styles.badgeTextOutline}>{t('map:available')}</span>
               </div>
             </div>
           </div>
@@ -165,7 +168,7 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
             size="large"
             onClick={handleRentLocker}
           >
-            Thuê tủ
+            {t('locker:rental.title')}
           </Button>
           <Button
             type="primary"
@@ -173,7 +176,7 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
             size="large"
             onClick={handleSendPackage}
           >
-            Gửi hàng
+            {t('map:sendPackage')}
           </Button>
         </div>
       </div>
@@ -188,7 +191,7 @@ const MapView: React.FC<MapViewProps> = ({ className = '', varriant = 'shorten' 
             value={searchInput}
             style={{ borderRadius: '6px' }}
             onChange={(e) => setSearchInput(e.target.value)}
-            placeholder="Tìm kiếm tủ gần bạn"
+            placeholder={t('map:searchPlaceholder')}
             allowClear
             size="middle"
             prefix={<SearchOutlined style={{ color: '#999' }} />}

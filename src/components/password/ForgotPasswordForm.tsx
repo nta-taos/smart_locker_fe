@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { ArrowLeftOutlined, MailOutlined } from '@ant-design/icons';
@@ -15,6 +16,7 @@ const ForgotPasswordForm = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation(['auth', 'validation']);
 
   const handleSubmit = async (values: { email: string }) => {
     setLoading(true);
@@ -22,7 +24,7 @@ const ForgotPasswordForm = () => {
     try {
       await authApi.forgotPassword(values.email);
       setSuccess(true);
-      message.success('Kiểm tra email của bạn để đặt lại mật khẩu.');
+      message.success(t('auth:forgotPassword.successMessage'));
     } catch (error) {
       setSuccess(false);
       extractErrorMessage(error);
@@ -35,19 +37,19 @@ const ForgotPasswordForm = () => {
     <div className={styles.wrapper}>
       <div className={styles.card}>
         <Title level={2} className={styles.title}>
-          Quên mật khẩu
+          {t('auth:forgotPassword.title')}
         </Title>
 
         <Text type="secondary" className={styles.subText}>
-          Nhập email để nhận liên kết đặt lại mật khẩu.
+          {t('auth:forgotPassword.subtitle')}
         </Text>
 
         {success && (
           <Alert
             type="success"
             showIcon
-            message="Đã gửi liên kết đặt lại mật khẩu!"
-            description="Hãy kiểm tra email và làm theo hướng dẫn."
+            message={t('auth:forgotPassword.alertTitle')}
+            description={t('auth:forgotPassword.alertDescription')}
             className={styles.alert}
           />
         )}
@@ -59,11 +61,11 @@ const ForgotPasswordForm = () => {
           requiredMark={false}
         >
           <Form.Item
-            label="Email"
+            label={t('auth:login.email')}
             name="email"
             rules={[
-              { required: true, message: 'Vui lòng nhập email' },
-              { type: 'email', message: 'Email không hợp lệ' },
+              { required: true, message: t('validation:email.required') },
+              { type: 'email', message: t('validation:email.invalid') },
             ]}
           >
             <Input size="large" placeholder="you@example.com" prefix={<MailOutlined />} />
@@ -71,7 +73,7 @@ const ForgotPasswordForm = () => {
 
           <Form.Item>
             <Button type="primary" htmlType="submit" block size="large" loading={loading}>
-              Gửi liên kết đặt lại
+              {t('auth:forgotPassword.submitButton')}
             </Button>
           </Form.Item>
 
@@ -84,7 +86,7 @@ const ForgotPasswordForm = () => {
               onClick={() => navigate('/login')}
               style={{ height: '48px' }}
             >
-              Quay về đăng nhập
+              {t('auth:forgotPassword.backToLogin')}
             </Button>
           </Form.Item>
         </Form>

@@ -1,0 +1,46 @@
+{
+  "hero": {
+    "title": "Grow Together, Succeed Together.",
+    "description": "Become a Zipbox partner"
+  },
+  "tabs": {
+    "delivery": "Delivery Partner",
+    "location": "Location Partner"
+  },
+  "delivery": {
+    "description": "Join Zipbox to create an optimal delivery journey, where speed and reliability become a sustainable competitive advantage for your business.",
+    "fulta": "One of Vietnam's leading express delivery companies, renowned for its extensive delivery network and outstanding speed. ZIPBOX is proud to partner with FUTA Express to provide customers with a seamless and reliable package delivery experience.",
+    "nhat_tin": "Providing professional logistics and express delivery solutions, optimized for both businesses and individuals. The combination of Nhat Tin and ZIPBOX ensures your packages are handled safely and delivered as conveniently as possible."
+  },
+  "location": {
+    "description": "Partner with Zipbox to turn your space into a convenient delivery point, enhancing service value and improving the experience for the surrounding community.",
+    "fpt": "Address: Vo Quy Huan Street, FPT City Urban Area, Ngu Hanh Son, Da Nang. A modern apartment complex located in FPT City Urban Area. ZIPBOX smart lockers provide a 24/7 secure and autonomous package delivery solution for the high-tech residential community here.",
+    "bau_tram": "Address: Lot B4-1, Bau Tram Lakeside Urban Area, Lien Chieu, Da Nang. An apartment complex with a peaceful lakeside living space. The ZIPBOX system is installed to serve the flexible and secure package delivery needs of families and residents.",
+    "monarchy": "Address: 535 Tran Hung Dao, Son Tra, Da Nang. The Monarchy is one of the premium mixed-use apartment complexes along the Han River. ZIPBOX lockers at Monarchy enhance convenient living experiences, ensuring residents' packages are always safely protected.",
+    "mobifone": "Address: 586 Nguyen Huu Tho, Cam Le, Da Nang. As an important office and transaction center, the Mobifone building houses a large number of office workers. ZIPBOX provides convenient personal package delivery solutions, helping employees proactively receive items without disrupting their work.",
+    "vinaconex": "Address: 320 2/9 Street, Hai Chau, Da Nang. Vinaconex building is one of the city's prominent office buildings. The ZIPBOX locker here ensures that employees and companies can receive packages and documents quickly and safely at any time."
+  },
+  "form": {
+    "title": "REGISTER PARTNERSHIP",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Full Name",
+    "fullNameRequired": "Please enter full name",
+    "phone": "Phone Number",
+    "phonePlaceholder": "Phone Number",
+    "phoneRequired": "Please enter phone number",
+    "phoneInvalid": "Invalid phone number",
+    "email": "Email",
+    "emailPlaceholder": "Email",
+    "emailRequired": "Please enter email",
+    "emailInvalid": "Invalid email",
+    "category": "Partnership Category",
+    "categoryPlaceholder": "Select partnership category",
+    "categoryOptionTransport": "Transportation Partner",
+    "categoryOptionLocation": "Location Partner",
+    "note": "Your Message",
+    "notePlaceholder": "Your message...",
+    "submitButton": "Send Now",
+    "successMessage": "Registration successful! We will contact you soon.",
+    "errorMessage": "Registration failed, please try again!"
+  }
+}

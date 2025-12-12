@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Button, Form, InputNumber, Modal, message } from 'antd';
 
@@ -13,6 +14,7 @@ interface DepositModalProps {
 const DepositModal: React.FC<DepositModalProps> = ({ isOpen, onClose }) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
+  const { t } = useTranslation(['wallet', 'validation', 'common']);
 
   const handleDeposit = async (values: { amount: number }) => {
     try {
@@ -20,7 +22,7 @@ const DepositModal: React.FC<DepositModalProps> = ({ isOpen, onClose }) => {
       const { amount } = values;
 
       if (!amount || amount <= 0) {
-        message.error('Số tiền phải lớn hơn 0');
+        message.error(t('validation:amount.positive'));
         return;
       }
 
@@ -29,7 +31,7 @@ const DepositModal: React.FC<DepositModalProps> = ({ isOpen, onClose }) => {
       if (response.paymentUrl) {
         window.location.href = response.paymentUrl;
       } else {
-        message.error('Không thể tạo liên kết thanh toán.');
+        message.error(t('wallet:deposit.paymentUrlError'));
       }
     } catch (err) {
       console.error('Payment request error:', err);
@@ -40,27 +42,27 @@ const DepositModal: React.FC<DepositModalProps> = ({ isOpen, onClose }) => {
   };
 
   return (
-    <Modal title="Nạp tiền vào ví" open={isOpen} onCancel={onClose} footer={null}>
+    <Modal title={t('wallet:deposit.title')} open={isOpen} onCancel={onClose} footer={null}>
       <Form form={form} onFinish={handleDeposit} layout="vertical">
         <Form.Item
           name="amount"
-          label="Số tiền cần nạp (VNĐ)"
+          label={t('wallet:deposit.amountLabel')}
           rules={[
-            { required: true, message: 'Vui lòng nhập số tiền' },
-            { type: 'number', min: 10000, message: 'Số tiền tối thiểu là 10,000 VNĐ' },
+            { required: true, message: t('validation:amount.required') },
+            { type: 'number', min: 10000, message: t('wallet:deposit.minAmount') },
           ]}
         >
           <InputNumber
             style={{ width: '100%' }}
             formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
             parser={(value) => value!.replace(/\$\s?|(,*)/g, '')}
-            placeholder="Ví dụ: 500,000"
+            placeholder={t('wallet:deposit.placeholder')}
           />
         </Form.Item>
 
         <Form.Item>
           <Button type="primary" htmlType="submit" loading={loading} block>
-            Xác nhận
+            {t('common:actions.confirm')}
           </Button>
         </Form.Item>
       </Form>

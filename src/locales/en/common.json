@@ -1,0 +1,107 @@
+{
+  "navigation": {
+    "home": "Home",
+    "map": "Map",
+    "support": "Support Center",
+    "partner": "Partners",
+    "login": "Login",
+    "dashboard": "Dashboard",
+    "smartLocker": "Smart Locker",
+    "orders": "Orders",
+    "profile": "Profile",
+    "lockers": "Smart Lockers"
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "submit": "Submit",
+    "confirm": "Confirm",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "finish": "Finish",
+    "viewDetails": "View Details",
+    "download": "Download",
+    "upload": "Upload",
+    "export": "Export",
+    "import": "Import",
+    "print": "Print",
+    "refresh": "Refresh"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "pending": "Pending",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "failed": "Failed",
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Info"
+  },
+  "time": {
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "thisWeek": "This Week",
+    "thisMonth": "This Month",
+    "thisYear": "This Year",
+    "custom": "Custom",
+    "from": "From date",
+    "to": "To date"
+  },
+  "chart": {
+    "date": "Date",
+    "sendPackage": "Send Package",
+    "rentLocker": "Rent Locker"
+  },
+  "dashboard": {
+    "welcome": "Welcome back!",
+    "myZipbox": "My Zipbox",
+    "owning": "owning",
+    "nearbyZipbox": "Nearby Zipbox",
+    "lockers": "lockers",
+    "orders": "orders",
+    "myWallet": "My Wallet",
+    "recentActivity": "Recent Activity",
+    "zipboxChart": "Zipbox Chart",
+    "statistics": "Statistics",
+    "recentOrders": "Recent Orders",
+    "transactionHistory": "Transaction History",
+    "totalRevenue": "Total Revenue",
+    "totalOrders": "Total Orders",
+    "activeUsers": "Active Users",
+    "completedOrders": "Completed Orders"
+  },
+  "notFound": {
+    "title": "404 - Page Not Found",
+    "description": "The page you are looking for does not exist.",
+    "backHome": "Back to Home"
+  },
+  "footer": {
+    "company": "Company",
+    "about": "About Us",
+    "contact": "Contact",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "social": "Social Media",
+    "followUs": "Follow Us",
+    "copyright": "© 2025 ZipBox. All rights reserved.",
+    "support": "Support",
+    "faq": "FAQ",
+    "help": "Help"
+  },
+  "orderSummary": {
+    "title": "Order Summary",
+    "subtotal": "Subtotal",
+    "tax": "Tax",
+    "total": "Total",
+    "discount": "Discount"
+  }
+}

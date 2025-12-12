@@ -1,0 +1,48 @@
+{
+  "title": "Trung tâm hỗ trợ Zipbox",
+  "hero": {
+    "subtitle": "Trung tâm hỗ trợ Zipbox",
+    "title": "Chúng tôi ở đây để hỗ trợ bạn",
+    "description": "Tìm câu trả lời nhanh chóng cho mọi thắc mắc về dịch vụ vận chuyển và giao hàng của ZipBox",
+    "searchPlaceholder": "Tìm kiếm câu hỏi, hướng dẫn, giải pháp...",
+    "searchButton": "Tìm kiếm",
+    "popularTitle": "Tìm kiếm phổ biến:",
+    "popularTags": {
+      "deposit": "Nạp tiền vào ví như thế nào ?",
+      "guide": "Hướng dẫn sử dụng tủ",
+      "rental": "Cách thuê tủ ?"
+    }
+  },
+  "contact": {
+    "hotline": "Hotline",
+    "hotlineNumber": "1900 1000",
+    "email": "Email",
+    "emailAddress": "support@zipbox.vn",
+    "qrCode": "Zipbox",
+    "qrCodeText": "QR Code tại điểm nhận",
+    "address": "Địa chỉ",
+    "addressText": "55 Đông Hải 8, Ngũ Hành Sơn, Đà Nẵng"
+  },
+  "form": {
+    "title": "Gửi yêu cầu hỗ trợ",
+    "name": "Họ và tên",
+    "namePlaceholder": "Nhập họ và tên",
+    "email": "Email",
+    "emailPlaceholder": "Nhập email",
+    "subject": "Chủ đề",
+    "subjectPlaceholder": "Nhập chủ đề",
+    "message": "Nội dung",
+    "messagePlaceholder": "Nhập nội dung cần hỗ trợ",
+    "submit": "Gửi yêu cầu"
+  },
+  "office": {
+    "title": "Ghé thăm văn phòng của chúng tôi",
+    "description": "Bạn cũng có thể đến trực tiếp văn phòng để được hỗ trợ tận tình nhất.",
+    "addressLabel": "Địa chỉ",
+    "addressText": "55 Đông Hải 8, Ngũ Hành Sơn, Đà Nẵng",
+    "hoursLabel": "Giờ làm việc",
+    "hoursWeekday": "T2 - T6: 8:00 - 17:00",
+    "hoursSaturday": "T7: 8:00 - 12:00",
+    "viewMapButton": "Xem bản đồ"
+  }
+}

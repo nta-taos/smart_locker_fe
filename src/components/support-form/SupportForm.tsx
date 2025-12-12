@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { UploadOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
@@ -9,6 +10,7 @@ import { defaultFormData, handleChange, handleSubmit } from './useSupportForm';
 
 const SupportForm: React.FC = () => {
   const [form, setForm] = useState<SupportFormData>(defaultFormData);
+  const { t } = useTranslation('support');
 
   return (
     <form
@@ -18,7 +20,7 @@ const SupportForm: React.FC = () => {
         handleSubmit();
       }}
     >
-      <h3>Trợ giúp & Báo cáo sự cố</h3>
+      <h3>{t('form.title')}</h3>
 
       <div className={styles.formGroup}>
         <input
@@ -26,7 +28,7 @@ const SupportForm: React.FC = () => {
           name="name"
           value={form.name}
           onChange={(e) => handleChange(form, setForm, e)}
-          placeholder="Họ và tên"
+          placeholder={t('form.namePlaceholder')}
           required
         />
       </div>
@@ -37,7 +39,7 @@ const SupportForm: React.FC = () => {
           name="phone"
           value={form.phone}
           onChange={(e) => handleChange(form, setForm, e)}
-          placeholder="Số điện thoại"
+          placeholder={t('form.phonePlaceholder')}
           required
         />
       </div>
@@ -48,7 +50,7 @@ const SupportForm: React.FC = () => {
           name="email"
           value={form.email}
           onChange={(e) => handleChange(form, setForm, e)}
-          placeholder="Email"
+          placeholder={t('form.emailPlaceholder')}
           required
         />
       </div>
@@ -59,7 +61,7 @@ const SupportForm: React.FC = () => {
           name="message"
           value={form.message}
           onChange={(e) => handleChange(form, setForm, e)}
-          placeholder="Nhập mô tả chi tiết"
+          placeholder={t('form.messagePlaceholder')}
           rows={4}
           required
         />
@@ -67,7 +69,7 @@ const SupportForm: React.FC = () => {
 
       <div className={styles.formGroup}>
         <label className={styles.upload}>
-          <span>{form.file ? form.file.name : 'Ảnh đính kèm (nếu có)'}</span>
+          <span>{form.file ? form.file.name : t('form.attachmentPlaceholder')}</span>
           <UploadOutlined className={styles.icon} />
           <input
             type="file"
@@ -80,7 +82,7 @@ const SupportForm: React.FC = () => {
       </div>
 
       <Button type="primary" size="large">
-        Gửi báo cáo
+        {t('form.submit')}
       </Button>
     </form>
   );

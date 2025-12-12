@@ -1,0 +1,107 @@
+{
+  "navigation": {
+    "home": "Trang chủ",
+    "map": "Bản đồ phân bố",
+    "support": "Trung tâm hỗ trợ",
+    "partner": "Đối tác",
+    "login": "Đăng nhập",
+    "dashboard": "Trang chủ",
+    "smartLocker": "Tủ thông minh",
+    "orders": "Đơn hàng",
+    "profile": "Cá nhân",
+    "lockers": "Tủ thông minh"
+  },
+  "actions": {
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "delete": "Xóa",
+    "edit": "Sửa",
+    "add": "Thêm",
+    "search": "Tìm kiếm",
+    "filter": "Lọc",
+    "clear": "Xóa",
+    "submit": "Gửi",
+    "confirm": "Xác nhận",
+    "close": "Đóng",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "finish": "Hoàn thành",
+    "viewDetails": "Xem chi tiết",
+    "download": "Tải xuống",
+    "upload": "Tải lên",
+    "export": "Xuất",
+    "import": "Nhập",
+    "print": "In",
+    "refresh": "Làm mới"
+  },
+  "status": {
+    "active": "Hoạt động",
+    "inactive": "Không hoạt động",
+    "pending": "Chờ xử lý",
+    "completed": "Hoàn thành",
+    "cancelled": "Đã hủy",
+    "failed": "Thất bại",
+    "success": "Thành công",
+    "error": "Lỗi",
+    "warning": "Cảnh báo",
+    "info": "Thông tin"
+  },
+  "time": {
+    "today": "Hôm nay",
+    "yesterday": "Hôm qua",
+    "thisWeek": "Tuần này",
+    "thisMonth": "Tháng này",
+    "thisYear": "Năm nay",
+    "custom": "Tùy chỉnh",
+    "from": "Từ ngày",
+    "to": "Đến ngày"
+  },
+  "chart": {
+    "date": "Ngày",
+    "sendPackage": "Gửi hàng",
+    "rentLocker": "Thuê tủ"
+  },
+  "dashboard": {
+    "welcome": "Chúc mừng trở lại!",
+    "myZipbox": "Zipbox của tôi",
+    "owning": "đang sở hữu",
+    "nearbyZipbox": "Zipbox gần đây",
+    "lockers": "tủ",
+    "orders": "đơn hàng",
+    "myWallet": "Ví của tôi",
+    "recentActivity": "Hoạt động gần đây",
+    "zipboxChart": "Biểu đồ Zipbox",
+    "statistics": "Thống kê",
+    "recentOrders": "Đơn hàng gần đây",
+    "transactionHistory": "Lịch sử giao dịch",
+    "totalRevenue": "Tổng doanh thu",
+    "totalOrders": "Tổng đơn hàng",
+    "activeUsers": "Người dùng hoạt động",
+    "completedOrders": "Đơn hoàn thành"
+  },
+  "notFound": {
+    "title": "404 - Không tìm thấy trang",
+    "description": "Trang bạn đang tìm kiếm không tồn tại.",
+    "backHome": "Về trang chủ"
+  },
+  "footer": {
+    "company": "Công ty",
+    "about": "Về chúng tôi",
+    "contact": "Liên hệ",
+    "privacy": "Chính sách bảo mật",
+    "terms": "Điều khoản sử dụng",
+    "social": "Mạng xã hội",
+    "followUs": "Theo dõi chúng tôi",
+    "copyright": "© 2025 ZipBox. Tất cả quyền được bảo lưu.",
+    "support": "Hỗ trợ",
+    "faq": "Câu hỏi thường gặp",
+    "help": "Trợ giúp"
+  },
+  "orderSummary": {
+    "title": "Tóm tắt đơn hàng",
+    "subtotal": "Tạm tính",
+    "tax": "Thuế",
+    "total": "Tổng cộng",
+    "discount": "Giảm giá"
+  }
+}

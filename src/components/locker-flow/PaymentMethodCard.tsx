@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FaWallet } from 'react-icons/fa';
 
 import { Button, Card, Grid, Typography } from 'antd';
@@ -10,7 +11,7 @@ const { useBreakpoint } = Grid;
 
 interface PaymentMethod {
   id: string;
-  name: string;
+  nameKey: string; // Translation key
   icon: React.ReactNode;
 }
 
@@ -30,13 +31,14 @@ const PaymentMethodCard: React.FC<PaymentMethodProps> = ({
   formatCurrency,
 }) => {
   const screens = useBreakpoint();
+  const { t } = useTranslation('wallet');
 
   return (
     <Card
       title={
         <Title level={4} className={styles.sectionTitle}>
-          <FaWallet size={screens.sm ? 20 : 16} className={styles.sectionIconOrange} /> Phương thức
-          thanh toán
+          <FaWallet size={screens.sm ? 20 : 16} className={styles.sectionIconOrange} />{' '}
+          {t('payment.methodTitle')}
         </Title>
       }
       className={styles.antdCard}
@@ -51,11 +53,11 @@ const PaymentMethodCard: React.FC<PaymentMethodProps> = ({
                 <Text className={styles.walletIcon}>{method.icon}</Text>
                 <div className={styles.walletDetails}>
                   <Text strong className={styles.walletName}>
-                    {method.name}
+                    {t(method.nameKey)}
                   </Text>
                   <div className={styles.walletBalance}>
                     <Text type="secondary" className={styles.walletBalanceLabel}>
-                      Số dư:
+                      {t('payment.balance')}:
                     </Text>
                     <Text
                       strong
@@ -71,7 +73,7 @@ const PaymentMethodCard: React.FC<PaymentMethodProps> = ({
                 </div>
               </div>
               <Button onClick={onTopUp} size="middle">
-                Nạp tiền
+                {t('wallet:deposit.title')}
               </Button>
             </div>
           );

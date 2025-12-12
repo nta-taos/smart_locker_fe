@@ -1,0 +1,49 @@
+{
+  "dashboard": {
+    "title": "Trang quản trị",
+    "overview": "Tổng quan",
+    "statistics": "Thống kê",
+    "revenue": "Doanh thu",
+    "users": "Người dùng",
+    "orders": "Đơn hàng",
+    "lockers": "Tủ khóa"
+  },
+  "buildings": {
+    "title": "Quản lý tòa nhà",
+    "add": "Thêm tòa nhà",
+    "edit": "Sửa tòa nhà",
+    "delete": "Xóa tòa nhà",
+    "name": "Tên tòa nhà",
+    "address": "Địa chỉ",
+    "totalLockers": "Tổng số tủ"
+  },
+  "lockers": {
+    "title": "Quản lý tủ khóa",
+    "add": "Thêm tủ",
+    "edit": "Sửa tủ",
+    "delete": "Xóa tủ",
+    "code": "Mã tủ",
+    "building": "Tòa nhà",
+    "totalSlots": "Tổng số ô",
+    "status": "Trạng thái"
+  },
+  "slots": {
+    "title": "Quản lý ô tủ",
+    "add": "Thêm ô tủ",
+    "edit": "Sửa ô tủ",
+    "delete": "Xóa ô tủ",
+    "number": "Số ô",
+    "size": "Kích thước",
+    "status": "Trạng thái",
+    "locker": "Tủ"
+  },
+  "remoteControl": {
+    "title": "Điều khiển từ xa",
+    "selectLocker": "Chọn tủ",
+    "selectSlot": "Chọn ô tủ",
+    "openDoor": "Mở cửa",
+    "closeDoor": "Đóng cửa",
+    "status": "Trạng thái",
+    "history": "Lịch sử điều khiển"
+  }
+}

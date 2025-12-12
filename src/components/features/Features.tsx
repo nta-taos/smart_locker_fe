@@ -1,15 +1,18 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './Features.module.scss';
 import useFeatures from './useFeatures';
 
 const Features: React.FC = () => {
   const features = useFeatures();
+  const { t } = useTranslation('home');
+
   return (
     <section className={styles.featuresSection}>
-      <h2 className={styles.title}>Tính năng đặc biệt</h2>
+      <h2 className={styles.title}>{t('features.title')}</h2>
       <p className={styles.subtitle}>
-        <i>Khác biệt nằm ở sự tiện lợi.</i>
+        <i>{t('features.subtitle')}</i>
       </p>
       <div className={styles.list}>
         {features.map((feature, idx) => (

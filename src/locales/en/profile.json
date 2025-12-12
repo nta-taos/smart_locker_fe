@@ -1,0 +1,31 @@
+{
+  "wallet": {
+    "title": "My Wallet",
+    "balance": "Balance",
+    "totalBalance": "Total Balance (VND)",
+    "deposit": "Deposit"
+  },
+  "account": {
+    "title": "Account",
+    "status": "Account Status",
+    "userType": "Account Type",
+    "verified": "Verified",
+    "notVerified": "Not Verified",
+    "active": "Active",
+    "inactive": "Inactive",
+    "customer": "Customer",
+    "admin": "Administrator"
+  },
+  "personalInfo": {
+    "title": "Personal Information",
+    "username": "Username",
+    "fullName": "Full Name",
+    "email": "Email",
+    "phone": "Phone Number",
+    "idCard": "ID Card",
+    "notProvided": "Not Provided"
+  },
+  "transactions": {
+    "title": "Transaction History"
+  }
+}

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { CheckCircleOutlined, PhoneOutlined, UsergroupAddOutlined } from '@ant-design/icons';
@@ -20,6 +21,7 @@ interface OrderActionsProps {
 export function OrderActions({ order, isReceiving, canAuthorize }: OrderActionsProps) {
   const [isReceiveModalOpen, setReceiveModalOpen] = useState(false);
   const [isAuthorizeModalOpen, setAuthorizeModalOpen] = useState(false);
+  const { t } = useTranslation('orders');
 
   const [newEmail, setNewEmail] = useState('');
   const [newName, setNewName] = useState('');
@@ -41,7 +43,7 @@ export function OrderActions({ order, isReceiving, canAuthorize }: OrderActionsP
     setLoading(true);
     try {
       await orderApi.postOpenOrder(order.id);
-      message.success('Nhận hàng thành công!');
+      message.success(t('actions.receiveSuccess'));
       navigate(-1);
 
       handleCancel();
@@ -54,7 +56,7 @@ export function OrderActions({ order, isReceiving, canAuthorize }: OrderActionsP
 
   const handleAuthorizeConfirm = async () => {
     if (!newName || !newEmail) {
-      message.warning('Vui lòng nhập đầy đủ họ tên và email người được ủy quyền.');
+      message.warning(t('actions.fillRequired'));
       return;
     }
 
@@ -63,11 +65,11 @@ export function OrderActions({ order, isReceiving, canAuthorize }: OrderActionsP
       const res = await orderAuthApi.createAuthorization(order.id, newEmail, newName);
       const authorization = res.data;
       if (authorization) {
-        message.success('Gửi yêu cầu ủy quyền thành công!');
+        message.success(t('actions.authorizeSuccess'));
         console.log('Authorization result:', authorization);
         handleCancel();
       } else {
-        message.error('Không nhận được phản hồi hợp lệ từ server.');
+        message.error(t('actions.noResponse'));
         setLoading(false);
       }
     } catch (err) {
@@ -79,9 +81,9 @@ export function OrderActions({ order, isReceiving, canAuthorize }: OrderActionsP
 
   return (
     <>
-      <Card title="Nhận hàng">
+      <Card title={t('actions.receiveTitle')}>
         <Text type="secondary" style={{ display: 'block', marginBottom: 24 }}>
-          Chọn một trong các cách sau để nhận hàng từ tủ:
+          {t('actions.receiveDescription')}
         </Text>
 
         <Row gutter={[16, 16]} justify="center">
@@ -102,8 +104,8 @@ export function OrderActions({ order, isReceiving, canAuthorize }: OrderActionsP
                     icon={<PhoneOutlined />}
                   />
                 }
-                title={<Text strong>Nhận hàng</Text>}
-                description="Xác nhận với số điện thoại"
+                title={<Text strong>{t('actions.receive')}</Text>}
+                description={t('actions.receiveWithPhone')}
               />
             </Card>
           </Col>
@@ -126,8 +128,8 @@ export function OrderActions({ order, isReceiving, canAuthorize }: OrderActionsP
                       icon={<UsergroupAddOutlined />}
                     />
                   }
-                  title={<Text strong>Ủy quyền nhận</Text>}
-                  description="Cho người khác nhận hàng"
+                  title={<Text strong>{t('actions.authorize')}</Text>}
+                  description={t('actions.authorizeDescription')}
                 />
               </Card>
             </Col>
@@ -139,35 +141,35 @@ export function OrderActions({ order, isReceiving, canAuthorize }: OrderActionsP
       <Modal
         title={
           <Space>
-            <CheckCircleOutlined style={{ color: '#1677ff' }} /> Xác nhận nhận hàng
+            <CheckCircleOutlined style={{ color: '#1677ff' }} /> {t('actions.confirmReceive')}
           </Space>
         }
         open={isReceiveModalOpen}
         onCancel={handleCancel}
         footer={[
           <Button key="cancel" onClick={handleCancel} disabled={isReceiving}>
-            Hủy
+            {t('common:actions.cancel')}
           </Button>,
           <Button key="confirm" type="primary" loading={loading} onClick={handleReceiveConfirm}>
-            {loading ? 'Đang xử lý...' : 'Nhận hàng ngay'}
+            {loading ? t('actions.processing') : t('actions.receiveNow')}
           </Button>,
         ]}
       >
-        <Text type="secondary">Bạn có chắc chắn muốn nhận hàng ngay bây giờ không?</Text>
+        <Text type="secondary">{t('actions.confirmQuestion')}</Text>
       </Modal>
 
       {/* Authorize Modal */}
       <Modal
         title={
           <Space>
-            <UsergroupAddOutlined style={{ color: '#52c41a' }} /> Ủy quyền nhận hàng
+            <UsergroupAddOutlined style={{ color: '#52c41a' }} /> {t('actions.authorizeTitle')}
           </Space>
         }
         open={isAuthorizeModalOpen}
         onCancel={handleCancel}
         footer={[
           <Button key="cancel" onClick={handleCancel} disabled={isReceiving}>
-            Hủy
+            {t('common:actions.cancel')}
           </Button>,
           <Button
             key="submit"
@@ -177,17 +179,17 @@ export function OrderActions({ order, isReceiving, canAuthorize }: OrderActionsP
             onClick={handleAuthorizeConfirm}
             disabled={!newName || !newEmail}
           >
-            {loading ? 'Đang xử lý...' : 'Gửi ủy quyền'}
+            {loading ? t('actions.processing') : t('actions.sendAuthorize')}
           </Button>,
         ]}
       >
         <Space direction="vertical" style={{ width: '100%' }}>
-          <Text type="secondary">Nhập thông tin người được ủy quyền nhận hàng</Text>
+          <Text type="secondary">{t('actions.authorizeInfo')}</Text>
           <div>
-            <Text>Họ tên người nhận</Text>
+            <Text>{t('actions.authorizeRecipient')}</Text>
             <Input
               type="text"
-              placeholder="Nhập họ tên"
+              placeholder={t('actions.enterFullName')}
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               style={{ marginTop: 8 }}
@@ -197,7 +199,7 @@ export function OrderActions({ order, isReceiving, canAuthorize }: OrderActionsP
             <Text>Email</Text>
             <Input
               type="email"
-              placeholder="Nhập địa chỉ email"
+              placeholder={t('actions.enterEmail')}
               value={newEmail}
               onChange={(e) => setNewEmail(e.target.value)}
               style={{ marginTop: 8 }}

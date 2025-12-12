@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
 
 import {
@@ -27,6 +28,7 @@ const AccountPage: React.FC = () => {
   const auth = useRecoilValue(authState);
   const { wallet } = useWallet();
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
+  const { t } = useTranslation(['profile', 'common']);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChange = (info: any) => {
     const file = info.file.originFileObj;
@@ -81,7 +83,7 @@ const AccountPage: React.FC = () => {
                     <Col>
                       <Space direction="vertical" size={8} align="start">
                         <Text strong style={{ fontSize: 20, color: '#002B79' }}>
-                          Tổng số dư (VND)
+                          {t('profile:wallet.totalBalance')}
                         </Text>
                         <Space>
                           <Text style={{ fontSize: 16, fontWeight: 600, color: '#00A86B' }}>
@@ -108,7 +110,7 @@ const AccountPage: React.FC = () => {
                         <WalletOutlined style={{ fontSize: 32, color: '#002B79' }} />
 
                         <Text strong style={{ fontSize: 16, color: '#00A86B' }}>
-                          Nạp tiền
+                          {t('profile:wallet.deposit')}
                         </Text>
                       </Space>
                     </Col>
@@ -140,20 +142,21 @@ const AccountPage: React.FC = () => {
                 <Space style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                   <Space direction="vertical" size={8} align="start">
                     <Text strong style={{ fontSize: 16, color: '#002B79' }}>
-                      <SafetyOutlined style={{ fontSize: 24, color: '#002B79' }} /> Trạng thái tài
-                      khoản
+                      <SafetyOutlined style={{ fontSize: 24, color: '#002B79' }} />{' '}
+                      {t('profile:account.status')}
                     </Text>
                     <Text strong style={{ fontSize: 16, color: '#002B79' }}>
-                      <UserOutlined style={{ fontSize: 24, color: '#002B79' }} /> Loại người dùng
+                      <UserOutlined style={{ fontSize: 24, color: '#002B79' }} />{' '}
+                      {t('profile:account.userType')}
                     </Text>
                   </Space>
                   <Space direction="vertical" size={8} align="end">
                     <Text className={styles.cardValue}>
-                      Đã xác minh
+                      {t('profile:account.verified')}
                       <RightOutlined />
                     </Text>
                     <Text className={styles.cardValue}>
-                      Khách hàng
+                      {t('profile:account.customer')}
                       <RightOutlined />{' '}
                     </Text>
                   </Space>
@@ -165,13 +168,14 @@ const AccountPage: React.FC = () => {
 
         {/* Thông tin cá nhân */}
         <div className={styles.infoWrapper}>
-          <h2 className={styles.sectionTitle}>Thông tin cá nhân</h2>
+          <h2 className={styles.sectionTitle}>{t('profile:personalInfo.title')}</h2>
           <Card className={styles.detailCard} bodyStyle={{ padding: '0 24px' }}>
             {/* Tên người dùng */}
             <Row justify="space-between" align="middle">
               <Col>
                 <h3 className={styles.cardLabel}>
-                  <UserOutlined style={{ marginRight: 8, fontSize: 24 }} /> Tên người dùng
+                  <UserOutlined style={{ marginRight: 8, fontSize: 24 }} />{' '}
+                  {t('profile:personalInfo.username')}
                 </h3>
               </Col>
               <Col>
@@ -186,7 +190,8 @@ const AccountPage: React.FC = () => {
             <Row justify="space-between" align="middle">
               <Col>
                 <h3 className={styles.cardLabel}>
-                  <PhoneOutlined style={{ marginRight: 8, fontSize: 24 }} /> Số điện thoại
+                  <PhoneOutlined style={{ marginRight: 8, fontSize: 24 }} />{' '}
+                  {t('profile:personalInfo.phone')}
                 </h3>
               </Col>
               <Col>
@@ -201,7 +206,8 @@ const AccountPage: React.FC = () => {
             <Row justify="space-between" align="middle">
               <Col>
                 <h3 className={styles.cardLabel}>
-                  <MailOutlined style={{ marginRight: 8, fontSize: 24 }} /> Email
+                  <MailOutlined style={{ marginRight: 8, fontSize: 24 }} />{' '}
+                  {t('profile:personalInfo.email')}
                 </h3>
               </Col>
               <Col>
@@ -213,7 +219,7 @@ const AccountPage: React.FC = () => {
             <Divider style={{ margin: 0 }} />
           </Card>
           <div style={{ marginTop: 32 }}>
-            <h2 className={styles.sectionTitle}>Lịch sử giao dịch</h2>
+            <h2 className={styles.sectionTitle}>{t('common:dashboard.transactionHistory')}</h2>
             <Card
               className={styles.detailCard}
               bodyStyle={{ padding: 0 }}

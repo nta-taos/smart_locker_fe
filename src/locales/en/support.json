@@ -1,0 +1,48 @@
+{
+  "title": "Zipbox Support Center",
+  "hero": {
+    "subtitle": "Zipbox Support Center",
+    "title": "We're here to help you",
+    "description": "Find quick answers to all your questions about ZipBox delivery and shipping services",
+    "searchPlaceholder": "Search questions, guides, solutions...",
+    "searchButton": "Search",
+    "popularTitle": "Popular searches:",
+    "popularTags": {
+      "deposit": "How to deposit to wallet?",
+      "guide": "Locker usage guide",
+      "rental": "How to rent a locker?"
+    }
+  },
+  "contact": {
+    "hotline": "Hotline",
+    "hotlineNumber": "1900 1000",
+    "email": "Email",
+    "emailAddress": "support@zipbox.vn",
+    "qrCode": "Zipbox",
+    "qrCodeText": "QR Code at pickup point",
+    "address": "Address",
+    "addressText": "55 Dong Hai 8, Ngu Hanh Son, Da Nang"
+  },
+  "form": {
+    "title": "Submit Support Request",
+    "name": "Full Name",
+    "namePlaceholder": "Enter full name",
+    "email": "Email",
+    "emailPlaceholder": "Enter email",
+    "subject": "Subject",
+    "subjectPlaceholder": "Enter subject",
+    "message": "Message",
+    "messagePlaceholder": "Enter your support request",
+    "submit": "Submit Request"
+  },
+  "office": {
+    "title": "Visit Our Office",
+    "description": "You can also visit our office directly for dedicated support.",
+    "addressLabel": "Address",
+    "addressText": "55 Dong Hai 8, Ngu Hanh Son, Da Nang",
+    "hoursLabel": "Business Hours",
+    "hoursWeekday": "Mon - Fri: 8:00 - 17:00",
+    "hoursSaturday": "Sat: 8:00 - 12:00",
+    "viewMapButton": "View Map"
+  }
+}

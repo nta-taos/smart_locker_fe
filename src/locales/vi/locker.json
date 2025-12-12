@@ -1,0 +1,58 @@
+{
+  "title": "Tủ thông minh",
+  "rental": {
+    "title": "Thuê tủ",
+    "selectSize": "Chọn kích thước tủ",
+    "selectLocker": "Chọn tủ cụ thể",
+    "slotsAvailable": "ngăn khả dụng",
+    "noLockerAvailable": "Không có tủ size {{size}} khả dụng",
+    "selectDifferentSize": "Vui lòng chọn size khác",
+    "floor": "Tầng",
+    "perHour": "giờ",
+    "selectTimeTitle": "Chọn thời gian thuê tủ",
+    "endDate": "Ngày kết thúc",
+    "endTime": "Giờ & Phút kết thúc",
+    "selectDate": "Vui lòng chọn ngày!",
+    "selectTime": "Vui lòng chọn giờ!",
+    "itemType": "Loại hàng",
+    "foodDrink": "Đồ ăn / thức uống",
+    "rentalInfo": "Thông tin thuê tủ",
+    "locker": "Tủ",
+    "size": "Size",
+    "unitPrice": "Đơn giá",
+    "rentalDuration": "Thời gian thuê",
+    "normalGoods": "Hàng bình thường",
+    "buildingNotFound": "Không tìm thấy toà nhà",
+    "buildingIdError": "Không tìm thấy toà nhà với ID",
+    "loadingBuilding": "Đang tải dữ liệu toà nhà...",
+    "continue": "Tiếp tục",
+    "back": "Quay lại",
+    "processing": "Đang xử lý...",
+    "notEnoughBalance": "Số dư không đủ",
+    "payment": "Thanh toán"
+  },
+  "status": {
+    "available": "Khả dụng",
+    "occupied": "Đang sử dụng",
+    "maintenance": "Bảo trì",
+    "reserved": "Đã đặt"
+  },
+  "sizes": {
+    "s": "Nhỏ (S)",
+    "m": "Trung bình (M)",
+    "l": "Lớn (L)",
+    "xl": "Rất lớn (XL)"
+  },
+  "sizeDescriptions": {
+    "s": "Phù hợp cho túi xách, hộp nhỏ",
+    "m": "Phù hợp cho ba lô, hộp vừa",
+    "l": "Phù hợp cho vali, hộp lớn",
+    "xl": "Phù hợp cho vali, hộp rất lớn"
+  },
+  "info": {
+    "locker": "Tủ",
+    "slot": "Ngăn tủ",
+    "building": "Tòa nhà",
+    "floor": "Tầng"
+  }
+}

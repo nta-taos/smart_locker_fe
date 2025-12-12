@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 import { LockOutlined, UnlockOutlined } from '@ant-design/icons';
@@ -13,20 +14,21 @@ const OrderAuthorizationPage = () => {
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
   const navigate = useNavigate();
+  const { t } = useTranslation('orders');
 
   const [loading, setLoading] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
 
   const handleConfirm = async () => {
     if (!token) {
-      message.error('Thiếu token xác thực!');
+      message.error(t('authorization.noToken'));
       return;
     }
 
     setLoading(true);
     try {
       await orderAuthApi.confirmAuthorization(Number(orderId), token);
-      message.success('Xác nhận mở khóa thành công!');
+      message.success(t('authorization.unlockSuccess'));
       setConfirmed(true);
       setTimeout(() => {
         navigate('/dashboard');
@@ -56,11 +58,11 @@ const OrderAuthorizationPage = () => {
         <Result
           icon={<UnlockOutlined style={{ fontSize: 80, color: '#52c41a' }} />}
           status="success"
-          title="Mở khóa thành công!"
-          subTitle={`Đơn hàng #${orderId} đã được xác nhận.`}
+          title={t('authorization.success')}
+          subTitle={`${t('orders:detail.orderCode')} #${orderId} ${t('authorization.orderConfirmed')}`}
           extra={
             <Button type="primary" href="/dashboard" size="large">
-              Quay lại trang chủ
+              {t('authorization.backHome')}
             </Button>
           }
         />
@@ -111,11 +113,9 @@ const OrderAuthorizationPage = () => {
         </motion.div>
 
         <h2 style={{ marginBottom: 8, fontSize: 22, color: '#1a1a1a' }}>
-          Ủy quyền đơn hàng #{orderId}
+          {t('authorization.title')} #{orderId}
         </h2>
-        <p style={{ color: '#595959', marginBottom: 28 }}>
-          Nhấn nút bên dưới để xác nhận mở khóa đơn hàng được ủy quyền.
-        </p>
+        <p style={{ color: '#595959', marginBottom: 28 }}>{t('authorization.description')}</p>
 
         <Spin spinning={loading}>
           <Button
@@ -131,12 +131,12 @@ const OrderAuthorizationPage = () => {
               borderRadius: 8,
             }}
           >
-            {loading ? 'Đang xác nhận...' : 'Xác nhận mở khóa'}
+            {loading ? t('authorization.confirming') : t('authorization.confirmUnlock')}
           </Button>
         </Spin>
 
         <p style={{ marginTop: 24, fontSize: 13, color: '#999' }}>
-          Nếu bạn không yêu cầu hành động này, vui lòng bỏ qua email.
+          {t('authorization.ignoreInfo')}
         </p>
       </motion.div>
     </div>

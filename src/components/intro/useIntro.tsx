@@ -1,10 +1,14 @@
+import { useTranslation } from 'react-i18next';
+
 export const useIntro = () => {
-  const title = 'Giải pháp giao - nhận thông minh cho cuộc sống hiện đại';
+  const { t } = useTranslation('home');
+
+  const title = t('intro.title');
   const image = '/images/intro-bg.png';
   const xName = 'Zipbox';
   const xLink = 'Zipbox';
 
-  const startLable = 'Bắt đầu ngay';
+  const startLable = t('intro.startButton');
   const startLink = '/';
 
   return {

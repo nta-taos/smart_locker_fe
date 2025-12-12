@@ -1,0 +1,62 @@
+{
+  "steps": {
+    "selectLocker": {
+      "name": "Chọn tủ",
+      "description": "Chọn size và tủ"
+    },
+    "info": {
+      "name": "Thông tin",
+      "description": "Nhập chi tiết"
+    },
+    "payment": {
+      "name": "Thanh toán",
+      "description": "Xác nhận & thuê tủ"
+    }
+  },
+  "title": "Gửi hàng",
+  "selectTime": "Chọn thời gian nhận hàng",
+  "recipientInfo": "Thông tin người nhận",
+  "orderInfo": "Thông tin gửi hàng",
+  "labels": {
+    "receiveDate": "Ngày nhận hàng",
+    "receiveTime": "Giờ & Phút nhận hàng",
+    "phoneNumber": "Số điện thoại",
+    "orderCode": "Mã đơn hàng",
+    "goodsType": "Loại hàng",
+    "foodDrink": "Đồ ăn / thức uống",
+    "locker": "Tủ",
+    "size": "Size",
+    "pricePerHour": "/ giờ",
+    "unitPrice": "Đơn giá",
+    "sendTime": "Thời gian gửi",
+    "hours": "giờ"
+  },
+  "placeholders": {
+    "phoneNumber": "Nhập số điện thoại",
+    "orderCode": "Nhập mã đơn hàng"
+  },
+  "validation": {
+    "receiveDateRequired": "Vui lòng chọn ngày nhận hàng!",
+    "receiveTimeRequired": "Vui lòng chọn giờ nhận hàng!",
+    "phoneRequired": "Vui lòng nhập số điện thoại!",
+    "minimumTime": "Thời gian nhận hàng phải tối thiểu sau 1 giờ kể từ hiện tại.",
+    "fillRequired": "Vui lòng điền đủ thông tin bắt buộc và chọn tủ.",
+    "fillAllRequired": "Vui lòng điền đủ thông tin bắt buộc.",
+    "incomplete": "Thông tin chưa hoàn chỉnh hoặc số dư không đủ.",
+    "incompleteOrInsufficient": "Thông tin chưa hoàn chỉnh, số dư không đủ hoặc thiếu dữ liệu bước 1."
+  },
+  "buttons": {
+    "continue": "Tiếp tục",
+    "back": "Quay lại",
+    "payment": "Thanh toán",
+    "processing": "Đang xử lý...",
+    "insufficientBalance": "Số dư không đủ"
+  },
+  "messages": {
+    "buildingNotFound": "Không tìm thấy toà nhà",
+    "buildingIdNotFound": "Không tìm thấy toà nhà với ID:",
+    "loadingBuilding": "Đang tải dữ liệu toà nhà...",
+    "paymentSuccess": "Đã thanh toán {amount} và tạo đơn hàng {code} thành công!",
+    "createOrderFailed": "Tạo đơn hàng thất bại. Vui lòng thử lại."
+  }
+}

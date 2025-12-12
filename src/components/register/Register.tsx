@@ -1,20 +1,18 @@
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 import React, { useState } from 'react';
-
-// Khôi phục useState
+import { useTranslation } from 'react-i18next';
 
 import { Button, Checkbox, Col, Divider, Form, Input, Modal, Row, Typography, message } from 'antd';
 
 import styles from './Register.module.scss';
 import { useRegister } from './useRegister';
 
-const { Text, Link, Title, Paragraph } = Typography; // Thêm Paragraph
+const { Text, Link, Title, Paragraph } = Typography;
 
 const Register: React.FC = () => {
   const [form] = Form.useForm();
   const [popupForm] = Form.useForm<{ phone: string }>();
-
-  // 1. Khôi phục state để điều khiển Modal
+  const { t } = useTranslation('auth');
   const [showTerms, setShowTerms] = useState(false);
 
   const {
@@ -33,11 +31,11 @@ const Register: React.FC = () => {
     if (idToken) {
       handleGoogleLogin(idToken);
     } else {
-      message.error('Không thể lấy thông tin từ Google.');
+      message.error(t('register.googleNoInfo'));
     }
   };
 
-  const onGoogleError = () => message.error('Đăng nhập Google thất bại.');
+  const onGoogleError = () => message.error(t('register.googleFailed'));
 
   const handleCancelPopup = () => {
     if (completeLoading) return;
@@ -50,7 +48,7 @@ const Register: React.FC = () => {
   const termsContent = (
     <div style={{ height: '60vh', overflowY: 'auto', paddingRight: '12px' }}>
       <Title level={3} style={{ textAlign: 'center', marginBottom: 24 }}>
-        ĐIỀU KHOẢN SỬ DỤNG ZIPBOX
+        {t('register.termsContent.title')}
       </Title>
 
       {/* 1. Quy định sử dụng tủ khóa vật lý */}
@@ -245,10 +243,10 @@ const Register: React.FC = () => {
     <div className={styles.loginWrapper}>
       <div className={styles.loginCard}>
         <Title level={2} className={styles.registerTitle}>
-          Đăng ký tài khoản
+          {t('register.title')}
         </Title>
         <Text type="secondary" className={styles.registerSubtitle}>
-          Tạo tài khoản để bắt đầu hành trình của bạn
+          {t('register.subtitle')}
         </Text>
 
         <Form
@@ -260,68 +258,68 @@ const Register: React.FC = () => {
         >
           <Form.Item
             name="name"
-            label="Họ và tên"
-            rules={[{ required: true, message: 'Vui lòng nhập họ và tên!' }]}
+            label={t('register.fullName')}
+            rules={[{ required: true, message: t('register.validation.nameRequired') }]}
           >
-            <Input size="large" placeholder="Nhập họ và tên" />
+            <Input size="large" placeholder={t('register.fullNamePlaceholder')} />
           </Form.Item>
 
           <Form.Item
             name="phone"
-            label="Số điện thoại"
+            label={t('register.phone')}
             rules={[
-              { required: true, message: 'Vui lòng nhập số điện thoại!' },
-              { pattern: /^0\d{9}$/, message: 'Số điện thoại phải là 10 số, bắt đầu bằng 0' },
+              { required: true, message: t('register.validation.phoneRequired') },
+              { pattern: /^0\d{9}$/, message: t('register.validation.phoneInvalid') },
             ]}
           >
-            <Input size="large" placeholder="Nhập số điện thoại" />
+            <Input size="large" placeholder={t('register.phonePlaceholder')} />
           </Form.Item>
 
           <Form.Item
             name="email"
-            label="Email"
+            label={t('register.email')}
             rules={[
-              { required: true, message: 'Vui lòng nhập email!' },
-              { type: 'email', message: 'Email không đúng định dạng!' },
+              { required: true, message: t('register.validation.emailRequired') },
+              { type: 'email', message: t('register.validation.emailInvalid') },
             ]}
           >
-            <Input type="email" size="large" placeholder="Nhập email" />
+            <Input type="email" size="large" placeholder={t('register.emailPlaceholder')} />
           </Form.Item>
 
           <Row gutter={16}>
             <Col xs={24} md={12}>
               <Form.Item
                 name="password"
-                label="Mật khẩu"
+                label={t('register.password')}
                 rules={[
-                  { required: true, message: 'Vui lòng nhập mật khẩu!' },
-                  { min: 6, message: 'Mật khẩu phải có ít nhất 6 ký tự' },
+                  { required: true, message: t('register.validation.passwordRequired') },
+                  { min: 6, message: t('register.validation.passwordMinLength') },
                 ]}
                 hasFeedback
               >
-                <Input.Password size="large" placeholder="Nhập mật khẩu" />
+                <Input.Password size="large" placeholder={t('register.passwordPlaceholder')} />
               </Form.Item>
             </Col>
 
             <Col xs={24} md={12}>
               <Form.Item
                 name="repassword"
-                label="Nhập lại mật khẩu"
+                label={t('register.rePassword')}
                 dependencies={['password']}
                 hasFeedback
                 rules={[
-                  { required: true, message: 'Vui lòng xác nhận mật khẩu!' },
+                  { required: true, message: t('register.validation.rePasswordRequired') },
                   ({ getFieldValue }) => ({
                     validator(_, value) {
                       if (!value || getFieldValue('password') === value) {
                         return Promise.resolve();
                       }
-                      return Promise.reject(new Error('Hai mật khẩu không khớp!'));
+                      return Promise.reject(new Error(t('register.validation.passwordMismatch')));
                     },
                   }),
                 ]}
               >
-                <Input.Password size="large" placeholder="Nhập lại mật khẩu" />
+                <Input.Password size="large" placeholder={t('register.rePasswordPlaceholder')} />
               </Form.Item>
             </Col>
           </Row>
@@ -334,14 +332,14 @@ const Register: React.FC = () => {
                 validator: (_, value) =>
                   value
                     ? Promise.resolve()
-                    : Promise.reject(new Error('Bạn phải đồng ý với Điều khoản sử dụng!')),
+                    : Promise.reject(new Error(t('register.validation.termsRequired'))),
               },
             ]}
           >
             <Checkbox>
-              Tôi đồng ý với{' '}
+              {t('register.agreeTerms')}{' '}
               <a onClick={() => setShowTerms(true)} style={{ color: '#1677ff' }}>
-                Điều khoản sử dụng ZIPBOX
+                {t('register.termsText')}
               </a>
             </Checkbox>
           </Form.Item>
@@ -355,18 +353,18 @@ const Register: React.FC = () => {
               loading={loading}
               className={styles.submitButton}
             >
-              {loading ? 'Đang xử lý...' : 'Đăng ký'}
+              {loading ? t('register.processing') : t('register.registerButton')}
             </Button>
           </Form.Item>
 
           <Divider plain style={{ color: '#999', margin: '12px 0' }}>
-            Hoặc
+            {t('register.divider')}
           </Divider>
 
           <div className={styles.googleButtonWrapper}>
             {googleLoading ? (
               <Button size="large" block loading>
-                Đang xử lý...
+                {t('register.processing')}
               </Button>
             ) : (
               <GoogleLogin
@@ -383,14 +381,14 @@ const Register: React.FC = () => {
           </div>
 
           <div className={styles.registerText}>
-            <Text>Bạn đã có tài khoản? </Text>
-            <Link href="/login">Đăng nhập ngay</Link>
+            <Text>{t('register.haveAccount')} </Text>
+            <Link href="/login">{t('register.loginNow')}</Link>
           </div>
         </Form>
       </div>
 
       <Modal
-        title="Hoàn tất đăng ký"
+        title={t('register.completeTitle')}
         open={showPhonePopup}
         onCancel={handleCancelPopup}
         footer={null}
@@ -398,7 +396,7 @@ const Register: React.FC = () => {
         maskClosable={!completeLoading}
       >
         <Text type="secondary" style={{ marginBottom: 24, display: 'block' }}>
-          Tài khoản Google này chưa được đăng ký. Vui lòng nhập SĐT của bạn để hoàn tất.
+          {t('register.completeDescription')}
         </Text>
         <Form
           form={popupForm}
@@ -407,14 +405,14 @@ const Register: React.FC = () => {
           requiredMark={false}
         >
           <Form.Item
-            label="Số điện thoại"
+            label={t('register.phone')}
             name="phone"
             rules={[
-              { required: true, message: 'Vui lòng nhập số điện thoại' },
-              { pattern: /^0\d{9}$/, message: 'Số điện thoại phải là 10 số, bắt đầu bằng 0' },
+              { required: true, message: t('register.validation.phoneRequired') },
+              { pattern: /^0\d{9}$/, message: t('register.validation.phoneInvalid') },
             ]}
           >
-            <Input size="large" placeholder="Nhập số điện thoại" />
+            <Input size="large" placeholder={t('register.phonePlaceholder')} />
           </Form.Item>
 
           <Form.Item>
@@ -426,7 +424,7 @@ const Register: React.FC = () => {
               loading={completeLoading}
               className={styles.submitButton}
             >
-              Hoàn tất
+              {t('register.complete')}
             </Button>
           </Form.Item>
         </Form>
@@ -434,12 +432,12 @@ const Register: React.FC = () => {
 
       <Modal
         open={showTerms}
-        title="Điều khoản sử dụng ZipBox"
+        title={t('register.termsTitle')}
         onCancel={() => setShowTerms(false)}
         width={700}
         footer={[
           <Button key="close" onClick={() => setShowTerms(false)}>
-            Đóng
+            {t('register.close')}
           </Button>,
           <Button
             key="agree"
@@ -449,7 +447,7 @@ const Register: React.FC = () => {
               form.setFieldsValue({ terms: true });
             }}
           >
-            Tôi đồng ý
+            {t('register.agree')}
           </Button>,
         ]}
       >

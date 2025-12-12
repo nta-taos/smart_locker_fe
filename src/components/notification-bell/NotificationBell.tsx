@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { BellOutlined, LoadingOutlined } from '@ant-design/icons';
@@ -42,6 +43,7 @@ interface DisplayNotification {
 }
 
 const NotificationBell = () => {
+  const { t } = useTranslation('notifications');
   const [notifications, setNotifications] = useState<DisplayNotification[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -74,7 +76,7 @@ const NotificationBell = () => {
 
         const list: DisplayNotification[] = (payload.data || []).map((n: BackendNotification) => ({
           id: n.id,
-          title: n.title || n.message || 'Thông báo',
+          title: n.title || n.message || t('defaultTitle'),
           time: n.created_at || n.createdAt || '',
           read: !!n.isRead,
           type: n.type,
@@ -92,7 +94,7 @@ const NotificationBell = () => {
         setLoading(false);
       }
     },
-    [loading, totalPages],
+    [loading, totalPages, t],
   );
 
   useEffect(() => {
@@ -110,7 +112,7 @@ const NotificationBell = () => {
 
         const mapped: DisplayNotification = {
           id: n.id || 0,
-          title: n.title || n.message || 'Thông báo',
+          title: n.title || n.message || t('defaultTitle'),
           time: n.created_at || new Date().toISOString(),
           read: !!n.isRead,
           type: n.type || undefined,
@@ -128,7 +130,7 @@ const NotificationBell = () => {
     return () => {
       socket.off('notification:created', handler);
     };
-  }, []);
+  }, [t]);
 
   const handleOpen = () => {
     if (notifications.length === 0) fetchNotifications(1);
@@ -140,7 +142,7 @@ const NotificationBell = () => {
       .markAllAsRead()
       .then(() => {})
       .catch((err) => {
-        console.error('Lỗi markAllAsRead:', err);
+        console.error('Error markAllAsRead:', err);
       });
   };
 
@@ -159,7 +161,7 @@ const NotificationBell = () => {
         await notificationApi.markAsRead(item.id);
         setNotifications((prev) => prev.map((p) => (p.id === item.id ? { ...p, read: true } : p)));
       } catch (err) {
-        console.error('Lỗi khi đánh dấu read:', err);
+        console.error('Error marking as read:', err);
       }
     }
 
@@ -182,10 +184,10 @@ const NotificationBell = () => {
           padding: '0 12px',
         }}
       >
-        <Text strong>Thông báo</Text>
+        <Text strong>{t('title')}</Text>
         {unreadCount > 0 && (
           <Button type="link" size="small" onClick={markAllAsRead}>
-            Đánh dấu đã đọc
+            {t('markAllRead')}
           </Button>
         )}
       </div>
@@ -224,7 +226,7 @@ const NotificationBell = () => {
         !loading && (
           <Empty
             image={Empty.PRESENTED_IMAGE_SIMPLE}
-            description="Không có thông báo"
+            description={t('empty')}
             style={{ padding: '24px 0' }}
           />
         )
@@ -255,7 +257,7 @@ const NotificationBell = () => {
           />
         </Badge>
         <Drawer
-          title="Thông báo"
+          title={t('title')}
           placement="right"
           open={openDrawer}
           onClose={() => setOpenDrawer(false)}

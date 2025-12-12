@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { TransactionItemType } from '@/types/transaction.type';
 import { formatCurrency } from '@/utils/format-currentcy';
@@ -16,6 +17,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ data, className = '',
   const isCredit = data.type === 1;
   const variant = isCredit ? 'add' : 'minus';
   const classes = [styles.container, styles[variant], className].filter(Boolean).join(' ');
+  const { t } = useTranslation('wallet');
 
   const amount = formatCurrency(data.amount);
   const datetime = formatDateTime(data.created_at);
@@ -24,7 +26,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ data, className = '',
       <div className={styles.left}>
         <WalletSvg />
         <div className={styles.content}>
-          <h1>{isCredit ? 'Nạp tiền vào ví' : 'Thanh toán'}</h1>
+          <h1>{isCredit ? t('transactions.deposit') : t('transactions.payment')}</h1>
           <p>{data.description}</p>
         </div>
       </div>

@@ -1,0 +1,107 @@
+{
+  "title": "Orders",
+  "status": {
+    "pending": "Pending",
+    "sending": "Sending",
+    "received": "Received",
+    "overdue": "Overdue"
+  },
+  "types": {
+    "rental": "Locker Rental",
+    "send": "Send Package",
+    "undefined": "Undefined"
+  },
+  "detail": {
+    "title": "Order Information",
+    "orderCode": "Order Code",
+    "lockerCode": "Locker Code",
+    "sender": "Sender",
+    "receiver": "Receiver",
+    "rentalTime": "Rental Time",
+    "totalTime": "Total Time",
+    "hours": "hours",
+    "serviceFee": "Service Fee",
+    "unpaid": "Unpaid",
+    "food": "Food",
+    "viewDetail": "Details",
+    "orderInfo": "Order Information",
+    "serviceType": "Service Type",
+    "payment": "Payment",
+    "notPaid": "Not Paid",
+    "paid": "Paid",
+    "itemType": "Item Type",
+    "foodDrink": "Food / Beverage",
+    "normalGoods": "Regular Goods",
+    "sendTime": "Send Time",
+    "lockerPosition": "Locker Position",
+    "statusLabel": "Status",
+    "senderInfo": "Sender Information",
+    "receiverInfo": "Receiver Information",
+    "fullName": "Full Name",
+    "phone": "Phone Number",
+    "notDefined": "Not Defined",
+    "orderDetails": "Order Details",
+    "orderStatus": "Order Status",
+    "statusHistory": "Status History",
+    "notFound": "Order not found or you don't have permission to view.",
+    "readyAlert": "Package ready at locker",
+    "readyDescription": "Please collect within the specified time to avoid late fees."
+  },
+  "timeline": {
+    "created": "Order Created",
+    "sending": "Package Sending",
+    "sent": "Sent",
+    "waitingSend": "Waiting to Send",
+    "received": "Package Received",
+    "confirmed": "Confirmed",
+    "waitingReceive": "Waiting to Receive"
+  },
+  "actions": {
+    "receive": "Receive",
+    "receiveTitle": "Receive Package",
+    "receiveDescription": "Choose one of the following methods to receive your package:",
+    "receiveWithPhone": "Confirm with phone number",
+    "authorize": "Authorize Pickup",
+    "authorizeDescription": "Let someone else pick up",
+    "confirmReceive": "Confirm Receipt",
+    "confirmQuestion": "Are you sure you want to receive the package now?",
+    "receiveNow": "Receive Now",
+    "receiveSuccess": "Package received successfully!",
+    "processing": "Processing...",
+    "authorizeTitle": "Authorize Package Pickup",
+    "authorizeInfo": "Enter authorized recipient information",
+    "authorizeRecipient": "Recipient Full Name",
+    "enterFullName": "Enter full name",
+    "enterEmail": "Enter email address",
+    "sendAuthorize": "Send Authorization",
+    "authorizeSuccess": "Authorization request sent successfully!",
+    "noResponse": "No valid response received from server.",
+    "fillRequired": "Please enter both full name and email of authorized person."
+  },
+  "authorization": {
+    "title": "Order Authorization",
+    "description": "Press the button below to confirm unlock of the authorized order.",
+    "confirmUnlock": "Confirm Unlock",
+    "confirming": "Confirming...",
+    "success": "Unlock Successful!",
+    "orderConfirmed": "has been confirmed.",
+    "backHome": "Back to Home",
+    "noToken": "Missing authentication token!",
+    "unlockSuccess": "Unlock confirmed successfully!",
+    "ignoreInfo": "If you didn't request this action, please ignore this email."
+  },
+  "search": {
+    "placeholder": "Search orders...",
+    "startDate": "From",
+    "endDate": "To"
+  },
+  "tabs": {
+    "all": "All",
+    "pending": "Pending",
+    "sending": "Sending",
+    "completed": "Completed"
+  },
+  "filters": {
+    "clear": "Clear"
+  }
+}

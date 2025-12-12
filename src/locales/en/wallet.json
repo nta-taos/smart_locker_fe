@@ -1,0 +1,28 @@
+{
+  "balance": "Balance",
+  "deposit": {
+    "title": "Deposit to Wallet",
+    "amount": "Deposit Amount",
+    "amountLabel": "Amount",
+    "amountPlaceholder": "Enter amount",
+    "placeholder": "Enter amount to deposit",
+    "minAmount": "Minimum amount is 10,000 VND",
+    "button": "Deposit",
+    "success": "Deposit successful!",
+    "error": "Deposit failed!"
+  },
+  "transactions": {
+    "title": "Transaction History",
+    "deposit": "Deposit",
+    "payment": "Payment",
+    "empty": "No transactions yet",
+    "endMessage": "No more transactions"
+  },
+  "payment": {
+    "title": "Payment Method",
+    "wallet": "ZipBox Wallet",
+    "balance": "Available Balance",
+    "notEnough": "Insufficient Balance",
+    "depositNow": "Deposit Now"
+  }
+}

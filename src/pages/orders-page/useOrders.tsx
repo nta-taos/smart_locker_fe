@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { TabsProps } from 'antd';
 
@@ -7,6 +8,7 @@ import { OrderList } from '@/components/order-list/OrderList';
 import styles from './Orders.module.scss';
 
 export const useOrders = () => {
+  const { t } = useTranslation('orders');
   const [codeFilter, setCodeFilter] = useState<string | undefined>(undefined);
   const [dateRange, setDateRange] = useState<[string | undefined, string | undefined] | null>([
     undefined,
@@ -25,7 +27,7 @@ export const useOrders = () => {
   const tabItems: TabsProps['items'] = [
     {
       key: '1',
-      label: 'Tất cả',
+      label: t('tabs.all'),
       children: (
         <OrderList
           className={styles.orderList}
@@ -39,7 +41,7 @@ export const useOrders = () => {
     },
     {
       key: '2',
-      label: 'Chưa nhận',
+      label: t('tabs.pending'),
       children: (
         <OrderList
           className={styles.orderList}
@@ -53,7 +55,7 @@ export const useOrders = () => {
     },
     {
       key: '3',
-      label: 'Đã nhận',
+      label: t('tabs.completed'),
       children: (
         <OrderList
           className={styles.orderList}

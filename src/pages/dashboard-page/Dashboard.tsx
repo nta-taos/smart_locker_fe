@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -22,6 +23,7 @@ import { useDashboard } from './useDashboard';
 const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
   const { wallet, isBalanceVisible, toggleBalanceVisibility, userRole } = useDashboard();
+  const { t } = useTranslation(['common', 'home']);
 
   const goLockers = () => navigate('/lockers');
   const goOrders = () => navigate('/orders');
@@ -33,9 +35,9 @@ const DashboardPage: React.FC = () => {
             <Space direction="vertical">
               <Space align="center" style={{ color: '#074CE7' }}>
                 <AppstoreOutlined style={{ fontSize: 24 }} />
-                <span>Zipbox của tôi</span>
+                <span>{t('common:dashboard.myZipbox')}</span>
               </Space>
-              <div>2 Đang sở hữu</div>
+              <div>2 {t('common:dashboard.owning')}</div>
             </Space>
           </Card>
         </Col>
@@ -45,9 +47,9 @@ const DashboardPage: React.FC = () => {
             <Space direction="vertical">
               <Space align="center" style={{ color: '#074CE7' }}>
                 <EnvironmentOutlined style={{ fontSize: 24 }} />
-                <Space>Zipbox gần đây</Space>
+                <Space>{t('common:dashboard.nearbyZipbox')}</Space>
               </Space>
-              <div>9+ Tủ </div>
+              <div>9+ {t('common:dashboard.lockers')}</div>
             </Space>
           </Card>
         </Col>
@@ -57,9 +59,9 @@ const DashboardPage: React.FC = () => {
             <Space direction="vertical">
               <Space align="center" style={{ color: '#074CE7' }}>
                 <ShoppingCartOutlined style={{ fontSize: 24 }} />
-                <span>Đơn hàng</span>
+                <span>{t('common:navigation.orders')}</span>
               </Space>
-              <div>9+ Đơn hàng</div>
+              <div>9+ {t('common:dashboard.orders')}</div>
             </Space>
           </Card>
         </Col>
@@ -69,7 +71,7 @@ const DashboardPage: React.FC = () => {
             <Space direction="vertical" style={{ width: '100%' }}>
               <Space align="center" style={{ color: '#074CE7' }}>
                 <WalletOutlined style={{ fontSize: 24 }} />
-                <span>Ví của tôi</span>
+                <span>{t('common:dashboard.myWallet')}</span>
               </Space>
               <div
                 style={{
@@ -95,7 +97,7 @@ const DashboardPage: React.FC = () => {
 
       <Row gutter={[16, 16]} style={{ marginTop: 20 }} justify="center">
         <Col xs={24} sm={24} md={16}>
-          <div className={styles.sectionTitle}>Bản đồ phân bố tủ</div>
+          <div className={styles.sectionTitle}>{t('home:features.mapTitle')}</div>
           <Card className={styles.mapCard} styles={{ body: { height: '100%', padding: 0 } }}>
             <div className={styles.mapWrapper}>
               <MapView />
@@ -104,7 +106,7 @@ const DashboardPage: React.FC = () => {
         </Col>
 
         <Col xs={24} sm={24} md={8}>
-          <div className={styles.sectionTitle}>Hoạt động gần đây</div>
+          <div className={styles.sectionTitle}>{t('common:dashboard.recentActivity')}</div>
           <Card
             className={styles.orderCard}
             style={{ borderRadius: '24px', height: '60vh' }}
@@ -118,7 +120,7 @@ const DashboardPage: React.FC = () => {
       {userRole === 0 && (
         <Row gutter={[16, 16]} style={{ marginTop: 24 }} justify="center">
           <Col xs={24} sm={24} md={16}>
-            <div className={styles.sectionTitle}>Biểu đồ Zipbox</div>
+            <div className={styles.sectionTitle}>{t('common:dashboard.zipboxChart')}</div>
             <Card
               style={{ borderRadius: '24px', height: 300 }}
               styles={{ body: { height: '100%', padding: '1rem 1rem 0 0' } }}
@@ -128,7 +130,7 @@ const DashboardPage: React.FC = () => {
           </Col>
 
           <Col xs={24} sm={24} md={8}>
-            <div className={styles.sectionTitle}>Lịch sử giao dịch</div>
+            <div className={styles.sectionTitle}>{t('common:dashboard.transactionHistory')}</div>
             <Card
               style={{ borderRadius: '24px', height: '300px' }}
               styles={{ body: { height: '100%' } }}

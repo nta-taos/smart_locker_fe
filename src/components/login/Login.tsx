@@ -1,4 +1,5 @@
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
+import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
@@ -21,6 +22,7 @@ export default function Login() {
     handleCompleteGoogleRegistration,
   } = useLogin();
 
+  const { t } = useTranslation(['auth', 'validation']);
   const [popupForm] = Form.useForm<{ phone: string }>();
 
   const onGoogleSuccess = (credentialResponse: CredentialResponse) => {
@@ -28,12 +30,12 @@ export default function Login() {
     if (idToken) {
       handleGoogleLogin(idToken);
     } else {
-      message.error('Không thể lấy thông tin từ Google.');
+      message.error(t('auth:login.googleError'));
     }
   };
 
   const onGoogleError = () => {
-    message.error('Đăng nhập Google thất bại.');
+    message.error(t('auth:login.googleFailed'));
   };
 
   const handleCancelPopup = () => {
@@ -45,10 +47,10 @@ export default function Login() {
     <div className={styles.loginWrapper}>
       <div className={styles.loginCard}>
         <Title level={2} className={styles.loginTitle}>
-          Chào mừng trở lại
+          {t('auth:login.title')}
         </Title>
         <Text type="secondary" className={styles.subText}>
-          Vui lòng đăng nhập để tiếp tục
+          {t('auth:login.subtitle')}
         </Text>
 
         <Form
@@ -58,34 +60,34 @@ export default function Login() {
           className={styles.loginForm}
         >
           <Form.Item
-            label="Số điện thoại"
+            label={t('auth:login.phone')}
             name="phone"
             rules={[
-              { required: true, message: 'Vui lòng nhập số điện thoại' },
-              { pattern: /^0\d{9}$/, message: 'Số điện thoại phải là 10 số, bắt đầu bằng 0' },
+              { required: true, message: t('validation:phone.required') },
+              { pattern: /^0\d{9}$/, message: t('validation:phone.invalid') },
             ]}
           >
-            <Input size="large" placeholder="Nhập số điện thoại" />
+            <Input size="large" placeholder={t('auth:login.phonePlaceholder')} />
           </Form.Item>
 
           <Form.Item
-            label="Mật khẩu"
+            label={t('auth:login.password')}
             name="password"
-            rules={[{ required: true, message: 'Vui lòng nhập mật khẩu' }]}
+            rules={[{ required: true, message: t('validation:password.required') }]}
           >
             <Input.Password
               size="large"
-              placeholder="Nhập mật khẩu"
+              placeholder={t('auth:login.passwordPlaceholder')}
               iconRender={(visible) => (visible ? <EyeOutlined /> : <EyeInvisibleOutlined />)}
             />
           </Form.Item>
 
           <div className={styles.rememberContainer}>
             <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>Ghi nhớ đăng nhập</Checkbox>
+              <Checkbox>{t('auth:login.remember')}</Checkbox>
             </Form.Item>
             <RouterLink to="/forgot-password" className={styles.forgotLink}>
-              Quên mật khẩu?
+              {t('auth:login.forgotPassword')}
             </RouterLink>
           </div>
 
@@ -98,16 +100,16 @@ export default function Login() {
               loading={loading}
               className={styles.loginButton}
             >
-              Đăng nhập
+              {t('auth:login.loginButton')}
             </Button>
           </Form.Item>
 
-          <Divider plain>Hoặc</Divider>
+          <Divider plain>{t('auth:login.or')}</Divider>
 
           <div className={styles.googleButtonContainer}>
             {googleLoading ? (
               <Button size="large" block loading>
-                Đang xử lý...
+                {t('auth:login.processing')}
               </Button>
             ) : (
               <GoogleLogin
@@ -122,21 +124,21 @@ export default function Login() {
           </div>
 
           <div className={styles.registerText}>
-            <Text>Bạn chưa có tài khoản? </Text>
-            <RouterLink to="/register">Đăng ký ngay</RouterLink>
+            <Text>{t('auth:login.noAccount')} </Text>
+            <RouterLink to="/register">{t('auth:login.registerNow')}</RouterLink>
           </div>
         </Form>
       </div>
       <Modal
-        title="Hoàn tất đăng ký"
+        title={t('auth:completeRegistration.title')}
         open={showPhonePopup}
         onCancel={handleCancelPopup}
-        footer={null} // Tắt footer mặc định để dùng nút của Form
-        closable={!completeLoading} // Không cho đóng khi đang loading
+        footer={null}
+        closable={!completeLoading}
         maskClosable={!completeLoading}
       >
         <Text type="secondary" style={{ marginBottom: 24, display: 'block' }}>
-          Tài khoản Google này chưa được đăng ký. Vui lòng nhập SĐT của bạn để hoàn tất.
+          {t('auth:completeRegistration.subtitle')}
         </Text>
         <Form
           form={popupForm}
@@ -145,19 +147,19 @@ export default function Login() {
           requiredMark={false}
         >
           <Form.Item
-            label="Số điện thoại"
+            label={t('auth:completeRegistration.phone')}
             name="phone"
             rules={[
-              { required: true, message: 'Vui lòng nhập số điện thoại' },
-              { pattern: /^0\d{9}$/, message: 'Số điện thoại phải là 10 số, bắt đầu bằng 0' },
+              { required: true, message: t('validation:phone.required') },
+              { pattern: /^0\d{9}$/, message: t('validation:phone.invalid') },
             ]}
           >
-            <Input size="large" placeholder="Nhập số điện thoại" />
+            <Input size="large" placeholder={t('auth:completeRegistration.phonePlaceholder')} />
           </Form.Item>
 
           <Form.Item>
             <Button type="primary" htmlType="submit" block size="large" loading={completeLoading}>
-              Hoàn tất
+              {t('auth:completeRegistration.submitButton')}
             </Button>
           </Form.Item>
         </Form>

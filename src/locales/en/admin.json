@@ -1,0 +1,49 @@
+{
+  "dashboard": {
+    "title": "Admin Dashboard",
+    "overview": "Overview",
+    "statistics": "Statistics",
+    "revenue": "Revenue",
+    "users": "Users",
+    "orders": "Orders",
+    "lockers": "Lockers"
+  },
+  "buildings": {
+    "title": "Building Management",
+    "add": "Add Building",
+    "edit": "Edit Building",
+    "delete": "Delete Building",
+    "name": "Building Name",
+    "address": "Address",
+    "totalLockers": "Total Lockers"
+  },
+  "lockers": {
+    "title": "Locker Management",
+    "add": "Add Locker",
+    "edit": "Edit Locker",
+    "delete": "Delete Locker",
+    "code": "Locker Code",
+    "building": "Building",
+    "totalSlots": "Total Slots",
+    "status": "Status"
+  },
+  "slots": {
+    "title": "Slot Management",
+    "add": "Add Slot",
+    "edit": "Edit Slot",
+    "delete": "Delete Slot",
+    "number": "Slot Number",
+    "size": "Size",
+    "status": "Status",
+    "locker": "Locker"
+  },
+  "remoteControl": {
+    "title": "Remote Control",
+    "selectLocker": "Select Locker",
+    "selectSlot": "Select Slot",
+    "openDoor": "Open Door",
+    "closeDoor": "Close Door",
+    "status": "Status",
+    "history": "Control History"
+  }
+}

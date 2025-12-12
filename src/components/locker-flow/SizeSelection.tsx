@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FaBox } from 'react-icons/fa';
 
 import { Card, Grid, Typography } from 'antd';
@@ -22,12 +23,14 @@ export const SizeSelection: React.FC<SizeSelectionProps> = ({
   availableSizesCount = {},
 }) => {
   const screens = useBreakpoint();
+  const { t } = useTranslation('locker');
 
   return (
     <Card
       title={
         <Title level={4} className={styles.sectionTitle}>
-          <FaBox size={screens.sm ? 20 : 16} className={styles.sectionIcon} /> Chọn kích thước tủ
+          <FaBox size={screens.sm ? 20 : 16} className={styles.sectionIcon} />{' '}
+          {t('rental.selectSize')}
         </Title>
       }
       className={styles.antdCard}
@@ -56,7 +59,7 @@ export const SizeSelection: React.FC<SizeSelectionProps> = ({
               <div className={styles.sizeRadioContent}>
                 <div className={styles.sizeRadioText}>
                   <Text strong className={styles.sizeTitle}>
-                    Size {size.name}{' '}
+                    {t(size.nameKey)}{' '}
                     <Text type={isAvailable ? 'secondary' : 'danger'} className={styles.sizeCount}>
                       ({count})
                     </Text>
@@ -64,11 +67,11 @@ export const SizeSelection: React.FC<SizeSelectionProps> = ({
                   <span className={styles.dimensionTag}>{size.dimensions}</span>
                 </div>
                 <Text type="secondary" className={styles.sizeDescription}>
-                  {size.description}
+                  {t(size.descriptionKey)}
                 </Text>
                 <div className={styles.priceTag}>
                   <Text className={styles.priceAmount}>{size.priceText}</Text>
-                  <Text type="secondary">/giờ</Text>
+                  <Text type="secondary">/{t('rental.perHour')}</Text>
                 </div>
               </div>
             </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { Button } from 'antd';
@@ -9,37 +10,29 @@ import useAbout from './useAbout';
 const About: React.FC = () => {
   const navigate = useNavigate();
   const { locationCount } = useAbout();
+  const { t } = useTranslation('home');
   return (
     <section className={styles.aboutSection}>
       <div className={styles.info}>
         {/* TIÊU ĐỀ CHUNG */}
         <div className={styles.header}>
-          <span className={styles.subtitle}>MỘT CHÚT</span>
-          <h2 className={styles.title}>VỀ CHÚNG TÔI</h2>
+          <span className={styles.subtitle}>{t('about.subtitle')}</span>
+          <h2 className={styles.title}>{t('about.title')}</h2>
         </div>
 
         {/* KHỐI VISION */}
         <div className={styles.vmContainer}>
-          <h3 className={styles.vmTitleVision}>VISION</h3>
+          <h3 className={styles.vmTitleVision}>{t('about.visionTitle')}</h3>
           <div className={styles.vmContent}>
-            <p>
-              “Trở thành <strong>hệ thống tủ thông minh hàng đầu Việt Nam và khu vực</strong>, tối
-              ưu hoá hành trình giao nhận và lưu trữ trong
-              <strong> kỷ nguyên đô thị thông minh</strong>.”
-            </p>
+            <p dangerouslySetInnerHTML={{ __html: t('about.visionContent') }} />
           </div>
         </div>
 
         {/* KHỐI MISSION */}
         <div className={styles.vmContainer}>
-          <h3 className={styles.vmTitleMission}>MISSION</h3>
+          <h3 className={styles.vmTitleMission}>{t('about.missionTitle')}</h3>
           <div className={styles.vmContent}>
-            <p>
-              “Mang đến{' '}
-              <strong>giải pháp giao nhận và lưu trữ an toàn, tiện lợi và linh hoạt 24/7</strong>,
-              giúp tiết kiệm thời gian, chi phí, đồng thời thúc đẩy
-              <strong> phát triển logistics bền vững</strong>.”
-            </p>
+            <p dangerouslySetInnerHTML={{ __html: t('about.missionContent') }} />
           </div>
         </div>
 
@@ -50,7 +43,7 @@ const About: React.FC = () => {
             size="large"
             onClick={() => navigate('/support')}
           >
-            Khám phá ngay
+            {t('about.discoverButton')}
           </Button>
         </div>
       </div>
@@ -69,7 +62,7 @@ const About: React.FC = () => {
         </div>
         <div className={styles.badge}>
           <h1 className={styles.badgeNumber}>{locationCount}+</h1>
-          <span className={styles.badgeText}>Địa điểm</span>
+          <span className={styles.badgeText}>{t('about.locationBadge')}</span>
         </div>
       </div>
     </section>

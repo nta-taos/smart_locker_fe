@@ -1,0 +1,31 @@
+{
+  "wallet": {
+    "title": "Ví của tôi",
+    "balance": "Số dư",
+    "totalBalance": "Tổng số dư (VND)",
+    "deposit": "Nạp tiền"
+  },
+  "account": {
+    "title": "Tài khoản",
+    "status": "Trạng thái tài khoản",
+    "userType": "Loại tài khoản",
+    "verified": "Đã xác thực",
+    "notVerified": "Chưa xác thực",
+    "active": "Hoạt động",
+    "inactive": "Không hoạt động",
+    "customer": "Khách hàng",
+    "admin": "Quản trị viên"
+  },
+  "personalInfo": {
+    "title": "Thông tin cá nhân",
+    "username": "Tên người dùng",
+    "fullName": "Họ và tên",
+    "email": "Email",
+    "phone": "Số điện thoại",
+    "idCard": "CCCD",
+    "notProvided": "Chưa cung cấp"
+  },
+  "transactions": {
+    "title": "Lịch sử giao dịch"
+  }
+}

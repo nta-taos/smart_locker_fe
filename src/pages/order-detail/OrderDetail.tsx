@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FaArrowLeft } from 'react-icons/fa';
 import { MdFastfood } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -33,6 +34,7 @@ import {
   Typography,
   message,
 } from 'antd';
+import { TFunction } from 'i18next';
 
 import { orderApi } from '@/api/orderApi';
 import { authState } from '@/recoil/atom/authAtom';
@@ -47,19 +49,20 @@ const { Title, Text } = Typography;
 const { useBreakpoint } = Grid;
 const { Content, Header } = Layout;
 
-const statusTags = {
-  0: { label: 'Chờ hàng', color: 'warning', icon: <ClockCircleOutlined /> },
-  1: { label: 'Đang gửi', color: 'processing', icon: <SyncOutlined spin /> },
-  2: { label: 'Đã nhận', color: 'success', icon: <CheckCircleOutlined /> },
-  3: { label: 'Quá hạn', color: 'error', icon: <ExclamationCircleOutlined /> },
-};
+const getStatusTags = (t: TFunction) => ({
+  0: { label: t('status.pending'), color: 'warning', icon: <ClockCircleOutlined /> },
+  1: { label: t('status.sending'), color: 'processing', icon: <SyncOutlined spin /> },
+  2: { label: t('status.received'), color: 'success', icon: <CheckCircleOutlined /> },
+  3: { label: t('status.overdue'), color: 'error', icon: <ExclamationCircleOutlined /> },
+});
 
-const typeLabels: Record<number, string> = {
-  0: 'Thuê tủ',
-  1: 'Gửi hàng',
-};
+const getTypeLabels = (t: TFunction): Record<number, string> => ({
+  0: t('types.rental'),
+  1: t('types.send'),
+});
 
 const AntOrderDetails: React.FC = () => {
+  const { t } = useTranslation('orders');
   const { orderId } = useParams<{ orderId: string }>();
   const auth = useRecoilValue(authState);
   const [orderStateValue] = useRecoilState(orderState);
@@ -77,7 +80,7 @@ const AntOrderDetails: React.FC = () => {
         setOrder(fetchedOrder);
       } catch (err) {
         console.error(err);
-        message.error('Không tìm thấy đơn hàng hoặc bạn không có quyền xem.');
+        message.error(t('detail.notFound'));
         navigate('/dashboard', { replace: true });
       } finally {
         setIsLoading(false);
@@ -87,7 +90,7 @@ const AntOrderDetails: React.FC = () => {
     if (!order) {
       fetchOrder();
     }
-  }, [orderId, order, navigate, setOrder]);
+  }, [orderId, order, navigate, setOrder, t]);
 
   if (isLoading) {
     return <Spin size="large" style={{ display: 'block', margin: '100px auto' }} />;
@@ -103,13 +106,16 @@ const AntOrderDetails: React.FC = () => {
   const canReceive = isReceiver || isAuthorizedUser;
   const canAuthorize = isReceiver;
 
+  const statusTags = getStatusTags(t);
+  const typeLabels = getTypeLabels(t);
+
   const OrderInfoCard = () => (
     <Card
       title={
         <Space align="center" size="small">
           <ContainerOutlined style={{ color: '#3b82f6' }} />
           <Text strong style={{ fontSize: 16 }}>
-            Thông tin đơn hàng
+            {t('detail.orderInfo')}
           </Text>
         </Space>
       }
@@ -121,17 +127,17 @@ const AntOrderDetails: React.FC = () => {
           <Space direction="vertical" style={{ width: '100%', gap: 10 }}>
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
               <Text type="secondary" style={{ minWidth: 100 }}>
-                Loại dịch vụ
+                {t('detail.serviceType')}
               </Text>
               <Space align="center" style={{ color: '#111' }}>
                 <AppstoreOutlined style={{ color: '#3b82f6' }} />
-                <Text strong>{typeLabels[order.type] || 'Không xác định'}</Text>
+                <Text strong>{typeLabels[order.type] || t('types.undefined')}</Text>
               </Space>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
               <Text type="secondary" style={{ minWidth: 100 }}>
-                Phí dịch vụ
+                {t('detail.serviceFee')}
               </Text>
               <Space align="center">
                 <DollarCircleOutlined style={{ color: '#f59e0b' }} />
@@ -141,32 +147,32 @@ const AntOrderDetails: React.FC = () => {
 
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
               <Text type="secondary" style={{ minWidth: 100 }}>
-                Thanh toán
+                {t('detail.payment')}
               </Text>
               {order.payment_status === 0 ? (
                 <Space align="center" style={{ color: '#eab308', fontWeight: 500 }}>
                   <ExclamationCircleOutlined />
-                  Chưa thanh toán
+                  {t('detail.notPaid')}
                 </Space>
               ) : (
                 <Space align="center" style={{ color: '#22c55e', fontWeight: 500 }}>
                   <CheckCircleOutlined />
-                  Đã thanh toán
+                  {t('detail.paid')}
                 </Space>
               )}
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
               <Text type="secondary" style={{ minWidth: 100 }}>
-                Loại hàng
+                {t('detail.itemType')}
               </Text>
               {order.is_food === 1 ? (
                 <Space align="center" style={{ color: '#f59e0b', fontWeight: 500 }}>
-                  <MdFastfood /> Đồ ăn / thức uống
+                  <MdFastfood /> {t('detail.foodDrink')}
                 </Space>
               ) : (
                 <Space align="center" style={{ color: '#6b7280', fontWeight: 500 }}>
-                  <InboxOutlined /> Hàng hóa thường
+                  <InboxOutlined /> {t('detail.normalGoods')}
                 </Space>
               )}
             </div>
@@ -177,7 +183,7 @@ const AntOrderDetails: React.FC = () => {
           <Space direction="vertical" style={{ width: '100%', gap: 10 }}>
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
               <Text type="secondary" style={{ minWidth: 100 }}>
-                Thời gian gửi
+                {t('detail.sendTime')}
               </Text>
               <Space align="center" style={{ color: '#111' }}>
                 <ClockCircleOutlined style={{ color: '#3b82f6' }} />
@@ -187,7 +193,7 @@ const AntOrderDetails: React.FC = () => {
 
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
               <Text type="secondary" style={{ minWidth: 100 }}>
-                Vị trí tủ
+                {t('detail.lockerPosition')}
               </Text>
               <Space align="center" style={{ color: '#111' }}>
                 <EnvironmentOutlined style={{ color: '#3b82f6' }} />
@@ -197,7 +203,7 @@ const AntOrderDetails: React.FC = () => {
 
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
               <Text type="secondary" style={{ minWidth: 100 }}>
-                Trạng thái
+                {t('detail.statusLabel')}
               </Text>
               <Tag
                 icon={statusTags[order.status as keyof typeof statusTags].icon}
@@ -222,7 +228,7 @@ const AntOrderDetails: React.FC = () => {
     <Card
       title={
         <Space>
-          <UserOutlined /> Thông tin người gửi
+          <UserOutlined /> {t('detail.senderInfo')}
         </Space>
       }
       bordered={false}
@@ -256,7 +262,7 @@ const AntOrderDetails: React.FC = () => {
     <Card
       title={
         <Space>
-          <UserOutlined /> Thông tin người nhận
+          <UserOutlined /> {t('detail.receiverInfo')}
         </Space>
       }
       bordered={false}
@@ -264,10 +270,10 @@ const AntOrderDetails: React.FC = () => {
     >
       <Row>
         <Col span={8}>
-          <Text type="secondary">Họ tên</Text>
+          <Text type="secondary">{t('detail.fullName')}</Text>
         </Col>
         <Col span={16}>
-          <Text>{order.receiver.name || 'Chưa xác định'}</Text>
+          <Text>{order.receiver.name || t('detail.notDefined')}</Text>
         </Col>
       </Row>
       <Row>
@@ -292,7 +298,7 @@ const AntOrderDetails: React.FC = () => {
       icon: <ContainerOutlined />,
       children: (
         <>
-          <Text strong>Đơn hàng được tạo</Text>
+          <Text strong>{t('timeline.created')}</Text>
           <br />
           <Text type="secondary">{formatDateTime(order.start_time)}</Text>
         </>
@@ -303,9 +309,11 @@ const AntOrderDetails: React.FC = () => {
       icon: <SyncOutlined spin={order.status === 1} />,
       children: (
         <>
-          <Text strong>Hàng đang gửi</Text>
+          <Text strong>{t('timeline.sending')}</Text>
           <br />
-          <Text type="secondary">{order.status >= 1 ? 'Đã gửi' : 'Chờ gửi'}</Text>
+          <Text type="secondary">
+            {order.status >= 1 ? t('timeline.sent') : t('timeline.waitingSend')}
+          </Text>
         </>
       ),
     },
@@ -314,7 +322,7 @@ const AntOrderDetails: React.FC = () => {
       icon: <CheckCircleOutlined />,
       children: (
         <>
-          <Text strong>Hàng đã được nhận</Text>
+          <Text strong>{t('timeline.received')}</Text>
           <br />
           <Text type="secondary">
             {order.status >= 2
@@ -330,7 +338,7 @@ const AntOrderDetails: React.FC = () => {
 
   const tabItems = [
     {
-      label: 'Chi tiết đơn hàng',
+      label: t('detail.orderDetails'),
       key: 'details',
       children: (
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
@@ -341,13 +349,13 @@ const AntOrderDetails: React.FC = () => {
       ),
     },
     {
-      label: 'Trạng thái đơn hàng',
+      label: t('detail.orderStatus'),
       key: 'tracking',
       children: (
         <Card
           title={
             <Space>
-              <ClockCircleOutlined /> Lịch sử trạng thái
+              <ClockCircleOutlined /> {t('detail.statusHistory')}
             </Space>
           }
           bordered={false}
@@ -371,7 +379,7 @@ const AntOrderDetails: React.FC = () => {
           />
           <div className={styles.headerTitleGroup}>
             <Title level={2} className={styles.pageTitle}>
-              Thông tin đơn hàng
+              {t('detail.title')}
             </Title>
           </div>
         </div>
@@ -381,8 +389,8 @@ const AntOrderDetails: React.FC = () => {
         <div className={styles.maxWidthWrapper}>
           {order.status === 1 && (
             <Alert
-              message="Hàng đã sẵn sàng tại tủ"
-              description="Vui lòng nhận hàng trong thời gian quy định để tránh phát sinh phí quá hạn."
+              message={t('detail.readyAlert')}
+              description={t('detail.readyDescription')}
               type="warning"
               showIcon
               icon={<ExclamationCircleOutlined />}

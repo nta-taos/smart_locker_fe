@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Button, Form, Input, Select } from 'antd';
 
@@ -9,9 +10,11 @@ import { handlePartnerSubmit } from './usePartnerForm';
 const { TextArea } = Input;
 
 const PartnerForm: React.FC = () => {
+  const { t } = useTranslation('partner');
+
   return (
     <section className={styles.formSection}>
-      <h2 className={styles.formTitle}>ĐĂNG KÝ HỢP TÁC</h2>
+      <h2 className={styles.formTitle}>{t('form.title')}</h2>
       <div className={styles.titleDecor}>
         <span className={styles.line}></span>
         <span className={styles.icon}>
@@ -26,46 +29,43 @@ const PartnerForm: React.FC = () => {
           onFinish={handlePartnerSubmit}
           requiredMark={false}
         >
-          <Form.Item name="name" rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}>
-            <Input size="large" placeholder="Họ và tên" />
+          <Form.Item name="name" rules={[{ required: true, message: t('form.fullNameRequired') }]}>
+            <Input size="large" placeholder={t('form.fullNamePlaceholder')} />
           </Form.Item>
 
-          <Form.Item
-            name="phone"
-            rules={[{ required: true, message: 'Vui lòng nhập số điện thoại' }]}
-          >
-            <Input size="large" placeholder="Số điện thoại" />
+          <Form.Item name="phone" rules={[{ required: true, message: t('form.phoneRequired') }]}>
+            <Input size="large" placeholder={t('form.phonePlaceholder')} />
           </Form.Item>
 
           <Form.Item
             name="email"
             rules={[
-              { required: true, message: 'Vui lòng nhập email' },
-              { type: 'email', message: 'Email không hợp lệ' },
+              { required: true, message: t('form.emailRequired') },
+              { type: 'email', message: t('form.emailInvalid') },
             ]}
           >
-            <Input size="large" placeholder="Email" />
+            <Input size="large" placeholder={t('form.emailPlaceholder')} />
           </Form.Item>
 
           <Form.Item name="category">
             <Select
               size="large"
-              placeholder="Danh mục hợp tác"
+              placeholder={t('form.categoryPlaceholder')}
               options={[
-                { label: 'Đối tác vận chuyển', value: 'vanchuyen' },
-                { label: 'Đối tác địa điểm', value: 'diadiem' },
+                { label: t('form.categoryOptionTransport'), value: 'vanchuyen' },
+                { label: t('form.categoryOptionLocation'), value: 'diadiem' },
               ]}
             />
           </Form.Item>
 
           <Form.Item name="note">
-            <TextArea rows={5} placeholder="Thông điệp của bạn..." />
+            <TextArea rows={5} placeholder={t('form.notePlaceholder')} />
           </Form.Item>
 
           <Form.Item>
             <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1.5rem' }}>
               <Button type="primary" size="large">
-                Gửi ngay
+                {t('form.submitButton')}
               </Button>
             </div>
           </Form.Item>

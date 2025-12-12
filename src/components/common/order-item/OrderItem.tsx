@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -21,19 +22,21 @@ interface OrderItemProps {
   className?: string;
 }
 
-const statusTags = {
-  0: { label: 'Chờ hàng', color: 'warning', icon: <ClockCircleOutlined /> },
-  1: { label: 'Đang gửi', color: 'processing', icon: <SyncOutlined spin /> },
-  2: { label: 'Đã nhận', color: 'success', icon: <CheckCircleOutlined /> },
-  3: { label: 'Quá hạn', color: 'error', icon: <ExclamationCircleOutlined /> },
-};
-
 export const OrderItem: React.FC<OrderItemProps> = ({
   data,
   variant = 'shorten',
   className = '',
 }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation('orders');
+
+  const statusTags = {
+    0: { label: t('status.pending'), color: 'warning', icon: <ClockCircleOutlined /> },
+    1: { label: t('status.sending'), color: 'processing', icon: <SyncOutlined spin /> },
+    2: { label: t('status.received'), color: 'success', icon: <CheckCircleOutlined /> },
+    3: { label: t('status.overdue'), color: 'error', icon: <ExclamationCircleOutlined /> },
+  };
+
   const classes = [styles.container, styles[variant], className].filter(Boolean).join(' ');
   const statusInfo = statusTags[data.status as keyof typeof statusTags] ?? statusTags[0];
 
@@ -52,28 +55,28 @@ export const OrderItem: React.FC<OrderItemProps> = ({
           {!isRentLocker && (
             <>
               <p>
-                <span className={styles.label}>Người gửi:</span>
+                <span className={styles.label}>{t('detail.sender')}:</span>
                 {data.sender.name}
               </p>
               <p>
-                <span className={styles.label}>Người nhận:</span>
+                <span className={styles.label}>{t('detail.receiver')}:</span>
                 {data.receiver?.name}
               </p>
             </>
           )}
           <p>
             <span className={styles.label}>
-              {isRentLocker ? 'Thời gian thuê:' : 'Tổng thời gian:'}
+              {isRentLocker ? t('detail.rentalTime') : t('detail.totalTime')}:
             </span>{' '}
-            {data.hours} giờ
+            {data.hours} {t('detail.hours')}
           </p>
           <p>
-            <span className={styles.label}>Phí dịch vụ:</span>{' '}
-            {data.fee ? `${Number(data.fee).toLocaleString('vi-VN')} ₫` : 'Chưa thanh toán'}
+            <span className={styles.label}>{t('detail.serviceFee')}:</span>{' '}
+            {data.fee ? `${Number(data.fee).toLocaleString('vi-VN')} ₫` : t('detail.unpaid')}
           </p>
           {data.is_food === 1 && (
             <p>
-              <span className={styles.foodTag}>🍜 Đồ ăn</span>
+              <span className={styles.foodTag}>🍜 {t('detail.food')}</span>
             </p>
           )}
         </div>
@@ -93,8 +96,12 @@ export const OrderItem: React.FC<OrderItemProps> = ({
           <img src="/images/locker4.webp" alt="" />
         </div>
         <div>
-          <p>Mã đơn: {data.order_code || data.id}</p>
-          <p>Mã tủ: {data.lockerSlot.id}</p>
+          <p>
+            {t('detail.orderCode')}: {data.order_code || data.id}
+          </p>
+          <p>
+            {t('detail.lockerCode')}: {data.lockerSlot.id}
+          </p>
           <p className={styles.time}>{formatDateTime(data.start_time)}</p>
         </div>
         {variant === 'detail' && renderDetail()}
@@ -116,7 +123,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({
           style={{ width: '100%' }}
           onClick={handleDetailClick}
         >
-          Chi tiết
+          {t('detail.viewDetail')}
         </Button>
       </div>
     </div>

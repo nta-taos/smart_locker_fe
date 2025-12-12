@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { Empty, Spin } from 'antd';
@@ -12,6 +13,7 @@ interface TransactionProps {
 
 export const Transaction: React.FC<TransactionProps> = ({ className = '' }) => {
   const { transactions, loadMore, isLoading, isHasMore, isLoadMore } = useTransaction();
+  const { t } = useTranslation('wallet');
 
   const classes = [styles.container, className].filter(Boolean).join(' ');
 
@@ -27,7 +29,7 @@ export const Transaction: React.FC<TransactionProps> = ({ className = '' }) => {
     if (transactions.length === 0) {
       return (
         <div className={styles.emptyContainer}>
-          <Empty description="Không có giao dịch" />
+          <Empty description={t('transactions.empty')} />
         </div>
       );
     }
@@ -39,7 +41,7 @@ export const Transaction: React.FC<TransactionProps> = ({ className = '' }) => {
         hasMore={isHasMore}
         loader={isLoadMore && renderLoading()}
         scrollableTarget="scrollableDiv"
-        endMessage={<p style={{ textAlign: 'center' }}>Hết dữ liệu</p>}
+        endMessage={<p style={{ textAlign: 'center' }}>{t('transactions.endMessage')}</p>}
         style={{ overflow: 'hidden' }}
       >
         {transactions.map((transaction, idx) => (

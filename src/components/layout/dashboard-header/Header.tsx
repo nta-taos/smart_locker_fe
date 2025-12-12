@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import { LogoutOutlined, MenuFoldOutlined, ProfileOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Dropdown, MenuProps, message } from 'antd';
 
+import LanguageSwitcher from '@/components/language-switcher/LanguageSwitcher';
 import NotificationBell from '@/components/notification-bell/NotificationBell';
 
 import styles from './Header.module.scss';
@@ -12,6 +14,7 @@ import useDashboardHeader from './useHeader';
 const DashboardHeader: React.FC = () => {
   const navigate = useNavigate();
   const { user, isOpen, toggleMenu, setIsOpen } = useDashboardHeader();
+  const { t } = useTranslation(['common', 'auth']);
   const headerRef = useRef<HTMLElement>(null);
 
   // Click outside to close menu
@@ -37,7 +40,7 @@ const DashboardHeader: React.FC = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('auth');
-    message.success('Đăng xuất thành công');
+    message.success(t('auth:login.logoutSuccess'));
     navigate('/login', { replace: true });
   };
 
@@ -52,7 +55,7 @@ const DashboardHeader: React.FC = () => {
   const items: MenuProps['items'] = [
     {
       key: 'profile',
-      label: 'Hồ sơ cá nhân',
+      label: t('auth:menu.profile'),
       icon: <ProfileOutlined />,
       onClick: handleProfile,
     },
@@ -61,7 +64,7 @@ const DashboardHeader: React.FC = () => {
     },
     {
       key: 'logout',
-      label: 'Đăng xuất',
+      label: t('auth:menu.logout'),
       icon: <LogoutOutlined />,
       danger: true,
       onClick: handleLogout,
@@ -81,7 +84,7 @@ const DashboardHeader: React.FC = () => {
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
               end
             >
-              Trang chủ
+              {t('common:navigation.home')}
             </NavLink>
           </li>
           <li>
@@ -90,7 +93,7 @@ const DashboardHeader: React.FC = () => {
               onClick={handleNavClick}
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
             >
-              Tủ thông minh
+              {t('common:navigation.smartLocker')}
             </NavLink>
           </li>
           <li>
@@ -99,7 +102,7 @@ const DashboardHeader: React.FC = () => {
               onClick={handleNavClick}
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
             >
-              Đơn hàng
+              {t('common:navigation.orders')}
             </NavLink>
           </li>
           <li>
@@ -108,7 +111,7 @@ const DashboardHeader: React.FC = () => {
               onClick={handleNavClick}
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
             >
-              Hỗ trợ
+              {t('common:navigation.support')}
             </NavLink>
           </li>
           <li>
@@ -117,7 +120,7 @@ const DashboardHeader: React.FC = () => {
               onClick={handleNavClick}
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
             >
-              Đối tác
+              {t('common:navigation.partner')}
             </NavLink>
           </li>
           <li>
@@ -126,15 +129,15 @@ const DashboardHeader: React.FC = () => {
               onClick={handleNavClick}
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
             >
-              Cá nhân
+              {t('common:navigation.profile')}
             </NavLink>
           </li>
         </ul>
       </nav>
 
       <div className={styles.right}>
+        <LanguageSwitcher />
         <NotificationBell />
-
         {/* Avatar + Dropdown */}
         <Dropdown menu={{ items }} placement="bottomRight" arrow>
           <div className={styles.user} style={{ cursor: 'pointer' }}>

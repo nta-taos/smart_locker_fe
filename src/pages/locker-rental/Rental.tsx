@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { FaArrowLeft, FaCalendarAlt, FaCreditCard, FaPaperPlane } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -30,12 +31,13 @@ const { Header, Content } = Layout;
 const { Title, Text } = Typography;
 const { useBreakpoint } = Grid;
 
-const paymentMethods = [{ id: 'zipbox', name: 'Ví ZipBox', icon: '📦' }];
+const paymentMethods = [{ id: 'zipbox', nameKey: 'wallet:payment.wallet', icon: '📦' }];
 
 export default function RentalPage() {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const screens = useBreakpoint();
+  const { t } = useTranslation(['locker', 'common']);
 
   const { buildingId } = useParams<{ buildingId: string }>();
   const currentBuildingId = Number(buildingId) || 1;
@@ -88,8 +90,8 @@ export default function RentalPage() {
       <Card
         title={
           <Title level={4} className={styles.sectionTitle}>
-            <FaCalendarAlt size={screens.sm ? 20 : 16} className={styles.sectionIcon} /> Chọn thời
-            gian thuê tủ
+            <FaCalendarAlt size={screens.sm ? 20 : 16} className={styles.sectionIcon} />{' '}
+            {t('rental.selectTimeTitle')}
           </Title>
         }
         className={styles.antdCard}
@@ -97,9 +99,9 @@ export default function RentalPage() {
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={12}>
             <Form.Item
-              label={<Text strong>Ngày kết thúc</Text>}
+              label={<Text strong>{t('rental.endDate')}</Text>}
               name="receiveDate"
-              rules={[{ required: true, message: 'Vui lòng chọn ngày!' }]}
+              rules={[{ required: true, message: t('rental.selectDate') }]}
             >
               <DatePicker
                 style={{ width: '100%' }}
@@ -111,9 +113,9 @@ export default function RentalPage() {
 
           <Col xs={24} sm={12}>
             <Form.Item
-              label={<Text strong>Giờ & Phút kết thúc</Text>}
+              label={<Text strong>{t('rental.endTime')}</Text>}
               name="receiveTime"
-              rules={[{ required: true, message: 'Vui lòng chọn giờ!' }]}
+              rules={[{ required: true, message: t('rental.selectTime') }]}
             >
               <TimePicker
                 style={{ width: '100%' }}
@@ -148,8 +150,12 @@ export default function RentalPage() {
           </Col>
 
           <Col xs={24}>
-            <Form.Item name="isFood" valuePropName="checked" label={<Text strong>Loại hàng</Text>}>
-              <Checkbox>Đồ ăn / thức uống</Checkbox>
+            <Form.Item
+              name="isFood"
+              valuePropName="checked"
+              label={<Text strong>{t('rental.itemType')}</Text>}
+            >
+              <Checkbox>{t('rental.foodDrink')}</Checkbox>
             </Form.Item>
           </Col>
         </Row>
@@ -161,17 +167,23 @@ export default function RentalPage() {
     <div className={styles.stepContent}>
       <OrderSummary
         items={[
-          { label: 'Tủ', value: selectedLocker?.code || '' },
-          { label: 'Size', value: selectedSizeData?.name || '' },
-          { label: 'Đơn giá', value: `${selectedSizeData?.priceText} / giờ` },
-          { label: 'Thời gian thuê', value: `${duration.toFixed(2)} giờ` },
+          { label: t('rental.locker'), value: selectedLocker?.code || '' },
+          { label: t('rental.size'), value: selectedSizeData?.name || '' },
           {
-            label: 'Loại hàng',
-            value: form.getFieldValue('isFood') ? 'Đồ ăn / thức uống' : 'Hàng bình thường',
+            label: t('rental.unitPrice'),
+            value: `${selectedSizeData?.priceText} / ${t('rental.perHour')}`,
+          },
+          {
+            label: t('rental.rentalDuration'),
+            value: `${duration.toFixed(2)} ${t('rental.perHour')}`,
+          },
+          {
+            label: t('rental.itemType'),
+            value: form.getFieldValue('isFood') ? t('rental.foodDrink') : t('rental.normalGoods'),
           },
         ]}
         total={formatCurrency(total)}
-        title="Thông tin thuê tủ"
+        title={t('rental.rentalInfo')}
       />
       <PaymentMethodCard
         methods={paymentMethods}
@@ -199,9 +211,11 @@ export default function RentalPage() {
         <Content className={styles.antdContent}>
           <div className={styles.maxWidthWrapper}>
             <Title level={3} type="danger">
-              Không tìm thấy toà nhà
+              {t('rental.buildingNotFound')}
             </Title>
-            <Text>Không tìm thấy toà nhà với ID: {currentBuildingId}</Text>
+            <Text>
+              {t('rental.buildingIdError')}: {currentBuildingId}
+            </Text>
           </div>
         </Content>
       </Layout>
@@ -224,14 +238,14 @@ export default function RentalPage() {
                 <FaPaperPlane className={styles.headerIcon} size={screens.sm ? 24 : 20} />
               </div>
               <Title level={2} className={styles.pageTitle}>
-                Thuê tủ
+                {t('rental.title')}
               </Title>
             </div>
           </div>
         </Header>
         <Content className={styles.antdContent}>
           <div className={styles.maxWidthWrapper}>
-            <Text>Đang tải dữ liệu toà nhà...</Text>
+            <Text>{t('rental.loadingBuilding')}</Text>
           </div>
         </Content>
       </Layout>
@@ -254,7 +268,7 @@ export default function RentalPage() {
                 <FaPaperPlane className={styles.headerIcon} size={screens.sm ? 24 : 20} />
               </div>
               <Title level={2} className={styles.pageTitle}>
-                Thuê tủ
+                {t('rental.title')}
                 <Text
                   type="secondary"
                   style={{ fontSize: '1rem', marginLeft: 10, fontWeight: 400 }}
@@ -294,7 +308,7 @@ export default function RentalPage() {
                 onClick={handleNextStep}
                 disabled={!selectedLocker}
               >
-                Tiếp tục
+                {t('rental.continue')}
               </Button>
             )}
 
@@ -307,12 +321,12 @@ export default function RentalPage() {
                     onClick={() => setStep(0)}
                     className={styles.antdSecondaryButton}
                   >
-                    Quay lại
+                    {t('rental.back')}
                   </Button>
                 </Col>
                 <Col span={12}>
                   <Button type="primary" size="large" block onClick={handleNextStep}>
-                    Tiếp tục
+                    {t('rental.continue')}
                   </Button>
                 </Col>
               </Row>
@@ -327,7 +341,7 @@ export default function RentalPage() {
                     onClick={() => setStep(1)}
                     className={styles.antdSecondaryButton}
                   >
-                    Quay lại
+                    {t('rental.back')}
                   </Button>
                 </Col>
                 <Col span={12}>
@@ -341,10 +355,10 @@ export default function RentalPage() {
                     loading={isSubmitting}
                   >
                     {isSubmitting
-                      ? 'Đang xử lý...'
+                      ? t('rental.processing')
                       : walletBalance < total
-                        ? 'Số dư không đủ'
-                        : 'Thanh toán'}
+                        ? t('rental.notEnoughBalance')
+                        : t('rental.payment')}
                   </Button>
                 </Col>
               </Row>

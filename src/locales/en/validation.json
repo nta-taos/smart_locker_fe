@@ -1,0 +1,23 @@
+{
+  "required": "Please enter {{field}}",
+  "phone": {
+    "required": "Please enter phone number",
+    "invalid": "Phone number must be 10 digits, starting with 0",
+    "format": "Phone number is invalid"
+  },
+  "email": {
+    "required": "Please enter email",
+    "invalid": "Email is invalid"
+  },
+  "password": {
+    "required": "Please enter password",
+    "minLength": "Password must be at least {{min}} characters",
+    "notMatch": "Passwords do not match!"
+  },
+  "name": {
+    "required": "Please enter full name!"
+  },
+  "terms": {
+    "required": "You must agree to the Terms of Service!"
+  }
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FaCalendarAlt, FaCheck, FaCreditCard, FaLock } from 'react-icons/fa';
 
 import styles from './Steps.module.scss';
@@ -9,10 +10,20 @@ interface CustomStepsProps {
 }
 
 const CustomSteps: React.FC<CustomStepsProps> = ({ step, screens }) => {
+  const { t } = useTranslation('sendPackage');
+
   const steps = [
-    { name: 'Chọn tủ', icon: FaLock, description: 'Chọn size và tủ' },
-    { name: 'Thông tin', icon: FaCalendarAlt, description: 'Nhập chi tiết' },
-    { name: 'Thanh toán', icon: FaCreditCard, description: 'Xác nhận & thuê tủ' },
+    {
+      name: t('steps.selectLocker.name'),
+      icon: FaLock,
+      description: t('steps.selectLocker.description'),
+    },
+    { name: t('steps.info.name'), icon: FaCalendarAlt, description: t('steps.info.description') },
+    {
+      name: t('steps.payment.name'),
+      icon: FaCreditCard,
+      description: t('steps.payment.description'),
+    },
   ];
 
   return (

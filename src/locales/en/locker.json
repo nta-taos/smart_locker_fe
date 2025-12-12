@@ -1,0 +1,58 @@
+{
+  "title": "Smart Locker",
+  "rental": {
+    "title": "Rent Locker",
+    "selectSize": "Select Locker Size",
+    "selectLocker": "Select Specific Locker",
+    "slotsAvailable": "slots available",
+    "noLockerAvailable": "No size {{size}} lockers available",
+    "selectDifferentSize": "Please select a different size",
+    "floor": "Floor",
+    "perHour": "hour",
+    "selectTimeTitle": "Select Rental Period",
+    "endDate": "End Date",
+    "endTime": "End Time",
+    "selectDate": "Please select date!",
+    "selectTime": "Please select time!",
+    "itemType": "Item Type",
+    "foodDrink": "Food / Beverage",
+    "rentalInfo": "Rental Information",
+    "locker": "Locker",
+    "size": "Size",
+    "unitPrice": "Unit Price",
+    "rentalDuration": "Rental Duration",
+    "normalGoods": "Normal Goods",
+    "buildingNotFound": "Building not found",
+    "buildingIdError": "Building not found with ID",
+    "loadingBuilding": "Loading building data...",
+    "continue": "Continue",
+    "back": "Back",
+    "processing": "Processing...",
+    "notEnoughBalance": "Insufficient Balance",
+    "payment": "Payment"
+  },
+  "status": {
+    "available": "Available",
+    "occupied": "Occupied",
+    "maintenance": "Maintenance",
+    "reserved": "Reserved"
+  },
+  "sizes": {
+    "s": "Small (S)",
+    "m": "Medium (M)",
+    "l": "Large (L)",
+    "xl": "Extra Large (XL)"
+  },
+  "sizeDescriptions": {
+    "s": "Suitable for handbags, small boxes",
+    "m": "Suitable for backpacks, medium boxes",
+    "l": "Suitable for suitcases, large boxes",
+    "xl": "Suitable for large suitcases, extra large boxes"
+  },
+  "info": {
+    "locker": "Locker",
+    "slot": "Slot",
+    "building": "Building",
+    "floor": "Floor"
+  }
+}

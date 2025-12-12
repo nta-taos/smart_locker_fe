@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
   FaArrowLeft,
   FaCalendarAlt,
@@ -41,6 +42,7 @@ const { useBreakpoint } = Grid;
 const paymentMethods = [{ id: 'zipbox', name: 'Ví ZipBox', icon: '📦' }];
 
 export default function SendPage() {
+  const { t } = useTranslation('sendPackage');
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const screens = useBreakpoint();
@@ -96,8 +98,8 @@ export default function SendPage() {
       <Card
         title={
           <Title level={4} className={styles.sectionTitle}>
-            <FaCalendarAlt size={screens.sm ? 20 : 16} className={styles.sectionIcon} /> Chọn thời
-            gian nhận hàng
+            <FaCalendarAlt size={screens.sm ? 20 : 16} className={styles.sectionIcon} />{' '}
+            {t('selectTime')}
           </Title>
         }
         className={styles.antdCard}
@@ -105,9 +107,9 @@ export default function SendPage() {
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={12}>
             <Form.Item
-              label={<Text strong>Ngày nhận hàng</Text>}
+              label={<Text strong>{t('labels.receiveDate')}</Text>}
               name="receiveDate"
-              rules={[{ required: true, message: 'Vui lòng chọn ngày nhận hàng!' }]}
+              rules={[{ required: true, message: t('validation.receiveDateRequired') }]}
             >
               <DatePicker
                 style={{ width: '100%' }}
@@ -119,9 +121,9 @@ export default function SendPage() {
 
           <Col xs={24} sm={12}>
             <Form.Item
-              label={<Text strong>Giờ & Phút nhận hàng</Text>}
+              label={<Text strong>{t('labels.receiveTime')}</Text>}
               name="receiveTime"
-              rules={[{ required: true, message: 'Vui lòng chọn giờ nhận hàng!' }]}
+              rules={[{ required: true, message: t('validation.receiveTimeRequired') }]}
             >
               <TimePicker
                 style={{ width: '100%' }}
@@ -161,8 +163,8 @@ export default function SendPage() {
       <Card
         title={
           <Title level={4} className={styles.sectionTitle}>
-            <FaPhoneAlt size={screens.sm ? 20 : 16} className={styles.sectionIconOrange} /> Thông
-            tin người nhận
+            <FaPhoneAlt size={screens.sm ? 20 : 16} className={styles.sectionIconOrange} />{' '}
+            {t('recipientInfo')}
           </Title>
         }
         className={styles.antdCard}
@@ -170,30 +172,34 @@ export default function SendPage() {
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={12}>
             <Form.Item
-              label={<Text strong>Số điện thoại</Text>}
+              label={<Text strong>{t('labels.phoneNumber')}</Text>}
               name="phoneNumber"
-              rules={[{ required: true, message: 'Vui lòng nhập số điện thoại!' }]}
+              rules={[{ required: true, message: t('validation.phoneRequired') }]}
             >
               <Input
                 prefix={<FaPhoneAlt size={16} />}
-                placeholder="Nhập số điện thoại"
+                placeholder={t('placeholders.phoneNumber')}
                 className={styles.antInput}
               />
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item label={<Text strong>Mã đơn hàng</Text>} name="orderCode">
+            <Form.Item label={<Text strong>{t('labels.orderCode')}</Text>} name="orderCode">
               <Input
                 prefix={<FaFileAlt size={16} />}
-                placeholder="Nhập mã đơn hàng"
+                placeholder={t('placeholders.orderCode')}
                 className={styles.antInput}
               />
             </Form.Item>
           </Col>
 
           <Col xs={24}>
-            <Form.Item name="isFood" valuePropName="checked" label={<Text strong>Loại hàng</Text>}>
-              <Checkbox>Đồ ăn / thức uống</Checkbox>
+            <Form.Item
+              name="isFood"
+              valuePropName="checked"
+              label={<Text strong>{t('labels.goodsType')}</Text>}
+            >
+              <Checkbox>{t('labels.foodDrink')}</Checkbox>
             </Form.Item>
           </Col>
         </Row>
@@ -241,9 +247,11 @@ export default function SendPage() {
         <Content className={styles.antdContent}>
           <div className={styles.maxWidthWrapper}>
             <Title level={3} type="danger">
-              Không tìm thấy toà nhà
+              {t('messages.buildingNotFound')}
             </Title>
-            <Text>Không tìm thấy toà nhà với ID: {currentBuildingId}</Text>
+            <Text>
+              {t('messages.buildingIdNotFound')} {currentBuildingId}
+            </Text>
           </div>
         </Content>
       </Layout>
@@ -266,14 +274,14 @@ export default function SendPage() {
                 <FaPaperPlane className={styles.headerIcon} size={screens.sm ? 24 : 20} />
               </div>
               <Title level={2} className={styles.pageTitle}>
-                Gửi hàng
+                {t('title')}
               </Title>
             </div>
           </div>
         </Header>
         <Content className={styles.antdContent}>
           <div className={styles.maxWidthWrapper}>
-            <Text>Đang tải dữ liệu toà nhà...</Text>
+            <Text>{t('messages.loadingBuilding')}</Text>
           </div>
         </Content>
       </Layout>
@@ -296,7 +304,7 @@ export default function SendPage() {
                 <FaPaperPlane className={styles.headerIcon} size={screens.sm ? 24 : 20} />
               </div>
               <Title level={2} className={styles.pageTitle}>
-                Gửi hàng
+                {t('title')}
                 <Text
                   type="secondary"
                   style={{ fontSize: '1rem', marginLeft: 10, fontWeight: 400 }}
@@ -336,7 +344,7 @@ export default function SendPage() {
                 onClick={handleNextStep}
                 disabled={!selectedLocker}
               >
-                Tiếp tục
+                {t('buttons.continue')}
               </Button>
             )}
 
@@ -349,12 +357,12 @@ export default function SendPage() {
                     onClick={() => setStep(0)}
                     className={styles.antdSecondaryButton}
                   >
-                    Quay lại
+                    {t('buttons.back')}
                   </Button>
                 </Col>
                 <Col span={12}>
                   <Button type="primary" size="large" block onClick={handleNextStep}>
-                    Tiếp tục
+                    {t('buttons.continue')}
                   </Button>
                 </Col>
               </Row>
@@ -369,7 +377,7 @@ export default function SendPage() {
                     onClick={() => setStep(1)}
                     className={styles.antdSecondaryButton}
                   >
-                    Quay lại
+                    {t('buttons.back')}
                   </Button>
                 </Col>
                 <Col span={12}>
@@ -383,10 +391,10 @@ export default function SendPage() {
                     loading={isSubmitting}
                   >
                     {isSubmitting
-                      ? 'Đang xử lý...'
+                      ? t('buttons.processing')
                       : walletBalance < total
-                        ? 'Số dư không đủ'
-                        : 'Thanh toán'}
+                        ? t('buttons.insufficientBalance')
+                        : t('buttons.payment')}
                   </Button>
                 </Col>
               </Row>

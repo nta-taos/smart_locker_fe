@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { SendOutlined } from '@ant-design/icons';
 import { Rate } from 'antd';
@@ -8,11 +9,12 @@ import useTestimonials from './useTestimonials';
 
 const Testimonials: React.FC = () => {
   const { testimonials, stats } = useTestimonials();
+  const { t } = useTranslation('home');
   return (
     <section className={styles.testimonialsSection}>
-      <h2 className={styles.title}>Đánh giá của khách hàng</h2>
+      <h2 className={styles.title}>{t('testimonials.title')}</h2>
       <p className={styles.subtitle}>
-        <i>Hàng nghìn khách hàng đã tin tưởng và hài lòng với sản phẩm của chúng tôi.</i>
+        <i>{t('testimonials.subtitle')}</i>
       </p>
       <div className={styles.cards}>
         {testimonials.map((item, idx) => (
@@ -34,15 +36,15 @@ const Testimonials: React.FC = () => {
       <div className={styles.stats}>
         <div className={styles.stat}>
           <span className={styles.statNumber}>{stats.trust}</span>
-          <span className={styles.statLabel}>Độ tin cậy</span>
+          <span className={styles.statLabel}>{t('testimonials.stats.trust')}</span>
         </div>
         <div className={styles.stat}>
           <span className={styles.statNumber}>{stats.customers}</span>
-          <span className={styles.statLabel}>Khách hàng</span>
+          <span className={styles.statLabel}>{t('testimonials.stats.customers')}</span>
         </div>
         <div className={styles.stat}>
           <span className={styles.statNumber}>{stats.rating}</span>
-          <span className={styles.statLabel}>Đánh giá</span>
+          <span className={styles.statLabel}>{t('testimonials.stats.rating')}</span>
         </div>
       </div>
     </section>

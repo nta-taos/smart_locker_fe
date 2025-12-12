@@ -1,0 +1,23 @@
+{
+  "required": "Vui lòng nhập {{field}}",
+  "phone": {
+    "required": "Vui lòng nhập số điện thoại",
+    "invalid": "Số điện thoại phải là 10 số, bắt đầu bằng 0",
+    "format": "Số điện thoại không đúng định dạng"
+  },
+  "email": {
+    "required": "Vui lòng nhập email",
+    "invalid": "Email không đúng định dạng"
+  },
+  "password": {
+    "required": "Vui lòng nhập mật khẩu",
+    "minLength": "Mật khẩu phải có ít nhất {{min}} ký tự",
+    "notMatch": "Hai mật khẩu không khớp!"
+  },
+  "name": {
+    "required": "Vui lòng nhập họ và tên!"
+  },
+  "terms": {
+    "required": "Bạn phải đồng ý với Điều khoản sử dụng!"
+  }
+}

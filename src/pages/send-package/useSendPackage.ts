@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil';
 
@@ -38,6 +39,7 @@ const formatCurrency = (amount: number) => {
 };
 
 export const useSendPackage = (buildingId: number, form: FormInstance) => {
+  const { t } = useTranslation('sendPackage');
   const navigate = useNavigate();
   const currentBuildingId = Number(buildingId) || 1;
 
@@ -141,30 +143,30 @@ export const useSendPackage = (buildingId: number, form: FormInstance) => {
         const finalDuration = diffInHoursFloat;
 
         if (finalDuration < 1) {
-          message.error('Thời gian nhận hàng phải tối thiểu sau 1 giờ kể từ hiện tại.', 3);
+          message.error(t('validation.minimumTime'), 3);
           return;
         }
 
         setDuration(finalDuration);
         setStep(2);
       } else {
-        message.error('Vui lòng điền đủ thông tin bắt buộc và chọn tủ.', 3);
+        message.error(t('validation.fillRequired'), 3);
       }
     } catch {
-      message.error('Vui lòng điền đủ thông tin bắt buộc.', 3);
+      message.error(t('validation.fillAllRequired'), 3);
     }
   };
 
   const handleFinalSubmit = async () => {
     if (isSubmitting) return;
     if (!selectedLocker || walletBalance < total) {
-      message.error('Thông tin chưa hoàn chỉnh hoặc số dư không đủ.');
+      message.error(t('validation.incomplete'));
       return;
     }
 
     try {
       if (!selectedLocker || !step1Values || walletBalance < total) {
-        message.error('Thông tin chưa hoàn chỉnh, số dư không đủ hoặc thiếu dữ liệu bước 1.');
+        message.error(t('validation.incompleteOrInsufficient'));
         return;
       }
       setIsSubmitting(true);
@@ -189,12 +191,12 @@ export const useSendPackage = (buildingId: number, form: FormInstance) => {
       const res = await orderApi.postSendPackageOrder(payload);
 
       message.success(
-        `Đã thanh toán ${formatCurrency(total)} và tạo đơn hàng ${res.data.order_code} thành công!`,
+        t('messages.paymentSuccess', { amount: formatCurrency(total), code: res.data.order_code }),
         5,
       );
       navigate('/dashboard');
     } catch {
-      message.error(`Tạo đơn hàng thất bại. Vui lòng thử lại.`, 5);
+      message.error(t('messages.createOrderFailed'), 5);
     } finally {
       setIsSubmitting(false);
     }

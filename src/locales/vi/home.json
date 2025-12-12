@@ -1,0 +1,71 @@
+{
+  "hero": {
+    "title": "Thông minh, Tiện lợi,",
+    "subtitle": "Nhanh chóng!",
+    "description": "<strong>ZipBox</strong> là mô hình tủ giao nhận hàng thông minh tích hợp công nghệ <strong>IoT (Internet of Things)</strong> và ứng dụng <strong>PWA (Progressive Web App)</strong>, cho phép người dùng gửi hay nhận hàng mà <strong>không cần tiếp xúc trực tiếp.</strong>",
+    "cta": "Khám phá ngay"
+  },
+  "features": {
+    "title": "Tính năng đặc biệt",
+    "subtitle": "Khác biệt nằm ở sự tiện lợi.",
+    "mapTitle": "Bản đồ phân bố tủ",
+    "mapDescription": "Dễ dàng tìm kiếm và lựa chọn tủ gần bạn nhất qua bản đồ trực quan.",
+    "unlockTitle": "Mở khóa tủ thông minh",
+    "unlockDescription": "Xác thực qua ứng dụng để mở tủ nhanh chóng và an toàn.",
+    "orderTitle": "Đơn hàng của tôi",
+    "orderDescription": "Quản lý toàn bộ lịch sử và trạng thái đơn hàng chỉ trong một giao diện.",
+    "feature1": {
+      "title": "Mở khóa thông minh",
+      "description": "Mở tủ dễ dàng qua ứng dụng hoặc mã QR, không cần chìa khóa vật lý."
+    },
+    "feature2": {
+      "title": "Giao nhận 24/7",
+      "description": "Nhận và gửi hàng bất cứ lúc nào, không bị giới hạn bởi giờ làm việc."
+    },
+    "feature3": {
+      "title": "An toàn tuyệt đối",
+      "description": "Hệ thống bảo mật đa lớp, camera giám sát 24/7 đảm bảo hàng hóa luôn an toàn."
+    },
+    "feature4": {
+      "title": "Thanh toán linh hoạt",
+      "description": "Nhiều phương thức thanh toán: ví điện tử, thẻ, chuyển khoản."
+    }
+  },
+  "about": {
+    "subtitle": "MỘT CHÚT",
+    "title": "VỀ CHÚNG TÔI",
+    "visionTitle": "VISION",
+    "visionContent": "\"Trở thành <strong>hệ thống tủ thông minh hàng đầu Việt Nam và khu vực</strong>, tối ưu hoá hành trình giao nhận và lưu trữ trong <strong>kỷ nguyên đô thị thông minh</strong>.\"",
+    "missionTitle": "MISSION",
+    "missionContent": "\"Mang đến <strong>giải pháp giao nhận và lưu trữ an toàn, tiện lợi và linh hoạt 24/7</strong>, giúp tiết kiệm thời gian, chi phí, đồng thời thúc đẩy <strong>phát triển logistics bền vững</strong>.\"",
+    "discoverButton": "Khám phá ngay",
+    "locationBadge": "Địa điểm"
+  },
+  "testimonials": {
+    "title": "Đánh giá của khách hàng",
+    "subtitle": "Hàng nghìn khách hàng đã tin tưởng và hài lòng với sản phẩm của chúng tôi.",
+    "stats": {
+      "trust": "Độ tin cậy",
+      "customers": "Khách hàng",
+      "rating": "Đánh giá"
+    },
+    "reviews": {
+      "review1": "Sử dụng tủ giúp tôi tiết kiệm thời gian và chủ động hơn mỗi khi có hàng được giao đến. Một dịch vụ ok như vậy mà giá lại rất hợp lý. Hài lòng nha.",
+      "author1": "Lý Thu Hà",
+      "position1": "Người dùng tủ",
+      "review2": "Sau khi lắp đặt hệ thống khóa thông minh SmartLock Pro, công ty chúng tôi hoàn toàn yên tâm về bảo mật. Không còn lo lắng về việc mất chìa khóa hay bị sao chép.",
+      "author2": "Nguyễn Văn Quý",
+      "position2": "Shipper",
+      "review3": "Sau khi lắp đặt hệ thống khóa thông minh SmartLock Pro, công ty chúng tôi hoàn toàn yên tâm về bảo mật. Không còn lo lắng về việc mất chìa khóa hay bị sao chép.",
+      "author3": "Nguyễn Anh Tuấn",
+      "position3": "Đại diện Đơn vị vận chuyển",
+      "review4": "Từ ngày ZIPBOX lắp đặt tủ giao nhận thông minh tại sảnh chung cư, tình trạng hàng để lộn xộn, nhầm hàng, mất hàng được giải quyết đáng kể. Một mô hình đáng để hợp tác và triển khai.",
+      "author4": "Trần Thị Hồng Thơ",
+      "position4": "Đại diện Đối tác địa điểm"
+    }
+  },
+  "intro": {
+    "title": "Giải pháp giao - nhận thông minh cho cuộc sống hiện đại",
+    "startButton": "Bắt đầu ngay"
+  }
+}

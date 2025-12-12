@@ -1,0 +1,28 @@
+{
+  "balance": "Số dư",
+  "deposit": {
+    "title": "Nạp tiền vào ví",
+    "amount": "Số tiền nạp",
+    "amountLabel": "Số tiền",
+    "amountPlaceholder": "Nhập số tiền",
+    "placeholder": "Nhập số tiền cần nạp",
+    "minAmount": "Số tiền tối thiểu là 10,000 VND",
+    "button": "Nạp tiền",
+    "success": "Nạp tiền thành công!",
+    "error": "Nạp tiền thất bại!"
+  },
+  "transactions": {
+    "title": "Lịch sử giao dịch",
+    "deposit": "Nạp tiền",
+    "payment": "Thanh toán",
+    "empty": "Chưa có giao dịch nào",
+    "endMessage": "Không còn giao dịch nào"
+  },
+  "payment": {
+    "title": "Phương thức thanh toán",
+    "wallet": "Ví ZipBox",
+    "balance": "Số dư khả dụng",
+    "notEnough": "Số dư không đủ",
+    "depositNow": "Nạp tiền ngay"
+  }
+}

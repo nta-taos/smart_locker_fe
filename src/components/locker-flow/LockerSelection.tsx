@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FaLock } from 'react-icons/fa';
 import { useRecoilValue } from 'recoil';
 
@@ -39,6 +40,7 @@ const LockerGroup = ({
   onLockerSelect: (locker: SelectedLocker) => void;
 }) => {
   const locker = useRecoilValue(lockerAtom(lockerId));
+  const { t } = useTranslation('locker');
 
   if (!locker || !locker.slots || locker.slots.length === 0) return null;
 
@@ -78,7 +80,11 @@ const LockerGroup = ({
 
               <Text className={styles.lockerId}>{slotCode}</Text>
 
-              {locker.floor && <Text className={styles.lockerFloor}>Tầng {locker.floor}</Text>}
+              {locker.floor && (
+                <Text className={styles.lockerFloor}>
+                  {t('rental.floor')} {locker.floor}
+                </Text>
+              )}
 
               {isSelected && (
                 <div className={styles.selectedBadge}>
@@ -106,15 +112,19 @@ export const LockerSelection: React.FC<LockerSelectionProps> = ({
 }) => {
   const screens = useBreakpoint();
   const count = availableSizesCount[selectedSize] || 0;
+  const { t } = useTranslation('locker');
 
   return (
     <Card
       title={
         <div className={styles.sectionHeader}>
           <Title level={4} className={styles.sectionTitle}>
-            <FaLock size={screens.sm ? 20 : 16} className={styles.sectionIcon} /> Chọn tủ cụ thể
+            <FaLock size={screens.sm ? 20 : 16} className={styles.sectionIcon} />{' '}
+            {t('rental.selectLocker')}
           </Title>
-          <span className={styles.availableLockerTag}>{count} ngăn khả dụng</span>
+          <span className={styles.availableLockerTag}>
+            {count} {t('rental.slotsAvailable')}
+          </span>
         </div>
       }
       className={styles.antdCard}
@@ -135,10 +145,14 @@ export const LockerSelection: React.FC<LockerSelectionProps> = ({
         <div className={styles.noLocker}>
           <FaLock size={48} className={styles.noLockerIcon} />
           <Text type="secondary" className={styles.noLockerText}>
-            Không có tủ size {sizeOptions.find((s) => s.id === selectedSize)?.name} khả dụng
+            {t('rental.noLockerAvailable', {
+              size: sizeOptions.find((s) => s.id === selectedSize)?.nameKey
+                ? t(sizeOptions.find((s) => s.id === selectedSize)!.nameKey)
+                : '',
+            })}
           </Text>
           <Text type="secondary" className={styles.noLockerSubText}>
-            Vui lòng chọn size khác
+            {t('rental.selectDifferentSize')}
           </Text>
         </div>
       )}

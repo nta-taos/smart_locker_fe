@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import { ClearOutlined } from '@ant-design/icons';
 import { Button, Col, DatePicker, Input, Row, Tabs } from 'antd';
 import dayjs from 'dayjs';
@@ -7,6 +9,7 @@ import { useOrders } from './useOrders';
 
 export const OrdersPage = () => {
   const { tabItems, codeFilter, dateRange, setFilters } = useOrders();
+  const { t } = useTranslation(['orders', 'common']);
 
   const handleSearchCode = (value: string) => {
     setFilters({
@@ -54,7 +57,7 @@ export const OrdersPage = () => {
           <Row gutter={[8, 8]}>
             <Col xs={24} md={14}>
               <Input.Search
-                placeholder="Tìm theo mã đơn hàng"
+                placeholder={t('orders:searchPlaceholder')}
                 allowClear
                 enterButton
                 onSearch={handleSearchCode}
@@ -66,7 +69,7 @@ export const OrdersPage = () => {
 
             <Col xs={12} md={4}>
               <DatePicker
-                placeholder="Từ ngày"
+                placeholder={t('common:time.from')}
                 onChange={(v) => handleRangeChange(0, v)}
                 value={dateRange?.[0] ? dayjs(dateRange[0]) : undefined}
                 style={{ width: '100%' }}
@@ -81,7 +84,7 @@ export const OrdersPage = () => {
 
             <Col xs={12} md={4}>
               <DatePicker
-                placeholder="Đến ngày"
+                placeholder={t('common:time.to')}
                 onChange={(v) => handleRangeChange(1, v)}
                 value={dateRange?.[1] ? dayjs(dateRange[1]) : undefined}
                 style={{ width: '100%' }}
@@ -100,7 +103,7 @@ export const OrdersPage = () => {
 
             <Col xs={24} md={2}>
               <Button icon={<ClearOutlined />} type="primary" block onClick={handleClear}>
-                Xóa
+                {t('filters.clear')}
               </Button>
             </Col>
           </Row>

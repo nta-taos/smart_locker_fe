@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FaFacebook, FaTiktok } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 
@@ -8,6 +9,7 @@ import styles from './Footer.module.scss';
 
 const Footer: React.FC = () => {
   const year = new Date().getFullYear();
+  const { t } = useTranslation('common');
 
   // ======= SOCIAL LINKS =======
   const socials = [
@@ -17,10 +19,15 @@ const Footer: React.FC = () => {
   ];
 
   // ======= PRODUCTS =======
-  const products = ['Tủ bảo mật', 'Khóa thông minh'];
+  const products = [t('footer.products.secure'), t('footer.products.smartLock')];
 
   // ======= SUPPORT =======
-  const supports = ['Hướng dẫn cài đặt', 'Bảo hành & Sửa chữa', 'Chính sách & Điều khoản', 'FAQ'];
+  const supports = [
+    t('footer.support.guide'),
+    t('footer.support.warranty'),
+    t('footer.support.policy'),
+    t('footer.support.faq'),
+  ];
 
   // ======= CONTACT =======
   const contacts = [
@@ -51,7 +58,7 @@ const Footer: React.FC = () => {
       <div className={styles.container}>
         {/* Logo + Description + Socials */}
         <div className={styles.column}>
-          <h2 className={styles.logo}>CÔNG TY TNHH ZIPBOX VIỆT NAM</h2>
+          <h2 className={styles.logo}>{t('footer.companyName')}</h2>
 
           {/* Social icons */}
           <div className={styles.socials}>
@@ -65,7 +72,7 @@ const Footer: React.FC = () => {
 
         {/* Products */}
         <div className={styles.column}>
-          <h3>Sản phẩm</h3>
+          <h3>{t('footer.productsTitle')}</h3>
           <ul>
             {products.map((p, i) => (
               <li key={i}>{p}</li>
@@ -75,7 +82,7 @@ const Footer: React.FC = () => {
 
         {/* Support */}
         <div className={styles.column}>
-          <h3>Hỗ trợ</h3>
+          <h3>{t('footer.supportTitle')}</h3>
           <ul>
             {supports.map((s, i) => (
               <li key={i}>{s}</li>
@@ -85,7 +92,7 @@ const Footer: React.FC = () => {
 
         {/* Contact */}
         <div className={styles.column}>
-          <h3>Liên hệ</h3>
+          <h3>{t('footer.contactTitle')}</h3>
           <ul>
             {contacts.map((c, i) => (
               <li key={i} className={styles.contactItem}>
@@ -97,7 +104,7 @@ const Footer: React.FC = () => {
       </div>
 
       <div className={styles.bottom}>
-        © {year} Zipbox. Tất cả quyền được bảo lưu | CÔNG TY TNHH ZIPBOX VIỆT NAM
+        © {year} Zipbox. {t('footer.copyright')} | {t('footer.companyName')}
       </div>
     </footer>
   );

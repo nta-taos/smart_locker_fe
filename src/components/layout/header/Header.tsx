@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import { MenuFoldOutlined } from '@ant-design/icons';
+
+import LanguageSwitcher from '@/components/language-switcher/LanguageSwitcher';
 
 import styles from './Header.module.scss';
 
@@ -9,6 +12,7 @@ const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen((prev) => !prev);
   const navigate = useNavigate();
+  const { t } = useTranslation('common');
 
   return (
     <header className={styles.header}>
@@ -22,7 +26,7 @@ const Header: React.FC = () => {
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
               onClick={() => setIsOpen(false)}
             >
-              Trang chủ
+              {t('navigation.home')}
             </NavLink>
           </li>
           <li>
@@ -31,7 +35,7 @@ const Header: React.FC = () => {
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
               onClick={() => setIsOpen(false)}
             >
-              Bản đồ phân bố
+              {t('navigation.map')}
             </NavLink>
           </li>
           <li>
@@ -40,7 +44,7 @@ const Header: React.FC = () => {
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
               onClick={() => setIsOpen(false)}
             >
-              Trung tâm hỗ trợ
+              {t('navigation.support')}
             </NavLink>
           </li>
           <li>
@@ -49,7 +53,7 @@ const Header: React.FC = () => {
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
               onClick={() => setIsOpen(false)}
             >
-              Đối tác
+              {t('navigation.partner')}
             </NavLink>
           </li>
           <li>
@@ -58,14 +62,17 @@ const Header: React.FC = () => {
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
               onClick={() => setIsOpen(false)}
             >
-              Đăng nhập
+              {t('navigation.login')}
             </NavLink>
           </li>
         </ul>
       </nav>
 
-      <div className={styles.menuToggle} onClick={toggleMenu}>
-        <MenuFoldOutlined />
+      <div className={styles.right}>
+        <LanguageSwitcher />
+        <div className={styles.menuToggle} onClick={toggleMenu}>
+          <MenuFoldOutlined />
+        </div>
       </div>
     </header>
   );

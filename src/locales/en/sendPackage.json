@@ -1,0 +1,62 @@
+{
+  "steps": {
+    "selectLocker": {
+      "name": "Select Locker",
+      "description": "Choose size and locker"
+    },
+    "info": {
+      "name": "Information",
+      "description": "Enter details"
+    },
+    "payment": {
+      "name": "Payment",
+      "description": "Confirm & rent locker"
+    }
+  },
+  "title": "Send Package",
+  "selectTime": "Select Receive Time",
+  "recipientInfo": "Recipient Information",
+  "orderInfo": "Package Information",
+  "labels": {
+    "receiveDate": "Receive Date",
+    "receiveTime": "Receive Time",
+    "phoneNumber": "Phone Number",
+    "orderCode": "Order Code",
+    "goodsType": "Goods Type",
+    "foodDrink": "Food / Beverage",
+    "locker": "Locker",
+    "size": "Size",
+    "pricePerHour": "/ hour",
+    "unitPrice": "Unit Price",
+    "sendTime": "Send Time",
+    "hours": "hours"
+  },
+  "placeholders": {
+    "phoneNumber": "Enter phone number",
+    "orderCode": "Enter order code"
+  },
+  "validation": {
+    "receiveDateRequired": "Please select receive date!",
+    "receiveTimeRequired": "Please select receive time!",
+    "phoneRequired": "Please enter phone number!",
+    "minimumTime": "Receive time must be at least 1 hour from now.",
+    "fillRequired": "Please fill in all required information and select a locker.",
+    "fillAllRequired": "Please fill in all required information.",
+    "incomplete": "Information incomplete or insufficient balance.",
+    "incompleteOrInsufficient": "Information incomplete, insufficient balance or missing step 1 data."
+  },
+  "buttons": {
+    "continue": "Continue",
+    "back": "Back",
+    "payment": "Pay",
+    "processing": "Processing...",
+    "insufficientBalance": "Insufficient Balance"
+  },
+  "messages": {
+    "buildingNotFound": "Building not found",
+    "buildingIdNotFound": "Building not found with ID:",
+    "loadingBuilding": "Loading building data...",
+    "paymentSuccess": "Payment of {amount} successful and order {code} created!",
+    "createOrderFailed": "Failed to create order. Please try again."
+  }
+}

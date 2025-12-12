@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { Button } from 'antd';
@@ -8,6 +9,7 @@ import { useHero } from './useHero';
 
 const Hero: React.FC = () => {
   const { title, subtitle, ctaText } = useHero();
+  const { t } = useTranslation('home');
   const navigate = useNavigate();
 
   const handleCTA = () => {
@@ -22,13 +24,12 @@ const Hero: React.FC = () => {
           <div className={styles.contentWrapper}>
             <h1>
               {title}
-              <br /> <span>{subtitle} </span>
+              <br /> <span>{subtitle}</span>
             </h1>
-            <p style={{ textAlign: 'justify' }}>
-              <b>ZipBox</b> là mô hình tủ giao nhận hàng thông minh tích hợp công nghệ{' '}
-              <b>IoT (Internet of Things)</b> và ứng dụng <b>PWA (Progressive Web App)</b>, cho phép
-              người dùng gửi hay nhận hàng mà <b>không cần tiếp xúc trực tiếp.</b>
-            </p>
+            <p
+              style={{ textAlign: 'justify' }}
+              dangerouslySetInnerHTML={{ __html: t('hero.description') }}
+            />
             <Button type="primary" size="large" onClick={handleCTA} className={styles.cta}>
               {ctaText}
             </Button>

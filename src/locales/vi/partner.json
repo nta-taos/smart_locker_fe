@@ -1,0 +1,46 @@
+{
+  "hero": {
+    "title": "Cùng hợp tác, cùng phát triển.",
+    "description": "Trở thành đối tác của Zipbox"
+  },
+  "tabs": {
+    "delivery": "Đối tác vận chuyển",
+    "location": "Đối tác địa điểm"
+  },
+  "delivery": {
+    "description": "Cùng Zipbox kiến tạo hành trình giao nhận tối ưu, nơi tốc độ và độ tin cậy trở thành lợi thế cạnh tranh bền vững cho doanh nghiệp của bạn.",
+    "fulta": "Một trong những đơn vị chuyển phát nhanh hàng đầu tại Việt Nam, nổi bật với mạng lưới giao hàng rộng khắp và tốc độ vượt trội. ZIPBOX tự hào hợp tác cùng FUTA Express để mang đến trải nghiệm giao nhận hàng hóa liền mạch và đáng tin cậy cho khách hàng.",
+    "nhat_tin": "Cung cấp các giải pháp logistics và chuyển phát nhanh chuyên nghiệp, tối ưu hóa cho cả doanh nghiệp và cá nhân. Sự kết hợp giữa Nhất Tín và ZIPBOX đảm bảo các bưu kiện của bạn được xử lý an toàn và giao nhận một cách tiện lợi nhất."
+  },
+  "location": {
+    "description": "Hợp tác cùng Zipbox để biến không gian của bạn thành điểm giao nhận tiện lợi, gia tăng giá trị dịch vụ và nâng cao trải nghiệm cho cộng đồng xung quanh.",
+    "fpt": "Địa chỉ: Đường Võ Quý Huân, Khu đô thị FPT City, Ngũ Hành Sơn, Đà Nẵng. Là tổ hợp căn hộ hiện đại thuộc Khu đô thị FPT City. Tủ khóa thông minh ZIPBOX mang đến giải pháp nhận hàng 24/7 an toàn và chủ động cho cộng đồng cư dân công nghệ cao tại đây.",
+    "bau_tram": "Địa chỉ: Lô B4-1, Khu đô thị Bàu Tràm Lakeside, Liên Chiểu, Đà Nẵng. Là khu căn hộ có không gian sống yên tĩnh bên hồ. Hệ thống ZIPBOX được lắp đặt để phục vụ nhu cầu nhận hàng linh hoạt, bảo mật cho các gia đình và cư dân.",
+    "monarchy": "Địa chỉ: 535 Trần Hưng Đạo, Sơn Trà, Đà Nẵng. The Monarchy là một trong những khu căn hộ phức hợp cao cấp ven sông Hàn. Tủ ZIPBOX tại Monarchy giúp nâng tầm trải nghiệm sống tiện nghi, đảm bảo các bưu kiện của cư dân luôn được bảo vệ an toàn.",
+    "mobifone": "Địa chỉ: 586 Nguyễn Hữu Thọ, Cẩm Lệ, Đà Nẵng. Là trung tâm văn phòng và giao dịch quan trọng, tòa nhà Mobifone quy tụ lượng lớn nhân viên văn phòng. ZIPBOX cung cấp giải pháp nhận hàng cá nhân tiện lợi, giúp nhân viên chủ động nhận đồ mà không làm gián đoạn công việc.",
+    "vinaconex": "Địa chỉ: 320 đường 2/9, Hải Châu, Đà Nẵng. Tòa nhà Vinaconex là một trong những cao ốc văn phòng nổi bật của thành phố. Tủ ZIPBOX tại đây đảm bảo các nhân viên và công ty có thể nhận bưu kiện, tài liệu một cách nhanh chóng và an toàn mọi lúc."
+  },
+  "form": {
+    "title": "ĐĂNG KÝ HỢP TÁC",
+    "fullName": "Họ và tên",
+    "fullNamePlaceholder": "Họ và tên",
+    "fullNameRequired": "Vui lòng nhập họ tên",
+    "phone": "Số điện thoại",
+    "phonePlaceholder": "Số điện thoại",
+    "phoneRequired": "Vui lòng nhập số điện thoại",
+    "phoneInvalid": "Số điện thoại không hợp lệ",
+    "email": "Email",
+    "emailPlaceholder": "Email",
+    "emailRequired": "Vui lòng nhập email",
+    "emailInvalid": "Email không hợp lệ",
+    "category": "Danh mục hợp tác",
+    "categoryPlaceholder": "Chọn danh mục hợp tác",
+    "categoryOptionTransport": "Đối tác vận chuyển",
+    "categoryOptionLocation": "Đối tác địa điểm",
+    "note": "Thông điệp của bạn",
+    "notePlaceholder": "Thông điệp của bạn...",
+    "submitButton": "Gửi ngay",
+    "successMessage": "Đăng ký thành công! Chúng tôi sẽ liên hệ sớm nhất.",
+    "errorMessage": "Đăng ký thất bại, vui lòng thử lại!"
+  }
+}
