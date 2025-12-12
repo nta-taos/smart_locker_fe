@@ -39,7 +39,7 @@ const { Header, Content } = Layout;
 const { Title, Text } = Typography;
 const { useBreakpoint } = Grid;
 
-const paymentMethods = [{ id: 'zipbox', name: 'Ví ZipBox', icon: '📦' }];
+const paymentMethods = [{ id: 'zipbox', nameKey: 'payment.wallet', icon: '📦' }];
 
 export default function SendPage() {
   const { t } = useTranslation('sendPackage');
