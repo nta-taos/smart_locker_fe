@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { Empty, Spin } from 'antd';
@@ -25,6 +26,7 @@ export const OrderList: React.FC<OrderListProps> = ({
   from,
   to,
 }) => {
+  const { t } = useTranslation('common');
   const { orderAll, orderPending, orderReceived, loadMore, isLoading, isLoadMore } = useOrderList(
     limit,
     status,
@@ -49,7 +51,7 @@ export const OrderList: React.FC<OrderListProps> = ({
     if (data.orders.length === 0) {
       return (
         <div className={styles.emptyContainer}>
-          <Empty description="Không có đơn hàng" />
+          <Empty description={t('orderList.noOrders')} />
         </div>
       );
     }
@@ -61,7 +63,7 @@ export const OrderList: React.FC<OrderListProps> = ({
         hasMore={data.page < data.totalPages}
         loader={isLoadMore && renderLoading()}
         scrollableTarget="scrollableOrderDiv"
-        endMessage={<p style={{ textAlign: 'center' }}>Hết dữ liệu</p>}
+        endMessage={<p style={{ textAlign: 'center' }}>{t('orderList.endOfData')}</p>}
         style={{ overflow: 'hidden' }}
       >
         {data.orders.map((order, idx) => (

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
   CloseOutlined,
@@ -11,11 +12,14 @@ import { FloatButton, message } from 'antd';
 import { chatApi } from '@/api/chatApi';
 
 import styles from './ChatWidget.module.scss';
-import { ChatMessage, mockMessages } from './chatMessages';
+import { ChatMessage, getInitialMessages } from './chatMessages';
 
 const ChatWidget: React.FC = () => {
+  const { t } = useTranslation('common');
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>(mockMessages);
+  const [messages, setMessages] = useState<ChatMessage[]>(() =>
+    getInitialMessages(t('chat.welcomeMessage')),
+  );
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
 
@@ -38,9 +42,7 @@ const ChatWidget: React.FC = () => {
 
     try {
       const response = await chatApi.ask(text);
-      const replyContent =
-        response.data?.reply ||
-        'ZIPBOX đang kiểm tra thêm thông tin cho bạn, vui lòng chờ trong giây lát nhé!';
+      const replyContent = response.data?.reply || t('chat.fallbackReply');
 
       const reply: ChatMessage = {
         id: Date.now() + 1,
@@ -51,7 +53,7 @@ const ChatWidget: React.FC = () => {
       setMessages((prev) => [...prev, reply]);
     } catch (err) {
       console.error(err);
-      message.error('Không thể kết nối trợ lý ZIPBOX. Vui lòng thử lại sau.');
+      message.error(t('chat.connectionError'));
     } finally {
       setIsTyping(false);
     }
@@ -71,7 +73,7 @@ const ChatWidget: React.FC = () => {
           icon={<MessageOutlined />}
           onClick={() => setOpen(true)}
           style={{ right: 24, bottom: 24, width: 56, height: 56 }}
-          tooltip="Chat Hỗ Trợ"
+          tooltip={t('chat.tooltip')}
         />
       )}
 
@@ -80,9 +82,9 @@ const ChatWidget: React.FC = () => {
           <div className={styles.header}>
             <div className={styles.title}>
               <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <CustomerServiceOutlined /> Hỗ trợ khách hàng
+                <CustomerServiceOutlined /> {t('chat.title')}
               </span>
-              <span className={styles.status}>Đang hoạt động</span>
+              <span className={styles.status}>{t('chat.status')}</span>
             </div>
             <CloseOutlined className={styles.close} onClick={() => setOpen(false)} />
           </div>
@@ -99,7 +101,7 @@ const ChatWidget: React.FC = () => {
             ))}
             {isTyping && (
               <div className={`${styles.msg} ${styles.support}`}>
-                <p>ZIPBOX đang soạn phản hồi…</p>
+                <p>{t('chat.typing')}</p>
               </div>
             )}
           </div>
@@ -107,7 +109,7 @@ const ChatWidget: React.FC = () => {
           <div className={styles.inputArea}>
             <input
               type="text"
-              placeholder="Nhập tin nhắn..."
+              placeholder={t('chat.placeholder')}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && sendMessage()}

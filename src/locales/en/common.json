@@ -85,6 +85,7 @@
     "backHome": "Back to Home"
   },
   "footer": {
+    "companyName": "Zipbox",
     "company": "Company",
     "about": "About Us",
     "contact": "Contact",
@@ -92,10 +93,41 @@
     "terms": "Terms of Service",
     "social": "Social Media",
     "followUs": "Follow Us",
-    "copyright": "© 2025 ZipBox. All rights reserved.",
-    "support": "Support",
-    "faq": "FAQ",
-    "help": "Help"
+    "copyright": "All rights reserved.",
+    "productsTitle": "Products",
+    "supportTitle": "Support",
+    "contactTitle": "Contact",
+    "products": {
+      "secure": "Secure Delivery",
+      "smartLock": "Smart Locker"
+    },
+    "supportItems": {
+      "guide": "User Guide",
+      "warranty": "Warranty Policy",
+      "policy": "Delivery Policy",
+      "faq": "FAQ"
+    },
+    "contactInfo": {
+      "address": "55 Dong Hai 8, Ngu Hanh Son, Da Nang",
+      "phone": "+84 835 788 256",
+      "email": "zipboxcorp@gmail.com",
+      "workingHours": "Mon - Fri: 8:00 - 17:00",
+      "saturdayHours": "Sat: 8:00 - 12:00"
+    }
+  },
+  "chat": {
+    "tooltip": "Support Chat",
+    "title": "Customer Support",
+    "status": "Online",
+    "typing": "ZIPBOX is typing a response…",
+    "placeholder": "Type a message...",
+    "fallbackReply": "ZIPBOX is checking more information for you, please wait a moment!",
+    "connectionError": "Unable to connect to ZIPBOX assistant. Please try again later.",
+    "welcomeMessage": "Hello! I'm ZIPBOX Care Bot. Would you like to ask about locker policies, payment, or need help using the PWA?"
+  },
+  "orderList": {
+    "noOrders": "No orders",
+    "endOfData": "End of data"
   },
   "orderSummary": {
     "title": "Order Summary",

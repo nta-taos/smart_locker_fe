@@ -236,7 +236,7 @@ const AntOrderDetails: React.FC = () => {
     >
       <Row>
         <Col span={8}>
-          <Text type="secondary">Họ tên</Text>
+          <Text type="secondary">{t('detail.fullName')}</Text>
         </Col>
         <Col span={16}>
           <Text>{order.sender.name}</Text>
@@ -244,7 +244,7 @@ const AntOrderDetails: React.FC = () => {
       </Row>
       <Row>
         <Col span={8}>
-          <Text type="secondary">Số điện thoại</Text>
+          <Text type="secondary">{t('detail.phone')}</Text>
         </Col>
         <Col span={16}>
           <Text>
@@ -278,7 +278,7 @@ const AntOrderDetails: React.FC = () => {
       </Row>
       <Row>
         <Col span={8}>
-          <Text type="secondary">Số điện thoại</Text>
+          <Text type="secondary">{t('detail.phone')}</Text>
         </Col>
         <Col span={16}>
           <Text>
@@ -328,8 +328,8 @@ const AntOrderDetails: React.FC = () => {
             {order.status >= 2
               ? order.end_time
                 ? formatDateTime(order.end_time)
-                : 'Đã xác nhận'
-              : 'Chờ nhận'}
+                : t('timeline.confirmed')
+              : t('timeline.waitingReceive')}
           </Text>
         </>
       ),

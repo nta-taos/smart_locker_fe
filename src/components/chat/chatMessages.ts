@@ -5,10 +5,11 @@ export type ChatMessage = {
   time: string;
 };
 
-export const mockMessages: ChatMessage[] = [
+// Helper function to get initial messages with translation
+export const getInitialMessages = (welcomeMessage: string): ChatMessage[] => [
   {
     id: 1,
-    text: 'Xin chào! Mình là ZIPBOX Care Bot. Bạn muốn hỏi về chính sách tủ, thanh toán hay cần hướng dẫn sử dụng PWA?',
+    text: welcomeMessage,
     sender: 'support',
     time: '09:00',
   },

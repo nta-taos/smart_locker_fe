@@ -85,6 +85,7 @@
     "backHome": "Về trang chủ"
   },
   "footer": {
+    "companyName": "Zipbox",
     "company": "Công ty",
     "about": "Về chúng tôi",
     "contact": "Liên hệ",
@@ -92,10 +93,41 @@
     "terms": "Điều khoản sử dụng",
     "social": "Mạng xã hội",
     "followUs": "Theo dõi chúng tôi",
-    "copyright": "© 2025 ZipBox. Tất cả quyền được bảo lưu.",
-    "support": "Hỗ trợ",
-    "faq": "Câu hỏi thường gặp",
-    "help": "Trợ giúp"
+    "copyright": "Tất cả quyền được bảo lưu.",
+    "productsTitle": "Sản phẩm",
+    "supportTitle": "Hỗ trợ",
+    "contactTitle": "Liên hệ",
+    "products": {
+      "secure": "Gửi hàng an toàn",
+      "smartLock": "Tủ thông minh"
+    },
+    "supportItems": {
+      "guide": "Hướng dẫn sử dụng",
+      "warranty": "Chính sách bảo hành",
+      "policy": "Quy định giao nhận",
+      "faq": "Câu hỏi thường gặp"
+    },
+    "contactInfo": {
+      "address": "55 Đông Hải 8, Ngũ Hành Sơn, Đà Nẵng",
+      "phone": "+84 835 788 256",
+      "email": "zipboxcorp@gmail.com",
+      "workingHours": "T2 - T6: 8:00 - 17:00",
+      "saturdayHours": "T7: 8:00 - 12:00"
+    }
+  },
+  "chat": {
+    "tooltip": "Chat Hỗ Trợ",
+    "title": "Hỗ trợ khách hàng",
+    "status": "Đang hoạt động",
+    "typing": "ZIPBOX đang soạn phản hồi…",
+    "placeholder": "Nhập tin nhắn...",
+    "fallbackReply": "ZIPBOX đang kiểm tra thêm thông tin cho bạn, vui lòng chờ trong giây lát nhé!",
+    "connectionError": "Không thể kết nối trợ lý ZIPBOX. Vui lòng thử lại sau.",
+    "welcomeMessage": "Xin chào! Mình là ZIPBOX Care Bot. Bạn muốn hỏi về chính sách tủ, thanh toán hay cần hướng dẫn sử dụng PWA?"
+  },
+  "orderList": {
+    "noOrders": "Không có đơn hàng",
+    "endOfData": "Hết dữ liệu"
   },
   "orderSummary": {
     "title": "Tóm tắt đơn hàng",

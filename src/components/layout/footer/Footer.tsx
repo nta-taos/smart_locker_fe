@@ -23,33 +23,33 @@ const Footer: React.FC = () => {
 
   // ======= SUPPORT =======
   const supports = [
-    t('footer.support.guide'),
-    t('footer.support.warranty'),
-    t('footer.support.policy'),
-    t('footer.support.faq'),
+    t('footer.supportItems.guide'),
+    t('footer.supportItems.warranty'),
+    t('footer.supportItems.policy'),
+    t('footer.supportItems.faq'),
   ];
 
   // ======= CONTACT =======
   const contacts = [
     {
       icon: <EnvironmentFilled />,
-      text: '55 Đông Hải 8, Ngũ Hành Sơn, Đà Nẵng',
+      text: t('footer.contactInfo.address'),
     },
     {
       icon: <PhoneFilled />,
-      text: '+84 835 788 256',
+      text: t('footer.contactInfo.phone'),
     },
     {
       icon: <MailFilled />,
-      text: 'zipboxcorp@gmail.com',
+      text: t('footer.contactInfo.email'),
     },
     {
       icon: <ClockCircleFilled />,
-      text: 'T2 - T6: 8:00 - 17:00',
+      text: t('footer.contactInfo.workingHours'),
     },
     {
       icon: <ClockCircleFilled />,
-      text: 'T7: 8:00 - 12:00',
+      text: t('footer.contactInfo.saturdayHours'),
     },
   ];
 
