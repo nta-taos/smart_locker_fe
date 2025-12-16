@@ -36,12 +36,12 @@
 
 .heroTabs {
   position: relative;
-  top: -76px;
+  top: -64px;
   :global(.ant-tabs-nav) {
     margin: 0 auto;
   }
   :global(.ant-tabs-tab-btn) {
-    font-size: 24px;
+    font-size: 16px;
     margin: auto;
     width: 100%;
     display: flex;
@@ -60,7 +60,7 @@
   }
   :global(.ant-tabs-tab-active) {
     background: $bg-white !important;
-    font-weight: 700;
+    font-weight: 600;
     border-radius: 8px;
   }
 }
@@ -70,8 +70,8 @@
   gap: 8px;
 }
 .tabIcon {
-  width: 50px;
-  height: 50px;
+  width: 36px;
+  height: 36px;
   color: $text-link;
 }
 .tabText {

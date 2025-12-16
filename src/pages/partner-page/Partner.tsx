@@ -82,7 +82,6 @@ const Partner: React.FC = () => {
           label: tab.label,
           children: (
             <div className={styles.partnersSection}>
-              <p className={styles.heroSubtitle}>{t('hero.description')}</p>
               <Row gutter={[24, 24]} style={{ margin: 0 }} className={styles.grid}>
                 {tab.partners.map((p, i) => (
                   <Col xs={24} sm={12} md={12} lg={12} key={i}>

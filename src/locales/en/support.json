@@ -27,12 +27,15 @@
     "title": "Submit Support Request",
     "name": "Full Name",
     "namePlaceholder": "Enter full name",
+    "phone": "Phone Number",
+    "phonePlaceholder": "Enter phone number",
     "email": "Email",
     "emailPlaceholder": "Enter email",
     "subject": "Subject",
     "subjectPlaceholder": "Enter subject",
     "message": "Message",
     "messagePlaceholder": "Enter your support request",
+    "attachmentPlaceholder": "Attach image (optional)",
     "submit": "Submit Request"
   },
   "office": {

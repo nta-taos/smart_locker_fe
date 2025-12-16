@@ -27,12 +27,15 @@
     "title": "Gửi yêu cầu hỗ trợ",
     "name": "Họ và tên",
     "namePlaceholder": "Nhập họ và tên",
+    "phone": "Số điện thoại",
+    "phonePlaceholder": "Nhập số điện thoại",
     "email": "Email",
     "emailPlaceholder": "Nhập email",
     "subject": "Chủ đề",
     "subjectPlaceholder": "Nhập chủ đề",
     "message": "Nội dung",
     "messagePlaceholder": "Nhập nội dung cần hỗ trợ",
+    "attachmentPlaceholder": "Đính kèm ảnh (nếu có)",
     "submit": "Gửi yêu cầu"
   },
   "office": {
