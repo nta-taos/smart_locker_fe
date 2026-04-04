@@ -26,6 +26,7 @@ export const ENDPOINTS = {
     confirmOrderAuthorization: (orderId: number | string) =>
       `/order-authorizations/${orderId}/confirm`,
     rentalOrder: '/orders/rent',
+    chatAsk: '/chat/ask',
   },
   auth: {
     login: '/auth/login',
@@ -33,5 +34,7 @@ export const ENDPOINTS = {
     register: '/auth/register',
     googleCheck: '/auth/google-check',
     googleRegisterComplete: '/auth/google-register-complete',
+    forgotPassword: '/auth/forgot-password',
+    resetPassword: '/auth/reset-password',
   },
 };

@@ -1,10 +1,12 @@
 import { useCallback, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
+import { useWallet } from '@/hooks/useWallet';
 import { authState } from '@/recoil/atom/authAtom';
 
 export const useDashboard = () => {
   const auth = useRecoilValue(authState);
+  const { wallet } = useWallet();
 
   const [isBalanceVisible, setIsBalanceVisible] = useState(false);
 
@@ -16,6 +18,7 @@ export const useDashboard = () => {
 
   return {
     auth,
+    wallet,
     userRole,
     isBalanceVisible,
     toggleBalanceVisibility,

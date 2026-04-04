@@ -14,9 +14,10 @@ const { Text } = Typography;
 interface OrderActionsProps {
   order: OrderItemType;
   isReceiving: boolean;
+  canAuthorize: boolean;
 }
 
-export function OrderActions({ order, isReceiving }: OrderActionsProps) {
+export function OrderActions({ order, isReceiving, canAuthorize }: OrderActionsProps) {
   const [isReceiveModalOpen, setReceiveModalOpen] = useState(false);
   const [isAuthorizeModalOpen, setAuthorizeModalOpen] = useState(false);
 
@@ -84,7 +85,7 @@ export function OrderActions({ order, isReceiving }: OrderActionsProps) {
         </Text>
 
         <Row gutter={[16, 16]} justify="center">
-          <Col xs={24} sm={12}>
+          <Col xs={24} sm={canAuthorize ? 12 : 24}>
             <Card
               hoverable
               onClick={order.status === 0 || order.status === 2 ? undefined : handleReceiveOpen}
@@ -107,28 +108,30 @@ export function OrderActions({ order, isReceiving }: OrderActionsProps) {
             </Card>
           </Col>
 
-          <Col xs={24} sm={12}>
-            <Card
-              hoverable
-              onClick={order.status === 0 || order.status === 2 ? undefined : handleAuthorizeOpen}
-              style={{
-                opacity: order.status === 0 || order.status === 2 ? 0.5 : 1,
-                height: '100%',
-              }}
-            >
-              <Card.Meta
-                avatar={
-                  <Avatar
-                    size={48}
-                    style={{ backgroundColor: '#f6ffed', color: '#52c41a' }}
-                    icon={<UsergroupAddOutlined />}
-                  />
-                }
-                title={<Text strong>Ủy quyền nhận</Text>}
-                description="Cho người khác nhận hàng"
-              />
-            </Card>
-          </Col>
+          {canAuthorize && (
+            <Col xs={24} sm={12}>
+              <Card
+                hoverable
+                onClick={order.status === 0 || order.status === 2 ? undefined : handleAuthorizeOpen}
+                style={{
+                  opacity: order.status === 0 || order.status === 2 ? 0.5 : 1,
+                  height: '100%',
+                }}
+              >
+                <Card.Meta
+                  avatar={
+                    <Avatar
+                      size={48}
+                      style={{ backgroundColor: '#f6ffed', color: '#52c41a' }}
+                      icon={<UsergroupAddOutlined />}
+                    />
+                  }
+                  title={<Text strong>Ủy quyền nhận</Text>}
+                  description="Cho người khác nhận hàng"
+                />
+              </Card>
+            </Col>
+          )}
         </Row>
       </Card>
 

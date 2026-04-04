@@ -5,6 +5,7 @@ import { authState } from '@/recoil/atom/authAtom';
 import { orderState } from '@/recoil/atom/order.atom';
 import { slotAtom } from '@/recoil/atom/slot.atom';
 import { transactionState } from '@/recoil/atom/transaction.atom';
+import { walletState } from '@/recoil/atom/walletAtom';
 import { OrderItemType } from '@/types/order.type';
 import { SlotType } from '@/types/slot.type';
 import { TransactionItemType } from '@/types/transaction.type';
@@ -16,6 +17,7 @@ import { registerSocketEvents } from './socketEvents';
 export const useSocketListener = () => {
   const setOrders = useSetRecoilState(orderState);
   const setAuth = useSetRecoilState(authState);
+  const setWallet = useSetRecoilState(walletState);
   const setTransaction = useSetRecoilState(transactionState);
 
   const setSlotState = useRecoilCallback(
@@ -56,17 +58,8 @@ export const useSocketListener = () => {
       },
 
       onWalletUpdate: (updatedWallet: WalletType) => {
-        console.log('chek updatedWallet', updatedWallet);
-        setAuth((prevAuth) => {
-          if (!prevAuth?.user) return prevAuth;
-          return {
-            ...prevAuth,
-            user: {
-              ...prevAuth.user,
-              wallet: updatedWallet,
-            },
-          };
-        });
+        console.log('Wallet updated via socket:', updatedWallet);
+        setWallet(updatedWallet);
       },
     });
 
@@ -77,5 +70,5 @@ export const useSocketListener = () => {
       socket.off('wallet:updated');
       socket.off('transaction:created');
     };
-  }, [setOrders, setSlotState, setAuth, setTransaction]);
+  }, [setOrders, setSlotState, setAuth, setWallet, setTransaction]);
 };

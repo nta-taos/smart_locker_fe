@@ -1,0 +1,473 @@
+@use '../../styles/abstracts/color' as *;
+
+/* --- Shared Locker Flow Styles --- */
+
+.antdCard {
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid $color-border-light;
+  color: $text-default;
+
+  :global(.ant-card-head) {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 !important;
+  color: $text-default;
+}
+
+.sectionIcon {
+  color: $text-default;
+  padding: 4px;
+  background-color: rgba($color-primary, 0.1);
+  border-radius: 8px;
+}
+
+.sectionIconOrange {
+  color: $color-secondary;
+  padding: 4px;
+  background-color: rgba($color-secondary, 0.1);
+  border-radius: 8px;
+}
+
+/* --- Size Selection --- */
+.fullWidthGroup {
+  width: 100%;
+}
+
+.sizeOptionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sizeOptionButton {
+  position: relative;
+  width: 100%;
+  padding: 16px;
+  border-radius: 10px;
+  border: 2px solid $color-border-light;
+  background: linear-gradient(to bottom, #ffffff 0%, #f9f8f6 100%);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(#f7832d, 0.08) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  &:hover {
+    border-color: rgba($color-primary, 0.4);
+    box-shadow: 0 8px 20px rgba($color-primary, 0.12);
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  &:active {
+    transform: translateY(2px);
+    box-shadow: 0 4px 12px rgba($color-primary, 0.1);
+  }
+}
+
+.sizeOptionButtonSelected {
+  border: none;
+  background: linear-gradient(to right, #f7832d 0%, #ffb103 100%);
+  box-shadow: 0 8px 24px rgba($color-primary, 0.25);
+  transform: translateY(-2px);
+
+  .sizeTitle,
+  .sizeDescription,
+  .priceAmount {
+    color: white;
+  }
+
+  .sizeCount {
+    color: rgba(255, 255, 255, 0.85) !important;
+  }
+
+  .dimensionTag {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: white;
+  }
+
+  &::before {
+    opacity: 0;
+  }
+}
+
+.sizeOptionButtonDisabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.sizeRadio {
+  width: 100%;
+  height: auto;
+  padding: 12px;
+  border-radius: 8px !important;
+  border: 2px solid $color-border-light !important;
+  background: white;
+  transition: all 0.3s;
+
+  &:hover {
+    border-color: rgba($color-primary, 0.5) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  // Hide AntD's default radio button
+  :global(.ant-radio-button) {
+    display: none;
+  }
+}
+
+.sizeRadioSelected {
+  @extend .sizeRadio;
+  border-color: $color-primary !important;
+  background: rgba($color-primary, 0.05);
+  box-shadow: 0 4px 12px rgba($color-primary, 0.1);
+}
+
+.sizeRadioContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.sizeRadioText {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sizeTitle {
+  font-size: 16px;
+  color: $text-default;
+  transition: color 0.3s ease;
+}
+
+.sizeCount {
+  transition: color 0.3s ease;
+}
+
+.dimensionTag {
+  font-size: 10px;
+  padding: 4px 12px;
+  border-radius: 16px;
+  background-color: rgba($color-primary, 0.1);
+  color: $color-primary;
+  border: 1px solid $color-border-light;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.sizeDescription {
+  font-size: 13px;
+  color: $color-text-light;
+  transition: color 0.3s ease;
+}
+
+.priceTag {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding-top: 4px;
+}
+
+.priceAmount {
+  font-size: 18px;
+  font-weight: 700;
+  color: $color-secondary;
+  transition: color 0.3s ease;
+}
+
+/* --- Locker Selection --- */
+.availableLockerTag {
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background-color: rgba($color-primary, 0.1);
+  color: $color-primary;
+  font-weight: 500;
+}
+
+.lockerGrid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.lockerBox {
+  position: relative;
+  padding: 12px 8px;
+  text-align: center;
+  border-radius: 8px;
+  border: 2px solid $color-border-light;
+  cursor: pointer;
+  transition: all 0.3s;
+  height: 100%;
+
+  &:hover {
+    border-color: rgba($color-primary, 0.5);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.lockerBoxContainer {
+  padding: 6px;
+}
+
+.lockerContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.lockerIconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background-color: rgba($color-primary, 0.04);
+}
+
+.lockerBoxIcon {
+  font-size: 18px;
+  color: $color-primary;
+}
+
+.lockerBoxDefault {
+  background: white;
+  .lockerId {
+    color: $text-default;
+  }
+  .lockerFloor {
+    color: $color-text-light;
+  }
+}
+
+.lockerBoxSelected {
+  background: $color-primary;
+  border-color: $color-primary;
+  box-shadow: 0 8px 16px rgba($color-primary, 0.3);
+  transform: scale(1.05);
+
+  .lockerId,
+  .lockerFloor {
+    color: white;
+    opacity: 0.9;
+  }
+}
+
+.lockerId {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.lockerFloor {
+  font-size: 10px;
+  display: inline-block;
+  margin-top: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background-color: rgba($color-primary, 0.06);
+  border: 1px solid $color-border-light;
+  color: $color-text-light;
+  width: 100%;
+}
+
+.selectedBadge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: $color-secondary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+}
+
+.noLocker {
+  text-align: center;
+  padding: 48px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.noLockerIcon {
+  color: $color-text-light;
+  background-color: #f5f3ef;
+  padding: 12px;
+  border-radius: 9999px;
+  margin-bottom: 8px;
+}
+
+.noLockerText {
+  font-size: 13px;
+}
+
+.noLockerSubText {
+  font-size: 11px;
+}
+
+/* --- Order Summary --- */
+.summaryCard {
+  background: linear-gradient(
+    to bottom right,
+    rgba($color-primary, 0.05),
+    rgba($color-secondary, 0.05),
+    rgba($color-primary, 0.05)
+  );
+}
+
+.summaryList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.summaryRow {
+  padding: 8px 0;
+  border-bottom: 1px solid $color-border-light;
+}
+
+.priceTextSmall {
+  color: $color-secondary;
+}
+
+.totalRowAntd {
+  margin: 16px -24px -16px;
+  padding: 12px 24px;
+  background-color: rgba($color-primary, 0.05);
+  border-radius: 12px;
+}
+
+.totalLabel {
+  font-size: 16px;
+  @media (min-width: 640px) {
+    font-size: 18px;
+  }
+}
+
+.totalAmount {
+  font-size: 24px;
+  font-weight: bold;
+  color: $color-secondary;
+
+  @media (min-width: 640px) {
+    font-size: 30px;
+  }
+}
+
+/* --- Payment Method Card --- */
+.paymentMethodContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.walletCard {
+  @extend .sizeRadio;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border: 2px solid $color-primary;
+  background-color: rgba($color-primary, 0.05);
+
+  @media (max-width: 420px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+
+    :global(.ant-btn) {
+      width: 100%;
+    }
+  }
+}
+
+.walletInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.walletIcon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.walletDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.walletName {
+  font-size: 16px;
+  display: block;
+  color: $text-default;
+}
+
+.walletBalance {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.walletBalanceLabel {
+  font-size: 14px;
+  color: $text-weak;
+}
+
+.walletBalanceAmount {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.walletBalanceAmount--sufficient {
+  color: $color-success;
+}
+
+.walletBalanceAmount--insufficient {
+  color: #f5222d;
+}

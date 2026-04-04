@@ -12,6 +12,7 @@
   max-width: 100%;
   height: auto;
   box-sizing: border-box;
+  font-family: 'SVN-Gilroy', sans-serif !important;
   h3 {
     font-size: 1.6rem;
     color: $fg-primary;
@@ -22,6 +23,10 @@
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
+
+    .textarea {
+      font-family: 'SVN-Gilroy', sans-serif;
+    }
 
     label {
       font-size: 1rem;

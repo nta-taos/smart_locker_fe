@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
+import { MdFastfood } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
@@ -11,6 +12,7 @@ import {
   DollarCircleOutlined,
   EnvironmentOutlined,
   ExclamationCircleOutlined,
+  InboxOutlined,
   PhoneOutlined,
   SyncOutlined,
   UserOutlined,
@@ -24,12 +26,15 @@ import {
   Layout,
   Row,
   Space,
+  Spin,
   Tabs,
   Tag,
   Timeline,
   Typography,
+  message,
 } from 'antd';
 
+import { orderApi } from '@/api/orderApi';
 import { authState } from '@/recoil/atom/authAtom';
 import { orderState } from '@/recoil/atom/order.atom';
 import { OrderItemType } from '@/types/order.type';
@@ -60,17 +65,43 @@ const AntOrderDetails: React.FC = () => {
   const [orderStateValue] = useRecoilState(orderState);
   const screens = useBreakpoint();
   const navigate = useNavigate();
-
-  const order = orderStateValue.orders.find((o) => o.id === Number(orderId)) as OrderItemType;
-
+  const [order, setOrder] = useState<OrderItemType | null>(
+    orderStateValue.orders.find((o) => o.id === Number(orderId)) || null,
+  );
+  const [isLoading, setIsLoading] = useState(!order);
   useEffect(() => {
+    const fetchOrder = async () => {
+      try {
+        const res = await orderApi.getOrder(Number(orderId));
+        const fetchedOrder = res.data as OrderItemType;
+        setOrder(fetchedOrder);
+      } catch (err) {
+        console.error(err);
+        message.error('Không tìm thấy đơn hàng hoặc bạn không có quyền xem.');
+        navigate('/dashboard', { replace: true });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     if (!order) {
-      navigate('/dashboard', { replace: true });
+      fetchOrder();
     }
-  }, [order, navigate]);
+  }, [orderId, order, navigate, setOrder]);
+
+  if (isLoading) {
+    return <Spin size="large" style={{ display: 'block', margin: '100px auto' }} />;
+  }
+
   if (!order) return null;
 
-  const canReceive = order.receiver.id === auth.user?.id;
+  const userId = auth.user?.id;
+  const isReceiver = order.receiver.id === userId;
+  const isSender = order.sender.id === userId;
+  const isAuthorizedUser = !isReceiver && !isSender;
+
+  const canReceive = isReceiver || isAuthorizedUser;
+  const canAuthorize = isReceiver;
 
   const OrderInfoCard = () => (
     <Card
@@ -121,6 +152,21 @@ const AntOrderDetails: React.FC = () => {
                 <Space align="center" style={{ color: '#22c55e', fontWeight: 500 }}>
                   <CheckCircleOutlined />
                   Đã thanh toán
+                </Space>
+              )}
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+              <Text type="secondary" style={{ minWidth: 100 }}>
+                Loại hàng
+              </Text>
+              {order.is_food === 1 ? (
+                <Space align="center" style={{ color: '#f59e0b', fontWeight: 500 }}>
+                  <MdFastfood /> Đồ ăn / thức uống
+                </Space>
+              ) : (
+                <Space align="center" style={{ color: '#6b7280', fontWeight: 500 }}>
+                  <InboxOutlined /> Hàng hóa thường
                 </Space>
               )}
             </div>
@@ -349,7 +395,9 @@ const AntOrderDetails: React.FC = () => {
             centered
             style={{ paddingBottom: '16px' }}
           />
-          {canReceive && <OrderActions order={order} isReceiving={false} />}
+          {canReceive && (
+            <OrderActions order={order} isReceiving={false} canAuthorize={canAuthorize} />
+          )}
         </div>
       </Content>
     </Layout>

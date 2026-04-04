@@ -44,8 +44,9 @@
 
 .introFooter {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 10px;
+  width: 100%;
 
   span {
     margin-left: 20%;

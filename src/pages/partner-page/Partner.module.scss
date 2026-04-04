@@ -5,7 +5,7 @@
 
 .hero {
   position: relative;
-  height: 500px;
+  height: auto;
   display: flex;
 
   &::after {
@@ -14,18 +14,15 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 40%;
+    height: 25%;
     background: rgba(0, 0, 0, 0.5);
   }
 }
 
 .heroImg {
-  position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  z-index: 0;
+  display: block;
 }
 
 .hero h2 {
@@ -33,7 +30,7 @@
   z-index: 2;
   color: $text-inverse;
   font-size: 2rem;
-  top: 19rem;
+  bottom: 12%;
   left: 9rem;
 }
 
@@ -85,12 +82,15 @@
 }
 @media (max-width: 992px) {
   .hero {
-    height: 300px;
+    height: auto;
+    &::after {
+      height: 35%;
+    }
   }
   .hero h2 {
-    top: 11rem;
+    bottom: 20%;
     left: 2rem;
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .heroTabs {
@@ -148,6 +148,7 @@
   padding: 2rem;
   transition: transform 0.2s ease;
   align-items: flex-start;
+  height: 100%;
 }
 
 .partnerCard:hover {

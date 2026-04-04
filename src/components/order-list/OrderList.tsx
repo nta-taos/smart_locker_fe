@@ -11,7 +11,9 @@ interface OrderListProps {
   variant: OrderItemVariant;
   limit?: number;
   status?: 'pending' | 'received' | 'all';
-  search?: string;
+  codeFilter?: string;
+  from?: string;
+  to?: string;
 }
 
 export const OrderList: React.FC<OrderListProps> = ({
@@ -19,12 +21,16 @@ export const OrderList: React.FC<OrderListProps> = ({
   variant = 'detail',
   limit = 5,
   status = 'all',
-  search = '',
+  codeFilter,
+  from,
+  to,
 }) => {
   const { orderAll, orderPending, orderReceived, loadMore, isLoading, isLoadMore } = useOrderList(
     limit,
     status,
-    search,
+    codeFilter,
+    from,
+    to,
   );
 
   const classes = [styles.container, className].filter(Boolean).join(' ');
@@ -38,7 +44,7 @@ export const OrderList: React.FC<OrderListProps> = ({
   };
 
   const renderContent = () => {
-    const data = status == 'all' ? orderAll : status == 'pending' ? orderPending : orderReceived;
+    const data = status === 'all' ? orderAll : status === 'pending' ? orderPending : orderReceived;
 
     if (data.orders.length === 0) {
       return (

@@ -52,7 +52,7 @@ const SearchSection = () => (
       </div>
 
       <div className={styles.right}>
-        <img src="/images/support.png" alt="Support Search" />
+        <img src="/images/support.webp" loading="lazy" alt="Support Search" />
       </div>
     </div>
   </section>
@@ -141,7 +141,7 @@ const StatsSection = () => (
               <EnvironmentOutlined style={{ fontSize: 24 }} />
               <span>Địa chỉ</span>
             </Space>
-            <div>36/6 Mẹ Suốt, Hòa Khánh Nam, TP. Đà Nẵng</div>
+            <div> 55 Đông Hải 8, Ngũ Hành Sơn, Đà Nẵng</div>
           </Space>
         </Card>
       </Col>
@@ -177,10 +177,11 @@ const OfficeSection = () => (
       <ul>
         <EnvironmentOutlined style={{ color: '#074CE7', marginRight: '8px' }} /> Địa chỉ
         <li></li>
-        <li>36 Xuân Thủy, Q. Cầu Giấy, Hà Nội</li>
+        <li> 55 Đông Hải 8, Ngũ Hành Sơn, Đà Nẵng</li>
         <ClockCircleOutlined style={{ color: '#074CE7', marginRight: '8px' }} /> Giờ làm việc
         <li></li>
-        <li>T2 – T6: 8:00 – 17:00</li>
+        <li>T2 - T6: 8:00 - 17:00</li>
+        <li>T7: 8:00 - 12:00</li>
       </ul>
 
       <Button type="primary" size="large">

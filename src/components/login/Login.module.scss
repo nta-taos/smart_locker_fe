@@ -4,9 +4,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(145deg, #f0f5ff, #e6f4ff);
+  background: #f5f5f5;
   padding: 1rem;
-  min-height: 100vh;
+  min-height: calc(100vh - 58px);
   min-width: 40%;
 
   @include mq(lg) {
@@ -46,6 +46,11 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
+}
+
+.forgotLink {
+  color: #1890ff;
+  font-weight: 500;
 }
 
 .loginButton {

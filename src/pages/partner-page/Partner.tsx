@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button, Card, Col, Row, Tabs } from 'antd';
 
-import { PartnerIcon1, PartnerIcon2, PartnerIcon3 } from '@/components/common/icon/Partner';
+import { PartnerIcon2, PartnerIcon3 } from '@/components/common/icon/Partner';
 import PartnerForm from '@/components/partner-form/PartnerForm';
 
 import styles from './Partner.module.scss';
@@ -10,35 +10,6 @@ import styles from './Partner.module.scss';
 const partnersData = [
   {
     key: '1',
-    label: (
-      <span className={styles.tabLabel}>
-        <PartnerIcon1 className={styles.tabIcon} />
-        <span className={styles.tabText}>Đối tác chiến lược</span>
-      </span>
-    ),
-    description:
-      'Đồng hành cùng Zipbox để kiến tạo cuộc sống thông minh, bứt phá trong kỷ nguyên số và mang lại giá trị bền vững cho doanh nghiệp của bạn.',
-    partners: [
-      {
-        logo: '/images/sugarlogo.png',
-        text: 'Đơn vị cung cấp giải pháp thành lập năm 2015 với hai trụ sở chính được đặt tại TP. HCM & Singapore. Suga là một doanh nghiệp hoạt động đa dạng trên nhiều lĩnh vực với quy mô hiện tại gần 200 nhân viên.',
-      },
-      {
-        logo: '/images/sugarlogo.png',
-        text: 'Đơn vị cung cấp giải pháp thành lập năm 2015 với hai trụ sở chính đặt tại TP. HCM & Singapore. Suga là một doanh nghiệp hoạt động đa dạng trên nhiều lĩnh vực với quy mô hiện tại gần 200 nhân viên.',
-      },
-      {
-        logo: '/images/sugarlogo.png',
-        text: 'Đơn vị cung cấp giải pháp thành lập năm 2015 với hai trụ sở chính đặt tại TP. HCM & Singapore. Suga là một doanh nghiệp hoạt động đa dạng trên nhiều lĩnh vực với quy mô hiện tại gần 200 nhân viên.',
-      },
-      {
-        logo: '/images/sugarlogo.png',
-        text: 'Đơn vị cung cấp giải pháp thành lập năm 2015 với hai trụ sở chính đặt tại TP. HCM & Singapore. Suga là một doanh nghiệp hoạt động đa dạng trên nhiều lĩnh vực với quy mô hiện tại gần 200 nhân viên.',
-      },
-    ],
-  },
-  {
-    key: '2',
     label: (
       <span className={styles.tabLabel}>
         <PartnerIcon2 className={styles.tabIcon} />
@@ -59,7 +30,7 @@ const partnersData = [
     ],
   },
   {
-    key: '3',
+    key: '2',
     label: (
       <span className={styles.tabLabel}>
         <PartnerIcon3 className={styles.tabIcon} />
@@ -86,7 +57,7 @@ const partnersData = [
         text: 'Địa chỉ: 586 Nguyễn Hữu Thọ, Cẩm Lệ, Đà Nẵng Là trung tâm văn phòng và giao dịch quan trọng, tòa nhà Mobifone quy tụ lượng lớn nhân viên văn phòng. ZIPBOX cung cấp giải pháp nhận hàng cá nhân tiện lợi, giúp nhân viên chủ động nhận đồ mà không làm gián đoạn công việc.',
       },
       {
-        logo: '/images/vinaconex.jpg',
+        logo: '/images/vinaconex.webp',
         text: 'Địa chỉ: 320 đường 2/9, Hải Châu, Đà Nẵng Tòa nhà Vinaconex là một trong những cao ốc văn phòng nổi bật của thành phố. Tủ ZIPBOX tại đây đảm bảo các nhân viên và công ty có thể nhận bưu kiện, tài liệu một cách nhanh chóng và an toàn mọi lúc.',
       },
     ],
@@ -96,7 +67,7 @@ const partnersData = [
 const BodyPage = () => (
   <div className={styles.partnersWrapper}>
     <div className={styles.hero}>
-      <img src="./images/partner.png" alt="Hero" className={styles.heroImg} />
+      <img src="/images/partner.webp" alt="Hero" className={styles.heroImg} />
       <h2>Cùng hợp tác, cùng phát triển.</h2>
     </div>
 

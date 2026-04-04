@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil';
 
@@ -9,6 +9,7 @@ import { useAuth } from '@/hooks/useAuth';
 import {
   buildingAtom,
   buildingIdsAtom,
+  buildingListSelector,
   slotCountBySizeSelector,
   useBuildingStateById,
 } from '@/recoil/atom/building.atom';
@@ -23,9 +24,11 @@ const useMap = () => {
   const navigate = useNavigate();
   const [isShowLockerPopup, setIsShowLockerPopup] = useState(false);
   const [selectedBuildingId, setSelectedBuildingId] = useState<number | null>(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const buildingSelected = useBuildingStateById(selectedBuildingId || 1);
   const [searchInput, setSearchInput] = useState('');
   const [buildingIds, setBuildingIds] = useRecoilState(buildingIdsAtom);
+  const buildingList = useRecoilValue(buildingListSelector);
   const countSlot = useRecoilValue(slotCountBySizeSelector(selectedBuildingId || 0));
   const { isAuthenticated } = useAuth();
 
@@ -105,6 +108,31 @@ const useMap = () => {
     }
   }, [buildingIds.length, getBuildings]);
 
+  useEffect(() => {
+    if (!selectedBuildingId) {
+      setIsDrawerOpen(false);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setIsDrawerOpen(true);
+    }, 650);
+
+    return () => clearTimeout(timer);
+  }, [selectedBuildingId]);
+
+  const searchResults = useMemo(() => {
+    const keyword = searchInput.trim().toLowerCase();
+    if (!keyword) return [];
+
+    return buildingList
+      .filter((b) => {
+        const text = `${b.name} ${b.address}`.toLowerCase();
+        return text.includes(keyword);
+      })
+      .slice(0, 8);
+  }, [buildingList, searchInput]);
+
   return {
     countSlot,
     buildingSelected,
@@ -115,8 +143,10 @@ const useMap = () => {
     searchInput,
     setSearchInput,
     buildingIds,
+    searchResults,
     handleSendPackage,
     handleRentLocker,
+    isDrawerOpen,
   };
 };
 

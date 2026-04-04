@@ -7,9 +7,18 @@ export const orderApi = {
   getOrderStats: async () => {
     return axiosInstance.get(ENDPOINTS.get.orderStats);
   },
-  getOrders: async (page: number, limit: number, status: 'pending' | 'received' | 'all') => {
+  getOrders: async (
+    page: number,
+    limit: number,
+    status: 'pending' | 'received' | 'all',
+    options?: { code?: string; from?: string; to?: string },
+  ) => {
+    const params: Record<string, unknown> = { page, limit, status };
+    if (options?.code) params.code = options.code;
+    if (options?.from) params.from = options.from;
+    if (options?.to) params.to = options.to;
     return axiosInstance.get(ENDPOINTS.get.orders, {
-      params: { page, limit, status },
+      params,
     });
   },
   postOrderUser: async (userId: number, endTime: string, lockerSlotId: number) => {
@@ -41,5 +50,9 @@ export const orderApi = {
 
   postRentalOrder: async (data: RentalPayload) => {
     return axiosInstance.post(ENDPOINTS.post.rentalOrder, data);
+  },
+
+  getOrder: (orderId: number | string) => {
+    return axiosInstance.get(`orders/${orderId}`);
   },
 };

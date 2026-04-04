@@ -1,17 +1,9 @@
-/* --- Variables --- */
-$color-primary: #2d3e50; // Màu xanh đen đậm - Navy Blue
-$color-secondary: #d97757; // Màu cam đất - Burnt Orange
-$color-background: #faf9f7; // Màu nền nhẹ - Off-White
-$color-border-light: #e8e6e1; // Màu viền nhẹ
-$color-text-dark: #1a1a1a; // Màu chữ đậm
-$color-text-medium: #6b6660; // Màu chữ trung bình
-$color-text-light: #8b8680; // Màu chữ nhạt
-$color-success: #52c41a;
+@use '../../styles/abstracts/color' as *;
 
 /* --- Layout Overrides (Antd) --- */
 .antdLayout {
   min-height: 100vh;
-  background-color: $color-background;
+  background-color: $bg-light;
 }
 
 .antdHeader {
@@ -43,7 +35,7 @@ $color-success: #52c41a;
 .backButtonAntd {
   height: 44px;
   width: 44px;
-  color: $color-text-dark;
+  color: $text-default;
   &:hover {
     background-color: #f5f3ef !important;
   }
@@ -70,7 +62,7 @@ $color-success: #52c41a;
   font-size: 20px !important;
   font-weight: bold;
   letter-spacing: -0.5px;
-  color: $color-text-dark;
+  color: $text-default;
 
   @media (min-width: 640px) {
     font-size: 24px !important;
@@ -113,6 +105,7 @@ $color-success: #52c41a;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   border: 1px solid $color-border-light;
+  color: $text-default;
 
   :global(.ant-card-head) {
     border-bottom: none;
@@ -133,11 +126,11 @@ $color-success: #52c41a;
   align-items: center;
   gap: 8px;
   margin: 0 !important;
-  color: $color-text-dark;
+  color: $text-default;
 }
 
 .sectionIcon {
-  color: $color-primary;
+  color: $text-default;
   padding: 4px;
   background-color: rgba($color-primary, 0.1);
   border-radius: 8px;
@@ -231,7 +224,7 @@ $color-success: #52c41a;
 
 .sizeTitle {
   font-size: 16px;
-  color: $color-text-dark;
+  color: $text-default;
 }
 
 .dimensionTag {
@@ -284,7 +277,7 @@ $color-success: #52c41a;
 .lockerBoxDefault {
   background: white;
   .lockerId {
-    color: $color-text-dark;
+    color: $text-default;
   }
   .lockerFloor {
     color: $color-text-light;
@@ -456,7 +449,7 @@ $color-success: #52c41a;
   text-align: left;
   margin-left: 16px;
   font-size: 16px;
-  color: $color-text-dark;
+  color: $text-default;
 }
 
 .paymentCheck {
@@ -507,7 +500,7 @@ $color-success: #52c41a;
 .walletName {
   font-size: 16px;
   display: block;
-  color: $color-text-dark;
+  color: $text-default;
 }
 
 .walletBalance {
@@ -519,7 +512,7 @@ $color-success: #52c41a;
 
 .walletBalanceLabel {
   font-size: 14px;
-  color: $color-text-medium;
+  color: $text-weak;
 }
 
 .walletBalanceAmount {

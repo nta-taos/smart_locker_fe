@@ -55,6 +55,7 @@ const SupportForm: React.FC = () => {
 
       <div className={styles.formGroup}>
         <textarea
+          className={styles.textarea}
           name="message"
           value={form.message}
           onChange={(e) => handleChange(form, setForm, e)}

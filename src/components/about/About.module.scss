@@ -1,109 +1,235 @@
+@use '../../styles/abstracts' as *;
+
+/* ================================
+    ABOUT SECTION WRAPPER
+================================ */
 .aboutSection {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   background: #f7f8fa;
   border-radius: 1rem;
   padding: 3rem 2rem;
   max-width: 1100px;
   margin: 2rem auto;
-  gap: 2rem;
+  gap: 3rem;
+
+  /* ========== Info column ========== */
+  .info {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 2rem;
+    }
+
+    .subtitle {
+      color: $text-default;
+      font-size: 1rem;
+      letter-spacing: 3px;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+
+    .title {
+      background: linear-gradient(90deg, #f7832d 9%, #ffb103 91%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      font-weight: bold;
+      font-size: 2.2rem;
+      margin: 0;
+    }
+
+    .vmContainer {
+      margin-bottom: 2.5rem;
+      display: flex;
+      flex-direction: column;
+
+      .vmTitleVision,
+      .vmTitleMission {
+        margin-bottom: -7px;
+      }
+
+      .vmTitleVision {
+        padding-right: 50px;
+        letter-spacing: 5px;
+        background: linear-gradient(90deg, #002b79 9%, #074ce7 78%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        font-weight: bold;
+        font-size: 2rem;
+        align-self: flex-end;
+      }
+
+      .vmTitleMission {
+        background: linear-gradient(90deg, #074ce7 39%, #002b79 95%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        font-weight: bold;
+        font-size: 2rem;
+        padding-left: 50px;
+        align-self: flex-start;
+        letter-spacing: 5px;
+      }
+
+      .vmContent {
+        background-color: #fff;
+        padding: 1rem 2rem;
+        border-radius: 1.2rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+        p {
+          font-size: 1.1rem;
+          line-height: 1.6;
+          color: #a49f99;
+          text-align: justify;
+        }
+      }
+    }
+    .btn {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      .discoverButton {
+        background: linear-gradient(to right, #ff9638, #ffbe0b);
+        border: none;
+        width: 400px;
+        height: 55px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border-radius: 8px;
+      }
+    }
+  }
+
+  /* ========== Image grid ========== */
+  .imagesGrid {
+    display: flex;
+    flex-direction: column;
+    min-width: 340px;
+    position: relative;
+    width: 50%;
+    align-items: flex-end;
+
+    .imgTop {
+      width: 90%;
+      margin-bottom: 1rem;
+      object-fit: cover;
+      border-radius: 1rem;
+    }
+
+    .badge {
+      position: absolute;
+      bottom: -20px;
+      left: 45%;
+      width: 150px;
+      background: $bg-tertiary;
+      color: $text-inverse;
+      border-radius: 0.7rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      text-align: center;
+
+      .badgeNumber {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin: 0;
+        line-height: 1.1;
+      }
+
+      .badgeText {
+        font-size: 1rem;
+        margin-top: 5px;
+      }
+    }
+  }
 }
 
-.info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.subtitle {
-  color: #c2185b;
-  font-size: 1rem;
-  letter-spacing: 2px;
-  margin-bottom: 0.5rem;
-}
-.title {
-  color: #222;
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-.description {
-  color: #555;
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-  max-width: 420px;
-}
-
-.imagesGrid {
-  flex: 1;
-  display: grid;
-  grid-template-areas:
-    'top top'
-    'mid mid'
-    'bottom badge';
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 110px 110px 110px;
-  gap: 1.2rem;
-  position: relative;
-  min-width: 340px;
-}
-.imgTop {
-  grid-area: top;
-  width: 100%;
-  height: 110px;
-  object-fit: cover;
-  border-radius: 1rem;
-}
-.imgMid {
-  grid-area: mid;
-  width: 100%;
-  height: 110px;
-  object-fit: cover;
-  border-radius: 1rem;
-}
-.imgBottomWrap {
-  grid-area: bottom;
-  position: relative;
-}
-.imgBottom {
-  width: 100%;
-  height: 110px;
-  object-fit: cover;
-  border-radius: 1rem;
-}
-.badge {
-  grid-area: badge;
-  position: absolute;
-  right: -30px;
-  bottom: 10px;
-  background: #0a3180;
-  color: #fff;
-  border-radius: 0.7rem;
-  padding: 1.2rem 1.5rem;
-  box-shadow: 0 4px 16px rgba(10, 49, 128, 0.12);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 1.2rem;
-}
-.badgeNumber {
-  font-size: 2.2rem;
-  font-weight: bold;
-  margin-bottom: 0.2rem;
-}
-.badgeText {
-  font-size: 1rem;
-}
+/* ================================
+    RESPONSIVE
+================================ */
 @media (max-width: 900px) {
   .aboutSection {
     flex-direction: column;
     align-items: center;
     padding: 2rem 1rem;
-  }
-  .imagesGrid {
-    min-width: 0;
-    width: 100%;
+
+    .info {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+
+      .header {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 2rem;
+      }
+
+      .subtitle {
+        color: $text-default;
+        font-size: 1rem;
+        letter-spacing: 3px;
+        font-weight: 400;
+        margin-bottom: 0.5rem;
+      }
+
+      .title {
+        background: linear-gradient(90deg, #f7832d 9%, #ffb103 91%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        font-weight: bold;
+        font-size: 2.2rem;
+        margin: 0;
+      }
+
+      .vmContainer {
+        margin-bottom: 2.5rem;
+        display: flex;
+        flex-direction: column;
+
+        .vmTitleVision,
+        .vmTitleMission {
+          margin-bottom: -7px;
+        }
+
+        .vmContent {
+          padding: 0 1rem;
+        }
+      }
+    }
+
+    .imagesGrid {
+      width: 100%;
+      min-width: 0;
+      align-items: center;
+
+      .imgTop {
+        width: 100%;
+      }
+
+      .badge {
+        position: absolute;
+        bottom: -20;
+        left: 30%;
+        margin: 20px auto 0;
+      }
+    }
   }
 }

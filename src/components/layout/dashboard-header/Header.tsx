@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import { LogoutOutlined, MenuFoldOutlined, ProfileOutlined, UserOutlined } from '@ant-design/icons';
@@ -11,7 +11,25 @@ import useDashboardHeader from './useHeader';
 
 const DashboardHeader: React.FC = () => {
   const navigate = useNavigate();
-  const { user, isOpen, toggleMenu } = useDashboardHeader();
+  const { user, isOpen, toggleMenu, setIsOpen } = useDashboardHeader();
+  const headerRef = useRef<HTMLElement>(null);
+
+  // Click outside to close menu
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isOpen && headerRef.current && !headerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen, setIsOpen]);
 
   const handleNavClick = () => {
     if (isOpen) toggleMenu();
@@ -25,6 +43,10 @@ const DashboardHeader: React.FC = () => {
 
   const handleProfile = () => {
     navigate('/profile');
+  };
+
+  const handleAvatar = () => {
+    navigate('/');
   };
 
   const items: MenuProps['items'] = [
@@ -47,8 +69,8 @@ const DashboardHeader: React.FC = () => {
   ];
 
   return (
-    <header className={styles.header}>
-      <div className={styles.logo}></div>
+    <header className={styles.header} ref={headerRef}>
+      <div className={styles.logo} onClick={handleAvatar}></div>
 
       <nav className={`${styles.nav} ${isOpen ? styles.navOpen : ''}`}>
         <ul>
@@ -77,7 +99,25 @@ const DashboardHeader: React.FC = () => {
               onClick={handleNavClick}
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
             >
-              Đơn hàng của tôi
+              Đơn hàng
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="account/support"
+              onClick={handleNavClick}
+              className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
+            >
+              Hỗ trợ
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="account/partner"
+              onClick={handleNavClick}
+              className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
+            >
+              Đối tác
             </NavLink>
           </li>
           <li>
@@ -86,7 +126,7 @@ const DashboardHeader: React.FC = () => {
               onClick={handleNavClick}
               className={({ isActive }) => (isActive ? styles.activeLink : undefined)}
             >
-              Hồ sơ cá nhân
+              Cá nhân
             </NavLink>
           </li>
         </ul>

@@ -29,7 +29,6 @@ export const useLogin = () => {
     };
 
     setAuth(newAuth);
-    localStorage.setItem('auth', JSON.stringify(newAuth));
 
     message.success(msg);
     navigation('/dashboard');

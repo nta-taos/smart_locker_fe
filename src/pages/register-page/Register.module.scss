@@ -1,13 +1,14 @@
 @use '../../styles/abstracts' as *;
 
 .layout {
-  min-height: 100vh;
+  min-height: calc(100vh - 58px);
   display: flex;
   flex-direction: column;
 }
 
 .main {
-  min-height: 100vh;
+  padding-top: 58px;
+  min-height: calc(100vh - 58px);
   display: flex;
   flex-direction: column;
 

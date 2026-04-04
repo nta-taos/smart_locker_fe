@@ -29,7 +29,7 @@ const Hero: React.FC = () => {
               <b>IoT (Internet of Things)</b> và ứng dụng <b>PWA (Progressive Web App)</b>, cho phép
               người dùng gửi hay nhận hàng mà <b>không cần tiếp xúc trực tiếp.</b>
             </p>
-            <Button type="primary" size="large" onClick={handleCTA}>
+            <Button type="primary" size="large" onClick={handleCTA} className={styles.cta}>
               {ctaText}
             </Button>
           </div>

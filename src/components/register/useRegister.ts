@@ -30,7 +30,6 @@ export const useRegister = () => {
     };
 
     setAuth(newAuth);
-    localStorage.setItem('auth', JSON.stringify(newAuth));
     message.success(msg);
     navigation('/dashboard');
   };
@@ -44,8 +43,7 @@ export const useRegister = () => {
 
       handleAuthSuccess(token, user, 'Đăng ký thành công!');
     } catch (error) {
-      console.log(error);
-      extractErrorMessage(Error);
+      extractErrorMessage(error);
     } finally {
       setLoading(false);
     }

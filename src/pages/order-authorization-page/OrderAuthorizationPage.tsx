@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 import { LockOutlined, UnlockOutlined } from '@ant-design/icons';
 import { Button, Result, Spin, message } from 'antd';
@@ -12,6 +12,7 @@ const OrderAuthorizationPage = () => {
   const { orderId } = useParams();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
@@ -24,11 +25,12 @@ const OrderAuthorizationPage = () => {
 
     setLoading(true);
     try {
-      const res = await orderAuthApi.confirmAuthorization(Number(orderId), token);
-      if (res.status === 200) {
-        message.success('Xác nhận mở khóa thành công!');
-        setConfirmed(true);
-      }
+      await orderAuthApi.confirmAuthorization(Number(orderId), token);
+      message.success('Xác nhận mở khóa thành công!');
+      setConfirmed(true);
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 2000);
     } catch (err) {
       console.log(err);
       extractErrorMessage(err);
